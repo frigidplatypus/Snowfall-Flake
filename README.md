@@ -1,4 +1,4 @@
-# Nixos Install with Snowfall
+# Nixos with Snowfall
 
 This is my personal flake utilizing [Jake Hamilton](https://github.com/jakehamilton)'s excellent [Snowfall Lib](https://github.com/snowfallorg/lib). 
 
