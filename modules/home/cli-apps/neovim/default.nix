@@ -9,7 +9,7 @@ in {
 
   config = mkIf cfg.enable {
     home = {
-      packages = with pkgs; [ less rnix-lsp nixfmt ripgrep ];
+      packages = with pkgs; [ less rnix-lsp nixfmt ripgrep alejandra ];
 
       sessionVariables = {
         PAGER = "less";
