@@ -16,7 +16,6 @@ in {
 
       tools = {
         git = enabled;
-        fup-repl = enabled;
         comma = enabled;
         direnv = enabled;
         misc = enabled;
