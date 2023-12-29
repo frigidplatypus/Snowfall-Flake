@@ -8,7 +8,7 @@ with lib.frgd; {
     };
 
     cli-apps = {
-      zsh = enabled;
+      fish = enabled;
       neovim = enabled;
       home-manager = enabled;
       tmux = enabled;
