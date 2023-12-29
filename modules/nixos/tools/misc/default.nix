@@ -3,8 +3,7 @@
 with lib;
 with lib.frgd;
 let cfg = config.frgd.tools.misc;
-in
-{
+in {
   options.frgd.tools.misc = with types; {
     enable = mkBoolOpt false "Whether or not to enable common utilities.";
   };
@@ -31,6 +30,8 @@ in
       lazygit
       lf
       broot
+      bottom
+      btop
     ];
   };
 }
