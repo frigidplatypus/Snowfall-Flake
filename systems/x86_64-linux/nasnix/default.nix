@@ -23,7 +23,8 @@ with lib.frgd; {
   };
   networking.firewall.enable = false;
   frgd = {
-    archetypes.server.enable = true;
+    archetypes.server = enabled;
+    services.jellyfin = enabled;
     system = {
       zfs = {
         enable = true;
