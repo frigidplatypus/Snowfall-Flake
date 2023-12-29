@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.frgd.system.zfs;
@@ -6,21 +6,19 @@ let
   inherit (lib) mkEnableOption mkIf mkDefault;
   inherit (lib.frgd) mkOpt enabled;
   inherit (lib.types) listOf str;
-in
-{
+in {
   options.frgd.system.zfs = {
     enable = mkEnableOption "ZFS support";
 
     pools = mkOpt (listOf str) [ "rpool" ] "The ZFS pools to manage.";
 
-    auto-snapshot = {
-      enable = mkEnableOption "ZFS auto snapshotting";
-    };
+    auto-snapshot = { enable = mkEnableOption "ZFS auto snapshotting"; };
   };
 
   config = mkIf cfg.enable {
     boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
+    boot.supportedFilesystems = [ "zfs" ];
+    environment.systemPackages = with pkgs; [ zfs ];
     services.zfs = {
       autoScrub = {
         enable = true;
@@ -35,12 +33,6 @@ in
         hourly = mkDefault 0;
         frequent = mkDefault 0;
         monthly = mkDefault 2;
-      };
-    };
-
-    frgd = {
-      tools = {
-        icehouse = enabled;
       };
     };
   };
