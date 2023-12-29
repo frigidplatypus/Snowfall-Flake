@@ -8,11 +8,5 @@ in {
     enable = mkBoolOpt false "Whether or not to enable docker";
   };
 
-  config = mkIf cfg.enable {
-    virtualisation.docker.enable = true;
-    virtualisation.docker.rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
+  config = mkIf cfg.enable { virtualisation.docker.enable = true; };
 }
