@@ -3,7 +3,7 @@
     disk = {
       x = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-NE-256_2242_0013956000560";
         content = {
           type = "gpt";
           partitions = {
@@ -13,7 +13,7 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot";
+                mountpoint = "/boot/efi";
               };
             };
             zfs = {

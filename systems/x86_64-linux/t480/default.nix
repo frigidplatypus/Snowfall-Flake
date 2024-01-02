@@ -1,25 +1,18 @@
 { lib, ... }:
 with lib;
 with lib.frgd; {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware.nix
-  ];
+  imports = [ ./hardware.nix ./disko.nix ];
 
-  networking.hostName = "t480"; # Define your hostname.
+  boot.supportedFilesystems = [ "zfs" ];
+  # boot.zfs.forceImportRoot = false;
 
   frgd = {
     system.boot = {
       enable = true;
       efi = true;
     };
+
     archetypes = { workstation = enabled; };
     desktop = { hyprland = enabled; };
-    security = {
-      agenix = {
-        enable = true;
-        taskwarrior = enabled;
-      };
-    };
   };
 }
