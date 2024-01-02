@@ -17,8 +17,8 @@ in {
     };
     boot.loader.systemd-boot = mkIf cfg.efi {
       enable = true;
-      configurationLimit = 5;
-      editor = false;
+      configurationLimit = 10;
+      editor = true;
     };
     boot.loader.efi = mkIf cfg.efi {
       canTouchEfiVariables = true;
