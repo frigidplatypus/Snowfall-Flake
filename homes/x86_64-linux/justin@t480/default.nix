@@ -14,7 +14,6 @@ with lib.frgd; {
       tmux = enabled;
       ranger = enabled;
       fish = enabled;
-      misc = enabled;
       zellij = enabled;
     };
 
