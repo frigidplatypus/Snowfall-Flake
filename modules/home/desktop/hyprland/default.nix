@@ -65,7 +65,11 @@ in {
           force_split = 2;
         };
         gestures = { workspace_swipe = true; };
-        misc = { disable_splash_rendering = true; };
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+          force_default_wallpaper = 0;
+        };
 
       };
       extraConfig = ''
