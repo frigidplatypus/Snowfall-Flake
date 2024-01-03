@@ -24,7 +24,7 @@ with lib.frgd; {
     services.syncthing = enabled;
     user.extraGroups = [ "docker" ];
     security = {
-      agenix = {
+      sops = {
         enable = true;
         taskwarrior = enabled;
       };

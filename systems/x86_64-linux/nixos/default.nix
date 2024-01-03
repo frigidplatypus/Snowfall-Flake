@@ -14,18 +14,8 @@ with lib.frgd; {
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  frgd = {
-    archetypes.server.enable = true;
-    security = {
+  frgd = { archetypes.server.enable = true; };
 
-      agenix = {
-        enable = true;
-        taskwarrior = enabled;
-      };
-    };
-  };
-
-  services.vscode-server.enable = true;
   programs.nix-ld.enable = true;
 
 }

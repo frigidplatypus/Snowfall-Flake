@@ -20,10 +20,6 @@ with lib.frgd; {
       wireguard-server = { enable = true; };
     };
     security = {
-      agenix = {
-        enable = true;
-        taskwarrior = enabled;
-      };
       sops = {
         enable = true;
         # taskwarrior = enabled;

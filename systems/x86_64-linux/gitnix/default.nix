@@ -16,7 +16,7 @@ with lib.frgd; {
     archetypes.server.enable = true;
     services = { forgejo = enabled; };
     security = {
-      agenix = {
+      sops = {
         enable = true;
         taskwarrior = enabled;
       };
