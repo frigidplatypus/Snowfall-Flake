@@ -3,12 +3,13 @@
 with lib;
 with lib.frgd;
 let cfg = config.frgd.apps.logseq;
-in
-{
+in {
   options.frgd.apps.logseq = with types; {
     enable = mkBoolOpt false "Whether or not to enable logseq.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ logseq ]; };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ logseq ];
+    nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
+  };
 }
