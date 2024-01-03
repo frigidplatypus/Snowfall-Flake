@@ -13,6 +13,10 @@ with lib.frgd; {
     };
 
     archetypes = { workstation = enabled; };
-    desktop = { hyprland = enabled; };
+    desktop = {
+      enable = true;
+      hyprland = true;
+    };
+
   };
 }

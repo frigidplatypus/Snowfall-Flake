@@ -14,6 +14,11 @@ in {
     frgd = {
       nix = enabled;
 
+      apps = {
+        #_1password = enabled;
+        # cider = enabled;
+      };
+
       cli-apps = {
         # flake = enabled;
       };
