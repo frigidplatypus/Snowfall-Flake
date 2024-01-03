@@ -43,7 +43,7 @@ in {
           ];
 
           "custom/pad" = {
-            format = "  ";
+            format = " ";
             tooltip = false;
           };
           "custom/menu" = {
