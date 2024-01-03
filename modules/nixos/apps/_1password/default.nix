@@ -9,6 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    security.pam.services."1password".fprintAuth = true;
     programs = {
       _1password = enabled;
       _1password-gui = {
