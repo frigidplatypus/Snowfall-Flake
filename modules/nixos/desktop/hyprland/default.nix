@@ -49,6 +49,7 @@ in {
     };
 
     frgd = {
+      hardware = { audio = enabled; };
       desktop.addons = {
         swaylock = enabled;
         # waybar = enabled;
