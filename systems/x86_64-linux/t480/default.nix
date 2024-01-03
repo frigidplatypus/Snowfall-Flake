@@ -1,22 +1,27 @@
 { lib, ... }:
 with lib;
 with lib.frgd; {
+
   imports = [ ./hardware.nix ./disko.nix ];
 
   boot.supportedFilesystems = [ "zfs" ];
-  # boot.zfs.forceImportRoot = false;
+
+  # Enable fingerprint reader.
+  services.open-fprintd.enable = true;
+  services.python-validity.enable = true;
 
   frgd = {
     system.boot = {
       enable = true;
       efi = true;
     };
-
     archetypes = { workstation = enabled; };
-    desktop = {
-      enable = true;
-      hyprland = true;
+    suites = {
+      desktop = {
+        enable = true;
+        hyprland = true;
+      };
     };
-
   };
+
 }

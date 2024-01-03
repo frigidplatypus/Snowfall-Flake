@@ -14,6 +14,7 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "stable-nixpkgs";
     };
+
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,10 +23,7 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +33,7 @@
       # Flake requires some packages that aren't on 22.05, but are available on unstable.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +42,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-colors.url = "github:misterio77/nix-colors";
     agenix.url = "github:yaxitech/ragenix";
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     # flake-parts
     flake-parts = {
@@ -52,6 +50,12 @@
     };
     flake-root.url = "github:srid/flake-root";
     mission-control.url = "github:Platonic-Systems/mission-control";
+
+    # Enable fingerprint reader for T480
+    nixos-06cb-009a-fingerprint-sensor = {
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -77,13 +81,15 @@
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
-        vscode-server.nixosModules.default
-        agenix.nixosModules.default
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
-
-        # nix-colors.nixosModules.default
-
       ];
+
+      systems.hosts.t480.modules = with inputs; [
+        nixos-hardware.nixosModules.lenovo-thinkpad-t480
+        nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
+        nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
+      ];
+
     };
 }
