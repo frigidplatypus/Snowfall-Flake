@@ -20,7 +20,7 @@ in {
         plasma = mkIf cfg.plasma enabled;
         #        addons = { wallpapers = enabled; };
       };
-
+      hardware = { audio = enabled; };
       suites = { common = enabled; };
 
       apps = {
@@ -29,7 +29,7 @@ in {
         cider = enabled;
         firefox = enabled;
         vscode = enabled;
-        logseq = enabled;
+        # logseq = enabled;
         # pocketcasts = enabled;
         # yt-music = enabled;
         # gparted = enabled;
