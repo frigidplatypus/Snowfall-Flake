@@ -1,5 +1,6 @@
 { lib, config, pkgs, ... }:
-
+with lib;
+with lib.frgd;
 let
   inherit (lib) mkEnableOption mkIf;
 
@@ -29,9 +30,9 @@ in {
           #certificate = config.age.secrets."taskwarrior.intheam.private.certificate".path;
           #key = config.age.secrets."taskwarrior.intheam.private.key".path;
           #ca = config.age.secrets."taskwarrior.intheam.ca.cert".path;
-          certificate = /run/agenix/taskwarrior.public.certificate.age;
-          key = /run/agenix/taskwarrior.private.key.age;
-          ca = /run/agenix/taskwarrior.ca.cert.age;
+          certificate = "/run/secrets/taskwarrior_public_cert";
+          key = "/run/secrets/taskwarrior_private_key";
+          ca = "/run/secrets/taskwarrior_ca_cert";
           server = "tasks.frgd.us:53589";
           credentials = "frgd/justin/7c358284-adbb-4c7d-baaf-4c470fb1f2d2";
           trust = "strict";

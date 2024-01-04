@@ -13,6 +13,7 @@ with lib.frgd; {
       home-manager = enabled;
       tmux = enabled;
       ranger = enabled;
+      taskwarrior = enabled;
     };
 
     tools = {
