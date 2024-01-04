@@ -8,6 +8,15 @@ in {
     enable = mkBoolOpt false "Whether or not to enable vikunja.";
   };
 
-  config = mkIf cfg.enable { services = { vikunja = { enable = true; }; }; };
+  config = mkIf cfg.enable {
+    services = {
+      vikunja = {
+        enable = true;
+        frontendScheme = "http";
+        frontendHostname = "nixserver.fluffy-rooster.ts.net";
+        setupNginx = false;
+      };
+    };
+  };
 }
 
