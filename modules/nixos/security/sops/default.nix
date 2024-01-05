@@ -34,9 +34,18 @@ in {
       sops.secrets.tailscale_api_key = { };
     }
     (mkIf (cfg.taskwarrior.enable) {
-      sops.secrets.taskwarrior_ca_cert = { };
-      sops.secrets.taskwarrior_private_key = { };
-      sops.secrets.taskwarrior_public_cert = { };
+      sops.secrets.taskwarrior_ca_cert = {
+        owner = "justin";
+        #       path = "/home/justin/.taskcerts/taskwarrior_ca_cert";
+      };
+      sops.secrets.taskwarrior_private_key = {
+        owner = "justin";
+        #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
+      };
+      sops.secrets.taskwarrior_public_cert = {
+        owner = "justin";
+        #     path = "/home/justin/.taskcerts/taskwarrior_public_cert";
+      };
 
     })
     (mkIf (cfg.wireguard_server_key.enable) {

@@ -21,7 +21,11 @@ with lib.frgd; {
   frgd = {
     archetypes.server = enabled;
     virtualization.docker = enabled;
-    services.syncthing = enabled;
+    services = {
+      taskserver = enabled;
+      syncthing = enabled;
+      vikunja = enabled;
+    };
     user.extraGroups = [ "docker" ];
     security = {
       sops = {

@@ -92,6 +92,8 @@
         disko.nixosModules.disko
       ];
 
+      # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
+
       systems.hosts.t480.modules = with inputs; [
         nixos-hardware.nixosModules.lenovo-thinkpad-t480
         nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
