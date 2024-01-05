@@ -29,7 +29,7 @@
 # --- Auto-restart
 
 # Enable/disable the config auto-reload after a file change is detected.
-# auto_restart: false
+auto_restart: true
 
 # --- Clipboard threshold
 
@@ -40,5 +40,5 @@ clipboard_threshold: 100
 # For a list of all the available options, visit the official docs at: https://espanso.org/docs/
 #
 #search_trigger: "jkl"
-#search_shortcut: "SHIFT+CMD+SPACE"
+search_shortcut: "SHIFT+CMD+SPACE"
 show_notifications: false
