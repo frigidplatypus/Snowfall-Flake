@@ -10,6 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ logseq ];
-    nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
+
   };
+
 }
