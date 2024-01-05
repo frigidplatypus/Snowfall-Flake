@@ -3,6 +3,12 @@ with lib;
 with lib.frgd; {
   frgd = {
     apps = { circuit-python-editors = enabled; };
+    services = {
+      espanso = {
+        enable = true;
+        western_snippets = enabled;
+      };
+    };
 
     cli-apps = {
       #zsh = enabled;

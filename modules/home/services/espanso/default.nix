@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.frgd;
@@ -11,11 +11,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.espanso.enable = true;
+    services.espanso = mkIf pkgs.stdenv.isLinux enabled;
 
+    home = { packages = with pkgs; [ espanso ]; };
     xdg.configFile."espanso/config/default.yml".source = ./config.yml;
-    xdg.configFile."espanso/matches/base.yml".source = ./matches.yml;
-    xdg.configFile."espanso/matches/western.yml" =
+    xdg.configFile."espanso/match/base.yml".source = ./base.yml;
+    xdg.configFile."espanso/match/western.yml" =
       mkIf cfg.western_snippets.enable { source = ./western.yml; };
 
   };
