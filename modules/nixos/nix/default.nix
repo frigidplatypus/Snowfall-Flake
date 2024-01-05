@@ -72,13 +72,12 @@ in {
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
-
       # flake-utils-plus
       generateRegistryFromInputs = true;
       generateNixPathFromInputs = true;
       linkInputs = true;
     };
-    system.stateVersion = "23.11";
+    system.stateVersion = "24.05";
 
   };
 }
