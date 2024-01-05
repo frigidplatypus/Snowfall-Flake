@@ -17,7 +17,12 @@ with lib.frgd; {
       enable = true;
       efi = true;
     };
-    security = { sops = enabled; };
+    security = {
+      sops = {
+        enable = true;
+        taskwarrior = enabled;
+      };
+    };
     archetypes = { workstation = enabled; };
     suites = {
       desktop = {
