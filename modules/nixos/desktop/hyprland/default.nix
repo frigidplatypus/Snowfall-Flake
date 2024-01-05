@@ -36,6 +36,7 @@ in {
         XDG_SESSION_DESKTOP = "Hyprland";
       };
       systemPackages = with pkgs; [
+        light
         grim
         mpvpaper
         slurp
@@ -56,11 +57,14 @@ in {
         # foot = enabled;
         # rofi = enabled;
         # xdg-portal = enabled;
-
       };
+      user.extraGroups = [ "video" ];
     };
 
-    programs = { hyprland.enable = true; };
-
+    programs = {
+      hyprland = enabled;
+      light = enabled;
+      dconf = enabled;
+    };
   };
 }
