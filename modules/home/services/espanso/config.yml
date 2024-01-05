@@ -39,6 +39,6 @@ clipboard_threshold: 100
 
 # For a list of all the available options, visit the official docs at: https://espanso.org/docs/
 #
-#search_trigger: "jkl"
-search_shortcut: "SHIFT+CMD+SPACE"
+search_trigger: off
+search_shortcut: off
 show_notifications: false
