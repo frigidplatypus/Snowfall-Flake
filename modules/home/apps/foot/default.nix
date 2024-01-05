@@ -1,5 +1,8 @@
 { lib, config, pkgs, ... }:
 
+with lib;
+with lib.frgd;
+
 let
   inherit (lib) mkEnableOption mkIf;
 
