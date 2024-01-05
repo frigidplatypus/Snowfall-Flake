@@ -3,23 +3,20 @@
 with lib;
 with lib.frgd;
 let cfg = config.frgd.services.tailscale;
-in
-{
+in {
   options.frgd.services.tailscale = with types; {
     enable = mkBoolOpt false "Whether or not to configure Tailscale";
     autoconnect = {
-      enable = mkBoolOpt false "Whether or not to enable automatic connection to Tailscale";
-      key = mkOpt str "" "The authentication key to use";
+      enable = mkBoolOpt false
+        "Whether or not to enable automatic connection to Tailscale";
     };
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.autoconnect.enable -> cfg.autoconnect.key != "";
-        message = "frgd.services.tailscale.autoconnect.key must be set";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.autoconnect.enable -> cfg.autoconnect.key != "";
+      message = "frgd.services.tailscale.autoconnect.key must be set";
+    }];
 
     environment.systemPackages = with pkgs; [ tailscale ];
 
@@ -61,7 +58,7 @@ in
         fi
 
         # Otherwise authenticate with tailscale
-        ${tailscale}/bin/tailscale up -authkey "${cfg.autoconnect.key}"
+         ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path})" 
       '';
 
     };

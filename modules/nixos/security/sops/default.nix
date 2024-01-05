@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 with lib.frgd;
 let
@@ -26,9 +26,12 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+
+      environment.systemPackages = with pkgs; [ sops ];
       sops.defaultSopsFile = ./secrets.yaml;
       sops.defaultSopsFormat = "yaml";
       sops.age.keyFile = "/home/justin/.config/sops/age/keys.txt";
+      sops.secrets.tailscale_api_key = { };
     }
     (mkIf (cfg.taskwarrior.enable) {
       sops.secrets.taskwarrior_ca_cert = { };
