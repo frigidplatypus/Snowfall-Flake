@@ -4,14 +4,14 @@
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stable-home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "stable-nixpkgs";
     };
 
@@ -61,7 +61,14 @@
 
   outputs = inputs:
     inputs.snowfall-lib.mkFlake {
-      channels-config = { allowUnfree = true; };
+      channels-config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          # FIXME: This is a workaround for 22.11 and can
+          # be removed once NixPkgs is upgraded to 23.05.
+          "electron-25.9.0"
+        ];
+      };
       inherit inputs;
 
       src = ./.;
