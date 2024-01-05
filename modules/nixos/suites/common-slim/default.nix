@@ -30,6 +30,7 @@ in {
         openssh = enabled;
         tailscale = enabled;
         avahi = enabled;
+        syncthing = enabled;
       };
 
       security = { doas = enabled; };

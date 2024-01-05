@@ -17,6 +17,7 @@ in {
       apps = {
         #_1password = enabled;
         # cider = enabled;
+        logseq = enabled;
       };
 
       cli-apps = {
@@ -43,6 +44,7 @@ in {
         openssh = enabled;
         tailscale = enabled;
         avahi = enabled;
+        syncthing = enabled;
       };
 
       security = {
