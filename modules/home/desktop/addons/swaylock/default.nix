@@ -21,7 +21,7 @@ in {
         timestr = "%I:%M %p";
         #datestr = "%a, %e of %B";
 
-        screenshots = false;
+        screenshots = true;
 
         fade-in = 0.2;
 

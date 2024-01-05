@@ -26,13 +26,15 @@ in {
         Main = {
           layer = "top";
           position = "top";
-          height = 20;
+          height = 25;
           tray = { spacing = 15; };
           #modules-center = [ "clock" ];
           modules-left = [ "custom/menu" "hyprland/workspaces" ];
           modules-center = [ "hyprland/window" ];
           modules-right = [
             "network"
+            "custom/pad"
+            "bluetooth"
             "custom/pad"
             "pulseaudio"
             "custom/pad"
@@ -47,7 +49,7 @@ in {
             tooltip = false;
           };
           "custom/menu" = {
-            format = "<span font='16'></span>";
+            format = "<span font='16'> </span>";
             on-click =
               "${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi";
             on-click-right = "";
@@ -82,8 +84,8 @@ in {
             tooltip-format = "{status}";
           };
           network = {
-            format-wifi = "<span font='14'></span>";
-            format-ethernet = "<span font='14'></span>";
+            format-wifi = "<span font='14'> </span>";
+            format-ethernet = "<span font='14'> </span>";
             #format-ethernet = "<span font='11'></span> {ifname}: {ipaddr}/{cidr}";
             format-linked = "<span font='14'>睊</span> {ifname} (No IP)";
             format-disconnected = "<span font='14'>睊</span> Not connected";
@@ -115,35 +117,93 @@ in {
             on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
             on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
-          "custom/sink" = {
-            format = "<span font='9'>蓼</span>";
-            on-click = "$HOME/.config/waybar/script/sink.sh";
-            tooltip = false;
-          };
           tray = { icon-size = 13; };
         };
       };
-    };
-    home.file.".config/waybar/script/sink.sh" = {
-      # Custom script: Toggle speaker/headset
-      text = ''
-        #!/bin/sh
+      style = ''
 
-        ID1=$(awk '/ Built-in Audio Analog Stereo/ {sub(/.$/,"",$2); print $2 }' <(${pkgs.wireplumber}/bin/wpctl status) | head -n 1)
-        ID2=$(awk '/ S10 Bluetooth Speaker/ {sub(/.$/,"",$2); print $2 }' <(${pkgs.wireplumber}/bin/wpctl status) | sed -n 2p)
+        * {
+        	border: none;
+        	font-family: FiraCode Nerd Font Mono;
+        	font-size: 14px;
+        	text-shadow: 0px 0px 5px #000000;
+        }
 
-        HEAD=$(awk '/ Built-in Audio Analog Stereo/ { print $2 }' <(${pkgs.wireplumber}/bin/wpctl status | grep "*") | sed -n 2p)
-        SPEAK=$(awk '/ S10 Bluetooth Speaker/ { print $2 }' <(${pkgs.wireplumber}/bin/wpctl status | grep "*") | head -n 1)
+        button:hover {
+        	background-color: rgba(80, 100, 100, 0.4);
+        }
 
-        if [[ $HEAD = "*" ]]; then
-          ${pkgs.wireplumber}/bin/wpctl set-default $ID2
-          echo -e "{\"text\":\""蓼"\"}"
-        elif [[ $SPEAK = "*" ]]; then
-          ${pkgs.wireplumber}/bin/wpctl set-default $ID1
-          echo -e "{\"text\":\"""\"}"
-        fi
+        window#waybar {
+        	background-color: rgba(29, 32, 33, .9);
+        	transition-property: background-color;
+        	transition-duration: .5s;
+        	border-bottom: none;
+        }
+
+        window#waybar.hidden {
+        	opacity: 0.2;
+        }
+
+        #workspace,
+        #mode,
+        #clock,
+        #pulseaudio,
+        #custom-sink,
+        #network,
+        #mpd,
+        #memory,
+        #network,
+        #window,
+        #cpu,
+        #disk,
+        #battery,
+        #bluetooth,
+        #tray {
+        	color: #999999;
+        	background-clip: padding-box;
+        }
+
+        #custom-menu {
+        	color: #fe8019;
+        	padding: 0px 5px 0px 5px;
+        }
+
+        #workspaces button {
+        	padding: 0px 5px;
+        	min-width: 5px;
+        	color: rgba(255, 255, 255, 0.8);
+        }
+
+        #workspaces button:hover {
+        	background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /*#workspaces button.focused {*/
+        #workspaces button.active {
+        	color: rgba(255, 255, 255, 0.8);
+        	background-color: rgba(213, 196, 161, 0.4);
+        }
+
+        #workspaces button.visible {
+        	color: #ccffff;
+        }
+
+        #workspaces button.hidden {
+        	color: #999999;
+        }
+
+        #battery.warning {
+        	color: #ff5d17;
+        }
+
+        #battery.critical {
+        	color: #ff200c;
+        }
+
+        #battery.charging {
+        	color: #9ece6a;
+        }
       '';
-      executable = true;
     };
   };
 

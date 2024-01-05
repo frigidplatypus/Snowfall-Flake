@@ -13,7 +13,15 @@ in {
 
   config = mkIf cfg.enable {
 
-    home = { packages = with pkgs; [ rofi-power-menu rofi-bluetooth ]; };
+    home = {
+      packages = with pkgs; [
+        rofi-power-menu
+        rofi-bluetooth
+        rofi-calc
+        rofi-systemd
+        rofi-screenshot
+      ];
+    };
 
     programs = {
       rofi = {
@@ -23,10 +31,10 @@ in {
         font = "FiraCode Nerd Font Mono 12";
         theme = {
           "*" = {
-            bg0 = mkLiteral "#${colorScheme.colors.base01}";
+            bg0 = mkLiteral "#${colorScheme.colors.base00}";
             bg1 = mkLiteral "#${colorScheme.colors.base07}";
             fg0 = mkLiteral "#${colorScheme.colors.base06}";
-            fg1 = mkLiteral "#${colorScheme.colors.base06}";
+            fg1 = mkLiteral "#${colorScheme.colors.base09}";
 
             background-color = mkLiteral "transparent";
             text-color = mkLiteral "@fg0";
@@ -41,8 +49,8 @@ in {
           };
 
           "window" = {
-            location = mkLiteral "northwest";
-            width = mkLiteral "280px";
+            # location = mkLiteral "northwest";
+            width = mkLiteral "580px";
             x-offset = mkLiteral "8px";
             y-offset = mkLiteral "34px";
 
@@ -70,7 +78,7 @@ in {
 
           "listview" = {
             padding = mkLiteral "4px 0px";
-            lines = 6;
+            lines = 8;
             columns = 1;
             scrollbar = true;
           };

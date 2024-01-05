@@ -15,8 +15,9 @@ in {
       packages = with pkgs; [
         capitaine-cursors-themed
         slurp
-        light
-        swaylock-effects
+        brightnessctl
+        #light
+        #swaylock-effects
         pcmanfm
         pamixer
         grim
@@ -40,7 +41,7 @@ in {
           gaps_in = 5;
           gaps_out = 5;
           layout = "dwindle";
-          # col.active_border= "";
+          "col.active_border" = "rgba(${colorScheme.colors.base09}ff)";
           # col.inactive_border = "";
         };
         decoration = {
@@ -77,7 +78,7 @@ in {
         bindm=SUPER,mouse:273,resizewindow
 
         bind=SUPER,Return,exec,${pkgs.foot}/bin/footclient
-        bind=SUPERSHIFT,Return,exec,${pkgs.google-chrome}/bin/google-chrome-stable
+        bind=SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox
         bind=SUPERSHIFT,Q,killactive,
         bind=SUPER,Escape,exit,
         bind=SUPER,E,exec,${pkgs.pcmanfm}/bin/pcmanfm
@@ -136,8 +137,8 @@ in {
         bind=,XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10
         bind=,XF86AudioMute,exec,${pkgs.pamixer}/bin/pamixer -t
         bind=,XF86AudioMicMute,exec,${pkgs.pamixer}/bin/pamixer --default-source -t
-        bind=,XF86MonBrightnessDown,exec,${pkgs.light}/bin/light -U 5
-        bind=,XF86MonBrightnessUP,exec,${pkgs.light}/bin/light -A 5
+        bind=,XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%-
+        bind=,XF86MonBrightnessUP,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%+
 
         #Suspend when laptop is closed
         bindl=,switch:[Lid Switch],exec, "systemctl suspend"
