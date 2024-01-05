@@ -9,12 +9,15 @@ with lib.frgd; {
   # Enable fingerprint reader.
   services.open-fprintd.enable = true;
   services.python-validity.enable = true;
-
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true;
   frgd = {
     system.boot = {
       enable = true;
       efi = true;
     };
+    security = { sops = enabled; };
     archetypes = { workstation = enabled; };
     suites = {
       desktop = {
