@@ -12,13 +12,19 @@ in {
 
     services.klipper = {
       enable = true;
-
+      user = "justin";
+      group = "users";
+      # mutableConfig = true;
+      # mutableConfigFolder = /klipper;
       configFile = ./printer.cfg;
     };
 
     frgd = { services.moonraker = enabled; };
 
-    services.fluidd = enabled;
+    services.fluidd = {
+      enable = true;
+      # hostName = "klipper.fluffy-rooster.ts.net";
+    };
 
   };
 }
