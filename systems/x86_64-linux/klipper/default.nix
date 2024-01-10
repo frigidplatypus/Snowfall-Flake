@@ -15,7 +15,10 @@ with lib.frgd; {
   };
   frgd = {
     archetypes.server = enabled;
-    services = { syncthing = enabled; };
+    services = {
+      syncthing = enabled;
+      klipper = enabled;
+    };
     system.boot.efi = true;
   };
 }
