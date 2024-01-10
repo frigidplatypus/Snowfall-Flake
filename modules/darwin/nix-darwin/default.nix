@@ -14,7 +14,7 @@ in {
   environment = {
     shells = with pkgs; [ bash fish ];
     loginShell = pkgs.fish;
-    systemPackages = [ pkgs.coreutils pkgs.rnix-lsp ];
+    systemPackages = [ pkgs.coreutils pkgs.rnix-lsp pkgs.neovim ];
     systemPath = [ "/opt/homebrew/bin" ];
     pathsToLink = [ "/Applications" ];
   };
