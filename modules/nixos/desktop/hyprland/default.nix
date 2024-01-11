@@ -46,6 +46,8 @@ in {
         alacritty
         kitty
         firefox
+        libsForQt5.polkit-kde-agent
+        xorg.xeyes
       ];
     };
 
@@ -62,7 +64,7 @@ in {
     };
 
     programs = {
-      hyprland = enabled;
+      hyprland = { enable = true; };
       light = enabled;
       dconf = enabled;
     };

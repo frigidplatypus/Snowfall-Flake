@@ -19,7 +19,6 @@ in {
 
         main = {
           term = "xterm-256color";
-
           font = "Fira Code:size=10";
         };
 

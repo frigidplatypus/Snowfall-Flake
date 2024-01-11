@@ -1,0 +1,19 @@
+name: western
+parent: base
+
+matches:
+  - trigger: "xwrk"
+    replace: "jmartin@westerncusd12.org"
+  - trigger: "xsig"
+    replace: |
+      Justin Martin
+      Technology Coordinator
+      Western Community Unit School District #12
+      jmartin@westerncusd12.org
+      217.335.2323
+  - trigger: "xtl"
+    replace: "Technology Coordinator"
+  - trigger: "xwc"
+    replace: "Western Community Unit School District #12"
+  - trigger: "xwphn"
+    replace: "217.335.2323"

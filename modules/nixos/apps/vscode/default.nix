@@ -3,12 +3,11 @@
 with lib;
 with lib.frgd;
 let cfg = config.frgd.apps.vscode;
-in
-{
+in {
   options.frgd.apps.vscode = with types; {
     enable = mkBoolOpt false "Whether or not to enable vscode.";
   };
 
   config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ vscodium ]; };
+    mkIf cfg.enable { environment.systemPackages = with pkgs; [ vscode ]; };
 }

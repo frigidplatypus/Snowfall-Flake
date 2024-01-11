@@ -1,10 +1,8 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 with lib;
 with lib.frgd; {
 
   imports = [ ./hardware.nix ./disko.nix ];
-
-  boot.supportedFilesystems = [ "zfs" ];
 
   # Enable fingerprint reader.
   services.open-fprintd.enable = true;
@@ -12,11 +10,15 @@ with lib.frgd; {
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
+  services.flatpak.enable = true;
+
+  environment.systemPackages = with pkgs; [ wezterm alacritty lswt waylevel ];
   frgd = {
     system.boot = {
       enable = true;
       efi = true;
     };
+    services = { espanso = enabled; };
     security = {
       sops = {
         enable = true;
@@ -31,5 +33,4 @@ with lib.frgd; {
       };
     };
   };
-
 }

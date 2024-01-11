@@ -1,0 +1,24 @@
+matches:
+  # Dates
+  - trigger: "xdate"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+  - trigger: ".ds"
+    replace: "{{timestamp}}"
+    vars:
+      - name: timestamp
+        type: date
+        params:
+          format: "%Y-%m-%d"
+  - trigger: "xeml"
+    replace: "jus10mar10@gmail.com"
+  - trigger: "xjk"
+    replace: "justin@justinandkathryn.com"
+  - trigger: "xcell"
+    replace: "6608881095"
+  - trigger: "xgphn"
+    replace: "9196278467"

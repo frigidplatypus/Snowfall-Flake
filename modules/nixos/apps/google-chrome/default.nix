@@ -5,7 +5,7 @@ with lib.frgd;
 let cfg = config.frgd.apps.google-chrome;
 in {
   options.frgd.apps.google-chrome = with types; {
-    enable = mkBoolOpt false "Whether or not to enable firefox.";
+    enable = mkBoolOpt false "Whether or not to enable Google Chrome.";
   };
 
   config = mkIf cfg.enable {
