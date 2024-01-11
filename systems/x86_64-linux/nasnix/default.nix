@@ -25,6 +25,10 @@ with lib.frgd; {
   frgd = {
     archetypes.server = enabled;
     services.jellyfin = enabled;
+    virtualization = {
+      # docker = enabled;
+      libvirtd = enabled;
+    };
     system = {
       zfs = {
         enable = true;
