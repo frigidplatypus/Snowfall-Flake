@@ -18,6 +18,7 @@ in {
           "/home/justin/syncthing"; # Default folder for new synced folders
         configDir =
           "/home/justin/.config/syncthing"; # Folder for Syncthing's settings and keys
+        guiAddress = "0.0.0.0:8384";
       };
     };
   };
