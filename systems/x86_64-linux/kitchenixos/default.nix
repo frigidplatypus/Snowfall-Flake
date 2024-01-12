@@ -13,12 +13,7 @@ with lib.frgd; {
 
     };
 
-    security = {
-      agenix = {
-        enable = true;
-        taskwarrior = enabled;
-      };
-    };
+    security = { };
   };
 
 }
