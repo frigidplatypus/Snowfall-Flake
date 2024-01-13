@@ -12,12 +12,19 @@ with lib.frgd; {
   hardware.bluetooth.powerOnBoot = true;
   services.flatpak.enable = true;
 
-  environment.systemPackages = with pkgs; [ wezterm alacritty lswt waylevel ];
+  environment.systemPackages = with pkgs; [
+    wezterm
+    alacritty
+    lswt
+    waylevel
+    frgd.numara
+  ];
   frgd = {
     system.boot = {
       enable = true;
       efi = true;
     };
+    apps = { element = enabled; };
     services = { espanso = enabled; };
     security = {
       sops = {
@@ -26,6 +33,13 @@ with lib.frgd; {
       };
     };
     archetypes = { workstation = enabled; };
+    virtualization = {
+      libvirtd = {
+        enable = true;
+        virt-manager = enabled;
+      };
+      docker = enabled;
+    };
     suites = {
       desktop = {
         enable = true;
