@@ -161,6 +161,7 @@ in {
         exec-once = hyprctl setcursor "Capitaine Cursors (Gruvbox)" 14
         exec-once = ${pkgs.mako}
         exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
+        exec-once = ${pkgs.udiskie}/bin/udiskie --tray --notify
       '';
     };
     frgd = {
