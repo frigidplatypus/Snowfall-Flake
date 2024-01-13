@@ -16,13 +16,13 @@ in {
       enable = true;
       qemu.ovmf = enabled;
     };
-    environment = mkIf cfg.virt-manager.enable {
-      systemPackages = with pkgs;
-        [
-          # For lsusb
-          virt-manager
-        ];
-    };
+    environment.systemPackages = with pkgs;
+      [
+        # For lsusb
+        usbutils
+      ];
     frgd.user.extraGroups = [ "libvirt" ];
+    programs.virt-manager = mkIf cfg.virt-manager.enable { enable = true; };
+
   };
 }
