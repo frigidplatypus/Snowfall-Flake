@@ -2,31 +2,21 @@
 with lib;
 with lib.frgd; {
 
-  imports = [ ./hardware.nix ];
-
-  # Enable fingerprint reader.
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true;
-  services.flatpak.enable = true;
+  imports = [ ./hardware.nix ./disko.nix];
 
   frgd = {
     system.boot = {
       enable = true;
       efi = true;
     };
-    services = { espanso = enabled; };
+    services = { espanso = enabled; tailscale.autoconnect = enabled; };
     security = {
       sops = {
         enable = true;
         taskwarrior = enabled;
       };
     };
-    archetypes = { workstation = enabled; };
-    suites = {
-      desktop = {
-        enable = true;
-        hyprland = true;
-      };
-    };
+    suites = {common-slim = enabled;};
+    virtualization = {libvirtd = enabled;};
   };
 }
