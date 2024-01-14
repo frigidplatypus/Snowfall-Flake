@@ -4,6 +4,6 @@
 { pkgs ? (import <nixpkgs>) { } }: {
   default = pkgs.mkShell {
     NIX_CONFIG = "experimental-features = nix-command flakes";
-    nativeBuildInputs = with pkgs; [ git nix neovim ];
+    nativeBuildInputs = with pkgs; [ git nix neovim tmux fish];
   };
 }
