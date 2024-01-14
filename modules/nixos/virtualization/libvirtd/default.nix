@@ -21,7 +21,7 @@ in {
         # For lsusb
         usbutils
       ];
-    frgd.user.extraGroups = [ "libvirt" ];
+    frgd.user.extraGroups = [ "libvirtd" ];
     programs.virt-manager = mkIf cfg.virt-manager.enable { enable = true; };
 
   };
