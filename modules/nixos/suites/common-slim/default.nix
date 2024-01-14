@@ -22,7 +22,7 @@ in {
       };
 
       hardware = {
-        storage = enabled;
+        # storage = enabled;
         networking = enabled;
       };
 
