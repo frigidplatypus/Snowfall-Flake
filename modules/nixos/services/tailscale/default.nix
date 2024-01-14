@@ -13,10 +13,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
-      assertion = cfg.autoconnect.enable -> cfg.autoconnect.key != "";
-      message = "frgd.services.tailscale.autoconnect.key must be set";
-    }];
 
     environment.systemPackages = with pkgs; [ tailscale ];
 
@@ -58,7 +54,7 @@ in {
         fi
 
         # Otherwise authenticate with tailscale
-         ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path})" 
+         ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path}) --ssh --accept-dns --accept-routes=false" 
       '';
 
     };
