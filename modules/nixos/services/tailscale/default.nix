@@ -54,7 +54,7 @@ in {
         fi
 
         # Otherwise authenticate with tailscale
-         ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path}) --ssh --accept-dns --accept-routes=false" 
+         ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path})" --ssh --accept-dns --accept-routes=false
       '';
 
     };
