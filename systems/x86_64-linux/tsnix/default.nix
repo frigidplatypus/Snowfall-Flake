@@ -11,8 +11,8 @@ with lib.frgd; {
       address = "192.168.0.9";
       prefixLength = 24;
     }];
-    bridges."br1".interfaces = [ "enp4s0" ];
-    interfaces."br1".useDHCP = true;
+    bridges."br0".interfaces = [ "enp4s0" ];
+    interfaces."br0".useDHCP = true;
 
     defaultGateway = "192.168.0.1";
     nameservers = [ "192.168.0.1" ];
