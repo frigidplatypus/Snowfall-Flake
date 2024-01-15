@@ -22,6 +22,7 @@ with lib.frgd; {
     archetypes.server = enabled;
     virtualization.docker = enabled;
     services = {
+      tailscale.autoconnect = enabled;
       taskserver = enabled;
       syncthing = enabled;
       vikunja = enabled;
