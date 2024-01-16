@@ -3,7 +3,7 @@
     disk = {
       x = {
         type = "disk";
-        device = "/dev/sdb";
+        device = "ata-Samsung_SSD_840_PRO_Series_S1ANNSAF417139B";
         content = {
           type = "gpt";
           partitions = {

@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 with lib;
 with lib.frgd; {
-  imports = [ ./hardware.nix ];
+  imports = [ ./hardware.nix ./disko.nix ];
 
   networking = {
     networkmanager.enable = true;
@@ -16,6 +16,11 @@ with lib.frgd; {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.zfs.extraPools = [ "storage" ];
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = true;
+
+  networking.hostId = "87e61654";
 
   services = {
     zfs.autoScrub = enabled;
