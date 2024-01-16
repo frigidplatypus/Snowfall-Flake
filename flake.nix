@@ -50,6 +50,8 @@
     };
     flake-root.url = "github:srid/flake-root";
     mission-control.url = "github:Platonic-Systems/mission-control";
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
     # Enable fingerprint reader for T480
     nixos-06cb-009a-fingerprint-sensor = {
@@ -80,6 +82,12 @@
 
         namespace = "frgd";
       };
+
+      overlays = with inputs;
+        [
+          # There is also a named overlay, though the output is the same.
+          snowfall-flake.overlays."package/flake"
+        ];
 
       systems.modules.darwin = with inputs; [
         agenix.darwinModules.default
