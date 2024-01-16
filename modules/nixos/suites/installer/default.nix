@@ -2,15 +2,23 @@
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.suites.common-slim;
+let cfg = config.frgd.suites.installer;
 in {
-  options.frgd.suites.common-slim = with types; {
+  options.frgd.suites.installer = with types; {
     enable =
-      mkBoolOpt false "Whether or not to enable common-slim configuration.";
+      mkBoolOpt false "Whether or not to enable installer configuration.";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ snowfallorg.flake ];
+    environment.systemPackages = with pkgs; [
+      snowfallorg.flake
+      gcc
+      neovim
+      nixfmt
+      ripgrep
+    ];
+
+    security.sudo = enabled;
     frgd = {
       nix = enabled;
 
@@ -28,12 +36,10 @@ in {
 
       services = {
         openssh = enabled;
-        tailscale = enabled;
+        #        tailscale = enabled;
         avahi = enabled;
-        syncthing = enabled;
+        #       syncthing = enabled;
       };
-
-      security = { doas = enabled; };
 
       system = {
         boot = enabled;
