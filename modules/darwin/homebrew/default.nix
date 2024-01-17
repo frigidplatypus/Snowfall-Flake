@@ -37,6 +37,7 @@ in {
         "visual-studio-code"
         "vial"
         "beeper"
+        "cyberduck"
       ];
     };
 

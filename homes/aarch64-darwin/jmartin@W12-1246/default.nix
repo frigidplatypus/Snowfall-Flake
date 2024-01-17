@@ -26,7 +26,7 @@ with lib.frgd; {
       git = enabled;
       direnv = enabled;
       bat = enabled;
-      #misc = enabled;
+      misc = enabled;
     };
   };
 

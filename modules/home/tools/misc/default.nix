@@ -18,7 +18,7 @@ in {
       jq
       clac
       wget
-      usbutils
+      #usbutils
       bat
       neofetch
       zip
@@ -26,7 +26,7 @@ in {
       unzip
       ncdu
       bottom
-      fast-cli
+      # fast-cli
     ];
   };
 }
