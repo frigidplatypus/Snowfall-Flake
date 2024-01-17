@@ -12,6 +12,8 @@ with lib.frgd; {
     }];
     defaultGateway = "192.168.0.1";
     nameservers = [ "192.168.0.1" ];
+    bridges."br0".interfaces = [ "enp1s1" ];
+    interfaces."br0".useDHCP = true;
   };
 
   boot.loader.systemd-boot.enable = true;
@@ -20,18 +22,18 @@ with lib.frgd; {
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = true;
 
-  networking.hostId = "87e61654";
-
   services = {
     zfs.autoScrub = enabled;
     nfs.server.enable = true;
   };
   networking.firewall.enable = false;
   frgd = {
+    security.sops = enabled;
     archetypes.server = enabled;
-    services.jellyfin = enabled;
+    # services.jellyfin = enabled;
+    services = { tailscale.autoconnect = enabled; };
     virtualization = {
-      # docker = enabled;
+      docker = enabled;
       libvirtd = enabled;
     };
     system = {
