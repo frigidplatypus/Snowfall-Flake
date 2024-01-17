@@ -46,6 +46,9 @@ in {
         alacritty
         kitty
         firefox
+        libsForQt5.polkit-kde-agent
+        xorg.xeyes
+        udiskie
       ];
     };
 
@@ -60,11 +63,20 @@ in {
       };
       user.extraGroups = [ "video" ];
     };
-
+    services.udisks2 = enabled;
     programs = {
-      hyprland = enabled;
+      hyprland = { enable = true; };
       light = enabled;
       dconf = enabled;
+      udevil = enabled;
+      thunar = {
+        enable = true;
+        plugins = with pkgs.xfce; [
+          thunar-archive-plugin
+          thunar-media-tags-plugin
+          thunar-volman
+        ];
+      };
     };
   };
 }

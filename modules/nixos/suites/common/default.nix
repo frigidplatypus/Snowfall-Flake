@@ -18,6 +18,7 @@ in {
         #_1password = enabled;
         # cider = enabled;
         logseq = enabled;
+        google-chrome = enabled;
       };
 
       cli-apps = {

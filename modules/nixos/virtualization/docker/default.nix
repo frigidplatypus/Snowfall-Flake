@@ -8,5 +8,8 @@ in {
     enable = mkBoolOpt false "Whether or not to enable docker";
   };
 
-  config = mkIf cfg.enable { virtualisation.docker.enable = true; };
+  config = mkIf cfg.enable {
+    virtualisation.docker.enable = true;
+    frgd.user.extraGroups = [ "docker" ];
+  };
 }

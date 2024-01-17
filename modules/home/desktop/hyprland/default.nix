@@ -25,11 +25,12 @@ in {
         swaybg
         wofi
         swayidle
+        xorg.xeyes
+        xorg.xwininfo
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
     gtk.cursorTheme = "Capitaine Cursors (Gruvbox)";
-
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -158,6 +159,9 @@ in {
         exec-once = swayidle -w & disown
         exec-once = swayidle -w timeout 300 'swaylock -fF' timeout 600 'hyprctl dispatch dpms' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock -fF'
         exec-once = hyprctl setcursor "Capitaine Cursors (Gruvbox)" 14
+        exec-once = ${pkgs.mako}
+        exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
+        exec-once = ${pkgs.udiskie}/bin/udiskie --tray --notify
       '';
     };
     frgd = {
@@ -167,6 +171,7 @@ in {
         swaylock = enabled;
         rofi = enabled;
         bemenu = enabled;
+        mako = enabled;
       };
     };
   };

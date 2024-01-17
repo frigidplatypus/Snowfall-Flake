@@ -22,6 +22,7 @@ in {
   };
 
   config = {
+    sops.secrets.justin_password.neededForUsers = true;
     environment.systemPackages = with pkgs; [ ];
 
     programs.fish = { enable = true; };
@@ -44,7 +45,7 @@ in {
 
     users.users.${cfg.name} = {
       isNormalUser = true;
-
+      hashedPasswordFile = config.sops.secrets.justin_password.path;
       #inherit (cfg) name initialPassword;
 
       home = "/home/${cfg.name}";

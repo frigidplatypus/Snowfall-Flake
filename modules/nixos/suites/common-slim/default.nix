@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-
+    environment.systemPackages = with pkgs; [ snowfallorg.flake ];
     frgd = {
       nix = enabled;
 
@@ -22,7 +22,7 @@ in {
       };
 
       hardware = {
-        storage = enabled;
+        # storage = enabled;
         networking = enabled;
       };
 
