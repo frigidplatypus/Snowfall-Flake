@@ -41,8 +41,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-colors.url = "github:misterio77/nix-colors";
-    agenix.url = "github:yaxitech/ragenix";
-
+    # agenix.url = "github:yaxitech/ragenix";
+    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
     # flake-parts
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -81,10 +81,11 @@
         namespace = "frgd";
       };
 
-      systems.modules.darwin = with inputs; [
-        agenix.darwinModules.default
-        home-manager.darwinModules.home-manager
-      ];
+      systems.modules.darwin = with inputs;
+        [
+          # agenix.darwinModules.default
+          home-manager.darwinModules.home-manager
+        ];
 
       systems.modules.nixos = with inputs; [
         home-manager.nixosModules.home-manager
