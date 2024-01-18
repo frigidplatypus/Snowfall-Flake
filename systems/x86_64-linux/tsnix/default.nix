@@ -24,6 +24,7 @@ with lib.frgd; {
       efi = true;
     };
     services = {
+      # freshrss = enabled;
       espanso = enabled;
       tailscale.autoconnect = enabled;
     };
@@ -34,6 +35,9 @@ with lib.frgd; {
       };
     };
     suites = { common-slim = enabled; };
-    virtualization = { libvirtd = enabled; };
+    virtualization = {
+      libvirtd = enabled;
+      docker = enabled;
+    };
   };
 }

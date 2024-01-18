@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 with lib;
 with lib.frgd; {
-  imports = [ ./hardware.nix ];
+  imports = [ ./hardware.nix ./disko.nix ];
 
   networking = {
     networkmanager.enable = true;
@@ -12,10 +12,15 @@ with lib.frgd; {
     }];
     defaultGateway = "192.168.0.1";
     nameservers = [ "192.168.0.1" ];
+    bridges."br0".interfaces = [ "enp1s1" ];
+    interfaces."br0".useDHCP = true;
   };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.zfs.extraPools = [ "storage" ];
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = true;
 
   services = {
     zfs.autoScrub = enabled;
@@ -23,10 +28,12 @@ with lib.frgd; {
   };
   networking.firewall.enable = false;
   frgd = {
+    security.sops = enabled;
     archetypes.server = enabled;
-    services.jellyfin = enabled;
+    # services.jellyfin = enabled;
+    services = { tailscale.autoconnect = enabled; };
     virtualization = {
-      # docker = enabled;
+      docker = enabled;
       libvirtd = enabled;
     };
     system = {
