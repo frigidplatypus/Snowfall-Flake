@@ -16,7 +16,11 @@ in {
 
     environment.systemPackages = with pkgs; [ tailscale ];
 
-    services.tailscale = enabled;
+    services.tailscale = {
+      enable = true;
+      authKeyFile = config.sops.secrets.tailscale_api_key.path;
+      extraUpFlags = [ "--ssh" "--accept-dns" "--accept-routes=false" ];
+    };
 
     networking = {
       firewall = {
@@ -54,7 +58,7 @@ in {
         fi
 
         # Otherwise authenticate with tailscale
-         ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path}) --ssh --accept-dns --accept-routes=false" 
+         ${tailscale}/bin/tailscale up ";
       '';
 
     };
