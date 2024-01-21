@@ -49,6 +49,19 @@ in {
         libsForQt5.polkit-kde-agent
         xorg.xeyes
         udiskie
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-xapp
+        # GTK themes
+        nwg-look
+        themechanger
+        gruvbox-dark-gtk
+        sweet
+        awf
+        zuki-themes
+        yaru-theme
+        whitesur-icon-theme
+        whitesur-gtk-theme
+        stilo-themes
       ];
     };
 

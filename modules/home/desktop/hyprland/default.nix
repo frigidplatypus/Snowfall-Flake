@@ -27,10 +27,25 @@ in {
         swayidle
         xorg.xeyes
         xorg.xwininfo
+        copyq
+        # GTK themes
+        gruvbox-dark-gtk
+        sweet
+        awf
+        zuki-themes
+        yaru-theme
+        whitesur-icon-theme
+        whitesur-gtk-theme
+        stilo-themes
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
-    gtk.cursorTheme = "Capitaine Cursors (Gruvbox)";
+    gtk = {
+      cursorTheme.name = "Capitaine Cursors (Gruvbox)";
+      enable = true;
+      theme = { name = "gruvbox-dark"; };
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -131,6 +146,7 @@ in {
         bind=CTRL,left,resizeactive,-20 0
         bind=CTRL,up,resizeactive,0 -20
         bind=CTRL,down,resizeactive,0 20
+        bind = SUPER, V, exec, ${pkgs.clipman}/bin/clipman pick -t ${pkgs.rofi}/bin/rofi
 
         bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
@@ -162,6 +178,7 @@ in {
         exec-once = ${pkgs.mako}
         exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
         exec-once = ${pkgs.udiskie}/bin/udiskie --tray --notify
+        exec-once = ${pkgs.copyq}/bin/copyq --start-server
       '';
     };
     frgd = {
