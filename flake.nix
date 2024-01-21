@@ -80,7 +80,12 @@
 
         namespace = "frgd";
       };
+      overlays = with inputs;
+        [
 
+          # There is also a named overlay, though the output is the same.
+          snowfall-flake.overlays."package/flake"
+        ];
       systems.modules.darwin = with inputs;
         [
           # agenix.darwinModules.default
