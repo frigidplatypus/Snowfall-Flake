@@ -7,7 +7,7 @@ with lib.frgd; {
       name = "justin";
     };
     desktop = { hyprland = enabled; };
-
+    apps = { obsidian = enabled; };
     cli-apps = {
       neovim = enabled;
       home-manager = enabled;
