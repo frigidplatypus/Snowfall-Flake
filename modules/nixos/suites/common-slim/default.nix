@@ -33,7 +33,7 @@ in {
         syncthing = enabled;
       };
 
-      security = { doas = enabled; };
+      # security = { doas = enabled; };
 
       system = {
         boot = enabled;

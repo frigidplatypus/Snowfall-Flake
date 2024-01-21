@@ -50,7 +50,7 @@ in {
 
       security = {
         # gpg = enabled;
-        doas = enabled;
+        # doas = enabled;
         # keyring = enabled;
       };
 
