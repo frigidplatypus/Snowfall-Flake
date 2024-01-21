@@ -19,6 +19,7 @@ in {
 
     vultr_api_key = { enable = mkBoolOpt false "Vultr API Key"; };
     namecheap_api_key = { enable = mkBoolOpt false "Namecheap API Key"; };
+    porkbun = { enable = mkBoolOpt false "Namecheap API Key"; };
     matrix_registration_shared_secret = {
       enable = mkBoolOpt false "Matrix Registration Shared Secret";
     };
@@ -54,6 +55,7 @@ in {
       sops.secrets.wireguard_server_private_key = { };
     })
     (mkIf (cfg.vultr_api_key.enable) { sops.secrets.vultr_api_key = { }; })
+    (mkIf (cfg.porkbun.enable) { sops.secrets.porkbun_api_key = { }; })
     (mkIf (cfg.namecheap_api_key.enable) {
       sops.secrets.namecheap_api_key = { };
     })
