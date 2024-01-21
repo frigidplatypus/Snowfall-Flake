@@ -58,7 +58,7 @@ in {
         fi
 
         # Otherwise authenticate with tailscale
-         ${tailscale}/bin/tailscale up ";
+         ${tailscale}/bin/tailscale up 
       '';
 
     };
