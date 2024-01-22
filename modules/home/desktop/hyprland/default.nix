@@ -17,7 +17,7 @@ in {
         slurp
         brightnessctl
         #light
-        #swaylock-effects
+        swaylock-effects
         pcmanfm
         pamixer
         grim
@@ -173,7 +173,7 @@ in {
         exec-once=${pkgs.waybar}/bin/waybar
         exec-once = foot --server &
         exec-once = swayidle -w & disown
-        exec-once = swayidle -w timeout 300 'swaylock -fF' timeout 600 'hyprctl dispatch dpms' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock -fF'
+        exec-once = swayidle -w timeout 300 'swaylock' timeout 600 'hyprctl dispatch dpms' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock'
         exec-once = hyprctl setcursor "Capitaine Cursors (Gruvbox)" 14
         exec-once = ${pkgs.mako}
         exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
@@ -187,7 +187,7 @@ in {
         waybar = enabled;
         swaylock = enabled;
         rofi = enabled;
-        bemenu = enabled;
+        # bemenu = enabled;
         mako = enabled;
       };
     };

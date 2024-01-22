@@ -40,7 +40,6 @@ in {
         XDG_SESSION_DESKTOP = "Hyprland";
       };
       systemPackages = with pkgs; [
-        light
         grim
         mpvpaper
         slurp
@@ -57,7 +56,6 @@ in {
         xdg-desktop-portal-xapp
         # GTK themes
         nwg-look
-        themechanger
         gruvbox-dark-gtk
         sweet
         awf
