@@ -14,6 +14,8 @@ in {
     frgd = {
       nix = enabled;
 
+      cli-apps = { flake = enabled; };
+
       tools = {
         git = enabled;
         comma = enabled;

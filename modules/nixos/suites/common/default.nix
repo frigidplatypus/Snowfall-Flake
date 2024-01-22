@@ -21,9 +21,7 @@ in {
         google-chrome = enabled;
       };
 
-      cli-apps = {
-        # flake = enabled;
-      };
+      cli-apps = { flake = enabled; };
 
       tools = {
         git = enabled;
