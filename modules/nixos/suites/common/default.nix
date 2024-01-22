@@ -13,7 +13,7 @@ in {
 
     frgd = {
       nix = enabled;
-
+      suites = { common-slim = enabled; };
       apps = {
         #_1password = enabled;
         # cider = enabled;
