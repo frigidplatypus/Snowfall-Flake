@@ -67,7 +67,6 @@ in {
         animations = { enabled = true; };
         input = {
           kb_layout = "us";
-          follow_mouse = 2;
           repeat_delay = 250;
           numlock_by_default = 0;
           force_no_accel = 1;
@@ -172,8 +171,8 @@ in {
         exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/flake/modules/themes/wall.png
         exec-once=${pkgs.waybar}/bin/waybar
         exec-once = foot --server &
-        exec-once = swayidle -w & disown
-        exec-once = swayidle -w timeout 300 'swaylock' timeout 600 'hyprctl dispatch dpms' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock'
+        exec-once = ${pkgs.swayidle}/bin/swayidle -w & disown
+        exec-once = ${pkgs.swayidle}/bin/swayidle -w timeout 300 'swaylock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'
         exec-once = hyprctl setcursor "Capitaine Cursors (Gruvbox)" 14
         exec-once = ${pkgs.mako}
         exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
