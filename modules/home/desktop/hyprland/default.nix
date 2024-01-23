@@ -67,6 +67,7 @@ in {
         animations = { enabled = true; };
         input = {
           kb_layout = "us";
+          follow_mouse = 0;
           repeat_delay = 250;
           numlock_by_default = 0;
           force_no_accel = 1;
