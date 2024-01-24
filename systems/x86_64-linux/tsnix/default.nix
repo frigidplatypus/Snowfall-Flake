@@ -26,6 +26,7 @@ with lib.frgd; {
     services = {
       # freshrss = enabled;
       espanso = enabled;
+      taskserver = enabled;
       tailscale.autoconnect = enabled;
     };
     security = {
