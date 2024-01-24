@@ -39,14 +39,20 @@ in {
     (mkIf (cfg.taskwarrior.enable) {
       sops.secrets.taskwarrior_ca_cert = {
         owner = "justin";
+        group = "taskd";
+        mode = "0440";
         #       path = "/home/justin/.taskcerts/taskwarrior_ca_cert";
       };
       sops.secrets.taskwarrior_private_key = {
         owner = "justin";
+        group = "taskd";
+        mode = "0440";
         #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
       };
       sops.secrets.taskwarrior_public_cert = {
         owner = "justin";
+        group = "taskd";
+        mode = "0440";
         #     path = "/home/justin/.taskcerts/taskwarrior_public_cert";
       };
 
