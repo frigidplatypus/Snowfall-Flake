@@ -31,7 +31,7 @@ in {
           {
 
             server = "tasks.frgd.us:53589";
-            credentials = "frgd/justin/7c358284-adbb-4c7d-baaf-4c470fb1f2d2";
+            credentials = "frgd/justin/6d45587b-6254-449c-a6c9-6f8d7989dc19";
             trust = "strict";
           }
           (mkIf (pkgs.stdenv.isLinux) {
