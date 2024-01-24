@@ -10,57 +10,53 @@ in {
 
   config = mkIf cfg.enable {
 
-  programs.fish.enable = true;
-  environment = {
-    shells = with pkgs; [ bash fish ];
-    loginShell = pkgs.fish;
-    systemPackages = [ pkgs.coreutils pkgs.rnix-lsp pkgs.neovim ];
-    systemPath = [ "/opt/homebrew/bin" ];
-    pathsToLink = [ "/Applications" ];
-  };
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
+    programs.fish.enable = true;
+    environment = {
+      shells = with pkgs; [ bash fish ];
+      loginShell = pkgs.fish;
+      systemPackages = [ pkgs.coreutils ];
+      systemPath = [ "/opt/homebrew/bin" ];
+      pathsToLink = [ "/Applications" ];
+    };
+    nix.extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
 
-  nixpkgs.config.allowUnfree = true;
-  system = {
-    stateVersion = 4;
-  };
+    nixpkgs.config.allowUnfree = true;
+    system = { stateVersion = 4; };
 
-  services.nix-daemon.enable = true;
-  system.defaults = {
-    NSGlobalDomain.AppleShowAllExtensions = true;
+    services.nix-daemon.enable = true;
+    system.defaults = {
+      NSGlobalDomain.AppleShowAllExtensions = true;
       NSGlobalDomain.InitialKeyRepeat = 14;
       NSGlobalDomain.KeyRepeat = 1;
-    dock = {
-      autohide = true;
-      largesize = 128;
-      show-recents = false;
-      showhidden = true;
-      tilesize = 16;
-      wvous-bl-corner = 4;
-      wvous-br-corner = 4;
-      enable-spring-load-actions-on-all-items = true;
+      dock = {
+        autohide = true;
+        largesize = 128;
+        show-recents = false;
+        showhidden = true;
+        tilesize = 16;
+        wvous-bl-corner = 4;
+        wvous-br-corner = 4;
+        enable-spring-load-actions-on-all-items = true;
+      };
+      finder = {
+        AppleShowAllExtensions = true;
+        ShowPathbar = true;
+        ShowStatusBar = true;
+        _FXShowPosixPathInTitle = true;
+      };
+      screensaver = {
+        askForPassword = true;
+        askForPasswordDelay = 300;
+      };
+      trackpad = { TrackpadThreeFingerDrag = true; };
     };
-    finder = {
-      AppleShowAllExtensions = true;
-      ShowPathbar = true;
-      ShowStatusBar = true;
-      _FXShowPosixPathInTitle = true;
+
+    system.keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
     };
-    screensaver = {
-      askForPassword = true;
-      askForPasswordDelay = 300;
-    };
-    trackpad = {
-      TrackpadThreeFingerDrag = true;
-    };
-  };
-  
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToEscape = true;
-  };
 
   };
 }
