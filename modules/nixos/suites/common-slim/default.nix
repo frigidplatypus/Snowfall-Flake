@@ -14,6 +14,8 @@ in {
     frgd = {
       nix = enabled;
 
+      cli-apps = { flake = enabled; };
+
       tools = {
         git = enabled;
         comma = enabled;
@@ -33,7 +35,7 @@ in {
         syncthing = enabled;
       };
 
-      security = { doas = enabled; };
+      # security = { doas = enabled; };
 
       system = {
         boot = enabled;

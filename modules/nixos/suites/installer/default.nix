@@ -31,7 +31,7 @@ in {
 
       hardware = {
         # storage = enabled;
-        networking = enabled;
+        # networking = enabled;
       };
 
       services = {
@@ -39,14 +39,6 @@ in {
         #        tailscale = enabled;
         avahi = enabled;
         #       syncthing = enabled;
-      };
-
-      system = {
-        boot = enabled;
-        fonts = enabled;
-        locale = enabled;
-        time = enabled;
-        xkb = enabled;
       };
     };
   };

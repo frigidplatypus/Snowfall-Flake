@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 with lib.frgd;
 let cfg = config.frgd.desktop.addons.swaylock;
@@ -8,11 +8,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-
     security.pam.services.swaylock = { };
     powerManagement = {
       enable = true;
-      powerDownCommands = "swaylock -fF";
+      powerDownCommands = "${pkgs.swaylock-effects}/bin/swaylock";
     };
   };
 

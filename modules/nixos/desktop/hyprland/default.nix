@@ -20,6 +20,10 @@ in {
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
     };
+    powerManagement = {
+      enable = true;
+      powerDownCommands = "swaylock";
+    };
 
     environment = {
       loginShellInit = ''
@@ -36,7 +40,6 @@ in {
         XDG_SESSION_DESKTOP = "Hyprland";
       };
       systemPackages = with pkgs; [
-        light
         grim
         mpvpaper
         slurp
@@ -49,6 +52,18 @@ in {
         libsForQt5.polkit-kde-agent
         xorg.xeyes
         udiskie
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-xapp
+        # GTK themes
+        nwg-look
+        gruvbox-dark-gtk
+        sweet
+        awf
+        zuki-themes
+        yaru-theme
+        whitesur-icon-theme
+        whitesur-gtk-theme
+        stilo-themes
       ];
     };
 

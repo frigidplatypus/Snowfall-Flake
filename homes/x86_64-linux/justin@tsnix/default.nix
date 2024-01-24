@@ -6,7 +6,6 @@ with lib.frgd; {
       enable = true;
       name = "justin";
     };
-    desktop = { hyprland = enabled; };
 
     cli-apps = {
       neovim = enabled;

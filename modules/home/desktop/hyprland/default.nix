@@ -17,7 +17,7 @@ in {
         slurp
         brightnessctl
         #light
-        #swaylock-effects
+        swaylock-effects
         pcmanfm
         pamixer
         grim
@@ -27,10 +27,25 @@ in {
         swayidle
         xorg.xeyes
         xorg.xwininfo
+        copyq
+        # GTK themes
+        gruvbox-dark-gtk
+        sweet
+        awf
+        zuki-themes
+        yaru-theme
+        whitesur-icon-theme
+        whitesur-gtk-theme
+        stilo-themes
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
-    gtk.cursorTheme = "Capitaine Cursors (Gruvbox)";
+    gtk = {
+      cursorTheme.name = "Capitaine Cursors (Gruvbox)";
+      enable = true;
+      theme = { name = "gruvbox-dark"; };
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -52,7 +67,7 @@ in {
         animations = { enabled = true; };
         input = {
           kb_layout = "us";
-          follow_mouse = 2;
+          follow_mouse = 0;
           repeat_delay = 250;
           numlock_by_default = 0;
           force_no_accel = 1;
@@ -72,97 +87,135 @@ in {
           disable_splash_rendering = true;
           force_default_wallpaper = 0;
         };
+        bindm = [ "SUPER,mouse:272,movewindow" "SUPER,mouse:273,resizewindow" ];
+        bind = [
+          # Change Focus
+          "SUPER,left,movefocus,l"
+          "SUPER,right,movefocus,r"
+          "SUPER,up,movefocus,u"
+          "SUPER,down,movefocus,d"
 
+          # Move Windows
+          "SUPERSHIFT,left,movewindow,l"
+          "SUPERSHIFT,right,movewindow,r"
+          "SUPERSHIFT,up,movewindow,u"
+          "SUPERSHIFT,down,movewindow,d"
+
+          "CTRL,right,resizeactive,20 0"
+          "CTRL,left,resizeactive,-20 0"
+          "CTRL,up,resizeactive,0 -20"
+          "CTRL,down,resizeactive,0 20"
+          #"SUPER, V, exec, ${pkgs.clipman}/bin/clipman pick -t ${pkgs.rofi}/bin/rofi"
+
+          # Change workspaces
+          "SUPER,1,workspace,1"
+          "SUPER,2,workspace,2"
+          "SUPER,3,workspace,3"
+          "SUPER,4,workspace,4"
+          "SUPER,5,workspace,5"
+          "SUPER,6,workspace,6"
+          "SUPER,7,workspace,7"
+          "SUPER,8,workspace,8"
+          "SUPER,9,workspace,9"
+          "SUPER,0,workspace,10"
+          "SUPER,right,workspace,+1"
+          "SUPER,left,workspace,-1"
+
+          "SUPERSHIFT,1,movetoworkspace,1"
+          "SUPERSHIFT,2,movetoworkspace,2"
+          "SUPERSHIFT,3,movetoworkspace,3"
+          "SUPERSHIFT,4,movetoworkspace,4"
+          "SUPERSHIFT,5,movetoworkspace,5"
+          "SUPERSHIFT,6,movetoworkspace,6"
+          "SUPERSHIFT,7,movetoworkspace,7"
+          "SUPERSHIFT,8,movetoworkspace,8"
+          "SUPERSHIFT,9,movetoworkspace,9"
+          "SUPERSHIFT,0,movetoworkspace,10"
+          "SUPERSHIFT,right,movetoworkspace,+1"
+          "SUPERSHIFT,left,movetoworkspace,-1"
+
+          "SUPER,Return,exec,${pkgs.foot}/bin/footclient"
+          "SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox"
+          "SUPERSHIFT,Q,killactive,"
+          "SUPER,Escape,exit,"
+          "SUPER,E,exec,${pkgs.pcmanfm}/bin/pcmanfm"
+          "SUPER,H,togglefloating,"
+          "SUPER,Space,exec,${pkgs.rofi}/bin/rofi -show drun"
+          "SUPERSHIFT,I,exec,${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi"
+          "SUPER,P,pseudo,"
+          "SUPER,F,fullscreen"
+          "SUPER,R,forcerendererreload"
+          "SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload"
+          "SUPERSHIFT,L,exec,${pkgs.swaylock-effects}/bin/swaylock"
+
+          ",XF86AudioLowerVolume,exec,${pkgs.pamixer}/bin/pamixer -d 10"
+          ",XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10"
+          ",XF86AudioMute,exec,${pkgs.pamixer}/bin/pamixer -t"
+          ",XF86AudioMicMute,exec,${pkgs.pamixer}/bin/pamixer --default-source -t"
+          ",XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%-"
+          ",XF86MonBrightnessUP,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%+"
+        ];
+        windowrule = [
+          "float,^(Rofi)$"
+          "float,title:^(Volume Control)$"
+          "float,title:^(Picture-in-Picture)$"
+          "pin,title:^(Picture-in-Picture)$"
+          "move 75% 75% ,title:^(Picture-in-Picture)$"
+          "size 24% 24% ,title:^(Picture-in-Picture)$"
+        ];
+        exec-once = [
+          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          "${pkgs.swaybg}/bin/swaybg -m center -i $HOME/flake/modules/themes/wall.png"
+
+          "${pkgs.waybar}/bin/waybar"
+          "${pkgs.foot}/binfoot --server &"
+          #"${pkgs.swayidle}/bin/swayidle -w & disown"
+          #"${pkgs.swayidle}/bin/swayidle -w timeout 300 'swaylock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'"
+          "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
+          "${pkgs.mako}"
+          "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+          "${pkgs.udiskie}/bin/udiskie --tray --notify"
+          "${pkgs.copyq}/bin/copyq --start-server"
+
+        ];
       };
       extraConfig = ''
-        bindm=SUPER,mouse:272,movewindow
-        bindm=SUPER,mouse:273,resizewindow
-
-        bind=SUPER,Return,exec,${pkgs.foot}/bin/footclient
-        bind=SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox
-        bind=SUPERSHIFT,Q,killactive,
-        bind=SUPER,Escape,exit,
-        bind=SUPER,E,exec,${pkgs.pcmanfm}/bin/pcmanfm
-        bind=SUPER,H,togglefloating,
-        bind=SUPER,Space,exec,${pkgs.rofi}/bin/rofi -show drun
-        bind=SUPER,P,pseudo,
-        bind=SUPER,F,fullscreen,
-        bind=SUPER,R,forcerendererreload
-        bind=SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload
-        bind=SUPERSHIFT,L,exec,${pkgs.swaylock-effects}/bin/swaylock
-
-        bind=SUPER,left,movefocus,l
-        bind=SUPER,right,movefocus,r
-        bind=SUPER,up,movefocus,u
-        bind=SUPER,down,movefocus,d
-
-        bind=SUPERSHIFT,left,movewindow,l
-        bind=SUPERSHIFT,right,movewindow,r
-        bind=SUPERSHIFT,up,movewindow,u
-        bind=SUPERSHIFT,down,movewindow,d
-
-        bind=SUPER,1,workspace,1
-        bind=SUPER,2,workspace,2
-        bind=SUPER,3,workspace,3
-        bind=SUPER,4,workspace,4
-        bind=SUPER,5,workspace,5
-        bind=SUPER,6,workspace,6
-        bind=SUPER,7,workspace,7
-        bind=SUPER,8,workspace,8
-        bind=SUPER,9,workspace,9
-        bind=SUPER,0,workspace,10
-        bind=SUPER,right,workspace,+1
-        bind=SUPER,left,workspace,-1
-
-        bind=SUPERSHIFT,1,movetoworkspace,1
-        bind=SUPERSHIFT,2,movetoworkspace,2
-        bind=SUPERSHIFT,3,movetoworkspace,3
-        bind=SUPERSHIFT,4,movetoworkspace,4
-        bind=SUPERSHIFT,5,movetoworkspace,5
-        bind=SUPERSHIFT,6,movetoworkspace,6
-        bind=SUPERSHIFT,7,movetoworkspace,7
-        bind=SUPERSHIFT,8,movetoworkspace,8
-        bind=SUPERSHIFT,9,movetoworkspace,9
-        bind=SUPERSHIFT,0,movetoworkspace,10
-        bind=SUPERSHIFT,right,movetoworkspace,+1
-        bind=SUPERSHIFT,left,movetoworkspace,-1
-
-        bind=CTRL,right,resizeactive,20 0
-        bind=CTRL,left,resizeactive,-20 0
-        bind=CTRL,up,resizeactive,0 -20
-        bind=CTRL,down,resizeactive,0 20
-
         bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
-        bind=,XF86AudioLowerVolume,exec,${pkgs.pamixer}/bin/pamixer -d 10
-        bind=,XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10
-        bind=,XF86AudioMute,exec,${pkgs.pamixer}/bin/pamixer -t
-        bind=,XF86AudioMicMute,exec,${pkgs.pamixer}/bin/pamixer --default-source -t
-        bind=,XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%-
-        bind=,XF86MonBrightnessUP,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%+
-
-        #Suspend when laptop is closed
+        # Suspend when laptop is closed
         bindl=,switch:[Lid Switch],exec, "systemctl suspend"
-
-
-        windowrule=float,^(Rofi)$
-        windowrule=float,title:^(Volume Control)$
-        windowrule=float,title:^(Picture-in-Picture)$
-        windowrule=pin,title:^(Picture-in-Picture)$
-        windowrule=move 75% 75% ,title:^(Picture-in-Picture)$
-        windowrule=size 24% 24% ,title:^(Picture-in-Picture)$
-
-        exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-        exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/flake/modules/themes/wall.png
-        exec-once=${pkgs.waybar}/bin/waybar
-        exec-once = foot --server &
-        exec-once = swayidle -w & disown
-        exec-once = swayidle -w timeout 300 'swaylock -fF' timeout 600 'hyprctl dispatch dpms' resume 'hyprctl dispatch dpms on' before-sleep 'swaylock -fF'
-        exec-once = hyprctl setcursor "Capitaine Cursors (Gruvbox)" 14
-        exec-once = ${pkgs.mako}
-        exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
-        exec-once = ${pkgs.udiskie}/bin/udiskie --tray --notify
       '';
+    };
+    services.swayidle = {
+      timeouts = [
+        {
+          timeout = 300;
+          command = "${pkgs.swaylock}/bin/swaylock -fF";
+        }
+        {
+          timeout = 600;
+          command = "hyprctl dispatch dpms";
+        }
+        {
+          timeout = 900;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
+        }
+      ];
+
+      events = [
+        {
+          event = "before-sleep";
+          command = "${pkgs.swaylock}/bin/swaylock -fF";
+        }
+        {
+          event = "resume";
+          command = "hyprctl dispatch dpms on";
+        }
+        {
+          event = "lock";
+          command = "lock";
+        }
+      ];
     };
     frgd = {
       apps.foot = enabled;
@@ -170,7 +223,7 @@ in {
         waybar = enabled;
         swaylock = enabled;
         rofi = enabled;
-        bemenu = enabled;
+        # bemenu = enabled;
         mako = enabled;
       };
     };

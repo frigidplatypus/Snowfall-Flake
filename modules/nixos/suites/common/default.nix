@@ -13,7 +13,7 @@ in {
 
     frgd = {
       nix = enabled;
-
+      suites = { common-slim = enabled; };
       apps = {
         #_1password = enabled;
         # cider = enabled;
@@ -21,9 +21,7 @@ in {
         google-chrome = enabled;
       };
 
-      cli-apps = {
-        # flake = enabled;
-      };
+      cli-apps = { flake = enabled; };
 
       tools = {
         git = enabled;
@@ -50,7 +48,7 @@ in {
 
       security = {
         # gpg = enabled;
-        doas = enabled;
+        # doas = enabled;
         # keyring = enabled;
       };
 
