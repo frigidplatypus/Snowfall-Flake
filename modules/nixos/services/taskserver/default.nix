@@ -14,7 +14,7 @@ in {
       openFirewall = true;
       fqdn = "tasks.frgd.us";
       organisations.frgd.users = [ "justin" ];
-      listenHost = "100.109.184.126";
+      listenHost = "0.0.0.0";
     };
   };
 }
