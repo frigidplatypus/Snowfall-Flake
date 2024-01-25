@@ -27,13 +27,15 @@ with lib.frgd; {
       # freshrss = enabled;
       espanso = enabled;
       taskserver = enabled;
+      ntfy = enabled;
       tailscale.autoconnect = enabled;
+      netdata = enabled;
     };
     security = {
       sops = {
         enable = true;
         taskwarrior = enabled;
-        namecheap_api_key = enabled;
+        porkbun = enabled;
       };
     };
     suites = { common-slim = enabled; };
@@ -47,8 +49,8 @@ with lib.frgd; {
     acceptTerms = true;
     defaults = {
       email = "jus10mar10@gmail.com";
-      dnsProvider = "namecheap";
-      environmentFile = config.sops.secrets.namecheap_api_key.path;
+      dnsProvider = "porkbun";
+      environmentFile = config.sops.secrets.porkbun_api_key.path;
       group = "nginx";
     };
     certs = {
