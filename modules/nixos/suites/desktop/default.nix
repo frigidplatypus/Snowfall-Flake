@@ -22,7 +22,7 @@ in {
       };
       hardware = { audio = enabled; };
       suites = { common = enabled; };
-
+      services = { printing = enabled; };
       apps = {
         _1password = enabled;
         vlc = enabled;
