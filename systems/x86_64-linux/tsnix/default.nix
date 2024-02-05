@@ -30,6 +30,7 @@ with lib.frgd; {
       ntfy = enabled;
       tailscale.autoconnect = enabled;
       netdata = enabled;
+      couchdb = enabled;
     };
     security = {
       sops = {
