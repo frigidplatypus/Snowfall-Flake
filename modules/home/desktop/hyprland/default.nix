@@ -190,8 +190,9 @@ in {
       enable = true;
       timeouts = [
         {
-          timeout = 300;
-          command = "${pkgs.swaylock}/bin/swaylock -fF";
+          timeout = 120;
+          command =
+            "${pkgs.swaylock}/bin/swaylock -fF --config ~/.config/swaylock/config";
         }
         {
           timeout = 600;
@@ -206,10 +207,11 @@ in {
       events = [
         {
           event = "before-sleep";
-          command = "${pkgs.swaylock}/bin/swaylock -fF";
+          command =
+            "${pkgs.swaylock}/bin/swaylock -fF --config ~/.config/swaylock/config";
         }
         {
-          event = "resume";
+          event = "after-resume";
           command = "hyprctl dispatch dpms on";
         }
         {
