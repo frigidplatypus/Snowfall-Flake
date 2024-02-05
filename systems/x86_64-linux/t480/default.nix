@@ -24,7 +24,10 @@ with lib.frgd; {
       enable = true;
       efi = true;
     };
-    apps = { element = enabled; };
+    apps = {
+      element = enabled;
+      signal = enabled;
+    };
     services = { espanso = enabled; };
     security = {
       sops = {
