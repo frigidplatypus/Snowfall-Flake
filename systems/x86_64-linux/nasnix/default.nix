@@ -31,7 +31,10 @@ with lib.frgd; {
     security.sops = enabled;
     archetypes.server = enabled;
     # services.jellyfin = enabled;
-    services = { tailscale.autoconnect = enabled; };
+    services = {
+      tailscale.autoconnect = enabled;
+      netdata = enabled;
+    };
     virtualization = {
       docker = enabled;
       libvirtd = enabled;
