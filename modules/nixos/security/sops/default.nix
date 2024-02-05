@@ -35,9 +35,9 @@ in {
       sops.age.keyFile = "/home/justin/.config/sops/age/keys.txt";
       sops.secrets.tailscale_api_key = { };
       sops.secrets.justin_password = { };
-      sops.templates.justin_password.contents = ''
-        adminPass = "${config.sops.placeholder.justin_password}"
-      '';
+      #sops.templates.justin_password.contents = ''
+      #  adminPass = "${config.sops.placeholder.justin_password}"
+      #'';
     }
     (mkIf (cfg.taskwarrior.enable) {
       sops.secrets.taskwarrior_ca_cert = {
