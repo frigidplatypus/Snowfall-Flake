@@ -15,6 +15,7 @@ with lib.frgd; {
   };
   frgd = {
     archetypes.server = enabled;
+    security.sops = enabled;
     services = {
       syncthing = enabled;
       klipper = enabled;
