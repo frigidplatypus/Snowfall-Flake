@@ -192,7 +192,7 @@ in {
         {
           timeout = 120;
           command =
-            "${pkgs.swaylock}/bin/swaylock -fF --config ~/.config/swaylock/config";
+            "${pkgs.swaylock-effects}/bin/swaylock -fF --config ~/.config/swaylock/config";
         }
         {
           timeout = 600;
@@ -208,7 +208,7 @@ in {
         {
           event = "before-sleep";
           command =
-            "${pkgs.swaylock}/bin/swaylock -fF --config ~/.config/swaylock/config";
+            "${pkgs.swaylock-effects}/bin/swaylock -fF --config ~/.config/swaylock/config";
         }
         {
           event = "after-resume";
