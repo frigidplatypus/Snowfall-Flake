@@ -31,10 +31,10 @@ in {
         font = "FiraCode Nerd Font Mono 12";
         theme = {
           "*" = {
-            bg0 = mkLiteral "#${colorScheme.colors.base00}";
-            bg1 = mkLiteral "#${colorScheme.colors.base07}";
-            fg0 = mkLiteral "#${colorScheme.colors.base06}";
-            fg1 = mkLiteral "#${colorScheme.colors.base09}";
+            bg0 = mkLiteral "#${colorScheme.palette.base00}";
+            bg1 = mkLiteral "#${colorScheme.palette.base07}";
+            fg0 = mkLiteral "#${colorScheme.palette.base06}";
+            fg1 = mkLiteral "#${colorScheme.palette.base09}";
 
             background-color = mkLiteral "transparent";
             text-color = mkLiteral "@fg0";

@@ -57,7 +57,7 @@ in {
           gaps_in = 5;
           gaps_out = 5;
           layout = "dwindle";
-          "col.active_border" = "rgba(${colorScheme.colors.base09}ff)";
+          "col.active_border" = "rgba(${colorScheme.palette.base09}ff)";
           # col.inactive_border = "";
         };
         decoration = {
@@ -135,7 +135,7 @@ in {
           "SUPERSHIFT,left,movetoworkspace,-1"
 
           "SUPER,Return,exec,${pkgs.foot}/bin/footclient"
-          "SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox"
+          "SUPERSHIFT,Return,exec,${pkgs.google-chrome}/bin/google-chrome-stable"
           "SUPERSHIFT,Q,killactive,"
           "SUPER,Escape,exit,"
           "SUPER,E,exec,${pkgs.pcmanfm}/bin/pcmanfm"

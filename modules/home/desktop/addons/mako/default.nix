@@ -13,8 +13,8 @@ in {
     home = { packages = with pkgs; [ libnotify ]; };
     services.mako = {
       enable = true;
-      backgroundColor = "#${colorScheme.colors.base09}";
-      borderColor = "#${colorScheme.colors.base0F}";
+      backgroundColor = "#${colorScheme.palette.base09}";
+      borderColor = "#${colorScheme.palette.base0F}";
       defaultTimeout = 15000;
     };
   };

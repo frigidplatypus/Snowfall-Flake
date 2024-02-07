@@ -25,29 +25,29 @@ in {
       indicator-thickness=20
       indicator-caps-lock
 
-      separator-color=${colorScheme.colors.base00}
+      separator-color=${colorScheme.palette.base00}
 
-      inside-color=${colorScheme.colors.base01}
-      inside-clear-color=${colorScheme.colors.base0A}
-      inside-caps-lock-color=${colorScheme.colors.base0F}
-      inside-ver-color="${colorScheme.colors.base0B}44"
-      inside-wrong-color=${colorScheme.colors.base08}
+      inside-color=${colorScheme.palette.base01}
+      inside-clear-color=${colorScheme.palette.base0A}
+      inside-caps-lock-color=${colorScheme.palette.base0F}
+      inside-ver-color="${colorScheme.palette.base0B}44"
+      inside-wrong-color=${colorScheme.palette.base08}
 
-      ring-color=${colorScheme.colors.base09}
-      ring-clear-color=${colorScheme.colors.base07} 
-      ring-caps-lock-color=${colorScheme.colors.base08}
-      ring-ver-color=${colorScheme.colors.base0B}
-      ring-wrong-color=${colorScheme.colors.base0E} 
+      ring-color=${colorScheme.palette.base09}
+      ring-clear-color=${colorScheme.palette.base07} 
+      ring-caps-lock-color=${colorScheme.palette.base08}
+      ring-ver-color=${colorScheme.palette.base0B}
+      ring-wrong-color=${colorScheme.palette.base0E} 
 
-      line-color=${colorScheme.colors.base03}
+      line-color=${colorScheme.palette.base03}
       line-clear-color="ffd204FF"
-      line-caps-lock-color=${colorScheme.colors.base08}
-      line-ver-color=${colorScheme.colors.base0E}
-      line-wrong-color=${colorScheme.colors.base02}
+      line-caps-lock-color=${colorScheme.palette.base08}
+      line-ver-color=${colorScheme.palette.base0E}
+      line-wrong-color=${colorScheme.palette.base02}
 
-      text-clear-color=${colorScheme.colors.base00}
-      text-ver-color=${colorScheme.colors.base03}
-      text-wrong-color=${colorScheme.colors.base00}
+      text-clear-color=${colorScheme.palette.base00}
+      text-ver-color=${colorScheme.palette.base03}
+      text-wrong-color=${colorScheme.palette.base00}
 
       caps-lock-key-hl-color = "ffd204FF"
       caps-lock-bs-hl-color = "ee2e24FF"
