@@ -3,17 +3,16 @@
 with lib;
 with lib.frgd;
 let cfg = config.frgd.system.xkb;
-in
-{
+in {
   options.frgd.system.xkb = with types; {
     enable = mkBoolOpt false "Whether or not to configure xkb.";
   };
 
   config = mkIf cfg.enable {
     console.useXkbConfig = true;
-    services.xserver = {
+    services.xserver.xkb = {
       layout = "us";
-      xkbOptions = "caps:escape";
+      options = "caps:escape";
     };
   };
 }
