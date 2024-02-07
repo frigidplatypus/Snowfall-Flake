@@ -34,7 +34,6 @@ in {
     programs.fzf = {
       enable = true;
       enableFishIntegration = true;
-
     };
     programs.starship = {
       enable = true;
@@ -44,18 +43,18 @@ in {
         format =
           "$sudo$shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$battery$character";
         #"$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
-        shlvl = {
-          disabled = false;
-          symbol = "";
-          style = "bright-white bold";
-        };
-        shell = {
-          disabled = false;
-          format = "$indicator";
-          fish_indicator = "[><> ](bright-white bold)";
-          bash_indicator = "[BASH](bright-white) ";
-          zsh_indicator = "[ZSH](bright-white) ";
-        };
+        #shlvl = {
+        #  disabled = false;
+        #  symbol = "";
+        #  style = "bright-white bold";
+        #};
+        #shell = {
+        #  disabled = false;
+        #  format = "$indicator";
+        #  fish_indicator = "[><> ](bright-white bold)";
+        #  bash_indicator = "[BASH](bright-white) ";
+        #  zsh_indicator = "[ZSH](bright-white) ";
+        #};
         username = {
           style_user = "bright-white bold";
           style_root = "bright-red bold";
