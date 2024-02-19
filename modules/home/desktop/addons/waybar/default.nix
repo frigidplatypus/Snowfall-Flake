@@ -26,7 +26,7 @@ in {
         Main = {
           layer = "top";
           position = "top";
-          height = 25;
+          height = 31;
           tray = { spacing = 15; };
           #modules-center = [ "clock" ];
           modules-left = [ "custom/menu" "hyprland/workspaces" ];
@@ -49,7 +49,7 @@ in {
             tooltip = false;
           };
           "custom/menu" = {
-            format = "<span font='16'> </span>";
+            format = "<span font='18'> </span>";
             on-click =
               "${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi";
             on-click-right = "";
@@ -84,25 +84,25 @@ in {
             tooltip-format = "{status}";
           };
           network = {
-            format-wifi = "<span font='14'> </span>";
-            format-ethernet = "<span font='14'> </span>";
+            format-wifi = "<span font='18'> </span>";
+            format-ethernet = "<span font='18'> </span>";
             #format-ethernet = "<span font='11'></span> {ifname}: {ipaddr}/{cidr}";
-            format-linked = "<span font='14'>睊</span> {ifname} (No IP)";
-            format-disconnected = "<span font='14'>睊</span> Not connected";
+            format-linked = "<span font='18'>睊</span> {ifname} (No IP)";
+            format-disconnected = "<span font='18'>睊</span> Not connected";
             #format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format = "{essid} {ipaddr}/{cidr}";
             #on-click-right = "${pkgs.alacritty}/bin/alacritty -e nmtui";
           };
           pulseaudio = {
-            format = "<span font='11'>{icon}</span> {volume}% {format_source} ";
+            format = "<span font='16'>{icon}</span> {volume}% {format_source} ";
             format-bluetooth =
-              "<span font='11'>{icon}</span> {volume}% {format_source} ";
+              "<span font='16'>{icon}</span> {volume}% {format_source} ";
             format-bluetooth-muted =
-              "<span font='11'></span> {volume}% {format_source} ";
-            format-muted = "<span font='11'></span> {format_source} ";
+              "<span font='16'></span> {volume}% {format_source} ";
+            format-muted = "<span font='16'></span> {format_source} ";
             #format-source = "{volume}% <span font='11'></span>";
-            format-source = "<span font='10'></span> ";
-            format-source-muted = "<span font='11'> </span> ";
+            format-source = "<span font='16'></span> ";
+            format-source-muted = "<span font='16'> </span> ";
             format-icons = {
               default = [ "" "" "" ];
               headphone = "";
@@ -117,7 +117,7 @@ in {
             on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
             on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
-          tray = { icon-size = 13; };
+          tray = { icon-size = 18; };
         };
       };
       style = ''
@@ -125,7 +125,7 @@ in {
         * {
         	border: none;
         	font-family: FiraCode Nerd Font Mono;
-        	font-size: 14px;
+        	font-size: 18px;
         	text-shadow: 0px 0px 5px #000000;
         }
 
@@ -159,7 +159,7 @@ in {
         #battery,
         #bluetooth,
         #tray {
-        	color: #999999;
+        	color: #${colorScheme.palette.base07};
         	background-clip: padding-box;
         }
 
@@ -171,7 +171,7 @@ in {
         #workspaces button {
         	padding: 0px 5px;
         	min-width: 5px;
-        	color: rgba(255, 255, 255, 0.8);
+        	color: #${colorScheme.palette.base06};
         }
 
         #workspaces button:hover {
@@ -180,28 +180,28 @@ in {
 
         /*#workspaces button.focused {*/
         #workspaces button.active {
-        	color: rgba(255, 255, 255, 0.8);
-        	background-color: rgba(213, 196, 161, 0.4);
+        	color: #${colorScheme.palette.base09};
+        	background-color: #${colorScheme.palette.base09};
         }
 
         #workspaces button.visible {
-        	color: #ccffff;
+        	color: #${colorScheme.palette.base07};
         }
 
         #workspaces button.hidden {
-        	color: #999999;
+        	color: #${colorScheme.palette.base09};
         }
 
         #battery.warning {
-        	color: #ff5d17;
+        	color: #${colorScheme.palette.base09};
         }
 
         #battery.critical {
-        	color: #ff200c;
+        	color: #${colorScheme.palette.base08};
         }
 
         #battery.charging {
-        	color: #9ece6a;
+        	color: #${colorScheme.palette.base0B};
         }
       '';
     };
