@@ -12,7 +12,8 @@ in {
   config = mkIf cfg.enable {
     services.couchdb = {
       enable = true;
-      adminPass = config.sops.secrets.justin_password;
+      adminPass = "password";
+      # adminPass = config.sops.secrets.justin_password;
       #configFile = ./config.ini;
       extraConfig = ''
         [couchdb]
