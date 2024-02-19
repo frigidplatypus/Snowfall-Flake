@@ -18,7 +18,7 @@ in {
 
     services.tailscale = {
       enable = true;
-      authKeyFile = config.sops.secrets.tailscale_api_key.path;
+      # authKeyFile = config.sops.secrets.tailscale_api_key.path;
       extraUpFlags = [ "--ssh" "--accept-dns" "--accept-routes=false" ];
     };
 
@@ -48,17 +48,19 @@ in {
 
       # Have the job run this shell script
       script = with pkgs; ''
-        # Wait for tailscaled to settle
-        sleep 2
+                # Wait for tailscaled to settle
+                sleep 2
 
-        # Check if we are already authenticated to tailscale
-        status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-        if [ $status = "Running" ]; then # if so, then do nothing
-          exit 0
-        fi
+                # Check if we are already authenticated to tailscale
+                status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+                if [ $status = "Running" ]; then # if so, then do nothing
+                  exit 0
+                fi
 
-        # Otherwise authenticate with tailscale
-         ${tailscale}/bin/tailscale up 
+                # Otherwise authenticate with tailscale
+                ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale_api_key.path})" 
+
+        #         ${tailscale}/bin/tailscale up --authkey (cat ${config.sops.secrets.tailscale_api_key.path})
       '';
 
     };
