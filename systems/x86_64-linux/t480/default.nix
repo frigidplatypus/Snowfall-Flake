@@ -18,6 +18,7 @@ with lib.frgd; {
     lswt
     waylevel
     frgd.numara
+    steam
   ];
   frgd = {
     system.boot = {
