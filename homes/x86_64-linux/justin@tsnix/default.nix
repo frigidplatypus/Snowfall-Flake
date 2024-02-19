@@ -21,6 +21,7 @@ with lib.frgd; {
       git = enabled;
       direnv = enabled;
       misc = enabled;
+      charms = enabled;
     };
   };
 }
