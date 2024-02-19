@@ -13,13 +13,13 @@ in {
       enable = true;
       shellAliases = {
         fs = "sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
+        fe = "cd ~/Snowfall-Flake/;nvim .";
         ds = "darwin-rebuild switch --flake ~/Snowfall-Flake/#";
       };
       # shellInit = "op completion fish | source";
     };
 
     home.packages = with pkgs.fishPlugins; [
-      z
       #hydro
       #      fzf
       #fzf-fish
@@ -27,7 +27,6 @@ in {
       #hydro
       colored-man-pages
       #pkgs.nerd-font-patcher
-      pkgs.powerline
       pkgs.powerline-fonts
     ];
 
@@ -41,20 +40,32 @@ in {
       settings = {
         add_newline = true;
         format =
-          "$sudo$shell$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$battery$character";
+          "$sudo$shell$shlvl$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
         #"$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
-        #shlvl = {
-        #  disabled = false;
-        #  symbol = "";
-        #  style = "bright-white bold";
-        #};
-        #shell = {
-        #  disabled = false;
-        #  format = "$indicator";
-        #  fish_indicator = "[><> ](bright-white bold)";
-        #  bash_indicator = "[BASH](bright-white) ";
-        #  zsh_indicator = "[ZSH](bright-white) ";
-        #};
+        shlvl = {
+          disabled = false;
+          symbol = " ";
+          style = "bright-white bold";
+        };
+        shell = {
+          disabled = false;
+          format = "[$indicator]($style)";
+          fish_indicator = "[><> ](bright-white bold)";
+          bash_indicator = "[BASH](bright-white) ";
+          zsh_indicator = "[ZSH](bright-white) ";
+        };
+        sudo = {
+          format = "[$symbol]($style)";
+          symbol = "󰬬 ";
+          disabled = false;
+          style = "bright-red bold";
+        };
+        localip = {
+          ssh_only = true;
+          disabled = false;
+        };
+        direnv = { disabled = false; };
+        line_break = { disabled = false; };
         username = {
           style_user = "bright-white bold";
           style_root = "bright-red bold";
