@@ -55,12 +55,12 @@ in {
       pkgs.taskwarrior-tui
       pkgs.tasksh
       pkgs.vit
-      (pkgs.python3.withPackages
-        (python-pkgs: [ python-pkgs.tasklib python-pkgs.bugwarrior ]))
     ] else [
       pkgs.taskwarrior-tui
       pkgs.tasksh
       pkgs.vit
+      (pkgs.python3.withPackages
+        (python-pkgs: [ python-pkgs.tasklib python-pkgs.bugwarrior ]))
     ];
   };
 }
