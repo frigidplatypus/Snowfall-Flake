@@ -38,6 +38,8 @@ in {
         "vial"
         "beeper"
         "cyberduck"
+        "obsidian"
+        "warp"
       ];
     };
 
