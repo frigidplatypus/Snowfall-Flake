@@ -15,6 +15,10 @@ in {
         fs = "sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
         fe = "cd ~/Snowfall-Flake/;nvim .";
         ds = "darwin-rebuild switch --flake ~/Snowfall-Flake/#";
+        dc = "docker compose";
+        dcu = "docker compose up -d";
+        dcd = "docker compose down";
+        tt = "taskwarrior-tui";
       };
       # shellInit = "op completion fish | source";
     };
