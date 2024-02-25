@@ -31,6 +31,7 @@ with lib.frgd; {
       tailscale.autoconnect = enabled;
       netdata = enabled;
       couchdb = enabled;
+      soft-serve = enabled;
     };
     security = {
       sops = {
