@@ -222,6 +222,7 @@ in {
     };
     frgd = {
       apps.foot = enabled;
+      services.cliphist = enabled;
       desktop.addons = {
         waybar = enabled;
         swaylock = enabled;
