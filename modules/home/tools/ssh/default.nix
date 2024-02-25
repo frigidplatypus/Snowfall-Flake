@@ -6,11 +6,20 @@ in {
   options.frgd.tools.ssh = { enable = mkEnableOption "SSH"; };
 
   config = mkIf cfg.enable {
+    services.ssh-agent = enabled;
     programs.ssh = {
-      extraConfig = ''
-        Host *
-          HostKeyAlgorithms +ssh-rsa
-      '';
+      enable = true;
+      addKeysToAgent = "yes";
+      matchBlocks = {
+        soft = {
+          port = 23231;
+          hostname = "tsnix.fluffy-rooster.ts.net";
+        };
+      };
+      #extraConfig = ''
+      #  Host *
+      #    HostKeyAlgorithms +ssh-rsa
+      #'';
     };
   };
 }

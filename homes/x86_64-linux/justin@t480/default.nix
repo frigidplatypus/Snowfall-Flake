@@ -15,6 +15,7 @@ with lib.frgd; {
       ranger = enabled;
       fish = enabled;
       taskwarrior = enabled;
+      # neomutt = enabled;
       # zellij = enabled;
     };
 
@@ -23,6 +24,7 @@ with lib.frgd; {
       direnv = enabled;
       misc = enabled;
       charms = enabled;
+      ssh = enabled;
     };
   };
 }
