@@ -17,6 +17,9 @@ in {
         alejandra
         nodejs
         gcc
+        rustc
+        cargo
+        nil
       ];
 
       sessionVariables = {
