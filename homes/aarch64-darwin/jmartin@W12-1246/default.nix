@@ -27,6 +27,7 @@ with lib.frgd; {
       direnv = enabled;
       bat = enabled;
       misc = enabled;
+      lsd = enabled;
     };
   };
 

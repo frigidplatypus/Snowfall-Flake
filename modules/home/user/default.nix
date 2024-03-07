@@ -67,6 +67,6 @@ in {
       '';
 
     };
-
+    frgd.tools.lsd = enabled;
   }]);
 }
