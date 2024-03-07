@@ -25,7 +25,8 @@ in {
     sops.secrets.justin_password.neededForUsers = true;
     environment.systemPackages = with pkgs; [ ];
 
-    programs.fish = { enable = true; };
+    programs.fish = enabled;
+    programs.starship = enabled;
 
     frgd.home = {
       file = { };
