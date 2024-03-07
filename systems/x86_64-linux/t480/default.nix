@@ -18,7 +18,8 @@ with lib.frgd; {
     lswt
     waylevel
     frgd.numara
-    steam
+    cifs-utils
+    remmina
   ];
   frgd = {
     system.boot = {
