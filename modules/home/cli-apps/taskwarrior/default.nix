@@ -22,7 +22,7 @@ in {
         report.active.labels =
           [ "ID" "Started" "Age" "Priority" "Project" "Due" "Description" ];
         urgency.uda.priority.L.coefficient = -1.8;
-        context.western.read = "project:Western";
+        context.western.read = "project:Western or project:Inbox";
         context.western.write = "project:Western";
         context.home.read = "project.not:Western";
         context.home.write = "project.not:Western";
