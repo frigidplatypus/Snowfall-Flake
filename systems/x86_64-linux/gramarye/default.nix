@@ -18,6 +18,7 @@ with lib.frgd; {
     services = {
       matrix-synapse = enabled;
       wireguard-server = { enable = true; };
+      soft-serve = enabled;
     };
     security = {
       sops = {
