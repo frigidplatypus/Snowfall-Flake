@@ -11,7 +11,7 @@ in {
     home = {
       packages = with pkgs; [
         less
-        rnix-lsp
+        #rnix-lsp
         nixfmt
         ripgrep
         alejandra
