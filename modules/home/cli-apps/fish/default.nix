@@ -14,6 +14,7 @@ in {
       shellAliases = {
         fs =
           "figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
+        fu = "cd ~/Snowfall-Flake/;flake update";
         fe = "cd ~/Snowfall-Flake/;nvim .";
         ds =
           "figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
