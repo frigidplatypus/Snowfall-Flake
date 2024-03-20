@@ -30,10 +30,14 @@ with lib.frgd; {
   frgd = {
     security.sops = enabled;
     archetypes.server = enabled;
-    # services.jellyfin = enabled;
+    services.jellyfin = enabled;
     services = {
       tailscale.autoconnect = enabled;
       netdata = enabled;
+      samba = {
+        enable = true;
+        shares = { ROMS = { path = "/storage/ROMs"; }; };
+      };
     };
     virtualization = {
       docker = enabled;
