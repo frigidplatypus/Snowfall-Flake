@@ -22,6 +22,7 @@ with lib.frgd; {
       direnv = enabled;
       misc = enabled;
       charms = enabled;
+      ssh = enabled;
     };
   };
 }
