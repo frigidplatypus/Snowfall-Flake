@@ -10,9 +10,8 @@ in {
 
   config = mkIf cfg.enable {
     services = {
-      gitea = {
+      forgejo = {
         enable = true;
-        package = pkgs.forgejo;
         settings.server.ROOT_URL = "http://gitea.frgd.us:3000";
         #useWizard = true;
       };
