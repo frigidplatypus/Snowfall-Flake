@@ -6,8 +6,6 @@ with lib.frgd; {
     ./hardware.nix
   ];
 
-  networking.hostName = "t480"; # Define your hostname.
-
   frgd = {
     archetypes = {
 
