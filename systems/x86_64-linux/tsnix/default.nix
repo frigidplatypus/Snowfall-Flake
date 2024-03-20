@@ -32,6 +32,7 @@ with lib.frgd; {
       netdata = enabled;
       couchdb = enabled;
       soft-serve = enabled;
+      unifiServer = enabled;
     };
     security = {
       sops = {
