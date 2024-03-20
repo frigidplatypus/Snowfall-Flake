@@ -13,7 +13,7 @@ in {
       matchBlocks = {
         soft = {
           port = 23231;
-          hostname = "tsnix.fluffy-rooster.ts.net";
+          hostname = "git.frgd.us";
         };
       };
       #extraConfig = ''
