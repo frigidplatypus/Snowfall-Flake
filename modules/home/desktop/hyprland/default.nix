@@ -37,6 +37,7 @@ in {
         whitesur-icon-theme
         whitesur-gtk-theme
         stilo-themes
+        clipse
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
@@ -134,6 +135,7 @@ in {
           "SUPERSHIFT,right,movetoworkspace,+1"
           "SUPERSHIFT,left,movetoworkspace,-1"
 
+          "SUPER, V, exec,  ${pkgs.foot}/bin/footclient --class floating -e fish  -c '${pkgs.clipse}/bin/clipse $PPID'" # bind the open clipboard operation to a nice key.
           "SUPER,Return,exec,${pkgs.foot}/bin/footclient"
           "SUPERSHIFT,Return,exec,${pkgs.google-chrome}/bin/google-chrome-stable"
           "SUPERSHIFT,Q,killactive,"
@@ -163,9 +165,14 @@ in {
           "move 75% 75% ,title:^(Picture-in-Picture)$"
           "size 24% 24% ,title:^(Picture-in-Picture)$"
         ];
+        windowrulev2 = [
+          "float,class:(floating)"
+        ]; # ensure you have defined a floating window class
+
         exec-once = [
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "${pkgs.swaybg}/bin/swaybg -m center -i $HOME/flake/modules/themes/wall.png"
+          "${pkgs.clipse}/bin/clipse -listen"
 
           "${pkgs.waybar}/bin/waybar"
           "${pkgs.foot}/binfoot --server &"
