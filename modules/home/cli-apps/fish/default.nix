@@ -1,30 +1,38 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
 let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.frgd.cli-apps.fish;
-in {
-  options.frgd.cli-apps.fish = { enable = mkEnableOption "fish"; };
+in
+{
+  options.frgd.cli-apps.fish = {
+    enable = mkEnableOption "fish";
+  };
 
   config = mkIf cfg.enable {
     programs.fish = {
       enable = true;
       shellAliases = {
-        fs =
-          "figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
+        fs = "figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
         fu = "cd ~/Snowfall-Flake/;flake update";
         fe = "cd ~/Snowfall-Flake/;nvim .";
-        ds =
-          "figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
+        ds = "figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
         dc = "docker compose";
         dcu = "docker compose up -d";
         dcd = "docker compose down";
         tt = "taskwarrior-tui";
-
       };
-      # shellInit = "op completion fish | source";
+      shellInitLast = ''
+        alias cd=z
+        alias cdi=zi
+      '';
     };
 
     home.packages = with pkgs.fishPlugins; [
@@ -48,8 +56,7 @@ in {
       enableFishIntegration = true;
       settings = {
         add_newline = true;
-        format =
-          "$sudo$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
+        format = "$sudo$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
         #"$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
         shlvl = {
           disabled = false;
@@ -73,8 +80,12 @@ in {
           ssh_only = true;
           disabled = false;
         };
-        direnv = { disabled = false; };
-        line_break = { disabled = false; };
+        direnv = {
+          disabled = false;
+        };
+        line_break = {
+          disabled = false;
+        };
         username = {
           style_user = "bright-white bold";
           style_root = "bright-red bold";
@@ -85,6 +96,5 @@ in {
       theme_nerd_fonts = "yes";
       theme_color_scheme = "gruvbox";
     };
-
   };
 }
