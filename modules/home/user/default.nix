@@ -1,4 +1,4 @@
-{ lib, config, pkgs, osConfig ? { }, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 with lib.frgd;
 let
@@ -65,8 +65,27 @@ in {
           <div style="background-color:#${colorScheme.palette.base0F}; height: 200px; width: 30%; float:right;"><p>base0F</p>${colorScheme.palette.base0F}</div>
         </html> 
       '';
-
     };
-    frgd.tools.lsd = enabled;
+    frgd = {
+      tools.lsd = enabled;
+      cli-apps = {
+        atuin = enabled;
+        zoxide = enabled;
+        neovim = enabled;
+        home-manager = enabled;
+        tmux = enabled;
+        ranger = enabled;
+        fish = enabled;
+        # zellij = enabled;
+      };
+
+      tools = {
+        git = enabled;
+        direnv = enabled;
+        misc = enabled;
+        charms = enabled;
+        ssh = enabled;
+      };
+    };
   }]);
 }
