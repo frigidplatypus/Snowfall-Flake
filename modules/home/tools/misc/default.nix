@@ -26,6 +26,7 @@ in {
       unzip
       ncdu
       bottom
+      localsend
       # fast-cli
     ];
   };
