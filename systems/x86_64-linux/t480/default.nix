@@ -1,12 +1,16 @@
 { lib, pkgs, ... }:
 with lib;
-with lib.frgd; {
+with lib.frgd;
+{
 
-  imports = [ ./hardware.nix ./disko.nix ];
+  imports = [
+    ./hardware.nix
+    ./disko.nix
+  ];
 
   # Enable fingerprint reader.
-  services.open-fprintd.enable = true;
-  services.python-validity.enable = true;
+  # services.open-fprintd.enable = true;
+  # services.python-validity.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
@@ -30,14 +34,16 @@ with lib.frgd; {
       element = enabled;
       signal = enabled;
     };
-    services = { espanso = enabled; };
+    #services = { espanso = enabled; };
     security = {
       sops = {
         enable = true;
         taskwarrior = enabled;
       };
     };
-    archetypes = { workstation = enabled; };
+    archetypes = {
+      workstation = enabled;
+    };
     virtualization = {
       libvirtd = {
         enable = true;
