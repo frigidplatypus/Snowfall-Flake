@@ -1,18 +1,25 @@
-{ options, config, pkgs, lib, inputs, ... }:
+{
+  options,
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.home;
-in {
+let
+  cfg = config.frgd.home;
+in
+{
   # imports = with inputs; [
   #   home-manager.nixosModules.home-manager
   # ];
 
   options.frgd.home = with types; {
-    file = mkOpt attrs { }
-      (mdDoc "A set of files to be managed by home-manager's `home.file`.");
-    configFile = mkOpt attrs { } (mdDoc
-      "A set of files to be managed by home-manager's `xdg.configFile`.");
+    file = mkOpt attrs { } (mdDoc "A set of files to be managed by home-manager's `home.file`.");
+    configFile = mkOpt attrs { } (
+      mdDoc "A set of files to be managed by home-manager's `xdg.configFile`."
+    );
     extraOptions = mkOpt attrs { } "Options to pass directly to home-manager.";
   };
 
@@ -27,9 +34,9 @@ in {
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
+      backupFileExtension = "backuphm";
 
-      users.${config.frgd.user.name} =
-        mkAliasDefinitions options.frgd.home.extraOptions;
+      users.${config.frgd.user.name} = mkAliasDefinitions options.frgd.home.extraOptions;
     };
   };
 }
