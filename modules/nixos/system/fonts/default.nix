@@ -1,9 +1,17 @@
-{ options, config, pkgs, lib, ... }:
+{
+  options,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.system.fonts;
-in {
+let
+  cfg = config.frgd.system.fonts;
+in
+{
   options.frgd.system.fonts = with types; {
     enable = mkBoolOpt false "Whether or not to manage fonts.";
     fonts = mkOpt (listOf package) [ ] "Custom font packages to install.";
@@ -15,9 +23,10 @@ in {
       LOG_ICONS = "true";
     };
 
-    environment.systemPackages = with pkgs; [ font-manager ];
+    #environment.systemPackages = with pkgs; [ font-manager ];
 
-    fonts.packages = with pkgs;
+    fonts.packages =
+      with pkgs;
       [
         noto-fonts
         noto-fonts-cjk-sans
@@ -38,9 +47,11 @@ in {
         font-awesome # Icons
         # corefonts # MS
         # nerdfonts
-        (nerdfonts.override { # Nerdfont Icons override
+        (nerdfonts.override {
+          # Nerdfont Icons override
           fonts = [ "FiraCode" ];
         })
-      ] ++ cfg.fonts;
+      ]
+      ++ cfg.fonts;
   };
 }
