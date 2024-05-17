@@ -12,7 +12,7 @@ in {
       packages = with pkgs; [
         less
         #rnix-lsp
-        nixfmt
+        nixfmt-rfc-style
         ripgrep
         alejandra
         nodejs

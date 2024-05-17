@@ -14,7 +14,7 @@ in {
       snowfallorg.flake
       gcc
       neovim
-      nixfmt
+      nixfmt-rfc-style
       ripgrep
     ];
 
