@@ -1,4 +1,9 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -6,7 +11,8 @@ with lib.frgd;
 let
   cfg = config.frgd.desktop.addons.rofi;
   inherit (config.lib.formats.rasi) mkLiteral;
-in {
+in
+{
   options.frgd.desktop.addons.rofi = with types; {
     enable = mkBoolOpt false "rofi";
   };
@@ -26,6 +32,7 @@ in {
     programs = {
       rofi = {
         enable = true;
+        package = pkgs.rofi-wayland;
         terminal = "${pkgs.foot}/bin/footclient";
         location = "center";
         font = "FiraCode Nerd Font Mono 12";
@@ -88,20 +95,30 @@ in {
             spacing = mkLiteral "8px";
           };
 
-          "element normal urgent" = { text-color = mkLiteral "@fg1"; };
+          "element normal urgent" = {
+            text-color = mkLiteral "@fg1";
+          };
 
-          "element normal active" = { text-color = mkLiteral "@fg1"; };
+          "element normal active" = {
+            text-color = mkLiteral "@fg1";
+          };
 
           "element selected" = {
             text-color = mkLiteral "@bg0"; # 1
             background-color = mkLiteral "@fg1";
           };
 
-          "element selected urgent" = { background-color = mkLiteral "@fg1"; };
+          "element selected urgent" = {
+            background-color = mkLiteral "@fg1";
+          };
 
-          "element-icon" = { size = mkLiteral "0.8em"; };
+          "element-icon" = {
+            size = mkLiteral "0.8em";
+          };
 
-          "element-text" = { text-color = mkLiteral "inherit"; };
+          "element-text" = {
+            text-color = mkLiteral "inherit";
+          };
 
           "scrollbar" = {
             handle-width = mkLiteral "4px";
@@ -111,6 +128,5 @@ in {
         };
       };
     };
-
   };
 }
