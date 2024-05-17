@@ -16,5 +16,9 @@ in
     enable = mkBoolOpt false "zoxide";
   };
 
-  config = mkIf cfg.enable { programs.zoxide = enabled; };
+  config = mkIf cfg.enable {
+    programs.zoxide = {
+      enable = true;
+    };
+  };
 }
