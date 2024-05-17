@@ -1,16 +1,22 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 with lib;
-with lib.frgd; {
+with lib.frgd;
+{
 
-  imports = [ ./hardware.nix ./disko.nix ];
+  imports = [
+    ./hardware.nix
+    ./disko.nix
+  ];
 
   networking = {
     useDHCP = false;
     networkmanager.enable = true;
-    interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.0.9";
-      prefixLength = 24;
-    }];
+    interfaces.eno1.ipv4.addresses = [
+      {
+        address = "192.168.0.9";
+        prefixLength = 24;
+      }
+    ];
     bridges."br0".interfaces = [ "enp4s0" ];
     interfaces."br0".useDHCP = true;
 
@@ -33,6 +39,7 @@ with lib.frgd; {
       couchdb = enabled;
       soft-serve = enabled;
       unifiServer = enabled;
+      nix-serve = enabled;
     };
     security = {
       sops = {
@@ -41,7 +48,9 @@ with lib.frgd; {
         porkbun = enabled;
       };
     };
-    suites = { common-slim = enabled; };
+    suites = {
+      common-slim = enabled;
+    };
     virtualization = {
       libvirtd = enabled;
       docker = enabled;
@@ -65,7 +74,9 @@ with lib.frgd; {
       # "tasks.frgd.us" = { };
       # "recipes.frgd.us" = { };
       # "ha.frgd.us" = { };
-      "frgd.us" = { extraDomainNames = [ "*.frgd.us" ]; };
+      "frgd.us" = {
+        extraDomainNames = [ "*.frgd.us" ];
+      };
     };
   };
   services.nginx = {
@@ -83,9 +94,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "ag.frgd.us" = {
@@ -97,9 +109,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "bb.frgd.us" = {
@@ -111,9 +124,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "unifi.frgd.us" = {
@@ -125,9 +139,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "calibre.frgd.us" = {
@@ -139,9 +154,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "books.frgd.us" = {
@@ -153,9 +169,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "notes.frgd.us" = {
@@ -167,9 +184,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "recipes.frgd.us" = {
@@ -180,9 +198,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "reader.frgd.us" = {
@@ -193,9 +212,10 @@ with lib.frgd; {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
       "ha.frgd.us" = {

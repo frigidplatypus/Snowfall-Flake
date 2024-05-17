@@ -1,15 +1,21 @@
 { lib, pkgs, ... }:
 with lib;
-with lib.frgd; {
-  imports = [ ./hardware.nix ./disko.nix ];
+with lib.frgd;
+{
+  imports = [
+    ./hardware.nix
+    ./disko.nix
+  ];
 
   networking = {
     networkmanager.enable = true;
     hostId = "358bebb3";
-    interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.0.6";
-      prefixLength = 24;
-    }];
+    interfaces.eno1.ipv4.addresses = [
+      {
+        address = "192.168.0.6";
+        prefixLength = 24;
+      }
+    ];
     defaultGateway = "192.168.0.1";
     nameservers = [ "192.168.0.1" ];
     bridges."br0".interfaces = [ "enp1s1" ];
@@ -36,7 +42,11 @@ with lib.frgd; {
       netdata = enabled;
       samba = {
         enable = true;
-        shares = { ROMS = { path = "/storage/ROMs"; }; };
+        shares = {
+          ROMS = {
+            path = "/storage/ROMs";
+          };
+        };
       };
     };
     virtualization = {
@@ -44,6 +54,7 @@ with lib.frgd; {
       libvirtd = enabled;
     };
     system = {
+      nix-store = enabled;
       zfs = {
         enable = true;
         pools = [ "storage" ];
