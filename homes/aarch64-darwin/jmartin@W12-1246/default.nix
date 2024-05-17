@@ -1,8 +1,11 @@
 { lib, ... }:
 with lib;
-with lib.frgd; {
+with lib.frgd;
+{
   frgd = {
-    apps = { circuit-python-editors = enabled; };
+    apps = {
+      circuit-python-editors = enabled;
+    };
     services = {
       espanso = {
         enable = true;
@@ -12,6 +15,7 @@ with lib.frgd; {
 
     cli-apps = {
       #zsh = enabled;
+      atuin = enabled;
       neovim = enabled;
       home-manager = enabled;
       tmux = enabled;
@@ -20,6 +24,7 @@ with lib.frgd; {
       #zellij = enabled;
       # starship = enabled;
       fish = enabled;
+      zoxide = enabled;
     };
 
     tools = {
@@ -31,7 +36,5 @@ with lib.frgd; {
     };
   };
 
-  home.stateVersion = "23.05";
-
+  home.stateVersion = "24.05";
 }
-
