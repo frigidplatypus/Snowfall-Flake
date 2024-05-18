@@ -7,9 +7,6 @@
 
 with lib;
 with lib.frgd;
-let
-  cfg = config.frgd.home;
-in
 {
   # imports = with inputs; [
   #   home-manager.nixosModules.home-manager
