@@ -24,6 +24,8 @@ with lib.frgd;
     frgd.numara
     cifs-utils
     remmina
+    go
+    nom
   ];
   frgd = {
     system.boot = {
