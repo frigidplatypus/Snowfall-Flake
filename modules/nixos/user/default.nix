@@ -1,24 +1,30 @@
-{ options, config, pkgs, lib, ... }:
+{
+  options,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.frgd;
 let
   cfg = config.frgd.user;
-  #defaultIconFileName = "profile.png";
-in {
+in
+#defaultIconFileName = "profile.png";
+{
   options.frgd.user = with types; {
     name = mkOpt str "justin" "The name to use for the user account.";
     fullName = mkOpt str "Justin Martin" "The full name of the user.";
     email = mkOpt str "jus10mar10@gmail.com" "The email of the user.";
-    initialPassword = mkOpt str "password"
-      "The initial password to use when the user is first created.";
+    initialPassword =
+      mkOpt str "password"
+        "The initial password to use when the user is first created.";
     # icon = mkOpt (nullOr package) defaultIcon
     #   "The profile picture to use for the user.";
-    prompt-init = mkBoolOpt true
-      "Whether or not to show an initial message when opening a new shell.";
+    prompt-init = mkBoolOpt true "Whether or not to show an initial message when opening a new shell.";
     extraGroups = mkOpt (listOf str) [ ] "Groups for the user to be assigned.";
-    extraOptions =
-      mkOpt attrs { } (mdDoc "Extra options passed to `users.users.<name>`.");
+    extraOptions = mkOpt attrs { } (mdDoc "Extra options passed to `users.users.<name>`.");
   };
 
   config = {
@@ -27,6 +33,7 @@ in {
 
     programs.fish = enabled;
     programs.starship = enabled;
+    home-manager.backupFileExtension = "backuphm";
 
     frgd.home = {
       file = { };
@@ -40,7 +47,6 @@ in {
           lcu = "${pkgs.colorls}/bin/colorls -U";
           lclu = "${pkgs.colorls}/bin/colorls -U -1";
         };
-
       };
     };
 
