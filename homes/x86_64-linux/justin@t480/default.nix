@@ -26,6 +26,7 @@ with lib.frgd;
       fish = enabled;
       taskwarrior = enabled;
       matrix_clients = enabled;
+      hass-cli = enabled;
       # neomutt = enabled;
       # zellij = enabled;
     };
