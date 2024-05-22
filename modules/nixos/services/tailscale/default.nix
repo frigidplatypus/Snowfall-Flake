@@ -1,14 +1,20 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.services.tailscale;
-in {
+let
+  cfg = config.frgd.services.tailscale;
+in
+{
   options.frgd.services.tailscale = with types; {
     enable = mkBoolOpt false "Whether or not to configure Tailscale";
     autoconnect = {
-      enable = mkBoolOpt false
-        "Whether or not to enable automatic connection to Tailscale";
+      enable = mkBoolOpt false "Whether or not to enable automatic connection to Tailscale";
     };
   };
 
@@ -19,7 +25,11 @@ in {
     services.tailscale = {
       enable = true;
       # authKeyFile = config.sops.secrets.tailscale_api_key.path;
-      extraUpFlags = [ "--ssh" "--accept-dns" "--accept-routes=false" ];
+      extraUpFlags = [
+        "--ssh"
+        "--accept-dns"
+        "--accept-routes=false"
+      ];
     };
 
     networking = {
@@ -39,8 +49,14 @@ in {
       description = "Automatic connection to Tailscale";
 
       # Make sure tailscale is running before trying to connect to tailscale
-      after = [ "network-pre.target" "tailscale.service" ];
-      wants = [ "network-pre.target" "tailscale.service" ];
+      after = [
+        "network-pre.target"
+        "tailscale.service"
+      ];
+      wants = [
+        "network-pre.target"
+        "tailscale.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       # Set this service as a oneshot job
@@ -62,7 +78,6 @@ in {
 
         #         ${tailscale}/bin/tailscale up --authkey (cat ${config.sops.secrets.tailscale_api_key.path})
       '';
-
     };
   };
 }
