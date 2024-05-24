@@ -1,17 +1,22 @@
 { lib, ... }:
 with lib;
-with lib.frgd; {
+with lib.frgd;
+{
   frgd = {
     user = {
       enable = true;
       name = "justin";
     };
-    desktop = { hyprland = enabled; };
-    apps = { obsidian = enabled; };
+    desktop = {
+      hyprland = enabled;
+    };
+    apps = {
+      obsidian = enabled;
+    };
     cli-apps = {
       neovim = enabled;
       home-manager = enabled;
-      tmux = enabled;
+      # tmux = enabled;
       ranger = enabled;
       fish = enabled;
       taskwarrior = enabled;
