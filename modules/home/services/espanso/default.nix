@@ -21,7 +21,7 @@ in
   config = mkIf cfg.enable {
     services.espanso = {
       enable = mkIf pkgs.stdenv.isLinux true;
-      package = mkIf pkgs.stdenv.isLinux pkgs.espanso-wayland;
+      #package = mkIf pkgs.stdenv.isLinux pkgs.espanso-wayland;
       configs = {
         default = {
           show_notifications = true;
