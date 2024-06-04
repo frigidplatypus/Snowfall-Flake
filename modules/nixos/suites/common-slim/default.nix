@@ -1,12 +1,19 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.suites.common-slim;
-in {
+let
+  cfg = config.frgd.suites.common-slim;
+in
+{
   options.frgd.suites.common-slim = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable common-slim configuration.";
+    enable = mkBoolOpt false "Whether or not to enable common-slim configuration.";
   };
 
   config = mkIf cfg.enable {
@@ -14,7 +21,9 @@ in {
     frgd = {
       nix = enabled;
 
-      cli-apps = { flake = enabled; };
+      cli-apps = {
+        flake = enabled;
+      };
 
       tools = {
         git = enabled;
@@ -35,7 +44,9 @@ in {
         syncthing = enabled;
       };
 
-      # security = { doas = enabled; };
+      security = {
+        sops = enabled;
+      };
 
       system = {
         boot = enabled;
