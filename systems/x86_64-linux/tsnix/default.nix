@@ -31,7 +31,7 @@ with lib.frgd;
     };
     services = {
       # freshrss = enabled;
-      espanso = enabled;
+      #espanso = enabled;
       taskserver = enabled;
       ntfy = enabled;
       tailscale.autoconnect = enabled;
@@ -40,6 +40,7 @@ with lib.frgd;
       soft-serve = enabled;
       unifiServer = enabled;
       nix-serve = enabled;
+      esphome = enabled;
     };
     security = {
       sops = {
@@ -66,14 +67,6 @@ with lib.frgd;
       group = "nginx";
     };
     certs = {
-      # "reader.frgd.us" = { };
-      # "books.frgd.us" = { };
-      # "calibre.frgd.us" = { };
-      # "books.frgd.us" = { };
-      # "notes.frgd.us" = { };
-      # "tasks.frgd.us" = { };
-      # "recipes.frgd.us" = { };
-      # "ha.frgd.us" = { };
       "frgd.us" = {
         extraDomainNames = [ "*.frgd.us" ];
       };
@@ -135,7 +128,7 @@ with lib.frgd;
         forceSSL = true;
         useACMEHost = "frgd.us";
         locations."/" = {
-          proxyPass = "https://192.168.0.14:8443";
+          proxyPass = "https://127.0.0.1:8443";
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
