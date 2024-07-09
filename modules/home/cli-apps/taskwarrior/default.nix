@@ -1,11 +1,17 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
 let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.frgd.cli-apps.taskwarrior;
-in {
+in
+{
   options.frgd.cli-apps.taskwarrior = {
     enable = mkEnableOption "Taskwarrior";
   };
@@ -17,10 +23,24 @@ in {
       config = {
         confirmation = false;
         report.minimal.filter = "status:pending";
-        report.active.columns =
-          [ "id" "start" "entry.age" "priority" "project" "due" "description" ];
-        report.active.labels =
-          [ "ID" "Started" "Age" "Priority" "Project" "Due" "Description" ];
+        report.active.columns = [
+          "id"
+          "start"
+          "entry.age"
+          "priority"
+          "project"
+          "due"
+          "description"
+        ];
+        report.active.labels = [
+          "ID"
+          "Started"
+          "Age"
+          "Priority"
+          "Project"
+          "Due"
+          "Description"
+        ];
         urgency.uda.priority.L.coefficient = -1.8;
         context.western.read = "project:Western or project:Inbox";
         context.western.write = "project:Western";
@@ -47,22 +67,23 @@ in {
       };
     };
 
-    services.taskwarrior-sync.enable =
-      if pkgs.stdenv.isLinux then true else false;
+    services.taskwarrior-sync.enable = if pkgs.stdenv.isLinux then true else false;
 
-    home.packages = if pkgs.stdenv.isLinux then [
-      pkgs.taskopen
-      pkgs.taskwarrior-tui
-      pkgs.tasksh
-      pkgs.vit
-      (pkgs.python3.withPackages
-        (python-pkgs: [ python-pkgs.tasklib python-pkgs.bugwarrior ]))
-    ] else [
-      pkgs.taskwarrior-tui
-      pkgs.tasksh
-      pkgs.vit
-      (pkgs.python3.withPackages
-        (python-pkgs: [ python-pkgs.tasklib python-pkgs.bugwarrior ]))
-    ];
+    home.packages =
+      if pkgs.stdenv.isLinux then
+        [
+          pkgs.taskopen
+          pkgs.taskwarrior-tui
+          pkgs.tasksh
+          pkgs.vit
+          (pkgs.python3.withPackages (python-pkgs: [ python-pkgs.tasklib ]))
+        ]
+      else
+        [
+          pkgs.taskwarrior-tui
+          pkgs.tasksh
+          pkgs.vit
+          (pkgs.python3.withPackages (python-pkgs: [ python-pkgs.tasklib ]))
+        ];
   };
 }
