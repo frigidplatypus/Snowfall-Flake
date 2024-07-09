@@ -39,7 +39,7 @@ in
       #hydro
       #      fzf
       #fzf-fish
-      done
+      # done
       #hydro
       colored-man-pages
       #pkgs.nerd-font-patcher
