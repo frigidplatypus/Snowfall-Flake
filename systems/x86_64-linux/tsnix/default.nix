@@ -25,9 +25,11 @@ with lib.frgd;
   };
 
   frgd = {
-    system.boot = {
-      enable = true;
-      efi = true;
+    system = {
+      boot = {
+        enable = true;
+        efi = true;
+      };
     };
     services = {
       # freshrss = enabled;
