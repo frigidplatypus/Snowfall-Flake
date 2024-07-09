@@ -31,10 +31,12 @@ in
       zip
       p7zip
       unzip
-      ncdu
+      # ncdu
+      gdu
       bottom
       localsend
       # fast-cli
+      tldr
     ];
   };
 }
