@@ -4,7 +4,7 @@ with lib.frgd;
 {
   frgd = {
     apps = {
-      circuit-python-editors = enabled;
+      # circuit-python-editors = enabled;
     };
     services = {
       espanso = {
