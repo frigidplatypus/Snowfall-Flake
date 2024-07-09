@@ -1,9 +1,17 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.nix-darwin;
-in {
+let
+  cfg = config.frgd.nix-darwin;
+in
+{
   options.frgd.nix-darwin = with types; {
     enable = mkBoolOpt false "Whether or not to enable nix-darwin defaults.";
   };
@@ -12,7 +20,10 @@ in {
 
     programs.fish.enable = true;
     environment = {
-      shells = with pkgs; [ bash fish ];
+      shells = with pkgs; [
+        bash
+        fish
+      ];
       loginShell = pkgs.fish;
       systemPackages = [ pkgs.coreutils ];
       systemPath = [ "/opt/homebrew/bin" ];
@@ -23,7 +34,9 @@ in {
     '';
 
     nixpkgs.config.allowUnfree = true;
-    system = { stateVersion = 4; };
+    system = {
+      stateVersion = 4;
+    };
 
     services.nix-daemon.enable = true;
     system.defaults = {
@@ -50,7 +63,9 @@ in {
         askForPassword = true;
         askForPasswordDelay = 300;
       };
-      trackpad = { TrackpadThreeFingerDrag = true; };
+      trackpad = {
+        TrackpadThreeFingerDrag = true;
+      };
     };
 
     system.keyboard = {

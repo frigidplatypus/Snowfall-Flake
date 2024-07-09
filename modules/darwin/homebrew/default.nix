@@ -1,9 +1,17 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.homebrew;
-in {
+let
+  cfg = config.frgd.homebrew;
+in
+{
   options.frgd.homebrew = with types; {
     enable = mkBoolOpt false "Whether or not to enable Homebrew.";
 
@@ -40,6 +48,7 @@ in {
         "cyberduck"
         "obsidian"
         "warp"
+        "zed"
       ];
     };
 
