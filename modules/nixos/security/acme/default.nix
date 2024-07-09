@@ -1,4 +1,10 @@
-{ lib, pkgs, config, virtual, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  virtual,
+  ...
+}:
 
 let
   inherit (lib) mkIf mkEnableOption optional;
