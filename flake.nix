@@ -5,7 +5,6 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    mongodb_pinned.url = "github:nixos/nixpkgs/5fd8536a9a5932d4ae8de52b7dc08d92041237fc";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -87,7 +86,8 @@
       channels-config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          # "electron-25.9.0"
+          "electron-27.3.11"
+          "electron-28.3.3"
         ];
       };
       overlays = with inputs; [
@@ -115,10 +115,6 @@
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
-      systems.hosts.t480.modules = with inputs; [
-        nixos-hardware.nixosModules.lenovo-thinkpad-t480
-        nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
-        nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
-      ];
+      systems.hosts.t480.modules = with inputs; [ nixos-hardware.nixosModules.lenovo-thinkpad-t480 ];
     };
 }
