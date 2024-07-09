@@ -23,10 +23,20 @@ with lib.frgd;
     frgd.numara
     cifs-utils
     remmina
+    immich-cli
+    immich-go
+    wl-clipboard
+    inkscape
+    cura
+    fontfinder
+
   ];
   frgd = {
     system = {
       fonts = enabled;
+      zfs = {
+        enable = true;
+      };
       boot = {
         enable = true;
         efi = true;
