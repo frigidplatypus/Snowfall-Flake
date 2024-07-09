@@ -45,6 +45,11 @@ with lib.frgd;
         shares = {
           ROMS = {
             path = "/storage/ROMs";
+            public = true;
+          };
+          media = {
+            path = "/storage/plex";
+            public = true;
           };
         };
       };
