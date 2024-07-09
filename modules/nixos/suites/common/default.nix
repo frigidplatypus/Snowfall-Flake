@@ -1,9 +1,17 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.suites.common;
-in {
+let
+  cfg = config.frgd.suites.common;
+in
+{
   options.frgd.suites.common = with types; {
     enable = mkBoolOpt false "Whether or not to enable common configuration.";
   };
@@ -13,7 +21,9 @@ in {
 
     frgd = {
       nix = enabled;
-      suites = { common-slim = enabled; };
+      suites = {
+        common-slim = enabled;
+      };
       apps = {
         #_1password = enabled;
         # cider = enabled;
@@ -21,7 +31,9 @@ in {
         google-chrome = enabled;
       };
 
-      cli-apps = { flake = enabled; };
+      cli-apps = {
+        flake = enabled;
+      };
 
       tools = {
         git = enabled;
@@ -33,7 +45,7 @@ in {
       };
 
       hardware = {
-        audio = enabled;
+        # audio = enabled;
         storage = enabled;
         networking = enabled;
       };
