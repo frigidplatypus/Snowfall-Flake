@@ -18,8 +18,8 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      iamb
-      gomuks
+      # iamb
+      # gomuks
     ];
   };
 }

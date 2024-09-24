@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -13,7 +19,7 @@ in
   config = mkIf cfg.enable {
     frgd = {
       apps = {
-        element = enabled;
+        # element = enabled;
       };
     };
   };
