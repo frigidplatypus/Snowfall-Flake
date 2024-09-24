@@ -64,7 +64,7 @@ in
       settings = mkMerge [
         {
           general = {
-            sensitivity = 1;
+            # sensitivity = 1;
             border_size = 4;
             gaps_in = 5;
             gaps_out = 5;
