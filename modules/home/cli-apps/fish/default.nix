@@ -66,7 +66,7 @@ in
         shell = {
           disabled = false;
           format = "[$indicator]($style)";
-          fish_indicator = "[><> ](bright-white bold)";
+          fish_indicator = "[🐡](bright-white bold)";
           bash_indicator = "[BASH](bright-white) ";
           zsh_indicator = "[ZSH](bright-white) ";
         };
