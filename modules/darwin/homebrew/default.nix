@@ -49,6 +49,7 @@ in
         "obsidian"
         "warp"
         "zed"
+        "hyper"
       ];
     };
 
