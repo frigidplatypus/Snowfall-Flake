@@ -37,6 +37,7 @@ in
       localsend
       # fast-cli
       tldr
+      magic-wormhole-rs
     ];
   };
 }
