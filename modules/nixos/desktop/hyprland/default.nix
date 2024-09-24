@@ -1,11 +1,17 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
 let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.frgd.desktop.hyprland;
-in {
+in
+{
   options.frgd.desktop.hyprland = {
     enable = mkEnableOption "Enable the Hyprland window manager";
   };
@@ -16,14 +22,13 @@ in {
 
     nix.settings = {
       substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
     powerManagement = {
       enable = true;
       powerDownCommands = "swaylock";
     };
+
 
     environment = {
       loginShellInit = ''
@@ -64,11 +69,14 @@ in {
         whitesur-icon-theme
         whitesur-gtk-theme
         stilo-themes
+        wl-clipboard
       ];
     };
 
     frgd = {
-      hardware = { audio = enabled; };
+      hardware = {
+        audio = enabled;
+      };
       desktop.addons = {
         swaylock = enabled;
         # waybar = enabled;
@@ -80,7 +88,9 @@ in {
     };
     services.udisks2 = enabled;
     programs = {
-      hyprland = { enable = true; };
+      hyprland = {
+        enable = true;
+      };
       light = enabled;
       dconf = enabled;
       udevil = enabled;
