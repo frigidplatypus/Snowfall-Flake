@@ -18,7 +18,7 @@ in
 
   config = mkIf cfg.enable {
     frgd.nix.extra-substituters = {
-      "http://192.168.0.9:5000".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
+      "https://nix.frgd.us".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
     };
   };
 }
