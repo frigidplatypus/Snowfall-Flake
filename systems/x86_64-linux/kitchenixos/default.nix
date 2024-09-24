@@ -27,13 +27,13 @@ with lib.frgd;
     immich-go
     wl-clipboard
     inkscape
-    cura
     fontfinder
 
   ];
   frgd = {
     system = {
       fonts = enabled;
+      nix-store = enabled;
       zfs = {
         enable = true;
       };
@@ -43,11 +43,11 @@ with lib.frgd;
       };
     };
     apps = {
-      element = enabled;
+      # element = enabled;
       signal = enabled;
       brave = enabled;
     };
-    #services = { espanso = enabled; };
+    # services = { espanso = enabled; };
     security = {
       sops = {
         enable = true;
