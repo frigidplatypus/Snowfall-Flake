@@ -20,6 +20,7 @@ in
 
     programs.taskwarrior = {
       enable = true;
+      package = pkgs.taskwarrior3;
       config = {
         confirmation = false;
         report.minimal.filter = "status:pending";
@@ -46,24 +47,9 @@ in
         context.western.write = "project:Western";
         context.home.read = "project.not:Western";
         context.home.write = "project.not:Western";
-        taskd = mkIf cfg.enable (mkMerge [
-          {
-            server = "tasks.frgd.us:53589";
-            credentials = "frgd/justin/6d45587b-6254-449c-a6c9-6f8d7989dc19";
-            trust = "strict";
-          }
-          (mkIf (pkgs.stdenv.isLinux) {
-            certificate = "/run/secrets/taskwarrior_public_cert";
-            key = "/run/secrets/taskwarrior_private_key";
-            ca = "/run/secrets/taskwarrior_ca_cert";
-          })
-
-          (mkIf (pkgs.stdenv.isDarwin) {
-            certificate = "~/.task/keys/public.cert";
-            key = "~/.task/keys/private.key";
-            ca = "~/.task/keys/ca.cert";
-          })
-        ]);
+        sync.server.url = "http://tasks.fluffy-rooster.ts.net:10222";
+        sync.server.client_id = "d790343c-de82-419b-a5ad-0f2aa9c5130b";
+        sync.encryption_secret = "7c0b8b0c-6de0-4b15-b4c3-9bafae2ba872";
       };
     };
 
