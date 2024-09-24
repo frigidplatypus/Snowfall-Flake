@@ -21,7 +21,7 @@ with lib.frgd;
       tmux = enabled;
       system-monitors = enabled;
       taskwarrior = enabled;
-      #zellij = enabled;
+      # zellij = enabled;
       # starship = enabled;
       fish = enabled;
       zoxide = enabled;
@@ -33,6 +33,7 @@ with lib.frgd;
       bat = enabled;
       misc = enabled;
       lsd = enabled;
+      charms = enabled;
     };
   };
 
