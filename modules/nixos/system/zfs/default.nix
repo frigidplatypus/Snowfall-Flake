@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.frgd.system.zfs;
@@ -6,13 +11,19 @@ let
   inherit (lib) mkEnableOption mkIf mkDefault;
   inherit (lib.frgd) mkOpt enabled;
   inherit (lib.types) listOf str;
-in {
+in
+{
   options.frgd.system.zfs = {
     enable = mkEnableOption "ZFS support";
 
     pools = mkOpt (listOf str) [ "rpool" ] "The ZFS pools to manage.";
 
-    auto-snapshot = { enable = mkEnableOption "ZFS auto snapshotting"; };
+    auto-snapshot = {
+      enable = mkEnableOption "ZFS auto snapshotting";
+    };
+
+    hostID = mkOpt str "00000000" "The host ID to use for ZFS auto snapshotting.";
+
   };
 
   config = mkIf cfg.enable {

@@ -9,12 +9,13 @@ with lib.frgd;
   ];
 
   # Enable fingerprint reader.
-  # services.open-fprintd.enable = true;
-  # services.python-validity.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
   services.flatpak.enable = true;
+  xdg.portal = enabled;
+  services.zram-generator = enabled;
+  hardware.xpadneo = enabled;
 
   environment.systemPackages = with pkgs; [
     wezterm
@@ -26,15 +27,29 @@ with lib.frgd;
     remmina
     go
     nom
+    ventoy-full
+    wljoywake
+    # cura
+    inkscape-with-extensions
   ];
   frgd = {
-    system.boot = {
-      enable = true;
-      efi = true;
+    system = {
+      nix-store = enabled;
+      boot = {
+        enable = true;
+        efi = true;
+      };
     };
+    # hardware = {
+    #   fingerprint = {
+    #     enable = true;
+    #     t480 = true;
+    #   };
+    # };
     apps = {
-      element = enabled;
+      # element = disabled;
       signal = enabled;
+      steam = enabled;
     };
     #services = { espanso = enabled; };
     security = {
