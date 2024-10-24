@@ -50,6 +50,10 @@ in
         "warp"
         "zed"
         "hyper"
+        "wezterm"
+        "kitty"
+        "alacritty"
+        "heynote"
       ];
     };
 
