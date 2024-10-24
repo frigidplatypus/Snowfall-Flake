@@ -27,7 +27,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     boot.supportedFilesystems = [ "zfs" ];
     environment.systemPackages = with pkgs; [ zfs ];
     services.zfs = {
