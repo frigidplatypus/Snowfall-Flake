@@ -21,6 +21,7 @@ in
     programs.taskwarrior = {
       enable = true;
       package = pkgs.taskwarrior3;
+      colorTheme = "dark-violets-256";
       config = {
         confirmation = false;
         report.minimal.filter = "status:pending";
@@ -43,7 +44,13 @@ in
           "Description"
         ];
         urgency.uda.priority.L.coefficient = -1.8;
-        context.western.read = "project:Western or project:Inbox";
+        uda = {
+          notification_date = {
+            type = "date";
+            label = "Notification Date";
+          };
+        };
+        context.western.read = "project:Western or project:Inbox or priority:H";
         context.western.write = "project:Western";
         context.home.read = "project.not:Western";
         context.home.write = "project.not:Western";
