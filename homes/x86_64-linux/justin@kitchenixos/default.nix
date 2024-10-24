@@ -9,6 +9,7 @@ with lib.frgd;
     };
     cli-apps = {
       atuin = enabled;
+      taskwarrior = enabled;
     };
     services = {
       espanso = enabled;
