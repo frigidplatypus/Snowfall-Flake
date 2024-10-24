@@ -54,6 +54,7 @@ in
         "kitty"
         "alacritty"
         "heynote"
+        "sourcetree"
       ];
     };
 
