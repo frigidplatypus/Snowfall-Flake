@@ -18,7 +18,7 @@ in
 
   config = mkIf cfg.enable {
     frgd.nix.extra-substituters = {
-      "https://nix.frgd.us".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
+      "https://nix.fluffy-rooster.ts.net".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
     };
   };
 }
