@@ -23,6 +23,7 @@ with lib.frgd;
     lswt
     waylevel
     frgd.numara
+    frgd.heynote
     cifs-utils
     remmina
     go
