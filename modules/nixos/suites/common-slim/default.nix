@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -23,6 +22,7 @@ in
 
       cli-apps = {
         flake = enabled;
+        nh = enabled;
       };
 
       tools = {
