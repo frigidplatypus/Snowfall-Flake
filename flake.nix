@@ -54,6 +54,10 @@
     };
     flake-root.url = "github:srid/flake-root";
     mission-control.url = "github:Platonic-Systems/mission-control";
+    neovim = {
+      url = "github:justinmartin/neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Enable fingerprint reader for T480
     nixos-06cb-009a-fingerprint-sensor = {
@@ -92,6 +96,7 @@
 
         # There is also a named overlay, though the output is the same.
         snowfall-flake.overlays."package/flake"
+        neovim.overlays.default
       ];
 
       systems.modules.darwin = with inputs; [
