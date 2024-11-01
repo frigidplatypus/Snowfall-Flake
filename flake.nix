@@ -100,7 +100,6 @@
       ];
 
       systems.modules.darwin = with inputs; [
-        # agenix.darwinModules.default
         home-manager.darwinModules.home-manager
       ];
 
