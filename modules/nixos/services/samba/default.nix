@@ -8,26 +8,33 @@ let
     mkEnableOption
     mkIf
     mapAttrs
-    optionalAttrs;
+    optionalAttrs
+    ;
 
   inherit (lib.frgd)
     mkOpt
-    mkBoolOpt;
+    mkBoolOpt
+    ;
 
   bool-to-yes-no = value: if value then "yes" else "no";
 
-  shares-submodule = with types; submodule ({ name, ... }: {
-    options = {
-      path = mkOpt str null "The path to serve.";
-      public = mkBoolOpt false "Whether the share is public.";
-      browseable = mkBoolOpt true "Whether the share is browseable.";
-      comment = mkOpt str name "An optional comment.";
-      read-only = mkBoolOpt false "Whether the share should be read only.";
-      only-owner-editable = mkBoolOpt false "Whether the share is only writable by the system owner (frgd.user.name).";
+  shares-submodule =
+    with types;
+    submodule (
+      { name, ... }:
+      {
+        options = {
+          path = mkOpt str null "The path to serve.";
+          public = mkBoolOpt false "Whether the share is public.";
+          browseable = mkBoolOpt true "Whether the share is browseable.";
+          comment = mkOpt str name "An optional comment.";
+          read-only = mkBoolOpt false "Whether the share should be read only.";
+          only-owner-editable = mkBoolOpt false "Whether the share is only writable by the system owner (frgd.user.name).";
 
-      extra-config = mkOpt attrs { } "Extra configuration options for the share.";
-    };
-  });
+          extra-config = mkOpt attrs { } "Extra configuration options for the share.";
+        };
+      }
+    );
 in
 {
   options.frgd.services.samba = with types; {
@@ -54,23 +61,22 @@ in
       enable = true;
       openFirewall = true;
 
-      extraConfig = ''
-        browseable = ${bool-to-yes-no cfg.browseable}
-      '';
-
-      shares = mapAttrs
-        (name: value: {
+      shares = mapAttrs (
+        name: value:
+        {
           inherit (value) path comment;
 
           public = bool-to-yes-no value.public;
           browseable = bool-to-yes-no value.browseable;
           "read only" = bool-to-yes-no value.read-only;
-        } // (optionalAttrs value.only-owner-editable {
+        }
+        // (optionalAttrs value.only-owner-editable {
           "write list" = config.frgd.user.name;
           "read list" = "guest, nobody";
           "create mask" = "0755";
-        }) // value.extra-config)
-        cfg.shares;
+        })
+        // value.extra-config
+      ) cfg.shares;
     };
   };
 }
