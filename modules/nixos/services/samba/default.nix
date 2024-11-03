@@ -30,7 +30,6 @@ let
           comment = mkOpt str name "An optional comment.";
           read-only = mkBoolOpt false "Whether the share should be read only.";
           only-owner-editable = mkBoolOpt false "Whether the share is only writable by the system owner (frgd.user.name).";
-
           extra-config = mkOpt attrs { } "Extra configuration options for the share.";
         };
       }
