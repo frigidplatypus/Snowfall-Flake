@@ -7,6 +7,9 @@ with lib.frgd;
       enable = true;
       name = "justin";
     };
+    apps = {
+      kitty = enabled;
+    };
     cli-apps = {
       atuin = enabled;
       taskwarrior = enabled;

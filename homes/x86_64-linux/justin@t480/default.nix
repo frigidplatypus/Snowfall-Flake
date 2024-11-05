@@ -17,6 +17,7 @@ with lib.frgd;
     };
     apps = {
       obsidian = enabled;
+      kitty = enabled;
     };
     cli-apps = {
       neovim = enabled;
