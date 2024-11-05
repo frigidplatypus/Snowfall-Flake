@@ -24,7 +24,6 @@ in
         bash
         fish
       ];
-      loginShell = pkgs.fish;
       systemPackages = [ pkgs.coreutils ];
       systemPath = [ "/opt/homebrew/bin" ];
       pathsToLink = [ "/Applications" ];

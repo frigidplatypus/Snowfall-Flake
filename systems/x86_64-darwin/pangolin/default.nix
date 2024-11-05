@@ -11,8 +11,6 @@ with lib.frgd; {
       casks.enable = true;
     };
 
-    homebrew = { casks = [ "openssl@3" ]; };
-
     nix-darwin = enabled;
   };
 }

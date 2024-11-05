@@ -5,15 +5,13 @@ with lib.frgd; {
     services = { espanso = { enable = true; }; };
 
     cli-apps = {
-      #zsh = enabled;
       neovim = enabled;
       home-manager = enabled;
       tmux = enabled;
       system-monitors = enabled;
       taskwarrior = enabled;
       #zellij = enabled;
-      # starship = enabled;
-      fish = enabled;
+      #fish = enabled;
     };
 
     tools = {
