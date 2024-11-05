@@ -39,6 +39,7 @@ with lib.frgd;
     services.jellyfin = enabled;
     services = {
       tailscale.autoconnect = enabled;
+      nix-serve = enabled;
       netdata = enabled;
       samba = {
         enable = true;
