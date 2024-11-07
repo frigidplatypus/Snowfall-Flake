@@ -1,7 +1,5 @@
 {
-  options,
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -18,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     frgd.nix.extra-substituters = {
-      "https://frgd-nix.fluffy-rooster.ts.net".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
+      "https://nasnix.fluffy-rooster.ts.net".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
     };
   };
 }
