@@ -10,7 +10,7 @@ with lib.frgd;
   # Enable networking
   networking = {
     networkmanager.enable = true;
-    interfaces.enp4s0.ipv4.addresses = [
+    interfaces.ens18.ipv4.addresses = [
       {
         address = "10.10.4.5";
         prefixLength = 24;
