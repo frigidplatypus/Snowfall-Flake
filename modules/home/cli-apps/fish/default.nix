@@ -53,7 +53,6 @@ in
     };
     programs.starship = {
       enable = true;
-      enableFishIntegration = true;
       settings = {
         add_newline = true;
         format = "$sudo$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
@@ -69,6 +68,7 @@ in
           fish_indicator = "[🐡](bright-white bold)";
           bash_indicator = "[BASH](bright-white) ";
           zsh_indicator = "[ZSH](bright-white) ";
+          nushell_indicator = "[nu](bright-white) ";
         };
         sudo = {
           format = "[$symbol]($style)";
@@ -91,6 +91,9 @@ in
           style_root = "bright-red bold";
         };
       };
+    };
+    programs.carapace = {
+      enable = true;
     };
     home.sessionVariables = {
       theme_nerd_fonts = "yes";
