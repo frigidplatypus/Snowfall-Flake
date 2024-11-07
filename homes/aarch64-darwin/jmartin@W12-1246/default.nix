@@ -24,6 +24,7 @@ with lib.frgd;
       # zellij = enabled;
       # starship = enabled;
       fish = enabled;
+      nushell = enabled;
       zoxide = enabled;
     };
 

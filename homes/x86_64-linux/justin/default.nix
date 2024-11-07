@@ -17,6 +17,7 @@ with lib.frgd;
       home-manager = enabled;
       tmux = enabled;
       atuin = enabled;
+      nushell = enabled;
     };
 
     tools = {
