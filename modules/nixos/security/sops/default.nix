@@ -32,7 +32,7 @@ in {
       environment.systemPackages = with pkgs; [ sops ];
       sops.defaultSopsFile = ./secrets.yaml;
       sops.defaultSopsFormat = "yaml";
-      sops.age.keyFile = "/home/justin/.config/sops/age/keys.txt";
+      sops.age.keyFile = "/sops/keys.txt";
       sops.secrets.tailscale_api_key = { };
       sops.secrets.justin_password = { };
       #sops.templates.justin_password.contents = ''
