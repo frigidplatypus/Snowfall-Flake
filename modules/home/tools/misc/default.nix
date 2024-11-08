@@ -19,23 +19,13 @@ in
 
     home.packages = with pkgs; [
       fzf
-      #killall
       unzip
       file
       jq
-      clac
       wget
-      #usbutils
-      bat
       fastfetch
       zip
-      p7zip
-      unzip
-      # ncdu
       gdu
-      bottom
-      localsend
-      # fast-cli
       tldr
       magic-wormhole-rs
     ];
