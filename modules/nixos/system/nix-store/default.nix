@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     frgd.nix.extra-substituters = {
-      "https://nasnix.fluffy-rooster.ts.net".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
+      "https://nasnix.fluffy-rooster.ts.net:5000".key = "frgd:Iurj/2/DemnBejCyQWFra3+FKWIEEEnixqe9kwMvbmY=";
     };
   };
 }
