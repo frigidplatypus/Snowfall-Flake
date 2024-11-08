@@ -34,6 +34,7 @@ with lib.frgd;
   };
   networking.firewall.enable = false;
   frgd = {
+    nix = enabled;
     security.sops = enabled;
     archetypes.server = enabled;
     services.jellyfin = enabled;

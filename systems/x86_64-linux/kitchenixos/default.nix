@@ -41,6 +41,7 @@ with lib.frgd;
 
   ];
   frgd = {
+    nix = enabled;
     system = {
       fonts = enabled;
       nix-store = enabled;

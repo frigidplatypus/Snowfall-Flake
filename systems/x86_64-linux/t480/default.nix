@@ -34,6 +34,7 @@ with lib.frgd;
     inkscape-with-extensions
   ];
   frgd = {
+    nix = enabled;
     system = {
       nix-store = enabled;
       boot = {
