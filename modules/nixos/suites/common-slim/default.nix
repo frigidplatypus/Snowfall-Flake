@@ -46,6 +46,7 @@ in
 
       security = {
         sops = enabled;
+        doas = enabled;
       };
 
       system = {
