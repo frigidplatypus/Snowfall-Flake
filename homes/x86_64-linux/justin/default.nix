@@ -16,8 +16,6 @@ with lib.frgd;
       neovim = enabled;
       home-manager = enabled;
       tmux = enabled;
-      atuin = enabled;
-      nushell = enabled;
     };
 
     tools = {
