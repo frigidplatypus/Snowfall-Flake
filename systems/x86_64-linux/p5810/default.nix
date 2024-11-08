@@ -38,6 +38,7 @@ with lib.frgd;
     sleep-on-lan
     nixos-anywhere
     disko
+    deploy-rs
   ];
   # Enable OpenGL
   hardware.graphics = {
