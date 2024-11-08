@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   virtual,
   ...
@@ -20,17 +19,16 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets.porkbun_api_key = { };
     security.acme = {
       acceptTerms = true;
-
       defaults = {
-        inherit (cfg) email;
+        dnsProvider = "porkbun";
+        environmentFile = config.sops.secrests.porkbun_api_key.path;
+        defaultEmail = cfg.email;
 
         group = mkIf config.services.nginx.enable "nginx";
-        server = mkIf cfg.staging "https://acme-staging-v02.api.letsencrypt.org/directory";
 
-        # Reload nginx when certs change.
-        reloadServices = optional config.services.nginx.enable "nginx.service";
       };
     };
   };
