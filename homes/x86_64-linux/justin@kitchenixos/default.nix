@@ -11,7 +11,6 @@ with lib.frgd;
       kitty = enabled;
     };
     cli-apps = {
-      atuin = enabled;
       taskwarrior = enabled;
     };
     services = {

@@ -15,7 +15,6 @@ with lib.frgd;
 
     cli-apps = {
       #zsh = enabled;
-      atuin = enabled;
       neovim = enabled;
       home-manager = enabled;
       tmux = enabled;
