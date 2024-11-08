@@ -41,7 +41,6 @@ in
     }) cfg.extra-substituters;
 
     environment.systemPackages = with pkgs; [
-      deploy-rs
       nixfmt-rfc-style
       nix-index
       nix-prefetch-git
