@@ -76,20 +76,17 @@ in
             <div style="background-color:#${colorScheme.palette.base0D}; height: 200px; width: 30%; float:right;"><p>base0D</p>${colorScheme.palette.base0D}</div>
             <div style="background-color:#${colorScheme.palette.base0E}; height: 200px; width: 30%; float:right;"><p>base0E</p>${colorScheme.palette.base0E}</div>
             <div style="background-color:#${colorScheme.palette.base0F}; height: 200px; width: 30%; float:right;"><p>base0F</p>${colorScheme.palette.base0F}</div>
-          </html> 
+          </html>
         '';
       };
       frgd = {
         tools.lsd = enabled;
         cli-apps = {
-          # atuin = enabled;
           zoxide = enabled;
           neovim = enabled;
           home-manager = enabled;
-          tmux = enabled;
           ranger = enabled;
           fish = enabled;
-          # zellij = enabled;
         };
 
         tools = {

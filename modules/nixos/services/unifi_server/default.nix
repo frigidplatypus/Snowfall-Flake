@@ -1,9 +1,7 @@
 {
-  options,
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -23,8 +21,9 @@ in
         enable = true;
         unifiPackage = pkgs.unifi8;
         openFirewall = true;
-        #mongodbPackage = inputs.mongodb_pinned.legacyPackages.${system}.mongodb-5_0;
+        mongodbPackage = pkgs.mongodb-6_0;
       };
     };
+
   };
 }

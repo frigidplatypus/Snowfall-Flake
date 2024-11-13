@@ -1,38 +1,24 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.suites.installer;
-in {
+let
+  cfg = config.frgd.suites.installer;
+in
+{
   options.frgd.suites.installer = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable installer configuration.";
+    enable = mkBoolOpt false "Whether or not to enable installer configuration.";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      snowfallorg.flake
-      gcc
-      neovim
-      nixfmt-rfc-style
-      ripgrep
-    ];
 
     security.sudo = enabled;
     frgd = {
       nix = enabled;
-
-      tools = {
-        git = enabled;
-        comma = enabled;
-        direnv = enabled;
-        misc = enabled;
-      };
-
-      hardware = {
-        # storage = enabled;
-        # networking = enabled;
-      };
 
       services = {
         openssh = enabled;

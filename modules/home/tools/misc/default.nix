@@ -18,16 +18,11 @@ in
   config = mkIf cfg.enable {
 
     home.packages = with pkgs; [
-      fzf
       unzip
-      file
-      jq
       wget
       fastfetch
       zip
       gdu
-      tldr
-      magic-wormhole-rs
     ];
   };
 }

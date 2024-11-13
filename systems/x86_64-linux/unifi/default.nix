@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 with lib.frgd;
 {
@@ -12,37 +12,40 @@ with lib.frgd;
     networkmanager.enable = true;
     interfaces.ens18.ipv4.addresses = [
       {
-        address = "10.10.4.5";
+        address = "10.10.4.8";
         prefixLength = 24;
       }
     ];
     defaultGateway = "10.10.4.1";
     nameservers = [ "10.10.4.1" ];
   };
+
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "books.fluffy-rooster.ts.net" = {
+      "unifi.fluffy-rooster.ts.net" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8083
+          reverse_proxy https://127.0.0.1:8443 {
+            transport http {
+              tls
+              tls_insecure_skip_verify
+            }
+          }
           encode gzip
+          websocket
+          header_up -Authorization
+          header_up Host {host}
         '';
       };
-      # "books.frgd.us" = {
-      #   useACMEHost = "books.frgd.us";
-      #   extraConfig = ''
-      #     reverse_proxy http://127.0.0.1:8083
-      #     encode gzip
-      #   '';
-      # };
     };
   };
 
+  networking.firewall.enable = false;
   frgd = {
     nix = enabled;
     archetypes.vm = enabled;
-    services = {
-      calibre-web = enabled;
+    services.unifiServer = {
+      enable = true;
     };
   };
 }

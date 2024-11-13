@@ -22,6 +22,7 @@ in
 
       cli-apps = {
         flake = enabled;
+        tmux = enabled;
         nh = enabled;
       };
 

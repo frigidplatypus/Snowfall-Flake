@@ -18,7 +18,7 @@ in
   config = mkIf cfg.enable {
     services.calibre-web = {
       enable = true;
-      listen.ip = "0.0.0.0";
+      listen.ip = "127.0.0.1";
       options = {
         enableBookUploading = true;
         enableBookConversion = true;
