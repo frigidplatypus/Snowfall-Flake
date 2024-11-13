@@ -15,7 +15,6 @@ with lib.frgd;
       fish = enabled;
       neovim = enabled;
       home-manager = enabled;
-      tmux = enabled;
     };
 
     tools = {

@@ -1,6 +1,14 @@
-{ lib, pkgs, config, osConfig ? { }, format ? "unknown", ... }:
+{
+  lib,
+  pkgs,
+  config,
+  osConfig ? { },
+  format ? "unknown",
+  ...
+}:
 with lib;
-with lib.frgd; {
+with lib.frgd;
+{
   frgd = {
     user = {
       enable = true;
@@ -11,7 +19,6 @@ with lib.frgd; {
       fish = enabled;
       neovim = enabled;
       home-manager = enabled;
-      tmux = enabled;
       ranger = enabled;
     };
 

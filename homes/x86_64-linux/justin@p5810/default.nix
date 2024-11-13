@@ -16,7 +16,6 @@ with lib.frgd;
     cli-apps = {
       neovim = enabled;
       home-manager = enabled;
-      # tmux = enabled;
       ranger = enabled;
       fish = enabled;
       taskwarrior = enabled;
