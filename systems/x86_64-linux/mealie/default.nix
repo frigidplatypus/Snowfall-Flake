@@ -25,7 +25,7 @@ with lib.frgd;
     virtualHosts = {
       "mealie.fluffy-rooster.ts.net" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8080
+          reverse_proxy http://127.0.0.1:9000
           encode gzip
         '';
       };
@@ -36,6 +36,9 @@ with lib.frgd;
     nix = enabled;
     archetypes.vm = enabled;
     services = {
+      mealie = {
+        enable = true;
+      };
     };
   };
 }
