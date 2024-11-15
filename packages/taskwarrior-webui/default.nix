@@ -37,7 +37,9 @@ let
     installPhase = ''
       mkdir -p $out
       cp -rv . $out/
-      pushd $out; npm run build
+      pushd $out
+      npm run build
+      sed -i 's/localhost/127.0.0.1/g' dist/app.js
     '';
   };
 in
