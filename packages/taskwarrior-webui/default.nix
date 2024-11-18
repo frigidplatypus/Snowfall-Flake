@@ -21,10 +21,20 @@ let
     sourceRoot = "${repo.name}/frontend";
     npmDepsHash = "sha256-wrEfYd8EXr5T4gV+plzBl184M8VAT0KzHtrkASjjGlA=";
     npmFlags = [ "--legacy-peer-deps" ];
+    buildPhase = ''
+      runHook preBuild
+
+      echo "Building frontend..."
+      npm run build
+      touch "export-should-have-finished"
+      export NUXT_TELEMETRY_DISABLED=1
+      npm run export
+
+      runHook postBuild
+    '';
     installPhase = ''
-      mkdir -p $out
-      cp -rv . $out/
-      pushd $out; npm run build; npm run export
+      mkdir -p "$out"
+      cp -rv . "$out/"
     '';
   };
 
@@ -42,19 +52,19 @@ let
       sed -i 's/localhost/127.0.0.1/g' dist/app.js
     '';
   };
+
 in
 stdenv.mkDerivation {
   name = "taskwarrior-webui";
   buildInputs = [
     frontend
     backend
-    pkgs.nodejs
   ];
   src = repo;
   installPhase = ''
     mkdir -p $out/frontend/
-    mkdir -p $out/backend/
     cp -r ${frontend}/* $out/frontend/
+    mkdir -p $out/backend/
     cp -r ${backend}/* $out/backend/
   '';
   meta = {
