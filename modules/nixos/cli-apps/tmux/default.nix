@@ -34,7 +34,7 @@ in
     frgd.home.extraOptions = {
       programs.tmux = {
         enable = true;
-        terminal = "screen-256color-bce";
+        # terminal = "screen-256color-bce";
         historyLimit = 2000;
         keyMode = "vi";
         newSession = true;

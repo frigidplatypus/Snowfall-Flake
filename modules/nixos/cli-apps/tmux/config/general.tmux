@@ -1,6 +1,9 @@
 # Lower delay waiting for chord after escape key press.
 set -g escape-time 0
 
+set-option -g status-position top
+set-option -g mouse
+
 # Change the prefix from C-b to C-s to make it easier to type.
 set -g prefix C-s
 unbind C-b
@@ -29,8 +32,6 @@ bind -n C-l send-keys C-l
 unbind -n M-E
 bind -n M-E detach-client
 
-# Reload tmux configuration from ~/.config/tmux/tmux.conf instead
-# of Tilish's default of ~/.tmux.conf.
 unbind -n M-C
 bind -n M-C source-file "~/.config/tmux/tmux.conf"
 
