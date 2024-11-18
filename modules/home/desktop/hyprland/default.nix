@@ -74,7 +74,6 @@ in
           };
           decoration = {
             rounding = 5;
-            drop_shadow = true;
           };
           animations = {
             enabled = true;
@@ -83,6 +82,7 @@ in
             kb_layout = "us";
             follow_mouse = 0;
             repeat_delay = 250;
+            kb_options = "escape:nocaps";
             numlock_by_default = 0;
             force_no_accel = 1;
             sensitivity = 1;
@@ -154,14 +154,13 @@ in
             "SUPERSHIFT,left,movetoworkspace,-1"
 
             #"SUPER, V, exec,  ${pkgs.foot}/bin/footclient --class floating -e fish  -c '${pkgs.clipse}/bin/clipse $PPID'" # bind the open clipboard operation to a nice key.
-            "SUPER,Return,exec,${pkgs.foot}/bin/footclient"
-            "SUPERSHIFT,Return,exec,${pkgs.google-chrome}/bin/google-chrome-stable"
+            "SUPER,Return,exec,${pkgs.kitty}/bin/kitty"
+            "SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox"
             "SUPERSHIFT,Q,killactive,"
             "SUPER,Escape,exit,"
-            "SUPER,E,exec,${pkgs.pcmanfm}/bin/pcmanfm"
+            "SUPER,E,exec,${pkgs.nautilus}/bin/nautilus"
             "SUPER,H,togglefloating,"
             "SUPER,Space,exec,${pkgs.rofi-wayland}/bin/rofi -show drun"
-            "SUPERSHIFT,I,exec,${pkgs.rofi-wayland}/bin/rofi -.show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi"
             "SUPER,P,pseudo,"
             "SUPER,F,fullscreen"
             "SUPER,R,forcerendererreload"
