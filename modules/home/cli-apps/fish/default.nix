@@ -24,9 +24,6 @@ in
         fu = "cd ~/Snowfall-Flake/;flake update";
         fe = "cd ~/Snowfall-Flake/;nvim .";
         ds = "figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
-        dc = "docker compose";
-        dcu = "docker compose up -d";
-        dcd = "docker compose down";
         tt = "taskwarrior-tui";
       };
       shellInitLast = ''
@@ -51,24 +48,33 @@ in
       enable = true;
       enableFishIntegration = true;
     };
+    programs.bash.enable = true;
+    programs.zsh.enable = true;
     programs.starship = {
       enable = true;
+      enableFishIntegration = true;
       settings = {
         add_newline = true;
-        format = "$sudo$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
+        format = "$sudo$shell$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
         #"$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
         shlvl = {
           disabled = false;
           symbol = " ";
           style = "bright-white bold";
         };
+        directory = {
+          disabled = false;
+          fish_style_pwd_dir_length = 2;
+          truncation_length = 2;
+        };
         shell = {
           disabled = false;
           format = "[$indicator]($style)";
-          fish_indicator = "[🐡](bright-white bold)";
+          fish_indicator = "[](bright-white bold)";
           bash_indicator = "[BASH](bright-white) ";
           zsh_indicator = "[ZSH](bright-white) ";
-          nushell_indicator = "[nu](bright-white) ";
+          nu_indicator = "[Nu](bright-white) ";
+          powershell_indicator = "[>_](bright-white) ";
         };
         sudo = {
           format = "[$symbol]($style)";
@@ -91,9 +97,6 @@ in
           style_root = "bright-red bold";
         };
       };
-    };
-    programs.carapace = {
-      enable = true;
     };
     home.sessionVariables = {
       theme_nerd_fonts = "yes";
