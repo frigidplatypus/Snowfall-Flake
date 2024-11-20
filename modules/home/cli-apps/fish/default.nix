@@ -50,13 +50,15 @@ in
     };
     programs.bash.enable = true;
     programs.zsh.enable = true;
+    programs.nushell.enable = true;
     programs.starship = {
       enable = true;
       enableFishIntegration = true;
       settings = {
-        add_newline = true;
-        format = "$sudo$shell$username$hostname$nix_shell$directory$fill$localip$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
-        #"$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
+        add_newline = false;
+        format = "$sudo$shell$username$hostname$battery$nix_shell$directory$character";
+        right_format = "$localip$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration";
+
         shlvl = {
           disabled = false;
           symbol = " ";
@@ -71,9 +73,9 @@ in
           disabled = false;
           format = "[$indicator]($style)";
           fish_indicator = "[](bright-white bold)";
-          bash_indicator = "[BASH](bright-white) ";
-          zsh_indicator = "[ZSH](bright-white) ";
-          nu_indicator = "[Nu](bright-white) ";
+          bash_indicator = "[BASH](bright-white bold) ";
+          zsh_indicator = "[ZSH](bright-white bold) ";
+          nu_indicator = "[Nu](bright-white bold) ";
           powershell_indicator = "[>_](bright-white) ";
         };
         sudo = {
@@ -89,7 +91,7 @@ in
         direnv = {
           disabled = false;
         };
-        line_break = {
+        battery = {
           disabled = false;
         };
         username = {
