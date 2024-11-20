@@ -33,13 +33,13 @@ in
     };
 
     home.packages = with pkgs.fishPlugins; [
-      #hydro
-      #      fzf
-      #fzf-fish
-      # done
-      #hydro
+      fzf-fish
+      grc
+      fifc
+      gruvbox
+      sponge
+      forgit
       colored-man-pages
-      #pkgs.nerd-font-patcher
       pkgs.powerline-fonts
       pkgs.figlet
     ];
@@ -55,7 +55,7 @@ in
       enableFishIntegration = true;
       settings = {
         add_newline = true;
-        format = "$sudo$shell$username$hostname$nix_shell$directory$fill$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
+        format = "$sudo$shell$username$hostname$nix_shell$directory$fill$localip$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration$battery$line_break$character";
         #"$username$hostname$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$character";
         shlvl = {
           disabled = false;
