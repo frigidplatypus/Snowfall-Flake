@@ -42,6 +42,7 @@ in
       colored-man-pages
       pkgs.powerline-fonts
       pkgs.figlet
+      pkgs.grc
     ];
 
     programs.fzf = {

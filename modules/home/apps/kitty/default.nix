@@ -22,6 +22,12 @@ in
         name = "Anonymous Pro for Powerline";
         size = 18;
       };
+      settings = {
+        tab_bar_edge = "top";
+        tab_bar_style = "powerline";
+        tab_powerline_style = "round";
+        tab_activity_symbol = "";
+      };
       shellIntegration = {
         enableFishIntegration = true;
       };
