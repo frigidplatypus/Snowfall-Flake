@@ -1,7 +1,10 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 with lib;
 with lib.frgd;
 {
+  home.packages = with pkgs; [
+    xkcdpass
+  ];
   frgd = {
     apps = {
       # circuit-python-editors = enabled;
