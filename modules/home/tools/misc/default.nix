@@ -23,6 +23,7 @@ in
       fastfetch
       zip
       gdu
+      yazi
     ];
   };
 }
