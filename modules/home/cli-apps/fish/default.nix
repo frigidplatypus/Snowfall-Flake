@@ -55,7 +55,7 @@ in
       enable = true;
       enableFishIntegration = true;
       settings = {
-        add_newline = false;
+        add_newline = true;
         format = "$sudo$shell$username$hostname$battery$nix_shell$directory$character";
         right_format = "$localip$direnv$git_branch$git_commit$git_state$git_status$jobs$cmd_duration";
 
