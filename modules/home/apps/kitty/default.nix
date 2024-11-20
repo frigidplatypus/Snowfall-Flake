@@ -25,6 +25,9 @@ in
       shellIntegration = {
         enableFishIntegration = true;
       };
+      darwinLaunchOptions = [
+        "--single-instance"
+      ];
     };
   };
 }
