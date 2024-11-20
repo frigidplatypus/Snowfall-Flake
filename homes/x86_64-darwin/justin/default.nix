@@ -16,7 +16,7 @@ with lib.frgd;
       system-monitors = enabled;
       taskwarrior = enabled;
       #zellij = enabled;
-      #fish = enabled;
+      fish = enabled;
     };
 
     tools = {
@@ -27,7 +27,7 @@ with lib.frgd;
       charms = enabled;
     };
   };
-  programs.taskwarrior.dataLocation ="/Users/justin/Library/Mobile Documents/iCloud~com~mav~taskchamp/Documents/task";
+  programs.taskwarrior.dataLocation = "/Users/justin/Library/Mobile Documents/iCloud~com~mav~taskchamp/Documents/task";
   home.stateVersion = "24.05";
 
 }
