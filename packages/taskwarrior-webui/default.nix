@@ -35,6 +35,7 @@ let
     installPhase = ''
       mkdir -p "$out"
       cp -rv . "$out/"
+      # cp -rv "$out/dist/*" "$out/static"
     '';
   };
 
@@ -44,28 +45,34 @@ let
     sourceRoot = "${repo.name}/backend";
     npmDepsHash = "sha256-KJzNuIcYF/3ZmpXymaPer1luJLgsMemtJ4eqYdh+HFA=";
     npmFlags = [ "--legacy-peer-deps" ];
+    buildInputs = [ pkgs.nodejs ];
     installPhase = ''
       mkdir -p $out
       cp -rv . $out/
       pushd $out
+
       npm run build
       sed -i 's/localhost/127.0.0.1/g' dist/app.js
     '';
   };
+  startBackendScript = pkgs.writeShellScriptBin "start-backend-server" ''
+    ${pkgs.nodejs}/bin/npm start --prefix ${backend}
+  '';
 
 in
 stdenv.mkDerivation {
   name = "taskwarrior-webui";
   buildInputs = [
-    frontend
+    # frontend
     backend
+    startBackendScript
+    pkgs.nodejs
   ];
   src = repo;
   installPhase = ''
-    mkdir -p $out/frontend/
-    cp -r ${frontend}/* $out/frontend/
     mkdir -p $out/backend/
     cp -r ${backend}/* $out/backend/
+    cp -r ${startBackendScript}/. $out/
   '';
   meta = {
     description = "A web UI for Taskwarrior";
