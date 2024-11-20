@@ -18,6 +18,10 @@ in
     programs.kitty = {
       enable = true;
       themeFile = "gruvbox-dark-hard";
+      font = {
+        name = "Anonymous Pro for Powerline";
+        size = 18;
+      };
       shellIntegration = {
         enableFishIntegration = true;
       };
