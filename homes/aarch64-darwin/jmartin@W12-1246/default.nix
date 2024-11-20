@@ -13,6 +13,10 @@ with lib.frgd;
       };
     };
 
+    apps = {
+      kitty = enabled;
+    };
+
     cli-apps = {
       #zsh = enabled;
       neovim = enabled;
@@ -21,6 +25,7 @@ with lib.frgd;
       taskwarrior = enabled;
       fish = enabled;
       nushell = enabled;
+      tmux = enabled;
       zoxide = enabled;
     };
 
