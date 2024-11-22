@@ -35,7 +35,7 @@ in
     home.packages = with pkgs.fishPlugins; [
       fzf-fish
       grc
-      fifc
+      # fifc
       gruvbox
       sponge
       forgit
@@ -46,6 +46,10 @@ in
     ];
 
     programs.fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    programs.carapace = {
       enable = true;
       enableFishIntegration = true;
     };
