@@ -47,14 +47,13 @@ in
         "beeper"
         "cyberduck"
         "obsidian"
-        "warp"
         "zed"
-        "hyper"
         "wezterm"
         "kitty"
         "alacritty"
         "heynote"
         "sourcetree"
+        "font-fantasque-sans-mono"
       ];
     };
 
