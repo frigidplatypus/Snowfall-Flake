@@ -54,6 +54,7 @@ in
         "heynote"
         "sourcetree"
         "font-fantasque-sans-mono"
+        "nikitabobko/tap/aerospace"
       ];
     };
 
