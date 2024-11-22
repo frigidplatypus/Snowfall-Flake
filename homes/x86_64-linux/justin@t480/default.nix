@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
 with lib.frgd;
 {
@@ -19,6 +19,12 @@ with lib.frgd;
       obsidian = enabled;
       kitty = enabled;
     };
+    security = {
+      sops = {
+        enable = true;
+        miniflux_config = enabled;
+      };
+    };
     cli-apps = {
       neovim = enabled;
       home-manager = enabled;
@@ -27,6 +33,9 @@ with lib.frgd;
       taskwarrior = enabled;
       matrix_clients = enabled;
       hass-cli = enabled;
+      cliflux = {
+        enable = true;
+      };
       # neomutt = enabled;
       # zellij = enabled;
     };

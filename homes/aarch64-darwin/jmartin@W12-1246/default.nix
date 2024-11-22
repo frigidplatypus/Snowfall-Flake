@@ -4,6 +4,7 @@ with lib.frgd;
 {
   home.packages = with pkgs; [
     xkcdpass
+    nerdfonts
   ];
   frgd = {
     apps = {
@@ -20,9 +21,18 @@ with lib.frgd;
       kitty = enabled;
     };
 
+    security = {
+      sops = {
+        enable = true;
+        miniflux_config = enabled;
+      };
+
+    };
+
     cli-apps = {
       #zsh = enabled;
       neovim = enabled;
+      cliflux = enabled;
       home-manager = enabled;
       system-monitors = enabled;
       taskwarrior = enabled;

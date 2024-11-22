@@ -5,3 +5,7 @@ creation_rules:
     key_groups:
     - age:
       - *primary
+  - path_regex: modules/home/security/sops/secrets.yaml$
+    key_groups:
+    - age:
+      - *primary
