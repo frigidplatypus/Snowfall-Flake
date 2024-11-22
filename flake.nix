@@ -109,6 +109,10 @@
         disko.nixosModules.disko
       ];
 
+      homes.modules = with inputs; [
+        sops-nix.homeManagerModules.sops
+      ];
+
       deploy = lib.mkDeploy { inherit (inputs) self; };
 
       checks = builtins.mapAttrs (
