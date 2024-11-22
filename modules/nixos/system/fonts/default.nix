@@ -15,6 +15,8 @@ in
   options.frgd.system.fonts = with types; {
     enable = mkBoolOpt false "Whether or not to manage fonts.";
     fonts = mkOpt (listOf package) [ ] "Custom font packages to install.";
+    allNerdFonts = mkBoolOpt false "Whether or not to install all nerd fonts.";
+
   };
 
   config = mkIf cfg.enable {
@@ -28,10 +30,6 @@ in
     fonts.packages =
       with pkgs;
       [
-        noto-fonts
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
-        noto-fonts-emoji
         # (nerdfonts.override { fonts = [ "Hack" ]; })
         # liberation_ttf
         fira-code
@@ -45,13 +43,24 @@ in
         source-code-pro
         jetbrains-mono
         font-awesome # Icons
+        fantasque-sans-mono
         # corefonts # MS
-        # nerdfonts
-        (nerdfonts.override {
-          # Nerdfont Icons override
-          fonts = [ "FiraCode" ];
-        })
       ]
+      ++ (
+        if cfg.allNerdFonts then
+          [ nerdfonts ]
+        else
+          [
+
+            (nerdfonts.override {
+              # Nerdfont Icons override
+              fonts = [
+                "FiraCode"
+                "Hack"
+              ];
+            })
+          ]
+      )
       ++ cfg.fonts;
   };
 }
