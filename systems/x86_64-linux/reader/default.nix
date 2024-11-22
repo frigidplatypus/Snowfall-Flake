@@ -47,8 +47,5 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     archetypes.vm = enabled;
-    services = {
-      calibre-web = enabled;
-    };
   };
 }

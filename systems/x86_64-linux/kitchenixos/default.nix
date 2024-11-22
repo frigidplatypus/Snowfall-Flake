@@ -43,8 +43,10 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     system = {
-      fonts = enabled;
-      nix-store = enabled;
+      fonts = {
+        enable = true;
+        allNerdFonts = true;
+      };
       zfs = {
         enable = true;
       };

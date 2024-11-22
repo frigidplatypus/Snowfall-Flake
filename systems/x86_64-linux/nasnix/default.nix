@@ -61,7 +61,6 @@ with lib.frgd;
       libvirtd = enabled;
     };
     system = {
-      nix-store = enabled;
       zfs = {
         enable = true;
         pools = [ "storage" ];

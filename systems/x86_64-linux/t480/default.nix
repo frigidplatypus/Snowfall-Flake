@@ -36,7 +36,6 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     system = {
-      nix-store = enabled;
       boot = {
         enable = true;
         efi = true;
