@@ -16,6 +16,7 @@ in
     enable = mkBoolOpt false "Whether or not to manage fonts.";
     fonts = mkOpt (listOf package) [ ] "Custom font packages to install.";
     allNerdFonts = mkBoolOpt false "Whether or not to install all nerd fonts.";
+    fontpreview = mkBoolOpt false "Whether or not to install fontpreview.";
 
   };
 
