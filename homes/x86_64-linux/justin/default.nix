@@ -15,12 +15,12 @@ with lib.frgd;
       fish = enabled;
       neovim = enabled;
       home-manager = enabled;
-      tmux = enabled;
+      # tmux = enabled;
     };
 
     tools = {
       git = enabled;
-      misc = enabled;
+      # misc = enabled;
     };
   };
 }

@@ -3,6 +3,7 @@ with lib;
 with lib.frgd;
 {
   frgd = {
+    suites.common = enabled;
     user = {
       enable = true;
       name = "justin";

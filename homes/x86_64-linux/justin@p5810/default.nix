@@ -7,32 +7,30 @@ with lib.frgd;
       enable = true;
       name = "justin";
     };
+
+    suites.common = enabled;
     desktop = {
       hyprland = enabled;
     };
-    apps = {
-      obsidian = enabled;
-    };
+
     security = {
       sops = {
         enable = true;
         miniflux_config.enable = true;
       };
     };
+
     cli-apps = {
-      neovim = enabled;
-      home-manager = enabled;
-      ranger = enabled;
-      fish = enabled;
       taskwarrior = enabled;
       cliflux = enabled;
-      # zellij = enabled;
+      tmux = enabled;
     };
 
     tools = {
       git = enabled;
       direnv = enabled;
       misc = enabled;
+      charms = enabled;
     };
   };
 }
