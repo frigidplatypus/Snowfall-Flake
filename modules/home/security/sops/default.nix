@@ -16,6 +16,12 @@ in
     enable = mkEnableOption "Enable Taskwarrior Sync service";
     miniflux_config = {
       enable = mkBoolOpt false "Matrix Registration Shared Secret";
+      path = mkOption {
+        type = types.path;
+        default = "${config.home.homeDirectory}/.config/cliflux/config.toml";
+        description = "Path to the Miniflux configuration file";
+      };
+
     };
 
   };
@@ -25,7 +31,7 @@ in
       age.keyFile = "/sops/keys.txt";
       defaultSopsFile = ./secrets.yaml;
       secrets.miniflux_config = mkIf cfg.miniflux_config.enable {
-        path = "/home/justin/.config/cliflux/config.toml";
+        path = cfg.miniflux_config.path;
       };
     };
   };
