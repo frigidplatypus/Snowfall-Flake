@@ -24,6 +24,7 @@ in
       zip
       gdu
       yazi
+      wakelan
     ];
   };
 }

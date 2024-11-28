@@ -79,24 +79,24 @@ in
           </html>
         '';
       };
-      frgd = {
-        tools.lsd = enabled;
-        cli-apps = {
-          zoxide = enabled;
-          neovim = enabled;
-          home-manager = enabled;
-          ranger = enabled;
-          fish = enabled;
-        };
-
-        tools = {
-          git = enabled;
-          direnv = enabled;
-          misc = enabled;
-          charms = enabled;
-          ssh = enabled;
-        };
-      };
+      # frgd = {
+      #   tools.lsd = enabled;
+      #   cli-apps = {
+      #     zoxide = enabled;
+      #     neovim = enabled;
+      #     home-manager = enabled;
+      #     ranger = enabled;
+      #     fish = enabled;
+      #   };
+      #
+      #   tools = {
+      #     git = enabled;
+      #     direnv = enabled;
+      #     misc = enabled;
+      #     charms = enabled;
+      #     ssh = enabled;
+      #   };
+      # };
     }
   ]);
 }
