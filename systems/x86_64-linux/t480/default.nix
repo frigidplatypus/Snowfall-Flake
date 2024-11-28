@@ -40,6 +40,11 @@ with lib.frgd;
         enable = true;
         efi = true;
       };
+      fonts = {
+        enable = true;
+        allNerdFonts = true;
+        fontpreview = true;
+      };
     };
     # hardware = {
     #   fingerprint = {
@@ -74,6 +79,10 @@ with lib.frgd;
         enable = true;
         hyprland = true;
       };
+    };
+    tools = {
+      mdpdf = enabled;
+      misc = enabled;
     };
   };
 }

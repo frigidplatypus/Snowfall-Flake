@@ -167,12 +167,12 @@ in
             "SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload"
             "SUPERSHIFT,L,exec,${pkgs.swaylock-effects}/bin/swaylock"
 
-            ",XF86AudioLowerVolume,exec,${pkgs.pamixer}/bin/pamixer -d 10"
-            ",XF86AudioRaiseVolume,exec,${pkgs.pamixer}/bin/pamixer -i 10"
-            ",XF86AudioMute,exec,${pkgs.pamixer}/bin/pamixer -t"
-            ",XF86AudioMicMute,exec,${pkgs.pamixer}/bin/pamixer --default-source -t"
-            ",XF86MonBrightnessDown,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%-"
-            ",XF86MonBrightnessUP,exec,${pkgs.brightnessctl}/bin/brightnessctl set 3%+"
+            ",XF86AudioLowerVolume,exec,${pkgs.avizo}/bin/volumectl -u down"
+            ",XF86AudioRaiseVolume,exec,${pkgs.avizo}/bin/volumectl -u up"
+            ",XF86AudioMute,exec,${pkgs.avizo}/bin/volumectl toggle-mute"
+            ",XF86AudioMicMute,exec,${pkgs.avizo}/bin/volumectl -m toggle-mute"
+            ",XF86MonBrightnessDown,exec,${pkgs.avizo}/bin/lightctl down"
+            ",XF86MonBrightnessUP,exec,${pkgs.avizo}/bin/lightctl up"
           ];
           windowrule = [
             "float,^(Rofi)$"
@@ -242,6 +242,12 @@ in
         }
       ];
     };
+    services.swayosd = {
+      enable = true;
+      topMargin = 0.3;
+    };
+    services.avizo.enable = true;
+    services.wob.enable = true;
     frgd = {
       apps.foot = enabled;
       services.cliphist = enabled;

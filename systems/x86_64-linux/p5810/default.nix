@@ -24,7 +24,6 @@ with lib.frgd;
   networking.firewall.enable = false;
 
   environment.systemPackages = with pkgs; [
-    wezterm
     alacritty
     lswt
     waylevel

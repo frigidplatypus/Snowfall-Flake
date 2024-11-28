@@ -1,16 +1,27 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.waybar;
-in {
+let
+  cfg = config.frgd.desktop.addons.waybar;
+in
+{
   options.frgd.desktop.addons.waybar = with types; {
-    enable =
-      mkBoolOpt false "Whether to enable Waybar in the desktop environment.";
+    enable = mkBoolOpt false "Whether to enable Waybar in the desktop environment.";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ waybar pavucontrol wireplumber ];
+    home.packages = with pkgs; [
+      waybar
+      pavucontrol
+      wireplumber
+    ];
 
     # Home-manager waybar config
 
@@ -18,8 +29,7 @@ in {
       enable = true;
       systemd = {
         enable = true;
-        target =
-          "sway-session.target"; # Needed for waybar to start automatically
+        target = "sway-session.target"; # Needed for waybar to start automatically
       };
 
       settings = {
@@ -27,40 +37,75 @@ in {
           layer = "top";
           position = "top";
           height = 31;
-          tray = { spacing = 15; };
+          tray = {
+            spacing = 15;
+          };
           #modules-center = [ "clock" ];
-          modules-left = [ "custom/menu" "hyprland/workspaces" ];
+          modules-left = [
+            "custom/menu"
+            "hyprland/workspaces"
+          ];
           modules-center = [ "hyprland/window" ];
           modules-right = [
             "network"
-            "custom/pad"
+            # "custom/pad"
             "bluetooth"
-            "custom/pad"
-            "pulseaudio"
-            "custom/pad"
+            # "custom/pad"
+            # "pulseaudio"
+            # "custom/pad"
+            "idle_inhibitor"
+            # "custom/pad"
             "battery"
-            "custom/pad"
-            "clock"
+            # "custom/pad"
             "tray"
+            # "custom/pad"
+            "clock"
           ];
 
           "custom/pad" = {
-            format = " ";
+            format = "";
             tooltip = false;
           };
           "custom/menu" = {
             format = "<span font='18'> </span>";
-            on-click =
-              "${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi";
+            on-click = "${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi";
             on-click-right = "";
             tooltip = false;
           };
+          "hyprland/workspaces" = {
+            "format" = "<sub>{icon}</sub> {windows}";
+            "format-window-separator" = " ";
+            "window-rewrite-default" = "󱓻";
+            "window-rewrite" = {
+              "title<.*youtube.*>" = ""; # Windows whose titles contain "youtube"
+              "class<firefox>" = ""; # Windows whose classes are "firefox"
+              "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+              "foot" = "󰽒"; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+              "kitty" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+              "code" = "󰨞";
+            };
+          };
+          "hyprland/window" = {
+            "format" = "{}";
+            "rewrite" = {
+              "(.*) — Mozilla Firefox" = "🌎 $1";
+              "(.*) - fish" = "> [$1]";
+            };
+            "separate-outputs" = true;
+          };
           clock = {
-            format = "{:%b %d %I:%M}  ";
+            format = " {:%I:%M }";
             tooltip-format = ''
               <big>{:%Y %B}</big>
               <tt>{calendar}</tt>'';
             #format-alt = "{:%A, %B %d, %Y} ";
+          };
+          "idle_inhibitor" = {
+            "format" = "{icon}";
+            "format-icons" = {
+              "activated" = "";
+              "deactivated" = "";
+            };
           };
           battery = {
             interval = 60;
@@ -70,7 +115,13 @@ in {
             };
             format = "{capacity}% <span font='14'>{icon}</span>";
             format-charging = "{capacity}% <span font='11'></span>";
-            format-icons = [ "" "" "" "" "" ];
+            format-icons = [
+              ""
+              ""
+              ""
+              ""
+              ""
+            ];
             max-length = 25;
           };
           bluetooth = {
@@ -91,20 +142,22 @@ in {
             format-disconnected = "<span font='18'>睊</span> Not connected";
             #format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format = "{essid} {ipaddr}/{cidr}";
-            #on-click-right = "${pkgs.alacritty}/bin/alacritty -e nmtui";
+            on-click-right = "${pkgs.kitty}/bin/kitty -e nmtui";
           };
           pulseaudio = {
-            format = "<span font='16'>{icon}</span> {volume}% {format_source} ";
-            format-bluetooth =
-              "<span font='16'>{icon}</span> {volume}% {format_source} ";
-            format-bluetooth-muted =
-              "<span font='16'></span> {volume}% {format_source} ";
+            format = "<span font='16'>{icon}</span> {format_source} ";
+            format-bluetooth = "<span font='16'>{icon}</span> {volume}% {format_source} ";
+            format-bluetooth-muted = "<span font='16'></span> {volume}% {format_source} ";
             format-muted = "<span font='16'></span> {format_source} ";
             #format-source = "{volume}% <span font='11'></span>";
             format-source = "<span font='16'></span> ";
             format-source-muted = "<span font='16'> </span> ";
             format-icons = {
-              default = [ "" "" "" ];
+              default = [
+                ""
+                ""
+                ""
+              ];
               headphone = "";
               #hands-free = "";
               #headset = "";
@@ -117,20 +170,25 @@ in {
             on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
             on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
-          tray = { icon-size = 18; };
+          tray = {
+            icon-size = 18;
+          };
         };
       };
+
+      # CSS
+
       style = ''
 
         * {
         	border: none;
         	font-family: FiraCode Nerd Font Mono;
         	font-size: 18px;
-        	text-shadow: 0px 0px 5px #000000;
         }
 
         button:hover {
         	background-color: rgba(80, 100, 100, 0.4);
+          padding: 10px;
         }
 
         window#waybar {
@@ -158,14 +216,36 @@ in {
         #disk,
         #battery,
         #bluetooth,
+        #idle_inhibitor,
         #tray {
         	color: #${colorScheme.palette.base07};
+          padding: 0px 7px 0px 7px;
         	background-clip: padding-box;
+        }
+
+        #bluetooth {
+          background-color: #${colorScheme.palette.base0D};
+        }
+
+        #pulseaudio {
+          background-color: #${colorScheme.palette.base0E};
+        }
+
+        #network {
+          background-color: #${colorScheme.palette.base0E};
+        }
+
+        #idle_inhibitor {
+          background-color: #${colorScheme.palette.base0A};
         }
 
         #custom-menu {
         	color: #fe8019;
         	padding: 0px 5px 0px 5px;
+        }
+
+        #battery {
+          background-color: #${colorScheme.palette.base0B};
         }
 
         #workspaces button {
