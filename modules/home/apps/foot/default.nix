@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -7,8 +12,11 @@ let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.frgd.apps.foot;
-in {
-  options.frgd.apps.foot = { enable = mkEnableOption "Foot"; };
+in
+{
+  options.frgd.apps.foot = {
+    enable = mkEnableOption "Foot";
+  };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ nerdfonts ];
@@ -19,31 +27,53 @@ in {
 
         main = {
           term = "xterm-256color";
-          font = "Fira Code:size=10";
+          font = "Agave Nerd Font Mono:size=16";
         };
 
-        mouse = { hide-when-typing = "yes"; };
+        mouse = {
+          hide-when-typing = "yes";
+        };
+
+        cursor.color = "181926 f4dbd6";
 
         colors = {
-          background = "282828";
-          foreground = "ebdbb2";
-          regular0 = "282828";
-          regular1 = "cc241d";
-          regular2 = "98971a";
-          regular3 = "d79921";
-          regular4 = "458588";
-          regular5 = "b16286";
-          regular6 = "689d6a";
-          regular7 = "a89984";
-          bright0 = "928374";
-          bright1 = "fb4934";
-          bright2 = "b8bb26";
-          bright3 = "fabd2f";
-          bright4 = "83a598";
-          bright5 = "d3869b";
-          bright6 = "8ec07c";
-          bright7 = "ebdbb2";
+
+          foreground = "cad3f5";
+          background = "24273a";
+
+          regular0 = "494d64";
+          regular1 = "ed8796";
+          regular2 = "a6da95";
+          regular3 = "eed49f";
+          regular4 = "8aadf4";
+          regular5 = "f5bde6";
+          regular6 = "8bd5ca";
+          regular7 = "b8c0e0";
+
+          bright0 = "5b6078";
+          bright1 = "ed8796";
+          bright2 = "a6da95";
+          bright3 = "eed49f";
+          bright4 = "8aadf4";
+          bright5 = "f5bde6";
+          bright6 = "8bd5ca";
+          bright7 = "a5adcb";
+
+          "16" = "f5a97f";
+          "17" = "f4dbd6";
+
+          selection-foreground = "cad3f5";
+          selection-background = "454a5f";
+
+          search-box-no-match = "181926 ed8796";
+
+          search-box-match = "cad3f5 363a4f";
+
+          jump-labels = "181926 f5a97f";
+
+          urls = "8aadf4";
         };
+
       };
 
     };

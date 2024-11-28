@@ -19,8 +19,9 @@ in
       enable = true;
       themeFile = "gruvbox-dark-hard";
       font = {
-        name = "Anonymous Pro for Powerline";
-        size = 18;
+        #TODO add option to set fontsize per system
+        name = "Fantasque Sans Mono";
+        size = 12;
       };
       settings = {
         tab_bar_edge = "top";

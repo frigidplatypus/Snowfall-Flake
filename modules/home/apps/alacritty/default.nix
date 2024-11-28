@@ -19,7 +19,7 @@ in
     programs.alacritty = {
       enable = true;
       settings = {
-        font.size = 18;
+        font.size = 24;
         decorations = "buttonless";
       };
 
