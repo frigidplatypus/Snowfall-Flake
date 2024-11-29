@@ -21,18 +21,13 @@ in
   config = mkIf cfg.enable {
     services.espanso = {
       enable = mkIf pkgs.stdenv.isLinux true;
-      #package = mkIf pkgs.stdenv.isLinux pkgs.espanso-wayland;
+      package = mkIf pkgs.stdenv.isLinux pkgs.espanso-wayland;
       configs = {
         default = {
           show_notifications = true;
           search_trigger = "off";
           #search_shortcut = "CTRL+SHIFT+SPACE";
           clipboard_threshold = 100;
-        };
-        foot = {
-          filter_exec = "foot";
-          backend = "Clipboard";
-          paste_shortcut = "CTRL+SHIFT+V";
         };
       };
     };

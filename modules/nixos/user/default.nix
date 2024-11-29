@@ -64,7 +64,7 @@ in
       # system to select).
       #uid = 1000;
 
-      extraGroups = [ "wheel" ] ++ cfg.extraGroups;
+      extraGroups = [ "wheel" "input" ] ++ cfg.extraGroups;
     } // cfg.extraOptions;
   };
 }
