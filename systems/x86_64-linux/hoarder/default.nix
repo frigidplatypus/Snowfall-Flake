@@ -3,6 +3,7 @@ with lib;
 with lib.frgd;
 {
   imports = [
+    ./hoarder-container.nix
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
@@ -10,9 +11,9 @@ with lib.frgd;
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "books.fluffy-rooster.ts.net" = {
+      "hoarder.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8083
+          reverse_proxy http://127.0.0.1:3000
           encode gzip
         '';
       };
@@ -22,8 +23,5 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
-    services = {
-      calibre-web = enabled;
-    };
   };
 }

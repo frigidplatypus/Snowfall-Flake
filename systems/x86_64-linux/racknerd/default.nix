@@ -4,7 +4,6 @@ with lib.frgd;
 {
   imports = [
     ./hardware.nix
-    ./disko.nix
   ];
 
   # Enable networking
@@ -24,8 +23,7 @@ with lib.frgd;
   #   };
   # };
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.devices = [ "nodev" ];
+  # boot.loader.grub.enable = true;
 
   services.getty.autologinUser = "root";
   services.qemuGuest = enabled;
@@ -38,6 +36,8 @@ with lib.frgd;
     services = {
       openssh = enabled;
       tailscale = enabled;
+      mealie = enabled;
+      matrix-synapse = enabled;
     };
     security = {
       sops = enabled;

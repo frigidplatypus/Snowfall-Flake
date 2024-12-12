@@ -1,18 +1,22 @@
-{ lib, modulesPath, ... }:
+{
+  lib,
+  modulesPath,
+  config,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
+    ./docker-compose-actual.nix
   ];
-
-  # Enable networking
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "books.fluffy-rooster.ts.net" = {
+      "actual.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8083
+          reverse_proxy http://127.0.0.1:5006
           encode gzip
         '';
       };
@@ -22,8 +26,5 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
-    services = {
-      calibre-web = enabled;
-    };
   };
 }

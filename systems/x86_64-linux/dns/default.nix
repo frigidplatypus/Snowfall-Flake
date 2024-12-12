@@ -6,24 +6,34 @@ with lib.frgd;
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
-  # Enable networking
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "books.fluffy-rooster.ts.net" = {
+      "dns.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8083
+          reverse_proxy http://127.0.0.1:5380
           encode gzip
         '';
       };
+    };
+  };
+  services = {
+    technitium-dns-server = {
+      enable = true;
+      openFirewall = true;
+      firewallTCPPorts = [
+        53
+        5380
+        53443
+        443
+        853
+        80
+      ];
     };
   };
 
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
-    services = {
-      calibre-web = enabled;
-    };
   };
 }

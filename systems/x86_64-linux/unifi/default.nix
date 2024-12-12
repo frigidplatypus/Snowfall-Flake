@@ -1,24 +1,32 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  modulesPath,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
+  # imports = [
+  #   ./hardware.nix
+  #   ./disko.nix
+  # ];
   imports = [
-    ./hardware.nix
-    ./disko.nix
+    (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
   # Enable networking
-  networking = {
-    networkmanager.enable = true;
-    interfaces.ens18.ipv4.addresses = [
-      {
-        address = "10.10.4.8";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = "10.10.4.1";
-    nameservers = [ "10.10.4.1" ];
-  };
+  # networking = {
+  #   networkmanager.enable = true;
+  #   interfaces.ens18.ipv4.addresses = [
+  #     {
+  #       address = "10.10.4.8";
+  #       prefixLength = 24;
+  #     }
+  #   ];
+  #   defaultGateway = "10.10.4.1";
+  #   nameservers = [ "10.10.4.1" ];
+  # };
 
   services.caddy = {
     enable = true;
@@ -31,10 +39,6 @@ with lib.frgd;
               tls_insecure_skip_verify
             }
           }
-          encode gzip
-          websocket
-          header_up -Authorization
-          header_up Host {host}
         '';
       };
     };
@@ -43,7 +47,7 @@ with lib.frgd;
   networking.firewall.enable = false;
   frgd = {
     nix = enabled;
-    archetypes.vm = enabled;
+    archetypes.lxc = enabled;
     services.unifiServer = {
       enable = true;
     };

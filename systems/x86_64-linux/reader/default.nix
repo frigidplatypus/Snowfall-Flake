@@ -1,24 +1,17 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  modulesPath,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
   imports = [
-    ./hardware.nix
-    ./disko.nix
+    (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
   # Enable networking
-  networking = {
-    networkmanager.enable = true;
-    interfaces.ens18.ipv4.addresses = [
-      {
-        address = "10.10.4.7";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = "10.10.4.1";
-    nameservers = [ "10.10.4.1" ];
-  };
   sops.secrets.miniflux_password = {
     mode = "0550";
   };
@@ -46,6 +39,6 @@ with lib.frgd;
 
   frgd = {
     nix = enabled;
-    archetypes.vm = enabled;
+    archetypes.lxc = enabled;
   };
 }
