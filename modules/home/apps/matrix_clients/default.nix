@@ -9,17 +9,19 @@
 with lib;
 with lib.frgd;
 let
-  cfg = config.frgd.cli-apps.matrix_clients;
+  cfg = config.frgd.apps.matrix_clients;
 in
 {
-  options.frgd.cli-apps.matrix_clients = with types; {
+  options.frgd.apps.matrix_clients = with types; {
     enable = mkBoolOpt false "matrix_clients";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-       iamb
-       gomuks
+      element-desktop-wayland
+      neochat
+      # fluffychat
+      nheko
     ];
   };
 }

@@ -19,6 +19,7 @@ with lib.frgd;
     apps = {
       obsidian = enabled;
       kitty = enabled;
+      matrix_clients = enabled;
     };
     security = {
       sops = {

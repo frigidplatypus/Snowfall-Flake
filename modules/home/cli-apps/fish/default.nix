@@ -20,11 +20,11 @@ in
     programs.fish = {
       enable = true;
       shellAliases = {
-        fs = "figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
-        fu = "cd ~/Snowfall-Flake/;flake update";
+        fs = "${pkgs.figlet}/bin/figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
+        fu = "cd ~/Snowfall-Flake/;nix flake update";
         fe = "cd ~/Snowfall-Flake/;nvim .";
-        ds = "figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
-        tt = "taskwarrior-tui";
+        ds = "${pkgs.figlet}/bin/figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
+        tt = "${pkgs.taskwarrior-tui}/bin/taskwarrior-tui";
       };
       shellInitLast = ''
         alias cd=z
