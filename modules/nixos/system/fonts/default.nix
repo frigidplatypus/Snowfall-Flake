@@ -15,7 +15,6 @@ in
   options.frgd.system.fonts = with types; {
     enable = mkBoolOpt false "Whether or not to manage fonts.";
     fonts = mkOpt (listOf package) [ ] "Custom font packages to install.";
-    allNerdFonts = mkBoolOpt false "Whether or not to install all nerd fonts.";
     fontpreview = mkBoolOpt false "Whether or not to install fontpreview.";
 
   };
@@ -46,22 +45,13 @@ in
         font-awesome # Icons
         fantasque-sans-mono
         # corefonts # MS
-      ]
-      ++ (
-        if cfg.allNerdFonts then
-          [ nerdfonts ]
-        else
-          [
+        nerd-fonts.fira-code
+        nerd-fonts.hack
+        nerd-fonts.inconsolata
+        nerd-fonts.mononoki
+        nerd-fonts.dejavu-sans-mono
 
-            (nerdfonts.override {
-              # Nerdfont Icons override
-              fonts = [
-                "FiraCode"
-                "Hack"
-              ];
-            })
-          ]
-      )
+      ]
       ++ cfg.fonts;
   };
 }

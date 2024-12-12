@@ -19,7 +19,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ nerdfonts ];
     programs.foot = {
       enable = true;
       server.enable = true;
