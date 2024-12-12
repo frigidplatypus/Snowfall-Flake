@@ -38,6 +38,8 @@ with lib.frgd;
     wl-clipboard
     inkscape
     fontfinder
+    frgd.wakeonlan_script
+    frgd.numara
 
   ];
   frgd = {
@@ -45,7 +47,6 @@ with lib.frgd;
     system = {
       fonts = {
         enable = true;
-        allNerdFonts = true;
       };
       zfs = {
         enable = true;
