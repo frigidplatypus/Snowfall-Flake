@@ -4,7 +4,8 @@
   virtual,
   ...
 }:
-
+with lib;
+with lib.frgd;
 let
   inherit (lib) mkIf mkEnableOption optional;
   inherit (lib.frgd) mkOpt;
@@ -19,13 +20,14 @@ in
   };
 
   config = mkIf cfg.enable {
+    frgd.security.sops = enabled;
     sops.secrets.porkbun_api_key = { };
     security.acme = {
       acceptTerms = true;
       defaults = {
         dnsProvider = "porkbun";
-        environmentFile = config.sops.secrests.porkbun_api_key.path;
-        defaultEmail = cfg.email;
+        environmentFile = config.sops.secrets.porkbun_api_key.path;
+        email = cfg.email;
 
         group = mkIf config.services.nginx.enable "nginx";
 
