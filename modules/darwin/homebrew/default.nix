@@ -55,6 +55,7 @@ in
         "sourcetree"
         "font-fantasque-sans-mono"
         "nikitabobko/tap/aerospace"
+        "element"
       ];
     };
 
