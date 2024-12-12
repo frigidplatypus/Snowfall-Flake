@@ -28,6 +28,7 @@ with lib.frgd;
     lswt
     waylevel
     frgd.numara
+    frgd.deploy_select
     devede
     dvdstyler
     bombono
@@ -38,6 +39,7 @@ with lib.frgd;
     disko
     deploy-rs
     nixos-generators
+    compose2nix
   ];
 
   # Enable OpenGL
