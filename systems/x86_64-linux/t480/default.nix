@@ -24,6 +24,8 @@ with lib.frgd;
     waylevel
     frgd.numara
     frgd.heynote
+    frgd.deploy_select
+    frgd.wakeonlan_script
     cifs-utils
     remmina
     go
@@ -42,7 +44,6 @@ with lib.frgd;
       };
       fonts = {
         enable = true;
-        allNerdFonts = true;
         fontpreview = true;
       };
     };
