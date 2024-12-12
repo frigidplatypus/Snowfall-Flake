@@ -46,6 +46,8 @@ in
         whitesur-gtk-theme
         stilo-themes
         clipse
+        wvkbd
+        squeekboard
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
@@ -61,6 +63,10 @@ in
       enable = true;
       xwayland.enable = true;
       systemd.enable = true;
+      plugins = with pkgs.hyprlandPlugins; [
+        hyprspace
+        hyprgrass
+      ];
       settings = mkMerge [
         {
           general = {
@@ -85,10 +91,10 @@ in
             kb_options = "escape:nocaps";
             numlock_by_default = 0;
             force_no_accel = 1;
-            sensitivity = 1;
+            sensitivity = 1.2;
             touchpad = {
               clickfinger_behavior = true;
-              tap-to-click = false;
+              tap-to-click = true;
             };
           };
           dwindle = {
@@ -97,6 +103,41 @@ in
           };
           gestures = {
             workspace_swipe = true;
+            workspace_swipe_cancel_ratio = 0.15;
+          };
+          plugin = {
+            touch_gestures = {
+              # swipe left from right edge
+              hyprgrass-bind = [
+                ", edge:r:l, workspace, +1"
+                ", edge:l:r, workspace, -1"
+
+                # swipe up from bottom edge
+                ", edge:u:d, exec, ${pkgs.nwg-drawer}/bin/nwg-drawer"
+                ", edge:d:u, exec, ${pkgs.frgd.osk-toggle}/bin/osk-toggle"
+
+                # swipe down from left edge
+                ", edge:l:d, exec, pactl set-sink-volume @DEFAULT_SINK@ -4%"
+
+                # swipe down with 4 fingers
+                # NOTE: swipe events only trigger for finger count of >= 3
+                ", swipe:4:d, killactive"
+
+                # swipe diagonally left and down with 3 fingers
+                # l (or r) must come before d and u
+                ", swipe:3:ld, exec, foot"
+
+                # tap with 3 fingers
+                # NOTE: tap events only trigger for finger count of >= 3
+                ", tap:3, exec, foot"
+              ];
+              # longpress can trigger mouse binds:
+              hyprgrass-bindm = [
+                ", longpress:2, movewindow"
+                ", longpress:3, ${pkgs.wvkbd}/bin/wvkbd"
+
+              ];
+            };
           };
           misc = {
             disable_hyprland_logo = true;
@@ -188,6 +229,7 @@ in
             "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
             "${pkgs.swaybg}/bin/swaybg -m center -i $HOME/flake/modules/themes/wall.png"
             "${pkgs.clipse}/bin/clipse -listen"
+            "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden"
 
             "${pkgs.waybar}/bin/waybar"
             "${pkgs.foot}/binfoot --server &"
@@ -195,7 +237,8 @@ in
             #"${pkgs.swayidle}/bin/swayidle -w timeout 300 'swaylock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'"
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
             "${pkgs.mako}"
-            "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+            # "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+            "${pkgs.hyprpolkitagent}/bin/hyprpolkitagent"
             "${pkgs.udiskie}/bin/udiskie --tray --notify"
             "${pkgs.copyq}/bin/copyq --start-server"
           ];
@@ -251,6 +294,7 @@ in
     frgd = {
       apps.foot = enabled;
       services.cliphist = enabled;
+      # services.xremap = enabled;
       desktop.addons = {
         waybar = enabled;
         swaylock = enabled;

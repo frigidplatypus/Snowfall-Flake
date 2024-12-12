@@ -55,6 +55,7 @@ in
         kitty
         firefox
         libsForQt5.polkit-kde-agent
+        hyprpolkitagent
         xorg.xeyes
         udiskie
         xdg-desktop-portal-gtk

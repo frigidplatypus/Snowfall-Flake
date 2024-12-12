@@ -176,114 +176,114 @@ in
         };
       };
 
-      # CSS
+      style =
+        #CSS
+        ''
 
-      style = ''
+          * {
+          	border: none;
+          	font-family: FiraCode Nerd Font Mono;
+          	font-size: 18px;
+          }
 
-        * {
-        	border: none;
-        	font-family: FiraCode Nerd Font Mono;
-        	font-size: 18px;
-        }
+          button:hover {
+          	background-color: rgba(80, 100, 100, 0.4);
+            padding: 10px;
+          }
 
-        button:hover {
-        	background-color: rgba(80, 100, 100, 0.4);
-          padding: 10px;
-        }
+          window#waybar {
+          	background-color: #${colorScheme.palette.base00};
+          	transition-property: background-color;
+          	transition-duration: .5s;
+          	border-bottom: none;
+          }
 
-        window#waybar {
-        	background-color: #${colorScheme.palette.base00};
-        	transition-property: background-color;
-        	transition-duration: .5s;
-        	border-bottom: none;
-        }
+          window#waybar.hidden {
+          	opacity: 0.2;
+          }
 
-        window#waybar.hidden {
-        	opacity: 0.2;
-        }
+          #workspace,
+          #mode,
+          #clock,
+          #pulseaudio,
+          #custom-sink,
+          #network,
+          #mpd,
+          #memory,
+          #network,
+          #window,
+          #cpu,
+          #disk,
+          #battery,
+          #bluetooth,
+          #idle_inhibitor,
+          #tray {
+          	color: #${colorScheme.palette.base07};
+            padding: 0px 7px 0px 7px;
+          	background-clip: padding-box;
+          }
 
-        #workspace,
-        #mode,
-        #clock,
-        #pulseaudio,
-        #custom-sink,
-        #network,
-        #mpd,
-        #memory,
-        #network,
-        #window,
-        #cpu,
-        #disk,
-        #battery,
-        #bluetooth,
-        #idle_inhibitor,
-        #tray {
-        	color: #${colorScheme.palette.base07};
-          padding: 0px 7px 0px 7px;
-        	background-clip: padding-box;
-        }
+          #bluetooth {
+            background-color: #${colorScheme.palette.base0D};
+          }
 
-        #bluetooth {
-          background-color: #${colorScheme.palette.base0D};
-        }
+          #pulseaudio {
+            background-color: #${colorScheme.palette.base0E};
+          }
 
-        #pulseaudio {
-          background-color: #${colorScheme.palette.base0E};
-        }
+          #network {
+            background-color: #${colorScheme.palette.base0E};
+          }
 
-        #network {
-          background-color: #${colorScheme.palette.base0E};
-        }
+          #idle_inhibitor {
+            background-color: #${colorScheme.palette.base0A};
+          }
 
-        #idle_inhibitor {
-          background-color: #${colorScheme.palette.base0A};
-        }
+          #custom-menu {
+          	color: #fe8019;
+          	padding: 0px 5px 0px 5px;
+          }
 
-        #custom-menu {
-        	color: #fe8019;
-        	padding: 0px 5px 0px 5px;
-        }
+          #battery {
+            background-color: #${colorScheme.palette.base0B};
+          }
 
-        #battery {
-          background-color: #${colorScheme.palette.base0B};
-        }
+          #workspaces button {
+          	padding: 0px 5px;
+          	min-width: 5px;
+          	color: #${colorScheme.palette.base06};
+          }
 
-        #workspaces button {
-        	padding: 0px 5px;
-        	min-width: 5px;
-        	color: #${colorScheme.palette.base06};
-        }
+          #workspaces button:hover {
+          	background-color: rgba(0, 0, 0, 0.2);
+          }
 
-        #workspaces button:hover {
-        	background-color: rgba(0, 0, 0, 0.2);
-        }
+          /*#workspaces button.focused {*/
+          #workspaces button.active {
+          	color: #${colorScheme.palette.base09};
+          	background-color: #${colorScheme.palette.base09};
+          }
 
-        /*#workspaces button.focused {*/
-        #workspaces button.active {
-        	color: #${colorScheme.palette.base09};
-        	background-color: #${colorScheme.palette.base09};
-        }
+          #workspaces button.visible {
+          	color: #${colorScheme.palette.base07};
+          }
 
-        #workspaces button.visible {
-        	color: #${colorScheme.palette.base07};
-        }
+          #workspaces button.hidden {
+          	color: #${colorScheme.palette.base09};
+          }
 
-        #workspaces button.hidden {
-        	color: #${colorScheme.palette.base09};
-        }
+          #battery.warning {
+          	color: #${colorScheme.palette.base09};
+          }
 
-        #battery.warning {
-        	color: #${colorScheme.palette.base09};
-        }
+          #battery.critical {
+          	color: #${colorScheme.palette.base08};
+          }
 
-        #battery.critical {
-        	color: #${colorScheme.palette.base08};
-        }
-
-        #battery.charging {
-        	color: #${colorScheme.palette.base0B};
-        }
-      '';
+          #battery.charging {
+          	color: #${colorScheme.palette.base00};
+          }
+        '';
     };
   };
 
