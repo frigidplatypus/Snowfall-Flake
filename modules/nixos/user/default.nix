@@ -64,7 +64,11 @@ in
       # system to select).
       #uid = 1000;
 
-      extraGroups = [ "wheel" "input" ] ++ cfg.extraGroups;
+      extraGroups = [
+        "wheel"
+        "input"
+        "dialout"
+      ] ++ cfg.extraGroups;
     } // cfg.extraOptions;
   };
 }
