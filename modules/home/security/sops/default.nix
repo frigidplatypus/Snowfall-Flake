@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib;
@@ -28,7 +29,11 @@ in
 
   config = mkIf cfg.enable {
     sops = {
-      age.keyFile = "/sops/keys.txt";
+      age.keyFile =
+        if pkgs.stdenv.isDarwin then
+          "${config.home.homeDirectory}/.config/sops/age/keys.txt"
+        else
+          "/sops/keys.txt";
       defaultSopsFile = ./secrets.yaml;
       secrets.miniflux_config = mkIf cfg.miniflux_config.enable {
         path = cfg.miniflux_config.path;
