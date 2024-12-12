@@ -4,16 +4,16 @@
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    # stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stable-home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "stable-nixpkgs";
-    };
+    # stable-home-manager = {
+    #   url = "github:nix-community/home-manager/release-24.05";
+    #   inputs.nixpkgs.follows = "stable-nixpkgs";
+    # };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -46,14 +46,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-colors.url = "github:misterio77/nix-colors";
     # agenix.url = "github:yaxitech/ragenix";
-    fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
-    # flake-parts
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-    flake-root.url = "github:srid/flake-root";
-    mission-control.url = "github:Platonic-Systems/mission-control";
     neovim = {
       url = "github:justinmartin/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,7 +56,10 @@
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # snowfall-lib.inputs.flake-utils-plus.url = "github:fl42v/flake-utils-plus";
+    xremap-flake = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -90,6 +85,7 @@
         permittedInsecurePackages = [
           "electron-27.3.11"
           "electron-28.3.3"
+          "olm-3.2.16"
         ];
       };
       overlays = with inputs; [
@@ -111,6 +107,7 @@
 
       homes.modules = with inputs; [
         sops-nix.homeManagerModules.sops
+        xremap-flake.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
