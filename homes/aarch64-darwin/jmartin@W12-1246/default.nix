@@ -4,7 +4,13 @@ with lib.frgd;
 {
   home.packages = with pkgs; [
     xkcdpass
-    nerdfonts
+    nerd-fonts.fira-code
+    nerd-fonts.hack
+    nerd-fonts.zed-mono
+    nerd-fonts.symbols-only
+    nerd-fonts.space-mono
+    nerd-fonts.sauce-code-pro
+
   ];
   frgd = {
     apps = {
@@ -34,6 +40,7 @@ with lib.frgd;
       neovim = enabled;
       cliflux = enabled;
       home-manager = enabled;
+      matrix_clients = enabled;
       system-monitors = enabled;
       taskwarrior = enabled;
       fish = enabled;
