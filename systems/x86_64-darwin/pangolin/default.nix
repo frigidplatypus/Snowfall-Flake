@@ -1,10 +1,18 @@
-{ inputs, lib, config, pkgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
-with lib.frgd; {
+with lib.frgd;
+{
   services.nix-daemon.enable = true;
-  environment.shells = with pkgs; [ fish zsh ];
-  environment.systemPackages = with pkgs;
-    [ inputs.fh.packages.x86_64-darwin.default ];
+  environment.shells = with pkgs; [
+    fish
+    zsh
+  ];
   frgd = {
     homebrew = {
       enable = true;
@@ -14,4 +22,3 @@ with lib.frgd; {
     nix-darwin = enabled;
   };
 }
-

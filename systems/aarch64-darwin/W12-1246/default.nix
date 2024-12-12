@@ -14,7 +14,6 @@ with lib.frgd;
     zsh
   ];
   environment.systemPackages = with pkgs; [
-    inputs.fh.packages.aarch64-darwin.default
     devenv
   ];
   frgd = {
