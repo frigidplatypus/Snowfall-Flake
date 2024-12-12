@@ -3,3 +3,4 @@
 .stignore
 result
 keys.txt
+.outputs.txt
