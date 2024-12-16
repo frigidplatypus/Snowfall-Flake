@@ -34,6 +34,9 @@ with lib.frgd;
     wljoywake
     # cura
     inkscape-with-extensions
+    krita
+    gimp
+    # mypaint
   ];
   frgd = {
     nix = enabled;
