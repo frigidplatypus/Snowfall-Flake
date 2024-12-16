@@ -225,6 +225,7 @@ in
 
           #bluetooth {
             background-color: #${colorScheme.palette.base0D};
+            color: #${colorScheme.palette.base00};
           }
 
           #pulseaudio {
@@ -233,10 +234,12 @@ in
 
           #network {
             background-color: #${colorScheme.palette.base0E};
+            color: #${colorScheme.palette.base00};
           }
 
           #idle_inhibitor {
-            background-color: #${colorScheme.palette.base0A};
+            background-color: #${colorScheme.palette.base0F};
+            color: #${colorScheme.palette.base00};
           }
 
           #custom-menu {
@@ -246,6 +249,7 @@ in
 
           #battery {
             background-color: #${colorScheme.palette.base0B};
+            color: #${colorScheme.palette.base00};
           }
 
           #workspaces button {
