@@ -17,6 +17,7 @@ in
 
   config = mkIf cfg.enable {
     boot.isContainer = true;
+    services.getty.autologinUser = "root";
     systemd.suppressedSystemUnits = [
       "dev-mqueue.mount"
       "sys-kernel-debug.mount"
