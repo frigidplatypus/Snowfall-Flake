@@ -19,6 +19,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      nerd-fonts.agave
+    ];
     programs.foot = {
       enable = true;
       server.enable = true;
