@@ -10,25 +10,22 @@ with lib.frgd;
     enable = true;
     virtualHosts = {
       "dns.${tailnet}" = {
-        extraConfig = ''
-          reverse_proxy http://127.0.0.1:5380
-          encode gzip
-        '';
+        extraConfig =
+          #Caddyfile
+          ''
+            reverse_proxy http://127.0.0.1:3000
+            encode gzip
+          '';
       };
     };
   };
+  networking.firewall.enable = false;
+  services.resolved = disabled;
   services = {
-    technitium-dns-server = {
+    adguardhome = {
       enable = true;
-      openFirewall = true;
-      firewallTCPPorts = [
-        53
-        5380
-        53443
-        443
-        853
-        80
-      ];
+      mutableSettings = true;
+      allowDHCP = true;
     };
   };
 
