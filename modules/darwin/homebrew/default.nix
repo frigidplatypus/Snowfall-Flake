@@ -56,6 +56,7 @@ in
         "font-fantasque-sans-mono"
         "nikitabobko/tap/aerospace"
         "element"
+        "background-music"
       ];
     };
 
