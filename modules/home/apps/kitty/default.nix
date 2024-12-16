@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     programs.kitty = {
       enable = true;
-      themeFile = "gruvbox-dark-hard";
+      themeFile = "gruvbox-dark";
       font = {
         #TODO add option to set fontsize per system
         name = "Fantasque Sans Mono";
