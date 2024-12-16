@@ -195,7 +195,7 @@ in
             "SUPERSHIFT,left,movetoworkspace,-1"
 
             #"SUPER, V, exec,  ${pkgs.foot}/bin/footclient --class floating -e fish  -c '${pkgs.clipse}/bin/clipse $PPID'" # bind the open clipboard operation to a nice key.
-            "SUPER,Return,exec,${pkgs.kitty}/bin/kitty"
+            "SUPER,Return,exec,${pkgs.alacritty}/bin/alacritty"
             "SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox"
             "SUPERSHIFT,Q,killactive,"
             "SUPER,Escape,exit,"
@@ -205,7 +205,6 @@ in
             "SUPER,P,pseudo,"
             "SUPER,F,fullscreen"
             "SUPER,R,forcerendererreload"
-            "SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload"
             "SUPERSHIFT,L,exec,${pkgs.swaylock-effects}/bin/swaylock"
 
             ",XF86AudioLowerVolume,exec,${pkgs.avizo}/bin/volumectl -u down"
