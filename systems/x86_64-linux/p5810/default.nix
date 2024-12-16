@@ -17,23 +17,23 @@ with lib.frgd;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
 
-  programs.steam = enabled;
-  xdg.portal = enabled;
+  # programs.steam = enabled;
+  # xdg.portal = enabled;
   networking.firewall.enable = false;
 
   environment.systemPackages = with pkgs; [
     alacritty
     lswt
     waylevel
-    frgd.numara
+    # frgd.numara
     frgd.deploy_select
     devede
     dvdstyler
     bombono
     ffmpeg_7-full
-    xfce.xfburn
+    # xfce.xfburn
     sleep-on-lan
     nixos-anywhere
     disko
@@ -62,7 +62,7 @@ with lib.frgd;
     };
     services = {
       # espanso = enabled;
-      esphome = enabled;
+      # esphome = enabled;
     };
     security = {
       sops = {
@@ -70,7 +70,7 @@ with lib.frgd;
       };
     };
     archetypes = {
-      workstation = enabled;
+      # workstation = enabled;
     };
     virtualization = {
       libvirtd = {
@@ -81,10 +81,10 @@ with lib.frgd;
     };
     suites = {
       common = enabled;
-      desktop = {
-        enable = true;
-        gnome = true;
-      };
+      # desktop = {
+      #   enable = true;
+      #   gnome = true;
+      # };
     };
   };
 }
