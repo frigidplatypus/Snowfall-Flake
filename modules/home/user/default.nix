@@ -58,26 +58,145 @@ in
         sessionVariables = {
           EDITOR = "nvim";
         };
-        file.".nix-colors.html".text = ''
-          <html>
-            <div style="background-color:#${colorScheme.palette.base00}; height: 200px; width: 30%; float:right;"><p>base00</p>${colorScheme.palette.base00}</div>
-            <div style="background-color:#${colorScheme.palette.base01}; height: 200px; width: 30%; float:right;"><p>base01</p>${colorScheme.palette.base01}</div>
-            <div style="background-color:#${colorScheme.palette.base02}; height: 200px; width: 30%; float:right;"><p>base02</p>${colorScheme.palette.base02}</div>
-            <div style="background-color:#${colorScheme.palette.base03}; height: 200px; width: 30%; float:right;"><p>base03</p>${colorScheme.palette.base03}</div>
-            <div style="background-color:#${colorScheme.palette.base04}; height: 200px; width: 30%; float:right;"><p>base04</p>${colorScheme.palette.base04}</div>
-            <div style="background-color:#${colorScheme.palette.base05}; height: 200px; width: 30%; float:right;"><p>base05</p>${colorScheme.palette.base05}</div>
-            <div style="background-color:#${colorScheme.palette.base06}; height: 200px; width: 30%; float:right;"><p>base06</p>${colorScheme.palette.base06}</div>
-            <div style="background-color:#${colorScheme.palette.base07}; height: 200px; width: 30%; float:right;"><p>base07</p>${colorScheme.palette.base07}</div>
-            <div style="background-color:#${colorScheme.palette.base08}; height: 200px; width: 30%; float:right;"><p>base08</p>${colorScheme.palette.base08}</div>
-            <div style="background-color:#${colorScheme.palette.base09}; height: 200px; width: 30%; float:right;"><p>base09</p>${colorScheme.palette.base09}</div>
-            <div style="background-color:#${colorScheme.palette.base0A}; height: 200px; width: 30%; float:right;"><p>base0A</p>${colorScheme.palette.base0A}</div>
-            <div style="background-color:#${colorScheme.palette.base0B}; height: 200px; width: 30%; float:right;"><p>base0B</p>${colorScheme.palette.base0B}</div>
-            <div style="background-color:#${colorScheme.palette.base0C}; height: 200px; width: 30%; float:right;"><p>base0C</p>${colorScheme.palette.base0C}</div>
-            <div style="background-color:#${colorScheme.palette.base0D}; height: 200px; width: 30%; float:right;"><p>base0D</p>${colorScheme.palette.base0D}</div>
-            <div style="background-color:#${colorScheme.palette.base0E}; height: 200px; width: 30%; float:right;"><p>base0E</p>${colorScheme.palette.base0E}</div>
-            <div style="background-color:#${colorScheme.palette.base0F}; height: 200px; width: 30%; float:right;"><p>base0F</p>${colorScheme.palette.base0F}</div>
-          </html>
-        '';
+        file.".nix-colors.html".text =
+          # HTML
+          ''
+            <html>
+              <style>
+                .color-container {
+                height: 200px;
+                width: 25%;
+                float:left;
+                box-size: border-box;
+                }
+                .light-text {
+                color: #${colorScheme.palette.base07};
+                }
+                .medium-text{
+                color: #${colorScheme.palette.base03};
+                }
+                .dark-text {
+                color: #${colorScheme.palette.base00};
+                }
+              </style>
+              <div style="width:100%; text-align:center; margin: 0px">
+                <h1>${colorScheme.name}</h1>
+                <h2>${colorScheme.slug}</h2>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base00}; ">
+                  <p>base00</p>
+                  <p>${colorScheme.palette.base00}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container"style="background-color:#${colorScheme.palette.base01}; ">
+                  <p>base01</p>
+                  <p>${colorScheme.palette.base01}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base02}; ">
+                  <p>base02</p>
+                  <p>${colorScheme.palette.base02}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base03}; ">
+                  <p>base03</p>
+                  <p>${colorScheme.palette.base03}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base04}; ">
+                  <p>base04</p>
+                  <p>${colorScheme.palette.base04}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base05}; ">
+                  <p>base05</p>
+                  <p>${colorScheme.palette.base05}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base06}; ">
+                  <p>base06</p>
+                  <p>${colorScheme.palette.base06}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base07}; ">
+                  <p>base07</p>
+                  <p>${colorScheme.palette.base07}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base08}; ">
+                  <p>base08</p>
+                  <p>${colorScheme.palette.base08}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base09}; ">
+                  <p>base09</p>
+                  <p>${colorScheme.palette.base09}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base0A}; ">
+                  <p>base0A</p>
+                  <p>${colorScheme.palette.base0A}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base0B}; ">
+                  <p>base0B</p>
+                  <p>${colorScheme.palette.base0B}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base0C}; ">
+                  <p>base0C</p>
+                  <p>${colorScheme.palette.base0C}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base0D}; ">
+                  <p>base0D</p>
+                  <p>${colorScheme.palette.base0D}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base0E}; ">
+                  <p>base0E</p>
+                  <p>${colorScheme.palette.base0E}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+                <div class="color-container" style="background-color:#${colorScheme.palette.base0F}; ">
+                  <p>base0F</p>
+                  <p>${colorScheme.palette.base0F}</p>
+                  <p class="light-text">light-text</p>
+                  <p class="medium-text">medium-text</p>
+                  <p class="dark-text">dark-text</p>
+                </div>
+              </div>
+            </html>
+          '';
       };
       # frgd = {
       #   tools.lsd = enabled;
