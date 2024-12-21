@@ -19,9 +19,9 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       element-desktop-wayland
-      neochat
+      # neochat
       # fluffychat
-      nheko
+      # nheko
     ];
   };
 }
