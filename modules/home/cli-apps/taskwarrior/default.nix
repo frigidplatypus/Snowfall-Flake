@@ -14,6 +14,9 @@ in
 {
   options.frgd.cli-apps.taskwarrior = {
     enable = mkEnableOption "Taskwarrior";
+    recurrence = {
+      enable = mkEnableOption "Recurrence, only enable on one device.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -24,11 +27,12 @@ in
       colorTheme = "dark-violets-256";
       config = {
         confirmation = false;
+        recurrence = mkIf cfg.recurrence.enable "on";
         report.minimal.filter = "status:pending";
         report.active.columns = [
           "id"
           "start"
-          "entry.age"
+          # "entry.age"
           "priority"
           "project"
           "due"
