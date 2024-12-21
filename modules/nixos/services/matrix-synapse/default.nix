@@ -5,21 +5,33 @@ with lib.frgd;
 let
   cfg = config.frgd.services.matrix-synapse;
   fqdn = "${config.networking.domain}";
-  clientConfig."m.homeserver".base_url = "https://${fqdn}";
-  serverConfig."m.server" = "${fqdn}:443";
+  clientConfig."m.homeserver".base_url = "https://frigidplatyp.us";
+  serverConfig."m.server" = "frigidplatyp.us:443";
   mkWellKnown = data: ''
     add_header Content-Type application/json;
     add_header Access-Control-Allow-Origin *;
     return 200 '${builtins.toJSON data}';
   '';
-in {
+in
+{
   options.frgd.services.matrix-synapse = with types; {
     enable = mkBoolOpt false "Whether or not to enable matrix-synapse.";
+    fqdn = mkOption {
+      type = str;
+      example = "example.org";
+      description = "The fully qualified domain name of the Matrix homeserver.";
+    };
+
   };
 
   config = mkIf cfg.enable {
-    frgd = { security.sops.matrix_registration_shared_secret = enabled; };
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    frgd = {
+      security.sops.matrix_registration_shared_secret = enabled;
+    };
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
     #  services.postgresql.enable = true;
     #  services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
@@ -61,7 +73,7 @@ in {
         #        locations."= /.well-known/matrix/client".extraConfig =
         #          mkWellKnown clientConfig;
         #      };
-        "${fqdn}" = {
+        "frigidplatyp.us" = {
           enableACME = true;
           forceSSL = true;
           #        # It's also possible to do a redirect here or something else, this vhost is not
@@ -75,44 +87,42 @@ in {
           locations."/_matrix".proxyPass = "http://[::1]:8008";
           # Forward requests for e.g. SSO and password-resets.
           locations."/_synapse/client".proxyPass = "http://[::1]:8008";
-          locations."= /.well-known/matrix/server".extraConfig =
-            mkWellKnown serverConfig;
-          locations."= /.well-known/matrix/client".extraConfig =
-            mkWellKnown clientConfig;
+          locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+          locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
         };
       };
     };
 
     services.matrix-synapse = {
       enable = true;
-      settings.server_name = "${fqdn}";
+      settings.server_name = "frigidplatyp.us";
       settings.database.name = "sqlite3";
-      settings.listeners = [{
-        port = 8008;
-        bind_addresses = [ "::1" ];
-        type = "http";
-        tls = false;
-        x_forwarded = true;
-        resources = [{
-          names = [ "client" "federation" ];
-          compress = true;
-        }];
-      }];
-      extraConfigFiles =
-        [ config.sops.secrets.matrix_registration_shared_secret.path ];
+      settings.listeners = [
+        {
+          port = 8008;
+          bind_addresses = [ "::1" ];
+          type = "http";
+          tls = false;
+          x_forwarded = true;
+          resources = [
+            {
+              names = [
+                "client"
+                "federation"
+              ];
+              compress = true;
+            }
+          ];
+        }
+      ];
+      extraConfigFiles = [ config.sops.secrets.matrix_registration_shared_secret.path ];
     };
 
+    frgd.security.acme = {
+      enable = true;
+    };
     security.acme = {
-      acceptTerms = true;
-      defaults = {
-        email = "jus10mar10@gmail.com";
-        dnsProvider = "vultr";
-        credentialsFile = config.sops.secrets.vultr_api_key.path;
-
-        # Suplying password files like this will make your credentials world-readable
-        # in the Nix store. This is for demonstration purpose only, do not use this in production.
-      };
+      certs."matrix.frigidplatyp.us" = { };
     };
   };
 }
-
