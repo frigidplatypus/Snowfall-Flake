@@ -18,7 +18,7 @@ in
 
   config = mkIf cfg.enable {
 
-    programs.fish.enable = true;
+    # programs.fish.enable = true;
     environment = {
       shells = with pkgs; [
         bash
