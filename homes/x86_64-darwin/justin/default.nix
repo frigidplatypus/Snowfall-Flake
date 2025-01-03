@@ -9,6 +9,10 @@ with lib.frgd;
       };
     };
 
+    apps = {
+      kitty = enabled;
+    };
+
     cli-apps = {
       neovim = enabled;
       home-manager = enabled;
