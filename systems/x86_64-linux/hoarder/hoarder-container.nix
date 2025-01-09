@@ -8,9 +8,8 @@
 
 {
   # Runtime
-  sops.secrets.hoarder_env =
-    {
-    };
+  sops.secrets.hoarder_env = {
+  };
   virtualisation.podman = {
     enable = true;
     autoPrune.enable = true;
@@ -30,6 +29,9 @@
   # Containers
   virtualisation.oci-containers.containers."hoarder-chrome" = {
     image = "gcr.io/zenika-hub/alpine-chrome:123";
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     cmd = [
       "--no-sandbox"
       "--disable-gpu"
@@ -62,8 +64,11 @@
     ];
   };
   virtualisation.oci-containers.containers."hoarder-meilisearch" = {
-    image = "getmeili/meilisearch:v1.11.1";
+    image = "docker.io/getmeili/meilisearch:v1.11.1";
     environmentFiles = [ config.sops.secrets.hoarder_env.path ];
+    labels = {
+      "io.containers.autoupdate" = "registry";
+    };
     volumes = [
       "hoarder_meilisearch:/meili_data:rw"
     ];
@@ -98,6 +103,9 @@
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
       "MEILI_ADDR" = "http://meilisearch:7700";
+    };
+    labels = {
+      "io.containers.autoupdate" = "registry";
     };
     environmentFiles = [ config.sops.secrets.hoarder_env.path ];
     volumes = [
