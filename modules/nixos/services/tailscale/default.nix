@@ -16,6 +16,7 @@ in
     autoconnect = {
       enable = mkBoolOpt false "Whether or not to enable automatic connection to Tailscale";
     };
+    tailscaleAuth.enable = mkBoolOpt false "Whether or not to enable Tailscale authentication";
   };
 
   config = mkIf cfg.enable {
@@ -32,6 +33,12 @@ in
         "--accept-dns"
         "--accept-routes=false"
       ];
+    };
+
+    services.tailscaleAuth = mkIf cfg.tailscaleAuth.enable {
+      enable = true;
+      user = config.services.caddy.user;
+      group = config.services.caddy.group;
     };
 
     networking = {
