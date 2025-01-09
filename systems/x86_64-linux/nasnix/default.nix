@@ -7,6 +7,10 @@ with lib.frgd;
     ./disko.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    fclones
+  ];
+
   networking = {
     networkmanager.enable = true;
     hostId = "358bebb3";
