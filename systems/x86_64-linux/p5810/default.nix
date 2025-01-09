@@ -40,6 +40,7 @@ with lib.frgd;
     deploy-rs
     nixos-generators
     compose2nix
+    sanoid
   ];
 
   # Enable OpenGL
