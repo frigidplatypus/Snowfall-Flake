@@ -4,7 +4,7 @@
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -49,6 +49,9 @@
     neovim = {
       url = "github:justinmartin/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
     };
 
     # Enable fingerprint reader for T480
