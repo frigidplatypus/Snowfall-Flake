@@ -12,8 +12,21 @@ with lib.frgd;
     virtualHosts = {
       "books.fluffy-rooster.ts.net" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8083
-          encode gzip
+          forward_auth unix//run/tailscale-nginx-auth/tailscale-nginx-auth.sock {
+            uri /auth
+          	header_up Remote-Addr {remote_host}
+          	header_up Remote-Port {remote_port}
+          	header_up Original-URI {uri}
+            	copy_headers {
+                Tailscale-User>X-Webauth-User
+                Tailscale-Name>X-Webauth-Name
+                Tailscale-Login>X-Webauth-Login
+                Tailscale-Tailnet>X-Webauth-Tailnet
+                Tailscale-Profile-Picture>X-Webauth-Profile-Picture
+              }
+
+          }
+          reverse_proxy localhost:8083
         '';
       };
     };
@@ -24,6 +37,7 @@ with lib.frgd;
     archetypes.lxc = enabled;
     services = {
       calibre-web = enabled;
+      tailscale.tailscaleAuth = enabled;
     };
   };
 }
