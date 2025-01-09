@@ -32,8 +32,9 @@ in
       wireplumber = enabled;
       pulse = enabled;
     };
+    # services.pulseaudio.enable = true;
 
-    hardware.pulseaudio.enable = mkForce false;
+    # hardware.pulseaudio.enable = mkForce false;
 
     environment.systemPackages =
       with pkgs;
