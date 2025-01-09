@@ -16,7 +16,7 @@ with lib.frgd;
       taskwarrior-sync = {
         enable = true;
       };
-      taskwarrior-api = enabled;
+      # taskwarrior-api = enabled;
     };
 
     cli-apps = {
