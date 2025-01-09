@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -37,6 +42,7 @@ with lib.frgd;
     krita
     gimp
     # mypaint
+    inputs.ghostty.packages.x86_64-linux.default
   ];
   frgd = {
     nix = enabled;
