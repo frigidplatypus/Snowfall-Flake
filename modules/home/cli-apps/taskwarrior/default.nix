@@ -58,7 +58,7 @@ in
         context.western.write = "project:Western";
         context.home.read = "project.not:Western";
         context.home.write = "project.not:Western";
-        sync.server.url = "http://tasks.fluffy-rooster.ts.net:10222";
+        sync.server.url = "https://tasks.fluffy-rooster.ts.net";
         sync.server.client_id = "d790343c-de82-419b-a5ad-0f2aa9c5130b";
         sync.encryption_secret = "7c0b8b0c-6de0-4b15-b4c3-9bafae2ba872";
       };
