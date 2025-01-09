@@ -12,7 +12,7 @@ let
     owner = "DCsunset";
     repo = "taskwarrior-webui";
     rev = "master";
-    sha256 = "sha256-TgmPMrBlB43nFFULyH30lI/NmySmdT0E3+9ONOVyD+8=";
+    sha256 = "sha256-N150oC32uKrcunopgjOwuB7yaeMURGVNfBJpdgSvu2A=";
   };
 
   api = buildNpmPackage {
