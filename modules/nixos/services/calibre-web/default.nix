@@ -24,6 +24,10 @@ in
         enableBookConversion = true;
         enableKepubify = true;
         calibreLibrary = "/books";
+        reverseProxyAuth = {
+          enable = true;
+          header = "X-Webauth-User";
+        };
       };
     };
 
