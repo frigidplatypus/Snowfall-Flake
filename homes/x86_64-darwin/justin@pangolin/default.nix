@@ -18,7 +18,10 @@ with lib.frgd;
       home-manager = enabled;
       tmux = enabled;
       system-monitors = enabled;
-      taskwarrior = enabled;
+      taskwarrior = {
+        enable = true;
+        dataLocation = "/Users/justin/Library/Mobile Documents/iCloud~com~mav~taskchamp/Documents/task";
+      };
       #zellij = enabled;
       fish = enabled;
     };
@@ -31,7 +34,6 @@ with lib.frgd;
       charms = enabled;
     };
   };
-  programs.taskwarrior.dataLocation = "/Users/justin/Library/Mobile Documents/iCloud~com~mav~taskchamp/Documents/task";
   home.stateVersion = "24.05";
 
 }
