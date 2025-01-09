@@ -29,17 +29,23 @@ in
       powerDownCommands = "swaylock";
     };
 
+    services = {
+      displayManager.defaultSession = "hyprland";
+      displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "${pkgs.where-is-my-sddm-theme}/share/sddm/themes/where_is_my_sddm_theme";
+      };
+    };
 
     environment = {
-      loginShellInit = ''
-        if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-          exec Hyprland
-        fi
-      ''; # Will automatically open Hyprland when logged into tty1
-
+      # loginShellInit = ''
+      #   if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+      #     exec Hyprland
+      #   fi
+      # ''; # Will automatically open Hyprland when logged into tty1
+      #
       variables = {
-        #WLR_NO_HARDWARE_CURSORS=1;         # Possible variables needed in vm
-        #WLR_RENDERER_ALLOW_SOFTWARE=1;
         XDG_CURRENT_DESKTOP = "Hyprland";
         XDG_SESSION_TYPE = "wayland";
         XDG_SESSION_DESKTOP = "Hyprland";
@@ -56,6 +62,7 @@ in
         firefox
         libsForQt5.polkit-kde-agent
         hyprpolkitagent
+        hyprutils
         xorg.xeyes
         udiskie
         xdg-desktop-portal-gtk
@@ -71,6 +78,8 @@ in
         whitesur-gtk-theme
         stilo-themes
         wl-clipboard
+        where-is-my-sddm-theme
+        sddm-sugar-dark
       ];
     };
 
