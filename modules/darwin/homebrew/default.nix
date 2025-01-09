@@ -57,6 +57,8 @@ in
         "nikitabobko/tap/aerospace"
         "element"
         "background-music"
+        "ghostty"
+        "apache-directory-studio"
       ];
     };
 
