@@ -20,6 +20,7 @@ with lib.frgd;
       neovim = enabled;
       home-manager = enabled;
       ranger = enabled;
+      tmux = enabled;
     };
 
     tools = {
