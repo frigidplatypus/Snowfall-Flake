@@ -26,7 +26,13 @@ in
     }:
     let
       hosts = self.nixosConfigurations or { };
-      names = builtins.attrNames hosts;
+      excludedHosts = [
+        "p5810"
+        "t480"
+      ];
+      # names = builtins.attrNames hosts;
+      names = builtins.filter (name: !(builtins.elem name excludedHosts)) (builtins.attrNames hosts);
+      # names = builtins.filter (name: name != "p5810") (builtins.attrNames hosts);
       nodes = lib.foldl (
         result: name:
         let
