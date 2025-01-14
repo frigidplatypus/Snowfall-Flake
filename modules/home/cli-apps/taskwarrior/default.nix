@@ -17,13 +17,12 @@ in
     recurrence = {
       enable = mkEnableOption "Recurrence, only enable on one device.";
     };
-    dataLocation = mkOption {
-      type = types.path;
-      default = "$XDG_DATA_HOME/task";
-      description = ''
-        The location of the Taskwarrior data.
-      '';
-    };
+    # dataLocation = mkOption {
+    #   type = types.string;
+    #   description = ''
+    #     The location of the Taskwarrior data.
+    #   '';
+    # };
   };
 
   config = mkIf cfg.enable {
@@ -32,7 +31,7 @@ in
       enable = true;
       package = pkgs.taskwarrior3;
       colorTheme = "dark-violets-256";
-      dataLocation = mkIf (cfg.dataLocation != null) cfg.dataLocation;
+      # dataLocation = mkIf (cfg.dataLocation) cfg.dataLocation;
       config = {
         confirmation = false;
         recurrence = mkIf cfg.recurrence.enable "on";
