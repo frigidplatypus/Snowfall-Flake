@@ -29,9 +29,9 @@ with lib.frgd;
     waylevel
     # frgd.numara
     frgd.deploy_select
-    devede
-    dvdstyler
-    bombono
+    # devede
+    # dvdstyler
+    # bombono
     ffmpeg_7-full
     # xfce.xfburn
     sleep-on-lan
