@@ -47,7 +47,11 @@
     nix-colors.url = "github:misterio77/nix-colors";
     # agenix.url = "github:yaxitech/ragenix";
     neovim = {
-      url = "github:justinmartin/neovim";
+      url = "github:frigidplatypus/neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    neovim_notes = {
+      url = "github:frigidplatypus/neovim_notes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ghostty = {
@@ -86,9 +90,9 @@
       channels-config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "electron-27.3.11"
-          "electron-28.3.3"
-          "olm-3.2.16"
+          # "electron-27.3.11"
+          # "electron-28.3.3"
+          # "olm-3.2.16"
         ];
       };
       overlays = with inputs; [
@@ -96,6 +100,7 @@
         # There is also a named overlay, though the output is the same.
         snowfall-flake.overlays."package/flake"
         neovim.overlays.default
+        neovim_notes.overlays.default
       ];
 
       systems.modules.darwin = with inputs; [
