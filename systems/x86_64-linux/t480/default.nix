@@ -43,6 +43,8 @@ with lib.frgd;
     gimp
     # mypaint
     inputs.ghostty.packages.x86_64-linux.default
+    gparted
+    kdePackages.partitionmanager
   ];
   frgd = {
     nix = enabled;
@@ -51,6 +53,8 @@ with lib.frgd;
         enable = true;
         efi = true;
       };
+      zramSwap = enabled;
+      zfs = enabled;
       fonts = {
         enable = true;
         fontpreview = true;
