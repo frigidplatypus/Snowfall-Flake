@@ -49,6 +49,7 @@ in
         clipse
         wvkbd
         squeekboard
+        hyprpolkitagent
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
@@ -65,8 +66,8 @@ in
       xwayland.enable = true;
       systemd.enable = true;
       plugins = with pkgs.hyprlandPlugins; [
-        hyprspace
-        hyprgrass
+        # hyprspace
+        # hyprgrass
       ];
       settings = mkMerge [
         {
@@ -106,40 +107,40 @@ in
             workspace_swipe = true;
             workspace_swipe_cancel_ratio = 0.15;
           };
-          plugin = {
-            touch_gestures = {
-              # swipe left from right edge
-              hyprgrass-bind = [
-                ", edge:r:l, workspace, +1"
-                ", edge:l:r, workspace, -1"
-
-                # swipe up from bottom edge
-                ", edge:u:d, exec, ${pkgs.nwg-drawer}/bin/nwg-drawer"
-                ", edge:d:u, exec, ${pkgs.frgd.osk-toggle}/bin/osk-toggle"
-
-                # swipe down from left edge
-                ", edge:l:d, exec, pactl set-sink-volume @DEFAULT_SINK@ -4%"
-
-                # swipe down with 4 fingers
-                # NOTE: swipe events only trigger for finger count of >= 3
-                ", swipe:4:d, killactive"
-
-                # swipe diagonally left and down with 3 fingers
-                # l (or r) must come before d and u
-                ", swipe:3:ld, exec, foot"
-
-                # tap with 3 fingers
-                # NOTE: tap events only trigger for finger count of >= 3
-                ", tap:3, exec, foot"
-              ];
-              # longpress can trigger mouse binds:
-              hyprgrass-bindm = [
-                ", longpress:2, movewindow"
-                ", longpress:3, ${pkgs.wvkbd}/bin/wvkbd"
-
-              ];
-            };
-          };
+          # plugin = {
+          #   touch_gestures = {
+          #     # swipe left from right edge
+          #     hyprgrass-bind = [
+          #       ", edge:r:l, workspace, +1"
+          #       ", edge:l:r, workspace, -1"
+          #
+          #       # swipe up from bottom edge
+          #       ", edge:u:d, exec, ${pkgs.nwg-drawer}/bin/nwg-drawer"
+          #       ", edge:d:u, exec, ${pkgs.frgd.osk-toggle}/bin/osk-toggle"
+          #
+          #       # swipe down from left edge
+          #       ", edge:l:d, exec, pactl set-sink-volume @DEFAULT_SINK@ -4%"
+          #
+          #       # swipe down with 4 fingers
+          #       # NOTE: swipe events only trigger for finger count of >= 3
+          #       ", swipe:4:d, killactive"
+          #
+          #       # swipe diagonally left and down with 3 fingers
+          #       # l (or r) must come before d and u
+          #       ", swipe:3:ld, exec, foot"
+          #
+          #       # tap with 3 fingers
+          #       # NOTE: tap events only trigger for finger count of >= 3
+          #       ", tap:3, exec, foot"
+          #     ];
+          #     # longpress can trigger mouse binds:
+          #     hyprgrass-bindm = [
+          #       ", longpress:2, movewindow"
+          #       ", longpress:3, ${pkgs.wvkbd}/bin/wvkbd"
+          #
+          #     ];
+          #   };
+          # };
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
@@ -238,9 +239,10 @@ in
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
             "${pkgs.mako}"
             # "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-            "${pkgs.hyprpolkitagent}/bin/hyprpolkitagent"
+            # "${pkgs.hyprpolkitagent}/bin/hyprpolkitagent"
             "${pkgs.udiskie}/bin/udiskie --tray --notify"
             "${pkgs.copyq}/bin/copyq --start-server"
+            "systemctl --user start hyprpolkitagent"
           ];
         }
 
