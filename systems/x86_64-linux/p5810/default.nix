@@ -41,6 +41,9 @@ with lib.frgd;
     nixos-generators
     compose2nix
     sanoid
+    lzo
+    mbuffer
+    pv
   ];
 
   # Enable OpenGL
