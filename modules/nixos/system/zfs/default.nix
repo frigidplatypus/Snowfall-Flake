@@ -45,5 +45,6 @@ in
         monthly = mkDefault 2;
       };
     };
+    frgd.tools.sanoid = enabled;
   };
 }
