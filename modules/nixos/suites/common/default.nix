@@ -27,7 +27,7 @@ in
       apps = {
         #_1password = enabled;
         # cider = enabled;
-        logseq = enabled;
+        # logseq = enabled;
         google-chrome = enabled;
       };
 
