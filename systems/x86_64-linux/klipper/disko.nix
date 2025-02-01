@@ -4,7 +4,7 @@
       x = {
         type = "disk";
         device =
-          "/dev/disk/by-id/ata-8GB_SATA_Flash_Drive_B05171740000000001B8";
+          "/dev/disk/by-id/ata-ACJC2M064HS_985110500063";
         content = {
           type = "gpt";
           partitions = {
@@ -54,4 +54,3 @@
     };
   };
 }
-
