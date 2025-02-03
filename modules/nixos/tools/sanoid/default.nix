@@ -20,6 +20,7 @@ in
     environment.systemPackages = with pkgs; [
       sanoid
       lzo
+      lzop
       mbuffer
       pv
       #frgd.nix-update-index

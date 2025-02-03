@@ -28,7 +28,12 @@ in
 
   config = mkIf cfg.enable {
     boot.supportedFilesystems = [ "zfs" ];
-    environment.systemPackages = with pkgs; [ zfs ];
+    environment.systemPackages = with pkgs; [
+      zfs
+      lzo
+      pv
+      mbuffer
+    ];
     services.zfs = {
       autoScrub = {
         enable = true;
