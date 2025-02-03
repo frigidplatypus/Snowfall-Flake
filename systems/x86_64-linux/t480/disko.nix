@@ -13,7 +13,8 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot/efi";
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
               };
             };
             zfs = {
@@ -49,9 +50,18 @@
             mountpoint = "/home/justin";
             options."com.sun:auto-snapshot" = "true";
           };
+          development = {
+            type = "zfs_fs";
+            mountpoint = "/home/justin/development";
+            options."com.sun:auto-snapshot" = "true";
+          };
+          notes = {
+            type = "zfs_fs";
+            mountpoint = "/home/justin/notes";
+            options."com.sun:auto-snapshot" = "true";
+          };
         };
       };
     };
   };
 }
-
