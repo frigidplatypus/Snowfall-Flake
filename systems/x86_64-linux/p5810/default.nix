@@ -60,6 +60,7 @@ with lib.frgd;
         enable = true;
         efi = true;
       };
+      zfs = enabled;
     };
     apps = {
       element = enabled;
