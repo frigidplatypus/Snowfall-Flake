@@ -67,6 +67,14 @@
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -116,6 +124,8 @@
       homes.modules = with inputs; [
         sops-nix.homeManagerModules.sops
         xremap-flake.homeManagerModules.default
+        walker.homeManagerModules.walker
+        nix-index-database.hmModules.nix-index
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };

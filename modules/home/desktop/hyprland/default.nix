@@ -50,6 +50,7 @@ in
         wvkbd
         squeekboard
         hyprpolkitagent
+        # walker
       ];
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
@@ -228,9 +229,11 @@ in
 
           exec-once = [
             "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-            "${pkgs.swaybg}/bin/swaybg -m center -i $HOME/flake/modules/themes/wall.png"
+            # "${pkgs.swaybg}/bin/swaybg -m center -i $HOME/Snowfall-Flake/assets/wall.png"
             "${pkgs.clipse}/bin/clipse -listen"
             "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden"
+
+            # "${pkgs.walker}/bin/walker --gapplication-service"
 
             "${pkgs.waybar}/bin/waybar"
             "${pkgs.foot}/binfoot --server &"
@@ -287,9 +290,35 @@ in
         }
       ];
     };
+
     services.swayosd = {
       enable = true;
       topMargin = 0.3;
+    };
+
+    programs.walker = {
+      enable = true;
+      runAsService = true;
+    };
+
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        ipc = "on";
+        spash = false;
+        splash_offset = 2.0;
+
+        preload = [
+          "$HOME/Snowfall-Flake/assets/wall.png"
+          # ../../../../assets/wall.png
+        ];
+
+        wallpaper = [
+          "eDP-1,$HOME/Snowfall-Flake/assets/wall.png"
+          # ../../../../assets/wall.png
+        ];
+
+      };
     };
     services.avizo.enable = true;
     services.wob.enable = true;

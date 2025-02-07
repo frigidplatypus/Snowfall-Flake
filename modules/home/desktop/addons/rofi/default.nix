@@ -26,6 +26,8 @@ in
         rofi-calc
         rofi-systemd
         rofi-screenshot
+        rofimoji
+        rofi-games
       ];
     };
 
@@ -33,9 +35,18 @@ in
       rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
-        terminal = "${pkgs.foot}/bin/footclient";
+        terminal = "${pkgs.ghostty}/bin/ghostty";
         location = "center";
         font = "FiraCode Nerd Font Mono 12";
+        plugins = with pkgs; [
+          rofi-power-menu
+          rofi-bluetooth
+          rofi-calc
+          rofi-systemd
+          rofi-screenshot
+          rofimoji
+          rofi-games
+        ];
         theme = {
           "*" = {
             bg0 = mkLiteral "#${colorScheme.palette.base00}";

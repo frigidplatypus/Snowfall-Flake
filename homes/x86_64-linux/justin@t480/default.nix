@@ -20,6 +20,7 @@ with lib.frgd;
       obsidian = enabled;
       kitty = enabled;
       matrix_clients = enabled;
+      ghostty = enabled;
     };
     security = {
       sops = {
@@ -50,6 +51,7 @@ with lib.frgd;
       misc = enabled;
       charms = enabled;
       ssh = enabled;
+      nix-index = enabled;
     };
   };
 }
