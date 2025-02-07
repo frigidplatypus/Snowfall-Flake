@@ -16,7 +16,7 @@ in
   options.frgd.system.zfs = {
     enable = mkEnableOption "ZFS support";
 
-    pools = mkOpt (listOf str) [ "rpool" ] "The ZFS pools to manage.";
+    pools = mkOpt (listOf str) [ "zpool" ] "The ZFS pools to manage.";
 
     auto-snapshot = {
       enable = mkEnableOption "ZFS auto snapshotting";
