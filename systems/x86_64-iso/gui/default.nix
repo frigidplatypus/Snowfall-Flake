@@ -9,8 +9,8 @@ with lib;
 with lib.frgd;
 {
 
-
   frgd = {
     suites.installer = enabled;
+    desktop.gnome = enabled;
   };
 }

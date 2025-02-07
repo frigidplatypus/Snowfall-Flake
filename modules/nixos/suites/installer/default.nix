@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -15,16 +16,31 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      fish
+      frgd.neovim
+      disko
+      nixos-anywhere
+    ];
 
-    security.sudo = enabled;
+    networking.firewall.enable = false;
+    services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
+    services.getty.autologinUser = "justin";
+    security.sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
+    networking = {
+      # networkmanager = enabled;
+      wireless = enabled;
+    };
+
     frgd = {
       nix = enabled;
 
       services = {
         openssh = enabled;
-        #        tailscale = enabled;
         avahi = enabled;
-        #       syncthing = enabled;
       };
     };
   };
