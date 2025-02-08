@@ -15,6 +15,7 @@ in
     enable = mkBoolOpt false "Whether or not to enable booting.";
     grub = mkBoolOpt false "Enable grub";
     efi = mkBoolOpt false "Enable efi";
+    oldBoot = mkBoolOpt false "Enable old boot";
   };
 
   config = mkIf cfg.enable {
@@ -30,6 +31,7 @@ in
     };
     boot.loader.efi = mkIf cfg.efi {
       canTouchEfiVariables = true;
+      efiSysMountPoint = mkIf cfg.oldBoot "/boot/efi";
     };
   };
 }
