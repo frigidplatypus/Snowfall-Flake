@@ -9,7 +9,7 @@ with lib.frgd;
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "dns.${tailnet}" = {
+      "dns.${tailnet}:8000" = {
         extraConfig =
           #Caddyfile
           ''
@@ -32,5 +32,6 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
+    services.tsidp = enabled;
   };
 }
