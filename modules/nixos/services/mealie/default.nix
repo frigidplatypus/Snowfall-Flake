@@ -28,7 +28,7 @@ in
         OIDC_CLIENT_ID = "unused";
         OIDC_CLIENT_SECRET = "unused";
         OIDC_PROVIDER_NAME = "Tailscale";
-        OIDC_NAME_CLAIM= "email";#needs to be set to username
+        OIDC_NAME_CLAIM = "email"; # needs to be set to username
 
       };
     };
