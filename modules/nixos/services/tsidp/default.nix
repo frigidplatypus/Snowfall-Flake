@@ -2,6 +2,7 @@
   options,
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -40,7 +41,7 @@ in
         RestartSec = 5;
         Restart = "always";
         User = "root";
-        ExecStart = "${pkgs-unstable.tailscale}/bin/tsidp -use-local-tailscaled";
+        ExecStart = "${pkgs.tailscale}/bin/tsidp -use-local-tailscaled";
       };
     };
 
