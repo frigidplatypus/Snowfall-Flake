@@ -103,6 +103,11 @@
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
       "MEILI_ADDR" = "http://meilisearch:7700";
+      "OAUTH_WELLKNOWN_URL" = "https://dns.fluffy-rooster.ts.net/.well-known/openid-configuration";
+      "OAUTH_CLIENT_SECRET" = "unused";
+      "OAUTH_CLIENT_ID" = "unused";
+      "OAUTH_PROVIDER_NAME" = "Tailscale";
+      OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = "true";
     };
     labels = {
       "io.containers.autoupdate" = "registry";
