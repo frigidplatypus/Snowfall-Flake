@@ -40,6 +40,9 @@ with lib.frgd;
     fontfinder
     frgd.wakeonlan_script
     frgd.numara
+    # stable-pkgs.cura
+    slic3r
+    super-slicer
 
   ];
   frgd = {
@@ -54,6 +57,7 @@ with lib.frgd;
       boot = {
         enable = true;
         efi = true;
+        oldBoot = true;
       };
     };
     apps = {
