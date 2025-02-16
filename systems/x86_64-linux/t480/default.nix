@@ -45,6 +45,7 @@ with lib.frgd;
     inputs.ghostty.packages.x86_64-linux.default
     gparted
     kdePackages.partitionmanager
+    kdePackages.ark
   ];
   frgd = {
     nix = enabled;
