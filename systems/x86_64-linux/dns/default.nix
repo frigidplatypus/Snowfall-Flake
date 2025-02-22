@@ -33,6 +33,7 @@ with lib.frgd;
     nix = enabled;
     archetypes.lxc = enabled;
     services.tsidp = enabled;
+    # services.netalertx = enabled;
     virtualization.docker = enabled;
   };
 }
