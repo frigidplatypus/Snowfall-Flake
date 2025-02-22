@@ -33,16 +33,15 @@ with lib.frgd;
     frgd.numara
     cifs-utils
     remmina
-    immich-cli
-    immich-go
     wl-clipboard
     inkscape
     fontfinder
     frgd.wakeonlan_script
     frgd.numara
     # stable-pkgs.cura
-    slic3r
+    # slic3r
     super-slicer
+    cura-appimage
 
   ];
   frgd = {
