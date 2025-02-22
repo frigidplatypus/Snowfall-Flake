@@ -19,6 +19,7 @@ with lib.frgd;
     defaultGateway = "192.168.0.1";
     nameservers = [ "192.168.0.1" ];
   };
+  networking.firewall.enable = false;
   frgd = {
     nix = enabled;
     archetypes.server = enabled;
@@ -28,5 +29,6 @@ with lib.frgd;
       klipper = enabled;
     };
     system.boot.efi = true;
+    system.boot.oldBoot = true;
   };
 }

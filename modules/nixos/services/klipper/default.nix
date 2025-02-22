@@ -1,9 +1,17 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.services.klipper;
-in {
+let
+  cfg = config.frgd.services.klipper;
+in
+{
   options.frgd.services.klipper = with types; {
     enable = mkBoolOpt false "klipper";
   };
@@ -14,12 +22,14 @@ in {
       enable = true;
       user = "justin";
       group = "users";
-      # mutableConfig = true;
-      # mutableConfigFolder = /klipper;
+      mutableConfig = true;
+      mutableConfigFolder = "/var/lib/moonraker/config";
       configFile = ./printer.cfg;
     };
 
-    frgd = { services.moonraker = enabled; };
+    frgd = {
+      services.moonraker = enabled;
+    };
 
     services.fluidd = {
       enable = true;
