@@ -36,11 +36,10 @@ in
         Main = {
           layer = "top";
           position = "top";
-          height = 31;
+          height = 40;
           tray = {
             spacing = 15;
           };
-          #modules-center = [ "clock" ];
           modules-left = [
             "custom/menu"
             "hyprland/workspaces"
@@ -75,14 +74,18 @@ in
           "hyprland/workspaces" = {
             "format" = "<sub>{icon}</sub> {windows}";
             "format-window-separator" = " ";
-            "window-rewrite-default" = "󱓻";
+            "window-rewrite-default" = "";
             "window-rewrite" = {
               "title<.*youtube.*>" = ""; # Windows whose titles contain "youtube"
               "class<firefox>" = ""; # Windows whose classes are "firefox"
               "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
               "foot" = "󰽒"; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
-              "kitty" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+              "ghostty" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
               "code" = "󰨞";
+              "bluebubbles" = "";
+              "obsidian" = "";
+              "notes" = "";
+
             };
           };
           "hyprland/window" = {
@@ -183,7 +186,7 @@ in
           * {
           	border: none;
           	font-family: FiraCode Nerd Font Mono;
-          	font-size: 18px;
+          	font-size: 21px;
           }
 
           button:hover {
