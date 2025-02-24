@@ -8,7 +8,7 @@
 with lib;
 with lib.frgd;
 {
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true;
   environment.shells = with pkgs; [
     fish
     zsh

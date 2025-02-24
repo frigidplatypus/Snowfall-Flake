@@ -34,10 +34,10 @@ in
 
     nixpkgs.config.allowUnfree = true;
     system = {
-      stateVersion = 4;
+      stateVersion = 5;
     };
 
-    services.nix-daemon.enable = true;
+    # services.nix-daemon.enable = true;
     system.defaults = {
       NSGlobalDomain.AppleShowAllExtensions = true;
       NSGlobalDomain.InitialKeyRepeat = 14;
