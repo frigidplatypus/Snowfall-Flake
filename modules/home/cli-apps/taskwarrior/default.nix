@@ -71,8 +71,6 @@ in
       };
     };
 
-    services.taskwarrior-sync.enable = if pkgs.stdenv.isLinux then true else false;
-
     home.packages =
       if pkgs.stdenv.isLinux then
         [
@@ -89,5 +87,6 @@ in
           pkgs.vit
           (pkgs.python3.withPackages (python-pkgs: [ python-pkgs.tasklib ]))
         ];
+    frgd.services.taskwarrior-sync = enabled;
   };
 }
