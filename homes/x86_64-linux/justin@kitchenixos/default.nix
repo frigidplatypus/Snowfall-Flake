@@ -9,15 +9,12 @@ with lib.frgd;
     };
     apps = {
       kitty = enabled;
-      matrix_clients = {
-        enable = true;
-      };
+      matrix_clients = enabled;
+      obsidian = enabled;
+      ghostty = enabled;
     };
     suites.common = {
       enable = true;
-    };
-    cli-apps = {
-      taskwarrior = enabled;
     };
     services = {
       espanso = enabled;
@@ -28,6 +25,7 @@ with lib.frgd;
       home-manager = enabled;
       ranger = enabled;
       fish = enabled;
+      taskwarrior = enabled;
     };
 
     tools = {
