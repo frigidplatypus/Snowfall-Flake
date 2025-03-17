@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   options,
   ...
 }:
@@ -30,6 +31,10 @@ in
         };
       };
     };
+    environment.systemPackages = with pkgs; [
+      calibre
+      calibre-web
+    ];
 
   };
 }
