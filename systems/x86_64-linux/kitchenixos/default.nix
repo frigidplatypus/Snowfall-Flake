@@ -42,6 +42,7 @@ with lib.frgd;
     # slic3r
     super-slicer
     cura-appimage
+    libation
 
   ];
   frgd = {
