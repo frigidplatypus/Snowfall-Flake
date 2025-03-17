@@ -34,6 +34,7 @@ with lib.frgd;
 
   services.audiobookshelf = {
     enable = true;
+    host = "0.0.0.0";
   };
 
   frgd = {

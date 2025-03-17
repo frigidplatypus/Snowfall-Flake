@@ -10,18 +10,19 @@ with lib.frgd;
   networking = {
     networkmanager.enable = true;
   };
-
-  # services.caddy = {
-  #   enable = true;
-  #   virtualHosts = {
-  #     "mealie.fluffy-rooster.ts.net" = {
-  #       extraConfig = ''
-  #         reverse_proxy http://127.0.0.1:9000
-  #         encode gzip
-  #       '';
-  #     };
-  #   };
-  # };
+  security.acme = {
+    certs."audiobooks.frgd.us" = { };
+  };
+  services.nginx = {
+    virtualHosts."audiobooks.frgd.us" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://audiobooks.fluffy-rooster.ts.net:8000";
+        proxyWebsockets = true; # needed if you need to use WebSocket
+      };
+    };
+  };
 
   # boot.loader.grub.enable = true;
 
