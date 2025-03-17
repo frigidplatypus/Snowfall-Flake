@@ -27,6 +27,7 @@ in
       defaults = {
         dnsProvider = "porkbun";
         environmentFile = config.sops.secrets.porkbun_api_key.path;
+        dnsResolver = "1.1.1.1";
         email = cfg.email;
 
         group = mkIf config.services.nginx.enable "nginx";

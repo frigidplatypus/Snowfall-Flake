@@ -121,8 +121,5 @@ in
     frgd.security.acme = {
       enable = true;
     };
-    security.acme = {
-      certs."matrix.frigidplatyp.us" = { };
-    };
   };
 }
