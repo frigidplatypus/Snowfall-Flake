@@ -22,6 +22,11 @@ with lib.frgd;
       CLEANUP_FREQUENCY = 48;
       # LISTEN_ADDR = "0.0.0.0:8080";
       BASE_URL = "https://reader.fluffy-rooster.ts.net";
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://dns.fluffy-rooster.ts.net/";
+      OAUTH2_OIDC_PROVIDER_NAME = "Tailscale";
+      OAUTH2_PROVIDER = "oidc";
+      OAUTH2_USER_CREATION = "1";
+      OAUTH2_REDIRECT_URL="https://reader.fluffy-rooster.ts.net/oauth2/oidc/callback";
     };
   };
 
