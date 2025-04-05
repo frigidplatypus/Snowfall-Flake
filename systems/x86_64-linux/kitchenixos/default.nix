@@ -64,6 +64,7 @@ with lib.frgd;
       # element = enabled;
       signal = enabled;
       brave = enabled;
+      steam = enabled;
     };
     # services = { espanso = enabled; };
     security = {
