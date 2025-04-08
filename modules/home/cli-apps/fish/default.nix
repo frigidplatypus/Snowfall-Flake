@@ -33,7 +33,7 @@ in
     };
 
     home.packages = with pkgs.fishPlugins; [
-      fzf-fish
+      # fzf-fish
       grc
       # fifc
       gruvbox
