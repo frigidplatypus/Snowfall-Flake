@@ -55,6 +55,7 @@ in
           "Description"
         ];
         urgency.uda.priority.L.coefficient = -1.8;
+        urgency.user.tag.later.coefficient = -999;
         uda = {
           notification_date = {
             type = "date";
@@ -63,6 +64,8 @@ in
         };
         context.western.read = "project:Western or project:Inbox or priority:H";
         context.western.write = "project:Western";
+        context.s2q.read = "project:Western.S2Q or project:Inbox or priority:H";
+        context.s2q.write = "project:Western.S2Q";
         context.home.read = "project.not:Western";
         context.home.write = "project:Personal";
         sync.server.url = "https://tasks.fluffy-rooster.ts.net";
