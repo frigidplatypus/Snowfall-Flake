@@ -10,7 +10,6 @@ with lib.frgd;
     nerd-fonts.symbols-only
     nerd-fonts.space-mono
     nerd-fonts.sauce-code-pro
-
   ];
   frgd = {
     apps = {
@@ -23,9 +22,9 @@ with lib.frgd;
       };
     };
 
-    apps = {
-      kitty = enabled;
-    };
+    # apps = {
+    #   kitty = enabled;
+    # };
 
     security = {
       sops = {
@@ -58,6 +57,5 @@ with lib.frgd;
       charms = enabled;
     };
   };
-
   home.stateVersion = "24.05";
 }

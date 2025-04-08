@@ -15,6 +15,7 @@ with lib.frgd;
   ];
   environment.systemPackages = with pkgs; [
     devenv
+    nixfmt-rfc-style
   ];
   frgd = {
     homebrew = {
@@ -24,4 +25,9 @@ with lib.frgd;
 
     nix-darwin = enabled;
   };
+  nixpkgs.config.allowBroken = true;
+  nix.settings.trusted-users = [
+    "jmartin"
+    "root"
+  ];
 }
