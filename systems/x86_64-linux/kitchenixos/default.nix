@@ -40,9 +40,11 @@ with lib.frgd;
     frgd.numara
     # stable-pkgs.cura
     # slic3r
-    super-slicer
+    # super-slicer
+    bambu-studio
     cura-appimage
     libation
+    claude-code
 
   ];
   frgd = {
