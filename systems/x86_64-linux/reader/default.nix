@@ -26,7 +26,7 @@ with lib.frgd;
       OAUTH2_OIDC_PROVIDER_NAME = "Tailscale";
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_USER_CREATION = "1";
-      OAUTH2_REDIRECT_URL="https://reader.fluffy-rooster.ts.net/oauth2/oidc/callback";
+      OAUTH2_REDIRECT_URL = "https://reader.fluffy-rooster.ts.net/oauth2/oidc/callback";
     };
   };
 
