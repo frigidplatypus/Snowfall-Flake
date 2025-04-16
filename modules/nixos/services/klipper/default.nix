@@ -22,8 +22,8 @@ in
       enable = true;
       user = "justin";
       group = "users";
-      mutableConfig = true;
-      mutableConfigFolder = "/var/lib/moonraker/config";
+      # mutableConfig = true;
+      # mutableConfigFolder = "/var/lib/moonraker/config";
       configFile = ./printer.cfg;
     };
 
