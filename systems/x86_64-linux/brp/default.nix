@@ -1,4 +1,9 @@
-{ lib, modulesPath, ... }:
+{
+  lib,
+  modulesPath,
+  config,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -18,6 +23,16 @@ with lib.frgd;
           '';
       };
     };
+  };
+  services.bibleReadingPlan = {
+    enable = true;
+    secretsFile = config.sops.secrets.brp_env.path;
+  };
+  sops.secrets.brp_env = {
+    owner = "bible-reading-plan";
+    # group = "taskd";
+    mode = "0440";
+    #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
   };
 
   frgd = {

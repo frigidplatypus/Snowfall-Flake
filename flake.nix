@@ -75,6 +75,11 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    brp = {
+      url = "git+file:/home/justin/brp/bible-reading-plan-flask";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -98,6 +103,7 @@
       channels-config = {
         allowUnfree = true;
         permittedInsecurePackages = [
+          "ventoy-1.1.05"
           # "electron-27.3.11"
           # "electron-28.3.3"
           # "olm-3.2.16"
@@ -119,6 +125,7 @@
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
+        brp.nixosModules.default
       ];
 
       homes.modules = with inputs; [
