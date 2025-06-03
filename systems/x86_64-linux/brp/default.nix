@@ -18,17 +18,19 @@ with lib.frgd;
         extraConfig =
           #Caddyfile
           ''
-            reverse_proxy http://127.0.0.1:5000
+            reverse_proxy http://127.0.0.1:8000
             encode gzip
           '';
       };
     };
   };
-  services.bibleReadingPlan = {
+  services.bible-reading-plan = {
     enable = true;
-    secretsFile = config.sops.secrets.brp_env.path;
+    adminUsername = "justin";
+    adminEmail = "jus10mar10@gmail.com";
+    adminPasswordFile = config.sops.secrets.brp_admin.path;
   };
-  sops.secrets.brp_env = {
+  sops.secrets.brp_admin = {
     owner = "bible-reading-plan";
     # group = "taskd";
     mode = "0440";
