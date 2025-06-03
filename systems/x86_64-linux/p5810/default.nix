@@ -68,6 +68,15 @@ with lib.frgd;
     services = {
       # espanso = enabled;
       # esphome = enabled;
+      samba = {
+        enable = true;
+        shares = {
+          ROMS = {
+            path = "/storage/ROMs";
+            public = true;
+          };
+        };
+      };
     };
     security = {
       sops = {
