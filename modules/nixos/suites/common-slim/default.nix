@@ -16,12 +16,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ snowfallorg.flake ];
     frgd = {
       nix = enabled;
 
       cli-apps = {
-        flake = enabled;
         # tmux = enabled;
         nh = enabled;
       };
