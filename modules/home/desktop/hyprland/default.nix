@@ -218,7 +218,7 @@ in
             ",XF86MonBrightnessUP,exec,${pkgs.avizo}/bin/lightctl up"
           ];
           windowrule = [
-            "float,^(Rofi)$"
+            # "float,^(Rofi)$"
             "float,title:^(Volume Control)$"
             "float,title:^(Picture-in-Picture)$"
             "pin,title:^(Picture-in-Picture)$"
