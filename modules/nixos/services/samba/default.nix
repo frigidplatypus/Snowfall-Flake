@@ -60,7 +60,7 @@ in
       enable = true;
       openFirewall = true;
 
-      shares = mapAttrs (
+      settings = mapAttrs (
         name: value:
         {
           inherit (value) path comment;
@@ -73,6 +73,7 @@ in
           "write list" = config.frgd.user.name;
           "read list" = "guest, nobody";
           "create mask" = "0755";
+          "force user" = config.frgd.user.name;
         })
         // value.extra-config
       ) cfg.shares;
