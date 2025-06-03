@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  config,
   ...
 }:
 with lib;
@@ -46,7 +47,28 @@ with lib.frgd;
     gparted
     kdePackages.partitionmanager
     kdePackages.ark
+    devenv
+    gh
   ];
+
+  # services.bibleReadingPlan = {
+  #   enable = true;
+  #   secretsFile = config.sops.secrets.brp_env.path;
+  # };
+
+  services.bible-reading-plan = {
+    enable = true;
+    adminUsername = "justin";
+    adminEmail = "jus10mar10@gmail.com";
+    adminPasswordFile = config.sops.secrets.brp_admin.path;
+  };
+  sops.secrets.brp_admin = {
+    owner = "bible-reading-plan";
+    # group = "taskd";
+    mode = "0440";
+    #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
+  };
+
   frgd = {
     nix = enabled;
     system = {
