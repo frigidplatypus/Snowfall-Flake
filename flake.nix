@@ -75,8 +75,12 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    brp = {
-      url = "git+file:/home/justin/brp/bible-reading-plan-flask";
+    # brp = {
+    #   url = "path:/home/justin/brp/bible-reading-plan-flask";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    bible-reading-plan = {
+      url = "path:/home/justin/brp/bible-reading-plan-django";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -125,7 +129,8 @@
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
-        brp.nixosModules.default
+        # brp.nixosModules.default
+        bible-reading-plan.nixosModules.default
       ];
 
       homes.modules = with inputs; [
