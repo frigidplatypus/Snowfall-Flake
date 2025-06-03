@@ -32,7 +32,7 @@ in
       };
 
       cli-apps = {
-        flake = enabled;
+        # flake = enabled;
       };
 
       tools = {
