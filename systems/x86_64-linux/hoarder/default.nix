@@ -1,9 +1,14 @@
-{ lib, modulesPath, ... }:
+{
+  lib,
+  modulesPath,
+  config,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
   imports = [
-    ./hoarder-container.nix
+    # ./hoarder-container.nix
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
@@ -18,6 +23,16 @@ with lib.frgd;
         '';
       };
     };
+  };
+
+  sops.secrets.hoarder_env = {
+    owner = "karakeep";
+  };
+
+  services.karakeep = {
+    enable = true;
+    environmentFile = config.sops.secrets.hoarder_env.path;
+
   };
 
   frgd = {
