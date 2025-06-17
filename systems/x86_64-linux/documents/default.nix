@@ -71,6 +71,8 @@ in
     };
   };
 
+  services.stirling-pdf = enabled;
+
   services.paperless = {
     enable = true;
     passwordFile = config.sops.secrets.justin_password.path;
