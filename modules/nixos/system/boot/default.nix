@@ -19,19 +19,24 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.loader.grub = mkIf cfg.grub {
-      enable = true;
-      device = "/dev/sda";
-      useOSProber = true;
-    };
-    boot.loader.systemd-boot = mkIf cfg.efi {
-      enable = true;
-      configurationLimit = 10;
-      editor = true;
-    };
-    boot.loader.efi = mkIf cfg.efi {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = mkIf cfg.oldBoot "/boot/efi";
+    boot = {
+      plymouth = enabled;
+      loader = {
+        grub = mkIf cfg.grub {
+          enable = true;
+          device = "/dev/sda";
+          useOSProber = true;
+        };
+        systemd-boot = mkIf cfg.efi {
+          enable = true;
+          configurationLimit = 10;
+          editor = true;
+        };
+        efi = mkIf cfg.efi {
+          canTouchEfiVariables = true;
+          efiSysMountPoint = mkIf cfg.oldBoot "/boot/efi";
+        };
+      };
     };
   };
 }
