@@ -60,6 +60,8 @@ in
         "ghostty"
         "apache-directory-studio"
         "aldente"
+        # "netnewswire"
+        "chime"
       ];
     };
 

@@ -37,6 +37,7 @@ in
       stateVersion = 5;
     };
 
+
     # services.nix-daemon.enable = true;
     system.defaults = {
       NSGlobalDomain.AppleShowAllExtensions = true;

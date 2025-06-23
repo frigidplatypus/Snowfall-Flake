@@ -14,18 +14,29 @@ in
 {
   options.frgd.cli-apps.fish = {
     enable = mkEnableOption "fish";
+    extraShellAliases = mkOption {
+      type = types.attrsOf types.str;
+      default = { };
+      description = ''
+        Extra shell aliases to add to fish.
+        These will be merged with the default ones.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
     programs.fish = {
       enable = true;
-      shellAliases = {
-        fs = "${pkgs.figlet}/bin/figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
-        fu = "cd ~/Snowfall-Flake/;nix flake update";
-        fe = "cd ~/Snowfall-Flake/;nvim .";
-        ds = "${pkgs.figlet}/bin/figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
-        tt = "${pkgs.taskwarrior-tui}/bin/taskwarrior-tui";
-      };
+      shellAliases = mkMerge [
+        {
+          fs = "${pkgs.figlet}/bin/figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
+          fu = "cd ~/Snowfall-Flake/;nix flake update";
+          fe = "cd ~/Snowfall-Flake/;nvim .";
+          ds = "${pkgs.figlet}/bin/figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
+          tt = "${pkgs.taskwarrior-tui}/bin/taskwarrior-tui";
+        }
+        cfg.extraShellAliases
+      ];
       shellInitLast = ''
         alias cd=z
         alias cdi=zi

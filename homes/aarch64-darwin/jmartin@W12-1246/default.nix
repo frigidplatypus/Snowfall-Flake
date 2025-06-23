@@ -10,7 +10,7 @@ with lib.frgd;
     nerd-fonts.symbols-only
     nerd-fonts.space-mono
     nerd-fonts.sauce-code-pro
-
+    frgd.tuidoist
   ];
   frgd = {
     apps = {
@@ -43,7 +43,12 @@ with lib.frgd;
       matrix_clients = enabled;
       system-monitors = enabled;
       taskwarrior = enabled;
-      fish = enabled;
+      fish = {
+        enable = true;
+        extraShellAliases = {
+          gam = "/Users/jmartin/bin/gam7/gam";
+        };
+      };
       nushell = enabled;
       tmux = enabled;
       zoxide = enabled;
