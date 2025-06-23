@@ -19,7 +19,6 @@ in
   config = mkIf cfg.enable {
     virtualisation.docker = {
       enable = true;
-      package = pkgs.docker_26;
     };
     frgd.user.extraGroups = [ "docker" ];
   };
