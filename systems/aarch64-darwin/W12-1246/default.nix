@@ -24,4 +24,10 @@ with lib.frgd;
 
     nix-darwin = enabled;
   };
+  nixpkgs.config.allowBroken = true;
+  system.primaryUser = "jmartin";
+  nix.settings.trusted-users = [
+    "jmartin"
+    "root"
+  ];
 }
