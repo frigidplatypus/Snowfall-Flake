@@ -29,6 +29,7 @@ with lib.frgd;
     adminUsername = "justin";
     adminEmail = "jus10mar10@gmail.com";
     adminPasswordFile = config.sops.secrets.brp_admin.path;
+    allowedHosts = [ "brp.${tailnet}" ];
   };
   sops.secrets.brp_admin = {
     owner = "bible-reading-plan";
