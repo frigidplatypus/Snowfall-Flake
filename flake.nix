@@ -75,14 +75,14 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # brp = {
-    #   url = "path:/home/justin/brp/bible-reading-plan-flask";
+    # # brp = {
+    # #   url = "path:/home/justin/brp/bible-reading-plan-flask";
+    # #   inputs.nixpkgs.follows = "nixpkgs";
+    # # };
+    # bible-reading-plan = {
+    #   url = "path:/home/justin/brp/bible-reading-plan-django";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    bible-reading-plan = {
-      url = "path:/home/justin/brp/bible-reading-plan-django";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
   };
 
