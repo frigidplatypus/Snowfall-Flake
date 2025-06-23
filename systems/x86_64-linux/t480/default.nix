@@ -49,6 +49,7 @@ with lib.frgd;
     kdePackages.ark
     devenv
     gh
+    rclone
   ];
 
   # services.bibleReadingPlan = {
@@ -58,6 +59,7 @@ with lib.frgd;
 
   services.bible-reading-plan = {
     enable = true;
+    port = 8080;
     adminUsername = "justin";
     adminEmail = "jus10mar10@gmail.com";
     adminPasswordFile = config.sops.secrets.brp_admin.path;
