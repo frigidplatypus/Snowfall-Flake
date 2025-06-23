@@ -170,6 +170,9 @@ in
             "CTRL,down,resizeactive,0 20"
             #"SUPER, V, exec, ${pkgs.clipman}/bin/clipman pick -t ${pkgs.rofi}/bin/rofi"
 
+            # Rofi Shortcuts
+            "SUPER, C, exec, ${pkgs.rofi-wayland}/bin/rofi -show calc"
+
             # Change workspaces
             "SUPER,1,workspace,1"
             "SUPER,2,workspace,2"
