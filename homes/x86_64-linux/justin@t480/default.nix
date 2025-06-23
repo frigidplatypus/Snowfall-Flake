@@ -29,6 +29,7 @@ with lib.frgd;
       };
     };
     cli-apps = {
+      aerc = enabled;
       neovim = enabled;
       home-manager = enabled;
       ranger = enabled;
