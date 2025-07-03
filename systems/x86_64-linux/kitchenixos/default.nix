@@ -44,7 +44,7 @@ with lib.frgd;
     bambu-studio
     cura-appimage
     libation
-    claude-code
+    devenv
 
   ];
   frgd = {
