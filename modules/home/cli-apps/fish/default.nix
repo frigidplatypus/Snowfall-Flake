@@ -30,10 +30,9 @@ in
       shellAliases = mkMerge [
         {
           fs = "${pkgs.figlet}/bin/figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
-          fu = "cd ~/Snowfall-Flake/;nix flake update";
-          fe = "cd ~/Snowfall-Flake/;nvim .";
-          ds = "${pkgs.figlet}/bin/figlet $(hostname); darwin-rebuild switch --flake ~/Snowfall-Flake/#";
-          tt = "${pkgs.taskwarrior-tui}/bin/taskwarrior-tui";
+          fu = "pushd ~/Snowfall-Flake/;nix flake update";
+          fe = "pushd ~/Snowfall-Flake/;nvim .";
+          ds = "${pkgs.figlet}/bin/figlet $(hostname); sudo darwin-rebuild switch --flake ~/Snowfall-Flake/#";
         }
         cfg.extraShellAliases
       ];
@@ -44,7 +43,6 @@ in
     };
 
     home.packages = with pkgs.fishPlugins; [
-      fzf-fish
       grc
       # fifc
       gruvbox
