@@ -40,40 +40,40 @@ in
 
         colors = {
 
-          foreground = "cad3f5";
-          background = "24273a";
+          foreground = "ebdbb2";
+          background = "282828";
 
-          regular0 = "494d64";
-          regular1 = "ed8796";
-          regular2 = "a6da95";
-          regular3 = "eed49f";
-          regular4 = "8aadf4";
-          regular5 = "f5bde6";
-          regular6 = "8bd5ca";
-          regular7 = "b8c0e0";
+          regular0 = "282828";
+          regular1 = "cc241d";
+          regular2 = "98971a";
+          regular3 = "d79921";
+          regular4 = "458588";
+          regular5 = "b16286";
+          regular6 = "689d6a";
+          regular7 = "a89984";
 
-          bright0 = "5b6078";
-          bright1 = "ed8796";
-          bright2 = "a6da95";
-          bright3 = "eed49f";
-          bright4 = "8aadf4";
-          bright5 = "f5bde6";
-          bright6 = "8bd5ca";
-          bright7 = "a5adcb";
+          bright0 = "928374";
+          bright1 = "fb4934";
+          bright2 = "b8bb26";
+          bright3 = "fabd2f";
+          bright4 = "83a598";
+          bright5 = "d3869b";
+          bright6 = "8ec07c";
+          bright7 = "ebdbb2";
 
-          "16" = "f5a97f";
-          "17" = "f4dbd6";
+          "16" = "fe8019";
+          "17" = "d65d0e";
 
-          selection-foreground = "cad3f5";
-          selection-background = "454a5f";
+          selection-foreground = "282828";
+          selection-background = "ebdbb2";
 
-          search-box-no-match = "181926 ed8796";
+          search-box-no-match = "282828 fb4934";
 
-          search-box-match = "cad3f5 363a4f";
+          search-box-match = "ebdbb2 458588";
 
-          jump-labels = "181926 f5a97f";
+          jump-labels = "282828 fe8019";
 
-          urls = "8aadf4";
+          urls = "458588";
         };
 
       };
