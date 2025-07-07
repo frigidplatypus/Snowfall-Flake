@@ -2,6 +2,7 @@
 with lib;
 with lib.frgd;
 {
+  sops.secrets.vikunja_api_key = { };
   frgd = {
     suites.common = enabled;
     user = {
@@ -32,6 +33,18 @@ with lib.frgd;
       aerc = enabled;
       neovim = enabled;
       home-manager = enabled;
+      cria = {
+        enable = true;
+        apiUrl = "https://tasks.fluffy-rooster.ts.net";
+        apiKeyFile = config.sops.secrets.vikunja_api_key.path;
+        quick_actions = [
+          {
+            key = "w";
+            action = "project";
+            target = "Western";
+          }
+        ];
+      };
       ranger = enabled;
       fish = enabled;
       taskwarrior = enabled;
