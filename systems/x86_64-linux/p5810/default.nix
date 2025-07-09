@@ -44,6 +44,7 @@ with lib.frgd;
     lzo
     mbuffer
     pv
+    devenv
   ];
 
   # Enable OpenGL
@@ -52,6 +53,8 @@ with lib.frgd;
   };
 
   # Load nvidia driver for Xorg and Wayland
+  programs.nix-ld.enable = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi/";
 
   frgd = {
     nix = enabled;
