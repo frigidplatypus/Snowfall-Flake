@@ -132,7 +132,6 @@
       homes.modules = with inputs; [
         sops-nix.homeManagerModules.sops
         xremap-flake.homeManagerModules.default
-        walker.homeManagerModules.walker
         nix-index-database.hmModules.nix-index
       ];
 
