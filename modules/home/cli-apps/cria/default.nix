@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -52,7 +53,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ frgd.cria ];
+    home.packages = with pkgs; [ inputs.cria.packages.${system}.default ];
     home.file.".config/cria/config.yaml".text = ''
       api_url: ${cfg.apiUrl}
       ${
