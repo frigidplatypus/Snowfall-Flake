@@ -71,6 +71,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cria = {
+      url = "github:frigidplatypus/cria";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # brp = {
     #   url = "path:/home/justin/brp/bible-reading-plan-flask";
     #   inputs.nixpkgs.follows = "nixpkgs";
