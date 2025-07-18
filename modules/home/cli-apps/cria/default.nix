@@ -34,6 +34,10 @@ in
       description = "Default project";
       default = "Inbox";
     };
+    defaultFilter = lib.mkOption {
+      type = lib.types.str;
+      description = "Default project";
+    };
     quick_actions = lib.mkOption {
       type = lib.types.listOf (lib.types.attrsOf lib.types.anything);
       default = [ ];
@@ -63,6 +67,7 @@ in
           "api_key: ${cfg.apiKey}"
       }
       default_project: ${cfg.defaultProject}
+      default_filter: ${cfg.defaultFilter}
       quick_actions:
       ${lib.concatMapStringsSep "\n" (s: ''
         - key: ${s.key}
