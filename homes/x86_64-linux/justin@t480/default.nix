@@ -37,6 +37,7 @@ with lib.frgd;
         enable = true;
         apiUrl = "https://tasks.fluffy-rooster.ts.net";
         apiKeyFile = config.sops.secrets.vikunja_api_key.path;
+        defaultProject = "Personal";
         quick_actions = [
           {
             key = "w";
