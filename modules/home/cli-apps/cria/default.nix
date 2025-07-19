@@ -67,7 +67,12 @@ in
           "api_key: ${cfg.apiKey}"
       }
       default_project: ${cfg.defaultProject}
-      default_filter: ${cfg.defaultFilter}
+      ${
+        if cfg.defaultFilter != null && cfg.defaultFilter != "" then
+          "default_filter: ${cfg.defaultFilter}"
+        else
+          ""
+      }
       quick_actions:
       ${lib.concatMapStringsSep "\n" (s: ''
         - key: ${s.key}
