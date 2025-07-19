@@ -43,7 +43,6 @@ with lib.frgd;
     krita
     gimp
     # mypaint
-    inputs.ghostty.packages.x86_64-linux.default
     gparted
     kdePackages.partitionmanager
     kdePackages.ark
