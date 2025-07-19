@@ -54,9 +54,9 @@
       url = "github:frigidplatypus/neovim_notes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
+    # ghostty = {
+    #   url = "github:ghostty-org/ghostty";
+    # };
 
     # Enable fingerprint reader for T480
     nixos-06cb-009a-fingerprint-sensor = {
