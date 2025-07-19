@@ -201,7 +201,7 @@ in
             "SUPERSHIFT,left,movetoworkspace,-1"
 
             #"SUPER, V, exec,  ${pkgs.foot}/bin/footclient --class floating -e fish  -c '${pkgs.clipse}/bin/clipse $PPID'" # bind the open clipboard operation to a nice key.
-            "SUPER,Return,exec,${inputs.ghostty.packages.x86_64-linux.default}/bin/ghostty"
+            "SUPER,Return,exec,${pkgs.foot}/bin/footclient"
             "SUPERSHIFT,Return,exec,${pkgs.firefox}/bin/firefox"
             "SUPERSHIFT,Q,killactive,"
             "SUPER,Escape,exit,"
