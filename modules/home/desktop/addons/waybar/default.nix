@@ -79,7 +79,7 @@ in
               "title<.*youtube.*>" = ""; # Windows whose titles contain "youtube"
               "class<firefox>" = ""; # Windows whose classes are "firefox"
               "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
-              "foot" = "󰽒"; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+              "foot" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
               "ghostty" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
               "code" = "󰨞";
               "bluebubbles" = "";
@@ -91,7 +91,7 @@ in
           "hyprland/window" = {
             "format" = "{}";
             "rewrite" = {
-              "(.*) — Mozilla Firefox" = "🌎 $1";
+              "(.*) — Mozilla Firefox" = " $1";
               "(.*) - fish" = "> [$1]";
             };
             "separate-outputs" = true;
