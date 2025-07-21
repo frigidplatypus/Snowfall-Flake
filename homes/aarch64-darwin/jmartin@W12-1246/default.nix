@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -10,8 +15,9 @@ with lib.frgd;
     nerd-fonts.symbols-only
     nerd-fonts.space-mono
     nerd-fonts.sauce-code-pro
-    frgd.tuidoist
+
   ];
+  sops.secrets.vikunja_api_key = { };
   frgd = {
     apps = {
       # circuit-python-editors = enabled;
@@ -52,6 +58,29 @@ with lib.frgd;
       nushell = enabled;
       tmux = enabled;
       zoxide = enabled;
+      cria = {
+        enable = true;
+        apiUrl = "https://tasks.frgd.us";
+        apiKeyFile = config.sops.secrets.vikunja_api_key.path;
+        defaultFilter = "Western";
+        quick_actions = [
+          {
+            key = "w";
+            action = "project";
+            target = "Western";
+          }
+          {
+            key = "p";
+            action = "project";
+            target = "Personal";
+          }
+          {
+            key = "q";
+            action = "label";
+            target = "qmlativ";
+          }
+        ];
+      };
     };
 
     tools = {
