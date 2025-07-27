@@ -26,8 +26,10 @@ in
     };
     powerManagement = {
       enable = true;
-      powerDownCommands = "swaylock";
+      powerDownCommands = "hyprlock --immediate-render --no-fade-in";
     };
+
+    security.pam.services.hyprlock = { };
 
     services = {
       displayManager.defaultSession = "hyprland";

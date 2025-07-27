@@ -38,7 +38,7 @@ in
           position = "top";
           height = 40;
           tray = {
-            spacing = 15;
+            spacing = 10;
           };
           modules-left = [
             "custom/menu"
@@ -66,7 +66,7 @@ in
             tooltip = false;
           };
           "custom/menu" = {
-            format = "<span font='18'> </span>";
+            format = "<span font='24'> </span>";
             on-click = "${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi";
             on-click-right = "";
             tooltip = false;
@@ -78,6 +78,7 @@ in
             "window-rewrite" = {
               "title<.*youtube.*>" = ""; # Windows whose titles contain "youtube"
               "class<firefox>" = ""; # Windows whose classes are "firefox"
+              "class<Google-Chrome>" = ""; # Windows whose classes are "firefox"
               "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
               "foot" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
               "ghostty" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
@@ -91,8 +92,8 @@ in
           "hyprland/window" = {
             "format" = "{}";
             "rewrite" = {
-              "(.*) — Mozilla Firefox" = " $1";
-              "(.*) - fish" = "> [$1]";
+              "(.*) — Mozilla Firefox" = "<span font='18'> $1</span>";
+              "(.*) - fish" = "<span font='18'>> [$1]</span>";
             };
             "separate-outputs" = true;
           };
@@ -116,8 +117,8 @@ in
               warning = 30;
               critical = 15;
             };
-            format = "{capacity}% <span font='14'>{icon}</span>";
-            format-charging = "{capacity}% <span font='11'></span>";
+            format = "{capacity}% {icon}";
+            format-charging = "{capacity}% ";
             format-icons = [
               ""
               ""
@@ -138,23 +139,23 @@ in
             tooltip-format = "{status}";
           };
           network = {
-            format-wifi = "<span font='18'> </span>";
-            format-ethernet = "<span font='18'> </span>";
+            format-wifi = "";
+            format-ethernet = " ";
             #format-ethernet = "<span font='11'></span> {ifname}: {ipaddr}/{cidr}";
             format-linked = "<span font='18'>睊</span> {ifname} (No IP)";
             format-disconnected = "<span font='18'>睊</span> Not connected";
             #format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format = "{essid} {ipaddr}/{cidr}";
-            on-click-right = "${pkgs.kitty}/bin/kitty -e nmtui";
+            on-click-right = "${pkgs.foot}/bin/footclient -e nmtui";
           };
           pulseaudio = {
-            format = "<span font='16'>{icon}</span> {format_source} ";
-            format-bluetooth = "<span font='16'>{icon}</span> {volume}% {format_source} ";
-            format-bluetooth-muted = "<span font='16'></span> {volume}% {format_source} ";
-            format-muted = "<span font='16'></span> {format_source} ";
+            format = "{icon} {format_source}";
+            format-bluetooth = "{icon} {volume}% {format_source} ";
+            format-bluetooth-muted = " {volume}% {format_source} ";
+            format-muted = " {format_source} ";
             #format-source = "{volume}% <span font='11'></span>";
-            format-source = "<span font='16'></span> ";
-            format-source-muted = "<span font='16'> </span> ";
+            format-source = " ";
+            format-source-muted = " ";
             format-icons = {
               default = [
                 ""
@@ -185,8 +186,8 @@ in
 
           * {
           	border: none;
-          	font-family: FiraCode Nerd Font Mono;
-          	font-size: 21px;
+            font-family: ${font-mono};
+          	font-size: 28px;
           }
 
           button:hover {

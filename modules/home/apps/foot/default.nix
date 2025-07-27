@@ -4,80 +4,74 @@
   pkgs,
   ...
 }:
-
 with lib;
 with lib.frgd;
-
 let
   inherit (lib) mkEnableOption mkIf;
-
   cfg = config.frgd.apps.foot;
+  inherit (colorScheme) palette;
 in
 {
   options.frgd.apps.foot = {
     enable = mkEnableOption "Foot";
   };
-
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      nerd-fonts.agave
-    ];
     programs.foot = {
       enable = true;
       server.enable = true;
       settings = {
-
         main = {
           term = "xterm-256color";
-          font = "Agave Nerd Font Mono:size=16";
+          font = "${font-mono}:size=16";
         };
-
         mouse = {
           hide-when-typing = "yes";
         };
-
-        cursor.color = "181926 f4dbd6";
-
+        cursor.color = "${palette.base01} ${palette.base05}";
         colors = {
+          # Base colors
+          foreground = palette.base05; # ebdbb2 - Light foreground
+          background = palette.base00; # 282828 - Dark background
 
-          foreground = "ebdbb2";
-          background = "282828";
+          # Regular colors (0-7)
+          regular0 = palette.base00; # 282828 - Black
+          regular1 = palette.base08; # fb4934 - Red
+          regular2 = palette.base0B; # b8bb26 - Green
+          regular3 = palette.base0A; # fabd2f - Yellow
+          regular4 = palette.base0D; # 83a598 - Blue
+          regular5 = palette.base0E; # d3869b - Magenta
+          regular6 = palette.base0C; # 8ec07c - Cyan
+          regular7 = palette.base04; # bdae93 - Light gray
 
-          regular0 = "282828";
-          regular1 = "cc241d";
-          regular2 = "98971a";
-          regular3 = "d79921";
-          regular4 = "458588";
-          regular5 = "b16286";
-          regular6 = "689d6a";
-          regular7 = "a89984";
+          # Bright colors (8-15)
+          bright0 = palette.base03; # 665c54 - Dark gray
+          bright1 = palette.base08; # fb4934 - Bright red
+          bright2 = palette.base0B; # b8bb26 - Bright green
+          bright3 = palette.base0A; # fabd2f - Bright yellow
+          bright4 = palette.base0D; # 83a598 - Bright blue
+          bright5 = palette.base0E; # d3869b - Bright magenta
+          bright6 = palette.base0C; # 8ec07c - Bright cyan
+          bright7 = palette.base05; # ebdbb2 - White
 
-          bright0 = "928374";
-          bright1 = "fb4934";
-          bright2 = "b8bb26";
-          bright3 = "fabd2f";
-          bright4 = "83a598";
-          bright5 = "d3869b";
-          bright6 = "8ec07c";
-          bright7 = "ebdbb2";
+          # Extended colors
+          "16" = palette.base09; # fe8019 - Orange
+          "17" = palette.base0F; # d65d0e - Brown
 
-          "16" = "fe8019";
-          "17" = "d65d0e";
+          # Selection colors
+          selection-foreground = palette.base00; # Dark text on light background
+          selection-background = palette.base05; # Light background
 
-          selection-foreground = "282828";
-          selection-background = "ebdbb2";
+          # Search colors
+          search-box-no-match = "${palette.base00} ${palette.base08}"; # Background + Red
+          search-box-match = "${palette.base05} ${palette.base0D}"; # Light + Blue
 
-          search-box-no-match = "282828 fb4934";
+          # Jump labels
+          jump-labels = "${palette.base00} ${palette.base09}"; # Background + Orange
 
-          search-box-match = "ebdbb2 458588";
-
-          jump-labels = "282828 fe8019";
-
-          urls = "458588";
+          # URL color
+          urls = palette.base0D; # 83a598 - Blue
         };
-
       };
-
     };
   };
 }

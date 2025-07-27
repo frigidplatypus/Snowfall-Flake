@@ -128,11 +128,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1752947343,
-        "narHash": "sha256-uBznw/Ld/JX8y5jP19vLwS9k4lREX3kCrI0TRXXynwk=",
+        "lastModified": 1753546303,
+        "narHash": "sha256-I2DBx5Ei2UqwVREKLUmDwxW8mUnCEG1uPcE+RszaowU=",
         "owner": "frigidplatypus",
         "repo": "cria",
-        "rev": "a707b3bbf4a6200209befc7cad20420fcb90c604",
+        "rev": "5d9ce1452b34066daf1f45ebe060e24f1e1f5882",
         "type": "github"
       },
       "original": {
