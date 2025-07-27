@@ -67,8 +67,8 @@ in
       xwayland.enable = true;
       systemd.enable = true;
       plugins = with pkgs.hyprlandPlugins; [
-        # hyprspace
-        # hyprgrass
+        hyprspace
+        hyprgrass
       ];
       settings = mkMerge [
         {
@@ -211,7 +211,7 @@ in
             "SUPER,P,pseudo,"
             "SUPER,F,fullscreen"
             "SUPER,R,forcerendererreload"
-            "SUPERSHIFT,L,exec,${pkgs.swaylock-effects}/bin/swaylock"
+            "SUPERSHIFT,L,exec,${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock"
 
             ",XF86AudioLowerVolume,exec,${pkgs.avizo}/bin/volumectl -u down"
             ",XF86AudioRaiseVolume,exec,${pkgs.avizo}/bin/volumectl -u up"
@@ -232,16 +232,14 @@ in
 
           exec-once = [
             "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-            # "${pkgs.swaybg}/bin/swaybg -m center -i $HOME/Snowfall-Flake/assets/wall.png"
+
             "${pkgs.clipse}/bin/clipse -listen"
             "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden"
-
-            # "${pkgs.walker}/bin/walker --gapplication-service"
 
             "${pkgs.waybar}/bin/waybar"
             "${pkgs.foot}/binfoot --server &"
             #"${pkgs.swayidle}/bin/swayidle -w & disown"
-            #"${pkgs.swayidle}/bin/swayidle -w timeout 300 'swaylock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'"
+            #"${pkgs.swayidle}/bin/swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'"
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
             "${pkgs.mako}"
             # "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
@@ -266,7 +264,7 @@ in
       timeouts = [
         {
           timeout = 120;
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF --config ~/.config/swaylock/config";
+          command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
         }
         {
           timeout = 600;
@@ -281,7 +279,7 @@ in
       events = [
         {
           event = "before-sleep";
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF --config ~/.config/swaylock/config";
+          command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
         }
         {
           event = "after-resume";
@@ -299,11 +297,6 @@ in
       topMargin = 0.3;
     };
 
-    # programs.walker = {
-    #   enable = true;
-    #   runAsService = true;
-    # };
-
     services.hyprpaper = {
       enable = true;
       settings = {
@@ -313,12 +306,10 @@ in
 
         preload = [
           "$HOME/Snowfall-Flake/assets/wall.png"
-          # ../../../../assets/wall.png
         ];
 
         wallpaper = [
           "eDP-1,$HOME/Snowfall-Flake/assets/wall.png"
-          # ../../../../assets/wall.png
         ];
 
       };
@@ -332,8 +323,8 @@ in
       desktop.addons = {
         waybar = enabled;
         swaylock = enabled;
+        hyprlock = enabled;
         rofi = enabled;
-        # bemenu = enabled;
         mako = enabled;
       };
     };

@@ -35,9 +35,9 @@ in
       rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
-        terminal = "${pkgs.ghostty}/bin/ghostty";
+        terminal = "${pkgs.foot}/bin/footclient";
         location = "center";
-        font = "FiraCode Nerd Font Mono 12";
+        font = "${font-mono} 12";
         plugins = with pkgs; [
           rofi-power-menu
           rofi-bluetooth
