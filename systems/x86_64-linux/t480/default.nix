@@ -24,8 +24,6 @@ with lib.frgd;
   hardware.xpadneo = enabled;
 
   environment.systemPackages = with pkgs; [
-    wezterm
-    alacritty
     lswt
     waylevel
     frgd.numara
@@ -34,7 +32,6 @@ with lib.frgd;
     frgd.wakeonlan_script
     cifs-utils
     remmina
-    go
     nom
     ventoy-full
     wljoywake
@@ -42,13 +39,14 @@ with lib.frgd;
     inkscape-with-extensions
     krita
     gimp
-    # mypaint
-    gparted
     kdePackages.partitionmanager
     kdePackages.ark
     devenv
     gh
     rclone
+    nil
+    bibletime
+    claude-code
   ];
 
   # services.bibleReadingPlan = {
@@ -63,6 +61,7 @@ with lib.frgd;
     adminEmail = "jus10mar10@gmail.com";
     adminPasswordFile = config.sops.secrets.brp_admin.path;
   };
+
   sops.secrets.brp_admin = {
     owner = "bible-reading-plan";
     # group = "taskd";
