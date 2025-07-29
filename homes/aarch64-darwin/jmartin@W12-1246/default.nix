@@ -63,6 +63,19 @@ with lib.frgd;
         apiUrl = "https://tasks.frgd.us";
         apiKeyFile = config.sops.secrets.vikunja_api_key.path;
         defaultFilter = "Western";
+        layouts = {
+          default = {
+            columns = [
+              "id"
+              "title"
+              "due_date"
+              "priority"
+              "status"
+            ];
+            sortBy = "due_date";
+            sortOrder = "asc";
+          };
+        };
         quick_actions = [
           {
             key = "w";
