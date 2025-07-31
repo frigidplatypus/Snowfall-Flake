@@ -29,10 +29,10 @@ in
       enable = true;
       shellAliases = mkMerge [
         {
-          fs = "${pkgs.figlet}/bin/figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
-          fu = "pushd ~/Snowfall-Flake/;nix flake update";
-          fe = "pushd ~/Snowfall-Flake/;nvim .";
-          ds = "${pkgs.figlet}/bin/figlet $(hostname); sudo darwin-rebuild switch --flake ~/Snowfall-Flake/#";
+          # fs = "${pkgs.figlet}/bin/figlet $(hostname); sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#";
+          # fu = "pushd ~/Snowfall-Flake/;nix flake update";
+          # fe = "pushd ~/Snowfall-Flake/;nvim .";
+          # ds = "${pkgs.figlet}/bin/figlet $(hostname); sudo darwin-rebuild switch --flake ~/Snowfall-Flake/#";
         }
         cfg.extraShellAliases
       ];
@@ -50,7 +50,6 @@ in
       forgit
       colored-man-pages
       pkgs.powerline-fonts
-      pkgs.figlet
       pkgs.grc
     ];
 

@@ -33,9 +33,10 @@ with lib.frgd;
       aerc = enabled;
       neovim = enabled;
       home-manager = enabled;
+      local-scripts = enabled;
       cria = {
         enable = true;
-        apiUrl = "https://tasks.fluffy-rooster.ts.net";
+        apiUrl = "https://tasks.${tailnet}";
         apiKeyFile = config.sops.secrets.vikunja_api_key.path;
         defaultProject = "Inbox";
         defaultFilter = "Personal";
@@ -49,6 +50,16 @@ with lib.frgd;
             key = "p";
             action = "project";
             target = "Personal";
+          }
+          {
+            key = "c";
+            action = "project";
+            target = "Cria";
+          }
+          {
+            key = "q";
+            action = "label";
+            target = "qmlativ";
           }
           {
             key = "n";
@@ -74,7 +85,12 @@ with lib.frgd;
       # zellij = enabled;
     };
     services = {
-      espanso = enabled;
+      espanso = {
+        enable = true;
+        western_snippets = {
+          enable = true;
+        };
+      };
     };
     tools = {
       git = enabled;
