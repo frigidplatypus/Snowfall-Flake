@@ -10,12 +10,14 @@ with lib.frgd;
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
+  networking.firewall.enable = false;
+
   services.caddy = {
     enable = true;
     virtualHosts = {
       "omada.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8888
+          reverse_proxy https://127.0.0.1:8043
           encode gzip
         '';
       };
