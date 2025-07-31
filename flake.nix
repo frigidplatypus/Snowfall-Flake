@@ -68,10 +68,6 @@
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xremap-flake = {
-      url = "github:xremap/nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -141,7 +137,6 @@
 
       homes.modules = with inputs; [
         sops-nix.homeManagerModules.sops
-        xremap-flake.homeManagerModules.default
         nix-index-database.hmModules.nix-index
       ];
 
