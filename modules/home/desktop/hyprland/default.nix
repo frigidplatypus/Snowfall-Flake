@@ -237,7 +237,7 @@ in
             "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden"
 
             "${pkgs.waybar}/bin/waybar"
-            "${pkgs.foot}/binfoot --server &"
+            "${pkgs.foot}/bin/foot --server &"
             #"${pkgs.swayidle}/bin/swayidle -w & disown"
             #"${pkgs.swayidle}/bin/swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'"
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
@@ -256,41 +256,72 @@ in
         bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
         # Suspend when laptop is closed
-        bindl=,switch:[Lid Switch],exec, "systemctl suspend"
+        bindl=,switch:[Lid Switch],exec, "${
+          inputs.hyprlock.packages.${pkgs.system}.hyprlock
+        }/bin/hyprlock && systemctl suspend"
+
+        bindl=,XF86PowerOff,exec,systemctl suspend
       '';
     };
-    services.swayidle = {
+    services.hypridle = {
       enable = true;
-      timeouts = [
-        {
-          timeout = 120;
-          command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
-        }
-        {
-          timeout = 600;
-          command = "hyprctl dispatch dpms";
-        }
-        {
-          timeout = 900;
-          command = "${pkgs.systemd}/bin/systemctl suspend";
-        }
-      ];
+      settings = {
+        general = {
+          after_sleep_cmd = "hyprctl dispatch dpms on";
+          before_sleep_cmd = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
+          ignore_dbus_inhibit = false;
+          lock_cmd = "pidof hyprlock || ${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
+        };
 
-      events = [
-        {
-          event = "before-sleep";
-          command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
-        }
-        {
-          event = "after-resume";
-          command = "hyprctl dispatch dpms on";
-        }
-        {
-          event = "lock";
-          command = "lock";
-        }
-      ];
+        listener = [
+          {
+            timeout = 120;
+            on-timeout = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
+          }
+          {
+            timeout = 600;
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+          {
+            timeout = 900;
+            on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
+          }
+        ];
+      };
     };
+    # services.swayidle = {
+    #   enable = true;
+    #   timeouts = [
+    #     {
+    #       timeout = 120;
+    #       command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
+    #     }
+    #     {
+    #       timeout = 600;
+    #       command = "hyprctl dispatch dpms";
+    #     }
+    #     {
+    #       timeout = 900;
+    #       command = "${pkgs.systemd}/bin/systemctl suspend";
+    #     }
+    #   ];
+    #
+    #   events = [
+    #     {
+    #       event = "before-sleep";
+    #       command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
+    #     }
+    #     {
+    #       event = "after-resume";
+    #       command = "hyprctl dispatch dpms on";
+    #     }
+    #     {
+    #       event = "lock";
+    #       command = "lock";
+    #     }
+    #   ];
+    # };
 
     services.swayosd = {
       enable = true;
@@ -319,7 +350,6 @@ in
     frgd = {
       apps.foot = enabled;
       services.cliphist = enabled;
-      # services.xremap = enabled;
       desktop.addons = {
         waybar = enabled;
         swaylock = enabled;
