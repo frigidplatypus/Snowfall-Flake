@@ -12,6 +12,7 @@ with lib.frgd;
   ];
 
   # Enable networking
+  services.golink.enable = true;
 
   frgd = {
     nix = enabled;
