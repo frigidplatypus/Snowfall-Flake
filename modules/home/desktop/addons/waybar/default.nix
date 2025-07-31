@@ -10,6 +10,7 @@ with lib;
 with lib.frgd;
 let
   cfg = config.frgd.desktop.addons.waybar;
+  icon-size = "28"; # px
 in
 {
   options.frgd.desktop.addons.waybar = with types; {
@@ -66,13 +67,13 @@ in
             tooltip = false;
           };
           "custom/menu" = {
-            format = "<span font='24'> </span>";
+            format = "<span font='${icon-size}'></span>";
             on-click = "${pkgs.rofi}/bin/rofi -show p -modi p:${pkgs.rofi-power-menu}/bin/rofi-power-menu -theme $HOME/.config/rofi/config.rasi";
             on-click-right = "";
             tooltip = false;
           };
           "hyprland/workspaces" = {
-            "format" = "<sub>{icon}</sub> {windows}";
+            "format" = "<sub>{icon} </sub><span font='${icon-size}'>{windows}</span>";
             "format-window-separator" = " ";
             "window-rewrite-default" = "";
             "window-rewrite" = {
@@ -86,26 +87,23 @@ in
               "bluebubbles" = "";
               "obsidian" = "";
               "notes" = "";
-
             };
           };
           "hyprland/window" = {
             "format" = "{}";
             "rewrite" = {
-              "(.*) — Mozilla Firefox" = "<span font='18'> $1</span>";
-              "(.*) - fish" = "<span font='18'>> [$1]</span>";
+              "(.*) — Mozilla Firefox" = "<span font='${icon-size}'></span> <span font='14'> $1</span>";
+              "(.*) - fish" = "<span font='14'>> [$1]</span>";
             };
             "separate-outputs" = true;
           };
           clock = {
             format = " {:%I:%M }";
-            tooltip-format = ''
-              <big>{:%Y %B}</big>
-              <tt>{calendar}</tt>'';
+            tooltip-format = ''<tt>{calendar}</tt>'';
             #format-alt = "{:%A, %B %d, %Y} ";
           };
           "idle_inhibitor" = {
-            "format" = "{icon}";
+            "format" = "<span font='${icon-size}'>{icon}</span>";
             "format-icons" = {
               "activated" = "";
               "deactivated" = "";
@@ -117,7 +115,7 @@ in
               warning = 30;
               critical = 15;
             };
-            format = "{capacity}% {icon}";
+            format = "{capacity}% <span font='${icon-size}'>{icon}</span>";
             format-charging = "{capacity}% ";
             format-icons = [
               ""
@@ -129,7 +127,7 @@ in
             max-length = 25;
           };
           bluetooth = {
-            format = "{icon}";
+            format = "<span font='${icon-size}'>{icon}</span>";
             format-alt = "bluetooth: {status}";
             interval = 30;
             format-icons = {
@@ -139,11 +137,11 @@ in
             tooltip-format = "{status}";
           };
           network = {
-            format-wifi = "";
+            format-wifi = "<span font='${icon-size}'></span>";
             format-ethernet = " ";
             #format-ethernet = "<span font='11'></span> {ifname}: {ipaddr}/{cidr}";
-            format-linked = "<span font='18'>睊</span> {ifname} (No IP)";
-            format-disconnected = "<span font='18'>睊</span> Not connected";
+            format-linked = "<span font='${icon-size}'>睊</span> {ifname} (No IP)";
+            format-disconnected = "<span font='${icon-size}'>睊</span> Not connected";
             #format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format = "{essid} {ipaddr}/{cidr}";
             on-click-right = "${pkgs.foot}/bin/footclient -e nmtui";
@@ -175,7 +173,7 @@ in
             on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
           tray = {
-            icon-size = 18;
+            icon-size = 30;
           };
         };
       };
@@ -183,11 +181,10 @@ in
       style =
         #CSS
         ''
-
           * {
           	border: none;
             font-family: ${font-mono};
-          	font-size: 28px;
+          	font-size: 22px;
           }
 
           button:hover {
