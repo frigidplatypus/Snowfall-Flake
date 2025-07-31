@@ -58,9 +58,11 @@
       url = "github:frigidplatypus/neovim_notes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # ghostty = {
-    #   url = "github:ghostty-org/ghostty";
-    # };
+
+    golink = {
+      url = "github:tailscale/golink";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Enable fingerprint reader for T480
     nixos-06cb-009a-fingerprint-sensor = {
@@ -83,10 +85,10 @@
     #   url = "path:/home/justin/brp/bible-reading-plan-flask";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    bible-reading-plan = {
-      url = "path:/home/justin/brp/bible-reading-plan-django";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # bible-reading-plan = {
+    #   url = "path:/home/justin/brp/bible-reading-plan-django";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
   };
 
@@ -134,7 +136,8 @@
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
         # brp.nixosModules.default
-        bible-reading-plan.nixosModules.default
+        # bible-reading-plan.nixosModules.default
+        golink.nixosModules.golink
       ];
 
       homes.modules = with inputs; [
