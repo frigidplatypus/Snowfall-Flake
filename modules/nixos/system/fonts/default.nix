@@ -50,6 +50,7 @@ in
         nerd-fonts.inconsolata
         nerd-fonts.mononoki
         nerd-fonts.dejavu-sans-mono
+        nerd-fonts.iosevka
 
       ]
       ++ cfg.fonts;
