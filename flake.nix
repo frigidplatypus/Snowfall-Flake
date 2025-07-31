@@ -27,7 +27,6 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -137,7 +136,7 @@
         disko.nixosModules.disko
         # brp.nixosModules.default
         # bible-reading-plan.nixosModules.default
-        golink.nixosModules.golink
+        golink.nixosModules.default
       ];
 
       homes.modules = with inputs; [
