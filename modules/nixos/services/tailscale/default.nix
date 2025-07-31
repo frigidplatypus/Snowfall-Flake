@@ -35,6 +35,15 @@ in
       ];
     };
 
+    systemd.services.tailscale = {
+      restartIfChanged = false;
+      # You can also add other systemd service options here if needed,
+      # but for preventing restarts, this is the main one.
+      # Example of other options (usually not needed to specify if 'services.tailscale.enable' is true):
+      # description = "Tailscale node agent";
+      # wantedBy = [ "multi-user.target" ];
+      # serviceConfig.ExecStart = "${pkgs.tailscale}/bin/tailscaled";
+    };
     services.tailscaleAuth = mkIf cfg.tailscaleAuth.enable {
       enable = true;
       user = config.services.caddy.user;
