@@ -18,7 +18,7 @@ in
   config = mkIf cfg.enable {
     programs.foot = {
       enable = true;
-      server.enable = true;
+      server.enable = false;
       settings = {
         main = {
           term = "xterm-256color";
@@ -27,8 +27,8 @@ in
         mouse = {
           hide-when-typing = "yes";
         };
-        cursor.color = "${palette.base01} ${palette.base05}";
         colors = {
+          cursor = "${palette.base01} ${palette.base05}";
           # Base colors
           foreground = palette.base05; # ebdbb2 - Light foreground
           background = palette.base00; # 282828 - Dark background
@@ -73,5 +73,6 @@ in
         };
       };
     };
+
   };
 }
