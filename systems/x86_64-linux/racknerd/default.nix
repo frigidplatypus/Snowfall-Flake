@@ -12,6 +12,7 @@ with lib.frgd;
   };
   security.acme = {
     certs."audiobooks.frgd.us" = { };
+    certs."tasks.frgd.us" = { };
   };
   services.nginx = {
     virtualHosts."audiobooks.frgd.us" = {
@@ -22,7 +23,20 @@ with lib.frgd;
         proxyWebsockets = true; # needed if you need to use WebSocket
       };
     };
+    # virtualHosts."tasks.frgd.us" = {
+    #   enableACME = true;
+    #   forceSSL = true;
+    #   locations."/" = {
+    #     proxyPass = "http://127.0.0.1:3456";
+    #     proxyWebsockets = true; # needed if you need to use WebSocket
+    #   };
+    # };
   };
+  # services.vikunja = {
+  #   enable = true;
+  #   frontendScheme = "https";
+  #   frontendHostname = "tasks.frgd.us";
+  # };
 
   # boot.loader.grub.enable = true;
 
@@ -37,7 +51,7 @@ with lib.frgd;
     services = {
       openssh = enabled;
       tailscale = enabled;
-      mealie = enabled;
+      # mealie = enabled;
       matrix-synapse = enabled;
     };
     security = {
