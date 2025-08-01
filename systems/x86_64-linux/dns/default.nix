@@ -1,4 +1,9 @@
-{ lib, modulesPath, ... }:
+{
+  lib,
+  modulesPath,
+  config,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -27,6 +32,17 @@ with lib.frgd;
       mutableSettings = true;
       allowDHCP = true;
     };
+  };
+
+  sops.secrets.golink_tailscale_api_key = {
+    owner = "golink";
+  };
+
+  # Enable networking
+  services.golink = {
+    enable = true;
+    tailscaleAuthKeyFile = config.sops.secrets.golink_tailscale_api_key.path;
+    verbose = true;
   };
 
   frgd = {
