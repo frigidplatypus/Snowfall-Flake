@@ -38,7 +38,7 @@ with lib.frgd;
         enable = true;
         apiUrl = "https://tasks.${tailnet}";
         apiKeyFile = config.sops.secrets.vikunja_api_key.path;
-        defaultProject = "Inbox";
+        defaultProject = "1";
         defaultFilter = "Personal";
         quick_actions = [
           {
