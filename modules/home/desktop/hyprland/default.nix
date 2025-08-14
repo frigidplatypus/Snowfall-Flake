@@ -50,6 +50,7 @@ in
         wvkbd
         squeekboard
         hyprpolkitagent
+        hyprpicker
         # walker
       ];
     };

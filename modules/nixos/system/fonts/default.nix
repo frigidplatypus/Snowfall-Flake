@@ -51,6 +51,10 @@ in
         nerd-fonts.mononoki
         nerd-fonts.dejavu-sans-mono
         nerd-fonts.iosevka
+        nerd-fonts.monofur
+        nerd-fonts.hurmit
+        nerd-fonts.caskaydia-mono
+        nerd-fonts.caskaydia-cove
 
       ]
       ++ cfg.fonts;
