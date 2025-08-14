@@ -10,7 +10,7 @@ with lib;
 with lib.frgd;
 let
   cfg = config.frgd.desktop.addons.waybar;
-  icon-size = "28"; # px
+  icon-size = "18"; # px
 in
 {
   options.frgd.desktop.addons.waybar = with types; {
@@ -183,7 +183,7 @@ in
         ''
           * {
           	border: none;
-            font-family: ${font-mono};
+            font-family: ${font-propo};
           	font-size: 22px;
           }
 
@@ -220,8 +220,7 @@ in
           #idle_inhibitor,
           #tray {
           	color: #${colorScheme.palette.base07};
-            padding: 0px 7px 0px 7px;
-          	background-clip: padding-box;
+            padding: 0px 16px 0px 16px;
           }
 
           #bluetooth {
@@ -245,7 +244,8 @@ in
 
           #custom-menu {
           	color: #fe8019;
-          	padding: 0px 5px 0px 5px;
+          	padding: 0px 10px 0px 16px;
+          	background-clip: padding-box;
           }
 
           #battery {
@@ -254,8 +254,9 @@ in
           }
 
           #workspaces button {
-          	padding: 0px 5px;
-          	min-width: 5px;
+          	padding: 0px 10px;
+          	background-clip: padding-box;
+          	min-width: 10px;
           	color: #${colorScheme.palette.base06};
           }
 

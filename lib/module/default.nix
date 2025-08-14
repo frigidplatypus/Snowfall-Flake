@@ -41,16 +41,20 @@ rec {
   mkBoolOpt' = mkOpt' types.bool;
 
   tailnet = "fluffy-rooster.ts.net";
-  font-mono = " Iosevka Nerd Font Mono";
-  font = "Iosevka Nerd Font Propo";
+  # font-mono = " Iosevka Nerd Font Mono";
+  # font = "Iosevka Nerd Font Propo";
 
-  # font-mono = " FiraCode Nerd Font Mono";
   # font = "FiraCode Nerd Font";
+  font = "MononokiNerdFont";
+
+  font-mono = "${font}Mono";
+  font-propo = "${font}Propo";
 
   # font-mono = "Agave Nerd Font Mono";
   # font = "Agave Nerd Font";
 
   enabled = {
+
     ## Quickly enable an option.
     ##
     ## ```nix
