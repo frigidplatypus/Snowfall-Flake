@@ -32,6 +32,7 @@ with lib.frgd;
   services.karakeep = {
     enable = true;
     environmentFile = config.sops.secrets.hoarder_env.path;
+    browser = enabled;
 
   };
 
