@@ -40,6 +40,7 @@ in
       broot
       bottom
       btop
+      systemctl-tui
     ];
   };
 }
