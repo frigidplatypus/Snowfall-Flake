@@ -109,6 +109,7 @@
         allowUnfree = true;
         permittedInsecurePackages = [
           "ventoy-1.1.05"
+          "libsoup-2.74.3"
           # "electron-27.3.11"
           # "electron-28.3.3"
           # "olm-3.2.16"
