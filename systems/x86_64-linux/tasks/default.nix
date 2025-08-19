@@ -32,7 +32,7 @@ with lib.frgd;
       #     encode gzip
       #   '';
       # };
-      "tasks.fluffy-rooster.ts.net" = {
+      "tasks.${tailnet}" = {
         extraConfig = ''
           reverse_proxy http://127.0.0.1:3456
           encode gzip
