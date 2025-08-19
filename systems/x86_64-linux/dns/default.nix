@@ -18,7 +18,16 @@ with lib.frgd;
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "dns.${tailnet}:8000" = {
+      "dns.${tailnet}" = {
+        extraConfig =
+          #Caddyfile
+          ''
+            reverse_proxy http://127.0.0.1:8443
+            encode gzip
+          '';
+      };
+      "dns.frgd.us" = {
+        useACMEHost = "dns.frgd.us";
         extraConfig =
           #Caddyfile
           ''
@@ -31,7 +40,16 @@ with lib.frgd;
         extraConfig =
           #Caddyfile
           ''
-            reverse_proxy http://:pangolin.${tailnet}:1234
+            reverse_proxy http://100.88.184.75:1234
+            encode gzip
+          '';
+      };
+      "chores.frgd.us" = {
+        useACMEHost = "chores.frgd.us";
+        extraConfig =
+          #Caddyfile
+          ''
+            reverse_proxy http://192.168.0.14:2021
             encode gzip
           '';
       };
@@ -49,6 +67,8 @@ with lib.frgd;
   };
 
   security.acme.certs."imessage.frgd.us" = { };
+  security.acme.certs."chores.frgd.us" = { };
+  security.acme.certs."dns.frgd.us" = { };
 
   sops.secrets.golink_tailscale_api_key = {
     owner = "golink";
