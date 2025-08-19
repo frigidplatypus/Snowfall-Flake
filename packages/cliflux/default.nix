@@ -21,7 +21,6 @@ pkgs.rustPlatform.buildRustPackage {
   src = repo;
   cargoHash = "sha256-CRPBBwuAM/1A/T+ENlDvjhWlztBXeiIlRoGoLMs18io=";
   PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-    useFetchCargoVendor = true;
   OPENSSL_NO_VENDOR = 1;
   nativeBuildInputs = with pkgs; [
     pkg-config

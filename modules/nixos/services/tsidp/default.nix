@@ -14,6 +14,11 @@ in
 {
   options.frgd.services.tsidp = with types; {
     enable = mkBoolOpt false "tsidp";
+    port = mkOption {
+      type = types.port;
+      default = 8443;
+      description = "Port for tsidp to listen on.";
+    };
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/tsidp";
@@ -41,7 +46,7 @@ in
         RestartSec = 5;
         Restart = "always";
         User = "root";
-        ExecStart = "${pkgs.tailscale}/bin/tsidp -use-local-tailscaled";
+        ExecStart = "${pkgs.tailscale}/bin/tsidp -use-local-tailscaled -port ${toString cfg.port}";
       };
     };
 

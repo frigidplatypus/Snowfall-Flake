@@ -10,6 +10,7 @@ with lib.frgd;
 
   frgd = {
     archetypes.lxc = enabled;
+    virtualization.docker = enabled;
     # services = {
     #   taskchampion = {
     #     enable = true;
