@@ -15,19 +15,15 @@ with lib.frgd;
     systemctl-tui
   ];
 
+  sops.secrets.tailscale_caddy_env = {
+    owner = "caddy";
+  };
+
   services.caddy = {
     enable = true;
+    environmentFile = config.sops.secrets.tailscale_caddy_env.path;
     virtualHosts = {
       "dns.${tailnet}" = {
-        extraConfig =
-          #Caddyfile
-          ''
-            reverse_proxy http://127.0.0.1:8443
-            encode gzip
-          '';
-      };
-      "dns.frgd.us" = {
-        useACMEHost = "dns.frgd.us";
         extraConfig =
           #Caddyfile
           ''
@@ -35,6 +31,22 @@ with lib.frgd;
             encode gzip
           '';
       };
+      ":443" = {
+        extraConfig = ''
+          bind tailscale/chores
+          reverse_proxy http://192.168.0.14:2021
+
+          bind tailscale/imessage
+          reverse_proxy http://100.88.184.75:1234
+
+          tls {
+            get_certificate tailscale
+          }
+
+          encode gzip
+        '';
+      };
+
       "imessage.frgd.us" = {
         useACMEHost = "imessage.frgd.us";
         extraConfig =
@@ -85,7 +97,10 @@ with lib.frgd;
     nix = enabled;
     archetypes.lxc = enabled;
     services.tsidp = enabled;
-    security.acme = enabled;
+    security = {
+      acme = enabled;
+      sops = enabled;
+    };
     # services.netalertx = enabled;
     virtualization.docker = enabled;
   };

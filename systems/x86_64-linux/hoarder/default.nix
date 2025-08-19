@@ -8,7 +8,6 @@ with lib;
 with lib.frgd;
 {
   imports = [
-    # ./hoarder-container.nix
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 

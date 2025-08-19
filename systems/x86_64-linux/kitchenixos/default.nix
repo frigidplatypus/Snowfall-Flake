@@ -41,7 +41,6 @@ with lib.frgd;
     # stable-pkgs.cura
     # slic3r
     # super-slicer
-    bambu-studio
     cura-appimage
     libation
     devenv
