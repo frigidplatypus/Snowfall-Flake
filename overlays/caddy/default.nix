@@ -10,14 +10,14 @@ in
 {
   caddy = prev.caddy.overrideAttrs (old: {
     pname = "caddy-tailscale";
-    
+
     src = prev.fetchFromGitHub {
       owner = "tailscale";
       repo = "caddy-tailscale";
       rev = caddy-tailscale-rev;
-      sha256 = ""; # Set empty initially to get the correct hash from build error
+      sha256 = "sha256-oVywoZH7+FcBPP1l+kKjh+deiI6+H/N//phAuiSC4tc="; # Set empty initially to get the correct hash from build error
     };
-    
-    vendorHash = ""; # Set empty initially to get the correct hash from build error
+
+    vendorHash = "sha256-eed3AuRhRO66xFg+447xLv7otAHbzAUuhxMcNugZMOA="; # Set empty initially to get the correct hash from build error
   });
 }
