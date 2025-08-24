@@ -24,7 +24,7 @@ let
         name = "Login with Tailscale";
         clientId = "tsidp"; # Referenced by environment variable TSIDP_CLIENT_ID
         clientSecret = "tsidp"; # Referenced by environment variable TSIDP_CLIENT_SECRET
-        serverUrl = "https://dns.${tailnet}/.well-known/openid-configuration";
+        serverUrl = "https://dns.${tailnet}:8443/.well-known/openid-configuration";
       };
       # Add more providers here as needed
     };
