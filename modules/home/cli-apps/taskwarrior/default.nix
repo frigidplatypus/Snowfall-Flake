@@ -56,7 +56,7 @@ in
         ];
         urgency.uda.priority.L.coefficient = -1.8;
         uda = {
-          notification_date = {
+          taskherald.notification_date = {
             type = "date";
             label = "Notification Date";
           };
