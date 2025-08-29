@@ -27,6 +27,9 @@ in
       caskArgs.no_quarantine = true;
       global.brewfile = true;
       masApps = { };
+      brews = [
+        "godap"
+      ];
       casks = mkIf cfg.casks.enable [
         "raycast"
         "amethyst"
