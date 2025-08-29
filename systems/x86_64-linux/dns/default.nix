@@ -31,22 +31,6 @@ with lib.frgd;
             encode gzip
           '';
       };
-      ":443" = {
-        extraConfig = ''
-          bind tailscale/chores
-          reverse_proxy http://192.168.0.14:2021
-
-          bind tailscale/imessage
-          reverse_proxy http://100.88.184.75:1234
-
-          tls {
-            get_certificate tailscale
-          }
-
-          encode gzip
-        '';
-      };
-
       "imessage.frgd.us" = {
         useACMEHost = "imessage.frgd.us";
         extraConfig =
