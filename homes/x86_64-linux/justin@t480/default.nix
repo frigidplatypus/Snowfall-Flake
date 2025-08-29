@@ -36,7 +36,7 @@ with lib.frgd;
       local-scripts = enabled;
       cria = {
         enable = true;
-        apiUrl = "https://tasks.${tailnet}";
+        apiUrl = "https://tasks.${tailnet}:8000";
         apiKeyFile = config.sops.secrets.vikunja_api_key.path;
         defaultProject = "1";
         defaultFilter = "Personal";
