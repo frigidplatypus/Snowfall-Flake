@@ -25,6 +25,9 @@ in
       gdu
       yazi
       wakelan
+      ripgrep
+      fd
+      fzf
     ];
   };
 }
