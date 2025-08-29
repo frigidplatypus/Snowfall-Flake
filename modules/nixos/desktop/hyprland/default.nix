@@ -62,7 +62,7 @@ in
         alacritty
         kitty
         firefox
-        libsForQt5.polkit-kde-agent
+        # libsForQt5.polkit-kde-agent
         hyprpolkitagent
         hyprutils
         xorg.xeyes
