@@ -45,7 +45,8 @@ in
             "custom/menu"
             "hyprland/workspaces"
           ];
-          modules-center = [ "hyprland/window" ];
+          modules-center = [ ];
+          # modules-center = [ "hyprland/window" ];
           modules-right = [
             "network"
             # "custom/pad"
