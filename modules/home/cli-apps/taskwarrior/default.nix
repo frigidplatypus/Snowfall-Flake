@@ -55,12 +55,12 @@ in
           "Description"
         ];
         urgency.uda.priority.L.coefficient = -1.8;
-        uda.taskherald.repeat_enable.type = "string";
-        uda.taskherald.repeat_enable.values = "true,false";
-        uda.taskherald.repeat_enable.label = "Repeat Notification";
+        uda.notification_repeat_enable.type = "string";
+        uda.notification_repeat_enable.values = "true,false";
+        uda.notification_repeat_enable.label = "Repeat Notification";
 
-        uda.taskherald.repeat_delay.type = "duration";
-        uda.taskherald.repeat_delay.label = "Repeat Delay";
+        uda.notification_repeat_delay.type = "duration";
+        uda.notification_repeat_delay.label = "Repeat Delay";
 
         uda = {
           notification_date = {
