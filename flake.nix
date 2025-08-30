@@ -76,6 +76,10 @@
       url = "github:frigidplatypus/cria";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    task-herald = {
+      url = "github:frigidplatypus/task-herald";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # brp = {
     #   url = "path:/home/justin/brp/bible-reading-plan-flask";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -139,6 +143,7 @@
       homes.modules = with inputs; [
         sops-nix.homeManagerModules.sops
         nix-index-database.homeModules.nix-index
+        task-herald.homeManagerModules.task-herald
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
