@@ -55,8 +55,15 @@ in
           "Description"
         ];
         urgency.uda.priority.L.coefficient = -1.8;
+        uda.taskherald.repeat_enable.type = "string";
+        uda.taskherald.repeat_enable.values = "true,false";
+        uda.taskherald.repeat_enable.label = "Repeat Notification";
+
+        uda.taskherald.repeat_delay.type = "duration";
+        uda.taskherald.repeat_delay.label = "Repeat Delay";
+
         uda = {
-          taskherald.notification_date = {
+          notification_date = {
             type = "date";
             label = "Notification Date";
           };
