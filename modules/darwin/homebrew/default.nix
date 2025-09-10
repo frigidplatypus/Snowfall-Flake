@@ -65,6 +65,7 @@ in
         "aldente"
         # "netnewswire"
         "chime"
+        "wtf"
       ];
     };
 
