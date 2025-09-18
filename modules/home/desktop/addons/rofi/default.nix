@@ -34,7 +34,6 @@ in
     programs = {
       rofi = {
         enable = true;
-        package = pkgs.rofi-wayland;
         terminal = "${pkgs.foot}/bin/footclient";
         location = "center";
         font = "${font-mono} 12";
