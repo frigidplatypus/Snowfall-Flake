@@ -62,6 +62,10 @@
       url = "github:tailscale/golink";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Enable fingerprint reader for T480
     nixos-06cb-009a-fingerprint-sensor = {
@@ -76,18 +80,6 @@
       url = "github:frigidplatypus/cria";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    task-herald = {
-      url = "github:frigidplatypus/task-herald";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # brp = {
-    #   url = "path:/home/justin/brp/bible-reading-plan-flask";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-    # bible-reading-plan = {
-    #   url = "path:/home/justin/brp/bible-reading-plan-django";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
   };
 
@@ -138,12 +130,12 @@
         # brp.nixosModules.default
         # bible-reading-plan.nixosModules.default
         golink.nixosModules.default
+        vscode-server.nixosModules.default
       ];
 
       homes.modules = with inputs; [
         sops-nix.homeManagerModules.sops
         nix-index-database.homeModules.nix-index
-        task-herald.homeManagerModules.task-herald
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
