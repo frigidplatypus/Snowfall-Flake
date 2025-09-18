@@ -55,6 +55,7 @@ with lib.frgd;
   # Load nvidia driver for Xorg and Wayland
   programs.nix-ld.enable = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi/";
+  services.vscode-server.enable = true;
 
   frgd = {
     nix = enabled;
