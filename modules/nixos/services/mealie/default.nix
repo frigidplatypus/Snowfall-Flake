@@ -22,8 +22,8 @@ in
       settings = {
 
         #OpenID Connect
-        OIDC_AUTH_ENABLED = "true";
-        OIDC_CONFIGURATION_URL = "https://dns.fluffy-rooster.ts.net/.well-known/openid-configuration";
+        OIDC_AUTH_ENABLED = "false";
+        OIDC_CONFIGURATION_URL = "https://dns.fluffy-rooster.ts.net:8443/.well-known/openid-configuration";
         OIDC_AUTO_REDIRECT = "true";
         OIDC_CLIENT_ID = "unused";
         OIDC_CLIENT_SECRET = "unused";
