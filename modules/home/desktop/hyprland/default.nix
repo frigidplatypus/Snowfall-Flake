@@ -68,8 +68,6 @@ in
       xwayland.enable = true;
       systemd.enable = true;
       plugins = with pkgs.hyprlandPlugins; [
-        hyprspace
-        hyprgrass
       ];
       settings = mkMerge [
         {
@@ -105,10 +103,9 @@ in
             pseudotile = false;
             force_split = 2;
           };
-          gestures = {
-            workspace_swipe = true;
-            workspace_swipe_cancel_ratio = 0.15;
-          };
+          gesture = [
+            "3, horizontal, workspace"
+          ];
           # plugin = {
           #   touch_gestures = {
           #     # swipe left from right edge
@@ -172,7 +169,7 @@ in
             #"SUPER, V, exec, ${pkgs.clipman}/bin/clipman pick -t ${pkgs.rofi}/bin/rofi"
 
             # Rofi Shortcuts
-            "SUPER, C, exec, ${pkgs.rofi-wayland}/bin/rofi -show calc"
+            "SUPER, C, exec, ${pkgs.rofi}/bin/rofi -show calc"
 
             # Change workspaces
             "SUPER,1,workspace,1"
@@ -208,7 +205,7 @@ in
             "SUPER,Escape,exit,"
             "SUPER,E,exec,${pkgs.nautilus}/bin/nautilus"
             "SUPER,H,togglefloating,"
-            "SUPER,Space,exec,${pkgs.rofi-wayland}/bin/rofi -show drun"
+            "SUPER,Space,exec,${pkgs.rofi}/bin/rofi -show drun"
             "SUPER,P,pseudo,"
             "SUPER,F,fullscreen"
             "SUPER,R,forcerendererreload"

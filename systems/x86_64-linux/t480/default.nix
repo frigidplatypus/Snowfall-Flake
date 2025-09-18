@@ -33,7 +33,7 @@ with lib.frgd;
     cifs-utils
     remmina
     nom
-    ventoy-full
+    # ventoy-full
     wljoywake
     # cura
     inkscape-with-extensions
