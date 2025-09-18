@@ -34,6 +34,7 @@ with lib.frgd;
       neovim = enabled;
       home-manager = enabled;
       local-scripts = enabled;
+      atuin = enabled;
       cria = {
         enable = true;
         apiUrl = "https://tasks.${tailnet}:8000";
