@@ -76,6 +76,7 @@ in
   services.paperless = {
     enable = true;
     passwordFile = config.sops.secrets.justin_password.path;
+    domain = "documents.${tailnet}";
     settings = {
       PAPERLESS_URL = "https://documents.${tailnet}";
       PAPERLESS_TRUSTED_PROXIES = "127.0.0.1 ::1";
