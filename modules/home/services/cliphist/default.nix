@@ -5,15 +5,15 @@
   ...
 }:
 
-let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.frgd.services.cliphist;
-in
-{
-  options.frgd.services.cliphist = {
-    enable = mkEnableOption "Enable Taskwarrior Sync service";
-  };
+  with lib;
+  with lib.frgd;
+  let
+    cfg = config.frgd.services.cliphist;
+  in
+  {
+    options.frgd.services.cliphist = with types; {
+      enable = mkBoolOpt false "Whether or not to enable cliphist.";
+    };
 
   config = mkIf cfg.enable {
     services.cliphist = {

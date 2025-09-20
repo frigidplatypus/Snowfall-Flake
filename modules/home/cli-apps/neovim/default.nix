@@ -5,15 +5,15 @@
   ...
 }:
 
-let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.frgd.cli-apps.neovim;
-in
-{
-  options.frgd.cli-apps.neovim = {
-    enable = mkEnableOption "Neovim";
-  };
+  with lib;
+  with lib.frgd;
+  let
+    cfg = config.frgd.cli-apps.neovim;
+  in
+  {
+    options.frgd.cli-apps.neovim = with types; {
+      enable = mkBoolOpt false "Whether or not to enable Neovim.";
+    };
 
   config = mkIf cfg.enable {
     home = {
@@ -43,12 +43,6 @@ in
       };
     };
 
-    # programs.neovim = {
-    #   enable = true;
-    #   pkg = pkgs.frgd.neovim;
-    #   #     defaultEditor = true;
-    #   viAlias = true;
-    #   vimAlias = true;
-    # };
+
   };
 }

@@ -12,9 +12,9 @@ let
 in
 {
   options.frgd.services.espanso = with types; {
-    enable = mkBoolOpt false "espanso";
+    enable = mkBoolOpt false "Whether or not to enable espanso.";
     western_snippets = {
-      enable = mkBoolOpt false "Enable Western snippets";
+      enable = mkBoolOpt false "Whether or not to enable Western snippets.";
     };
   };
 

@@ -1,14 +1,13 @@
 { lib, config, ... }:
 
+with lib;
+with lib.frgd;
 let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.frgd) enabled;
-
   cfg = config.frgd.cli-apps.nushell;
 in
 {
-  options.frgd.cli-apps.nushell = {
-    enable = mkEnableOption "nushell";
+  options.frgd.cli-apps.nushell = with types; {
+    enable = mkBoolOpt false "Whether or not to enable nushell.";
   };
 
   config = mkIf cfg.enable {

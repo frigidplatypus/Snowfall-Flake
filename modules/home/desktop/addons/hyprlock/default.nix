@@ -8,11 +8,9 @@
 with lib;
 with lib.frgd;
 let
-  inherit (lib) mkEnableOption mkIf;
-
   cfg = config.frgd.desktop.addons.hyprlock;
-  # Define the battery script as a Nix derivation
-  hyprlockBatteryScript = pkgs.writeShellScriptBin "hyprlock-battery-status" ''
+    # Define the battery script as a Nix derivation
+    hyprlockBatteryScript = pkgs.writeShellScriptBin "hyprlock-battery-status" ''
     #!/bin/bash
 
     # Path to your battery (adjust if needed, e.g., BAT1)
@@ -48,14 +46,11 @@ let
   '';
 in
 {
-  options.frgd.desktop.addons.hyprlock = {
-    enable = mkEnableOption "hyprlock";
+  options.frgd.desktop.addons.hyprlock = with types; {
+    enable = mkBoolOpt false "Whether or not to enable hyprlock.";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-
-    ];
 
     programs.hyprlock = {
       enable = true;

@@ -1,14 +1,13 @@
 { lib, config, ... }:
 
+with lib;
+with lib.frgd;
 let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.frgd) enabled;
-
   cfg = config.frgd.cli-apps.home-manager;
 in
 {
-  options.frgd.cli-apps.home-manager = {
-    enable = mkEnableOption "home-manager";
+  options.frgd.cli-apps.home-manager = with types; {
+    enable = mkBoolOpt false "Whether or not to enable home-manager.";
   };
 
   config = mkIf cfg.enable {

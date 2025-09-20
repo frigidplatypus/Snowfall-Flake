@@ -1,14 +1,13 @@
 { lib, config, ... }:
 
+with lib;
+with lib.frgd;
 let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.frgd) enabled;
-
   cfg = config.frgd.cli-apps.atuin;
 in
 {
-  options.frgd.cli-apps.atuin = {
-    enable = mkEnableOption "atuin";
+  options.frgd.cli-apps.atuin = with types; {
+    enable = mkBoolOpt false "Whether or not to enable atuin.";
   };
 
   config = mkIf cfg.enable {

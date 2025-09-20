@@ -1,13 +1,13 @@
 { lib, config, pkgs, ... }:
 
+with lib;
+with lib.frgd;
 let
-  inherit (lib) mkEnableOption mkIf;
-
   cfg = config.frgd.cli-apps.zsh;
 in
 {
-  options.frgd.cli-apps.zsh = {
-    enable = mkEnableOption "ZSH";
+  options.frgd.cli-apps.zsh = with types; {
+    enable = mkBoolOpt false "Whether or not to enable ZSH.";
   };
 
   config = mkIf cfg.enable {
@@ -16,7 +16,6 @@ in
         enable = true;
         enableAutosuggestions = true;
         enableCompletion = true;
-        #enableSyntaxHighlighting = true;
         syntaxHighlighting.enable = true;
 
         initExtra = ''

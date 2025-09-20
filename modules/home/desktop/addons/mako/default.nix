@@ -6,15 +6,13 @@
 }:
 with lib;
 with lib.frgd;
-let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.frgd.desktop.addons.mako;
-in
-{
-  options.frgd.desktop.addons.mako = {
-    enable = mkEnableOption "mako";
-  };
+  let
+    cfg = config.frgd.desktop.addons.mako;
+  in
+  {
+    options.frgd.desktop.addons.mako = with types; {
+      enable = mkBoolOpt false "Whether or not to enable mako.";
+    };
 
   config = mkIf cfg.enable {
 

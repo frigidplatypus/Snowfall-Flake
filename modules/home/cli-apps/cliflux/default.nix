@@ -5,15 +5,14 @@
   ...
 }:
 
-let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.frgd) enabled;
-
-  cfg = config.frgd.cli-apps.cliflux;
-in
-{
-  options.frgd.cli-apps.cliflux = {
-    enable = mkEnableOption "cliflux";
+  with lib;
+  with lib.frgd;
+  let
+    cfg = config.frgd.cli-apps.cliflux;
+  in
+  {
+    options.frgd.cli-apps.cliflux = with types; {
+      enable = mkBoolOpt false "Whether or not to enable cliflux.";
     server_url = lib.mkOption {
       type = lib.types.str;
       description = "The URL of the Miniflux server including port.";
