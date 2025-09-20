@@ -45,6 +45,7 @@ with lib.frgd;
     mbuffer
     pv
     devenv
+    opencode
   ];
 
   # Enable OpenGL

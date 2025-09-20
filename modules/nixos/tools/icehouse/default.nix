@@ -1,13 +1,12 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+with lib.frgd;
 let
   cfg = config.frgd.tools.icehouse;
-
-  inherit (lib) mkEnableOption mkIf;
-in
-{
-  options.frgd.tools.icehouse = {
-    enable = mkEnableOption "Icehouse";
+in {
+  options.frgd.tools.icehouse = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Icehouse.";
   };
 
   config = mkIf cfg.enable {

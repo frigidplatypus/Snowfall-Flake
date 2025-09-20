@@ -6,15 +6,15 @@
   ...
 }:
 
-let
-  cfg = config.frgd.services.calibre-web;
-
-  inherit (lib) types mkEnableOption mkIf;
-in
-{
-  options.frgd.services.calibre-web = with types; {
-    enable = mkEnableOption "calibre-web";
-  };
+  with lib;
+  with lib.frgd;
+  let
+    cfg = config.frgd.services.calibre-web;
+  in
+  {
+    options.frgd.services.calibre-web = with types; {
+      enable = mkBoolOpt false "Whether or not to enable calibre-web.";
+    };
 
   config = mkIf cfg.enable {
     services.calibre-web = {
