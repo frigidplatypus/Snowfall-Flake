@@ -5,7 +5,6 @@ let
 
   inherit (lib)
     types
-    mkEnableOption
     mkIf
     mapAttrs
     optionalAttrs
@@ -37,7 +36,7 @@ let
 in
 {
   options.frgd.services.samba = with types; {
-    enable = mkEnableOption "Samba";
+    enable = mkBoolOpt false "Whether or not to enable Samba.";
     workgroup = mkOpt str "WORKGROUP" "The workgroup to use.";
     browseable = mkBoolOpt true "Whether the shares are browseable.";
 

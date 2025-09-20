@@ -6,15 +6,15 @@
 }:
 with lib;
 with lib.frgd;
-let
-  inherit (lib) mkIf mkEnableOption optional;
-  inherit (lib.frgd) mkOpt;
+  let
+    inherit (lib) mkIf optional;
+    inherit (lib.frgd) mkOpt mkBoolOpt;
 
-  cfg = config.frgd.security.acme;
-in
-{
-  options.frgd.security.acme = with lib.types; {
-    enable = mkEnableOption "default ACME configuration";
+    cfg = config.frgd.security.acme;
+  in
+  {
+    options.frgd.security.acme = with lib.types; {
+      enable = mkBoolOpt false "Whether or not to enable default ACME configuration.";
     email = mkOpt str config.frgd.user.email "The email to use.";
     staging = mkOpt bool virtual "Whether to use the staging server or not.";
   };

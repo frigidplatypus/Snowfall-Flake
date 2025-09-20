@@ -1,13 +1,11 @@
 { lib, config, pkgs, ... }:
 with lib;
 with lib.frgd;
-let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.frgd.security.sops;
-in {
-  options.frgd.security.sops = {
-    enable = mkEnableOption "sops";
+  let
+    cfg = config.frgd.security.sops;
+  in {
+    options.frgd.security.sops = with types; {
+      enable = mkBoolOpt false "Whether or not to enable sops.";
 
     taskwarrior = {
       enable = mkBoolOpt false

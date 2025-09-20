@@ -5,14 +5,13 @@
   ...
 }:
 
+with lib;
+with lib.frgd;
 let
   cfg = config.frgd.services.couchdb;
-
-  inherit (lib) types mkEnableOption mkIf;
-in
-{
+in {
   options.frgd.services.couchdb = with types; {
-    enable = mkEnableOption "couchdb";
+    enable = mkBoolOpt false "Whether or not to enable couchdb.";
   };
 
   config = mkIf cfg.enable {

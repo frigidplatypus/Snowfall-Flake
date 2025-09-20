@@ -8,15 +8,13 @@
 with lib;
 with lib.frgd;
 
-let
-  cfg = config.frgd.services.taskchampion;
-
-  inherit (lib) types mkEnableOption mkIf;
-in
-{
-  options.frgd.services.taskchampion = with types; {
-    enable = mkEnableOption "taskchampion";
-  };
+  let
+    cfg = config.frgd.services.taskchampion;
+  in
+  {
+    options.frgd.services.taskchampion = with types; {
+      enable = mkBoolOpt false "Whether or not to enable taskchampion.";
+    };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

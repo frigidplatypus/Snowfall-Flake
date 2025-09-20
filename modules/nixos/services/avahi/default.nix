@@ -1,12 +1,12 @@
 { lib, config, options, ... }:
 
+with lib;
+with lib.frgd;
 let
   cfg = config.frgd.services.avahi;
-
-  inherit (lib) types mkEnableOption mkIf;
 in {
   options.frgd.services.avahi = with types; {
-    enable = mkEnableOption "Avahi";
+    enable = mkBoolOpt false "Whether or not to enable Avahi.";
   };
 
   config = mkIf cfg.enable {

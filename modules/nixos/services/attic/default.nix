@@ -31,8 +31,8 @@ let
     && is-local-db-url;
 in
 {
-  options.frgd.services.attic = {
-    enable = mkEnableOption "Attic";
+  options.frgd.services.attic = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Attic.";
 
     package = mkOpt types.package pkgs.attic-server "The attic-server package to use.";
 

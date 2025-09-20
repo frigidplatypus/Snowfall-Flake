@@ -5,14 +5,13 @@
   ...
 }:
 
+with lib;
+with lib.frgd;
 let
   cfg = config.frgd.services.mealie;
-
-  inherit (lib) types mkEnableOption mkIf;
-in
-{
+in {
   options.frgd.services.mealie = with types; {
-    enable = mkEnableOption "mealie";
+    enable = mkBoolOpt false "Whether or not to enable mealie.";
   };
 
   config = mkIf cfg.enable {
