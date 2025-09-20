@@ -6,23 +6,19 @@
 }:
 with lib;
 with lib.frgd;
-
 let
-  inherit (lib) mkEnableOption mkIf;
-
   cfg = config.frgd.security.sops;
 in
 {
-  options.frgd.security.sops = {
-    enable = mkEnableOption "Enable Taskwarrior Sync service";
+  options.frgd.security.sops = with types; {
+    enable = mkBoolOpt false "Whether or not to enable sops.";
     miniflux_config = {
-      enable = mkBoolOpt false "Matrix Registration Shared Secret";
+      enable = mkBoolOpt false "Whether or not to enable Miniflux configuration.";
       path = mkOption {
         type = types.path;
         default = "${config.home.homeDirectory}/.config/cliflux/config.toml";
         description = "Path to the Miniflux configuration file";
       };
-
     };
 
   };

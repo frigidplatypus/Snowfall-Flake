@@ -14,7 +14,9 @@ let
 in
 {
   options.frgd.desktop.hyprland = with types; {
-    enable = mkBoolOpt false "hyprland";
+    enable = mkBoolOpt false "Whether or not to enable hyprland.";
+    cursorTheme = mkOpt str "Capitaine Cursors (Gruvbox)" "The cursor theme to use.";
+    gtkTheme = mkOpt str "gruvbox-dark" "The GTK theme to use.";
     extra-config = mkOpt attrs { } "Extra configuration options for the install.";
   };
 
@@ -56,10 +58,11 @@ in
     };
     #xdg.configFile."hypr/hyprland.conf".source = ./config;
     gtk = {
-      cursorTheme.name = "Capitaine Cursors (Gruvbox)";
+      cursorTheme.name = cfg.cursorTheme;
       enable = true;
       theme = {
         name = "gruvbox-dark";
+        name = cfg.gtkTheme;
       };
     };
 
@@ -236,12 +239,8 @@ in
 
             "${pkgs.waybar}/bin/waybar"
             "${pkgs.foot}/bin/foot --server &"
-            #"${pkgs.swayidle}/bin/swayidle -w & disown"
-            #"${pkgs.swayidle}/bin/swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms' timeout 1000 'systemctl suspend' resume 'hyprctl dispatch dpms on'"
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
             "${pkgs.mako}"
-            # "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
-            # "${pkgs.hyprpolkitagent}/bin/hyprpolkitagent"
             "${pkgs.udiskie}/bin/udiskie --tray --notify"
             "${pkgs.copyq}/bin/copyq --start-server"
             "systemctl --user start hyprpolkitagent"
@@ -254,9 +253,7 @@ in
         bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
         # Suspend when laptop is closed
-        bindl=,switch:[Lid Switch],exec, "${
-          inputs.hyprlock.packages.${pkgs.system}.hyprlock
-        }/bin/hyprlock && systemctl suspend"
+        bindl=,switch:[Lid Switch],exec, "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock && systemctl suspend"
 
         bindl=,XF86PowerOff,exec,systemctl suspend
       '';
@@ -288,38 +285,6 @@ in
         ];
       };
     };
-    # services.swayidle = {
-    #   enable = true;
-    #   timeouts = [
-    #     {
-    #       timeout = 120;
-    #       command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
-    #     }
-    #     {
-    #       timeout = 600;
-    #       command = "hyprctl dispatch dpms";
-    #     }
-    #     {
-    #       timeout = 900;
-    #       command = "${pkgs.systemd}/bin/systemctl suspend";
-    #     }
-    #   ];
-    #
-    #   events = [
-    #     {
-    #       event = "before-sleep";
-    #       command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hpyrlock";
-    #     }
-    #     {
-    #       event = "after-resume";
-    #       command = "hyprctl dispatch dpms on";
-    #     }
-    #     {
-    #       event = "lock";
-    #       command = "lock";
-    #     }
-    #   ];
-    # };
 
     services.swayosd = {
       enable = true;

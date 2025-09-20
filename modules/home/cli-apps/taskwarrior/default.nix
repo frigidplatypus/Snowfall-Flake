@@ -6,23 +6,15 @@
 }:
 with lib;
 with lib.frgd;
-let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.frgd.cli-apps.taskwarrior;
-in
-{
-  options.frgd.cli-apps.taskwarrior = {
-    enable = mkEnableOption "Taskwarrior";
-    recurrence = {
-      enable = mkEnableOption "Recurrence, only enable on one device.";
-    };
-    # dataLocation = mkOption {
-    #   type = types.string;
-    #   description = ''
-    #     The location of the Taskwarrior data.
-    #   '';
-    # };
+  let
+    cfg = config.frgd.cli-apps.taskwarrior;
+  in
+  {
+    options.frgd.cli-apps.taskwarrior = with types; {
+      enable = mkBoolOpt false "Whether or not to enable Taskwarrior.";
+      recurrence = {
+        enable = mkBoolOpt false "Whether or not to enable recurrence (only enable on one device).";
+      };
   };
 
   config = mkIf cfg.enable {

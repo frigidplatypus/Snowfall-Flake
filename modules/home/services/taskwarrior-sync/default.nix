@@ -13,7 +13,7 @@ let
 in
 {
   options.frgd.services.taskwarrior-sync = with types; {
-    enable = mkEnableOption "Enable Taskwarrior Sync service";
+    enable = mkBoolOpt false "Whether or not to enable Taskwarrior sync service.";
     frequency = mkOpt str "*:0/5" "How often to run `taskwarrior sync`.";
     pkg = mkOpt package pkgs.taskwarrior3 "The version of Taskwarrior to use ";
   };

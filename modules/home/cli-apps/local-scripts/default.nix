@@ -5,15 +5,16 @@
   ...
 }:
 
-let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.frgd) enabled;
-
-  cfg = config.frgd.cli-apps.local-scripts;
-in
-{
-  options.frgd.cli-apps.local-scripts = {
-    enable = mkEnableOption "local-scripts";
+  with lib;
+  with lib.frgd;
+  let
+    cfg = config.frgd.cli-apps.local-scripts;
+  in
+  {
+  options.frgd.cli-apps.local-scripts = with types; {
+    enable = mkBoolOpt false "Whether or not to enable local-scripts.";
+    flakePath = mkOpt str "~/Snowfall-Flake" "Path to the NixOS flake.";
+    remoteUser = mkOpt str "root" "User to use for remote deployment.";
   };
 
   config = mkIf cfg.enable {
@@ -35,17 +36,17 @@ in
           shift
 
           echo "Deploying to remote system: $HOST"
-          nixos-rebuild switch --flake ".#$HOST" --target-host "root@$HOST" "$@" |& nom
+          nixos-rebuild switch --flake "${cfg.flakePath}#$HOST" --target-host "${cfg.remoteUser}@$HOST" "$@" |& nom
         '') # Common scripts for all systems
         (writeShellScriptBin "fu" ''
           #!/bin/bash
-          cd ~/Snowfall-Flake/ || { echo "Error: Could not change to ~/Snowfall-Flake/"; exit 1; }
+          cd ${cfg.flakePath} || { echo "Error: Could not change to ${cfg.flakePath}"; exit 1; }
           nix flake update
         '')
 
         (writeShellScriptBin "fe" ''
           #!/bin/bash
-          cd ~/Snowfall-Flake/ || { echo "Error: Could not change to ~/Snowfall-Flake/"; exit 1; }
+          cd ${cfg.flakePath} || { echo "Error: Could not change to ${cfg.flakePath}"; exit 1; }
           nvim .
         '')
       ]
@@ -54,7 +55,7 @@ in
         (writeShellScriptBin "fs" ''
           #!/bin/bash
           ${figlet}/bin/figlet $(hostname)
-          sudo nixos-rebuild switch --flake ~/Snowfall-Flake/#
+          sudo nixos-rebuild switch --flake ${cfg.flakePath}/#
         '')
       ]
       # macOS-only scripts
@@ -62,7 +63,7 @@ in
         (writeShellScriptBin "ds" ''
           #!/bin/bash
           ${figlet}/bin/figlet $(hostname)
-          sudo darwin-rebuild switch --flake ~/Snowfall-Flake/#
+          sudo darwin-rebuild switch --flake ${cfg.flakePath}/#
         '')
       ];
   };

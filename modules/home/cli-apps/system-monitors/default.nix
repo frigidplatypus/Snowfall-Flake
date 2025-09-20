@@ -1,13 +1,12 @@
 { lib, config, ... }:
 
+with lib;
+with lib.frgd;
 let
-  inherit (lib) mkEnableOption mkIf;
-  inherit (lib.frgd) enabled;
-
   cfg = config.frgd.cli-apps.system-monitors;
 in {
-  options.frgd.cli-apps.system-monitors = {
-    enable = mkEnableOption "Enable System Monitors";
+  options.frgd.cli-apps.system-monitors = with types; {
+    enable = mkBoolOpt false "Whether or not to enable system monitors.";
   };
 
   config = mkIf cfg.enable {

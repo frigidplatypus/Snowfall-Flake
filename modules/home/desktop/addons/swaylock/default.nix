@@ -1,14 +1,12 @@
 { lib, config, pkgs, ... }:
 with lib;
 with lib.frgd;
-let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.frgd.desktop.addons.swaylock;
-in {
-  options.frgd.desktop.addons.swaylock = {
-    enable = mkEnableOption "Swaylock";
-  };
+  let
+    cfg = config.frgd.desktop.addons.swaylock;
+  in {
+    options.frgd.desktop.addons.swaylock = with types; {
+      enable = mkBoolOpt false "Whether or not to enable Swaylock.";
+    };
 
   config = mkIf cfg.enable {
     xdg.configFile."swaylock/config".text = ''
@@ -16,7 +14,6 @@ in {
       clock
       timestr=%I:%M %p
       screenshots
-      #fade-in=.2
       effect-blur=12x12
       effect-scale=0.3
       effect-pixelate=4

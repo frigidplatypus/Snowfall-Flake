@@ -5,8 +5,8 @@ let
   cfg = config.frgd.tools.ssh;
 in
 {
-  options.frgd.tools.ssh = {
-    enable = mkEnableOption "SSH";
+  options.frgd.tools.ssh = with types; {
+    enable = mkBoolOpt false "Whether or not to enable SSH.";
   };
 
   config = mkIf cfg.enable {

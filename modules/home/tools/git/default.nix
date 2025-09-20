@@ -1,14 +1,13 @@
 { lib, config, pkgs, ... }:
 
+with lib;
+with lib.frgd;
 let
-  inherit (lib) types mkEnableOption mkIf;
-  inherit (lib.frgd) mkOpt enabled;
-
   cfg = config.frgd.tools.git;
   user = config.frgd.user;
 in {
-  options.frgd.tools.git = {
-    enable = mkEnableOption "Git";
+    options.frgd.tools.git = with types; {
+      enable = mkBoolOpt false "Whether or not to enable Git.";
     userName = mkOpt types.str user.fullName "The name to configure git with.";
     userEmail = mkOpt types.str user.email "The email to configure git with.";
   };
