@@ -15,6 +15,7 @@ with lib.frgd;
     nerd-fonts.symbols-only
     nerd-fonts.space-mono
     nerd-fonts.sauce-code-pro
+    opencode
 
   ];
   sops.secrets.vikunja_api_key = { };
@@ -49,6 +50,7 @@ with lib.frgd;
       matrix_clients = enabled;
       system-monitors = enabled;
       taskwarrior = enabled;
+      local-scripts = enabled;
       fish = {
         enable = true;
         extraShellAliases = {
