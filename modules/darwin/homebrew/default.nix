@@ -52,7 +52,7 @@ in
         "obsidian"
         "zed"
         # "wezterm"
-        # "kitty"
+        "kitty"
         "alacritty"
         "heynote"
         "sourcetree"
@@ -65,7 +65,6 @@ in
         "aldente"
         # "netnewswire"
         "chime"
-        "wtf"
       ];
     };
 
