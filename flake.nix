@@ -2,8 +2,18 @@
   description = "My NixOS / nix-darwin / nixos-generators systems";
 
   inputs = {
+    # Example: Referencing Determinate Systems' flake for their tooling or nixpkgs
+    # Use the official Determinate Systems flake from GitHub. This provides
+    # a patched nixpkgs and NixOS modules (nixosModules.default) we can import.
+    determinate = {
+      url = "github:DeterminateSystems/determinate";
+    };
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # This is your standard nixpkgs input, which you might use to import packages
+    # If you *don't* want the patched nixpkgs, this should be a standard reference
+    nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
+
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
@@ -80,7 +90,10 @@
       url = "github:frigidplatypus/cria";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    nix-yazi-plugins = {
+      url = "github:lordkekz/nix-yazi-plugins?ref=yazi-v0.2.5";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -117,6 +130,9 @@
         snowfall-flake.overlays."package/flake"
         neovim.overlays.default
         neovim_notes.overlays.default
+        (final: prev: {
+          taskpirate = prev.callPackage ./packages/taskpirate { };
+        })
       ];
 
       systems.modules.darwin = with inputs; [
@@ -131,6 +147,7 @@
         # bible-reading-plan.nixosModules.default
         golink.nixosModules.default
         vscode-server.nixosModules.default
+        determinate.nixosModules.default
       ];
 
       homes.modules = with inputs; [
@@ -146,6 +163,18 @@
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
-      systems.hosts.t480.modules = with inputs; [ nixos-hardware.nixosModules.lenovo-thinkpad-t480 ];
+      systems.hosts.t480.modules = with inputs; [
+        nixos-hardware.nixosModules.lenovo-thinkpad-t480
+
+        # Enable Determinate on this host. This is a minimal module that sets
+        # the determinate.enable option to true. If you want to customize more
+        # determinate options per-host, add them here.
+        (
+          { config, pkgs, ... }:
+          {
+            determinate.enable = true;
+          }
+        )
+      ];
     };
 }

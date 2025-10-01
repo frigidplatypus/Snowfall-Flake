@@ -35,53 +35,19 @@ with lib.frgd;
       home-manager = enabled;
       local-scripts = enabled;
       atuin = enabled;
-      cria = {
-        enable = true;
-        apiUrl = "https://tasks.${tailnet}:8000";
-        apiKeyFile = config.sops.secrets.vikunja_api_key.path;
-        defaultProject = "1";
-        defaultFilter = "Personal";
-        quick_actions = [
-          {
-            key = "w";
-            action = "project";
-            target = "Western";
-          }
-          {
-            key = "p";
-            action = "project";
-            target = "Personal";
-          }
-          {
-            key = "c";
-            action = "project";
-            target = "Cria";
-          }
-          {
-            key = "q";
-            action = "label";
-            target = "qmlativ";
-          }
-          {
-            key = "n";
-            action = "label";
-            target = "nix";
-          }
-          {
-            key = "e";
-            action = "label";
-            target = "email";
-          }
-        ];
-      };
       ranger = enabled;
       fish = enabled;
-      taskwarrior = enabled;
+      taskwarrior = {
+        enable = true;
+        taskpirate = {
+          enable = true;
+          hooksDir = "~/.local/share/task/hooks";
+        };
+      };
       matrix_clients = enabled;
       hass-cli = enabled;
-      cliflux = {
-        enable = true;
-      };
+      cliflux = enabled;
+      yazi = enabled;
       # neomutt = enabled;
       # zellij = enabled;
     };
