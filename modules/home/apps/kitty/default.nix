@@ -27,14 +27,13 @@ in
       # themeFile = "";
       # themeFile = "";
       # themeFile = "";
-      # themeFile = "ToyChest";
+      themeFile = "ToyChest";
       # themeFile = "shadotheme";
       # themeFile = "Sakura_Night";
       # themeFile = "Renault_Style_Light";
       # themeFile = "Renault_Style";
-      # themeFile = "Neowave";
       # themeFile = "MonaLisa";
-      themeFile = "Jackie_Brown";
+      # themeFile = "Jackie_Brown";
       # themeFile = "IC_Orange_PPL";
       # themeFile = "Ciapre";
       # themeFile = "GoaBase";
