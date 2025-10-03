@@ -11,9 +11,9 @@
 
     # This is your standard nixpkgs input, which you might use to import packages
     # If you *don't* want the patched nixpkgs, this should be a standard reference
-    nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
+    # nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
   
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
