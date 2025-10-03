@@ -19,7 +19,7 @@ in
     home.packages = with pkgs; [
       obsidian
       pandoc
-      frgd-notes.notes
+      # frgd-notes.notes
     ];
 
     # nixpkgs.config.permittedInsecurePackages = [ "electron-24.8.6" ];

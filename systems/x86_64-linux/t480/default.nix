@@ -30,6 +30,7 @@ with lib.frgd;
     frgd.heynote
     frgd.deploy_select
     frgd.wakeonlan_script
+    frgd.copilot-cli
     cifs-utils
     remmina
     nom
