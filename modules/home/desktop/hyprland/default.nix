@@ -61,7 +61,6 @@ in
       cursorTheme.name = cfg.cursorTheme;
       enable = true;
       theme = {
-        name = "gruvbox-dark";
         name = cfg.gtkTheme;
       };
     };
