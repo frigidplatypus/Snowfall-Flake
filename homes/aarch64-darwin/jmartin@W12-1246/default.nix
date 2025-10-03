@@ -49,7 +49,13 @@ with lib.frgd;
       home-manager = enabled;
       matrix_clients = enabled;
       system-monitors = enabled;
-      taskwarrior = enabled;
+      taskwarrior = {
+        enable = true;
+        taskpirate = {
+          enable = true;
+          # hooksDir = "~/.local/share/task/hooks"; # optional override
+        };
+      };
       local-scripts = enabled;
       fish = {
         enable = true;
