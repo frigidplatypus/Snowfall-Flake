@@ -44,6 +44,7 @@ with lib.frgd;
 
     cli-apps = {
       #zsh = enabled;
+      atuin = enabled;
       neovim = enabled;
       cliflux = enabled;
       home-manager = enabled;
@@ -54,6 +55,13 @@ with lib.frgd;
         taskpirate = {
           enable = true;
           # hooksDir = "~/.local/share/task/hooks"; # optional override
+          defaultDateTime = {
+            enable = true;
+            time = "07:00:00";
+          };
+          shiftRecurrence = {
+            enable = true;
+          };
         };
       };
       local-scripts = enabled;

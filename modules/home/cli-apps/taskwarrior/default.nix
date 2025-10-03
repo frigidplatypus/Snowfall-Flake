@@ -18,6 +18,13 @@ with lib.frgd;
       taskpirate = {
         enable = mkBoolOpt false "Whether or not to enable taskpirate hooks.";
         hooksDir = mkOpt str "~/.local/share/task/hooks" "Location (in home) where task hooks will be written";
+        defaultDateTime = {
+          enable = mkBoolOpt false "Enable default date-time hook for setting times on midnight due dates.";
+          time = mkOpt str "07:00:00" "Default time to set (HH:MM:SS format).";
+        };
+        shiftRecurrence = {
+          enable = mkBoolOpt false "Enable shift recurrence hook.";
+        };
       };
   };
 
@@ -105,6 +112,88 @@ with lib.frgd;
         };
         "${hooksDir}/on-modify-pirate" = {
           source = "${pkgs.frgd.taskpirate}/bin/on-modify-pirate";
+        };
+
+        # default date-time hook
+        "${hooksDir}/default-time/pirate_add_default_time.py" = mkIf cfg.taskpirate.defaultDateTime.enable {
+          text = let
+            timeParts = builtins.filter builtins.isString (builtins.split ":" cfg.taskpirate.defaultDateTime.time);
+            stripLeadingZeros = s: if builtins.stringLength s > 1 && builtins.substring 0 1 s == "0" then builtins.substring 1 (builtins.stringLength s - 1) s else s;
+            hours = if builtins.length timeParts >= 1 then lib.strings.toInt (stripLeadingZeros (builtins.elemAt timeParts 0)) else 7;
+            minutes = if builtins.length timeParts >= 2 then lib.strings.toInt (stripLeadingZeros (builtins.elemAt timeParts 1)) else 0;
+            seconds = if builtins.length timeParts >= 3 then lib.strings.toInt (stripLeadingZeros (builtins.elemAt timeParts 2)) else 0;
+          in ''
+            #!/usr/bin/python
+            from __future__ import print_function
+            from datetime import datetime, time
+            from tasklib import Task
+
+            DEFAULT_TIME = time(${toString hours},${toString minutes},${toString seconds})  # Configured default time
+
+            def is_local_midnight(timestamp):
+                local_zone = datetime.now().astimezone().tzinfo
+                return timestamp.astimezone(local_zone).time() == time(0,0,0)
+
+            def set_default_time(timestamp):
+                local_zone = datetime.now().astimezone().tzinfo
+                return timestamp.astimezone(local_zone).replace(
+                    hour=DEFAULT_TIME.hour,
+                    minute=DEFAULT_TIME.minute,
+                    second=DEFAULT_TIME.second,
+                    )
+
+            def hook_default_time(task):
+                if task['due'] and is_local_midnight(task['due']):
+                    task['due'] = set_default_time(task['due'])
+                    print("Default due time has been set.")
+          '';
+        };
+        "${hooksDir}/default-time/pirate_mod_default_time.py" = mkIf cfg.taskpirate.defaultDateTime.enable {
+          text = let
+            timeParts = builtins.filter builtins.isString (builtins.split ":" cfg.taskpirate.defaultDateTime.time);
+            stripLeadingZeros = s: if builtins.stringLength s > 1 && builtins.substring 0 1 s == "0" then builtins.substring 1 (builtins.stringLength s - 1) s else s;
+            hours = if builtins.length timeParts >= 1 then lib.strings.toInt (stripLeadingZeros (builtins.elemAt timeParts 0)) else 7;
+            minutes = if builtins.length timeParts >= 2 then lib.strings.toInt (stripLeadingZeros (builtins.elemAt timeParts 1)) else 0;
+            seconds = if builtins.length timeParts >= 3 then lib.strings.toInt (stripLeadingZeros (builtins.elemAt timeParts 2)) else 0;
+          in ''
+            #!/usr/bin/python
+            from __future__ import print_function
+            from datetime import datetime, time
+            from tasklib import Task
+
+            DEFAULT_TIME = time(${toString hours},${toString minutes},${toString seconds})  # Configured default time
+
+            def is_local_midnight(timestamp):
+                local_zone = datetime.now().astimezone().tzinfo
+                return timestamp.astimezone(local_zone).time() == time(0,0,0)
+
+            def set_default_time(timestamp):
+                local_zone = datetime.now().astimezone().tzinfo
+                return timestamp.astimezone(local_zone).replace(
+                    hour=DEFAULT_TIME.hour,
+                    minute=DEFAULT_TIME.minute,
+                    second=DEFAULT_TIME.second,
+                    )
+
+            def hook_default_time(task):
+                if task['due'] and is_local_midnight(task['due']):
+                    task['due'] = set_default_time(task['due'])
+                    print("Default due time has been set.")
+          '';
+        };
+
+        # shift recurrence hook
+        "${hooksDir}/shift-recurrence/pirate_add_shift_recurrence.py" = mkIf cfg.taskpirate.shiftRecurrence.enable {
+          source = builtins.fetchurl {
+            url = "https://raw.githubusercontent.com/tbabej/task.shift-recurrence/master/pirate_add_shift_recurrence.py";
+            sha256 = "1q5lyrf6br8dda1cvl9hyzxadycpmvp378x6mphf5ksshziy9z8a";
+          };
+        };
+        "${hooksDir}/shift-recurrence/pirate_mod_shift_recurrence.py" = mkIf cfg.taskpirate.shiftRecurrence.enable {
+          source = builtins.fetchurl {
+            url = "https://raw.githubusercontent.com/tbabej/task.shift-recurrence/master/pirate_add_shift_recurrence.py";
+            sha256 = "1q5lyrf6br8dda1cvl9hyzxadycpmvp378x6mphf5ksshziy9z8a";
+          };
         };
       };      frgd.services.taskwarrior-sync = enabled;
     });
