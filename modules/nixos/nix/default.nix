@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 
 with lib;
@@ -22,7 +21,7 @@ in
 {
   options.frgd.nix = with types; {
     enable = mkBoolOpt true "Whether or not to manage nix configuration.";
-    package = mkOpt package pkgs.nixVersions.latest "Which nix package to use.";
+    # package = mkOpt package pkgs.nixVersions.latest "Which nix package to use.";
 
     default-substituter = {
       url = mkOpt str "https://cache.nixos.org" "The url for the substituter.";
@@ -35,10 +34,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = mapAttrsToList (name: value: {
-      assertion = value.key != null;
-      message = "frgd.nix.extra-substituters.${name}.key must be set";
-    }) cfg.extra-substituters;
+    assertions = mapAttrsToList
+      (name: value: {
+        assertion = value.key != null;
+        message = "frgd.nix.extra-substituters.${name}.key must be set";
+      })
+      cfg.extra-substituters;
 
     environment.systemPackages = with pkgs; [
       nixfmt-rfc-style
@@ -52,34 +53,36 @@ in
         users = [
           "root"
           config.frgd.user.name
-        ] ++ optional config.services.hydra.enable "hydra";
+        ]
+        ++ optional config.services.hydra.enable "hydra";
       in
       {
-        package = cfg.package;
+        # package = cfg.package;
 
-        settings =
-          {
-            experimental-features = "nix-command flakes";
-            # http-connections = 500;
-            warn-dirty = false;
-            log-lines = 50;
-            sandbox = "relaxed";
-            auto-optimise-store = true;
-            trusted-users = users;
-            allowed-users = users;
-            download-buffer-size = 1024 * 1024 * 1024;
+        settings = {
+          experimental-features = "nix-command flakes";
+          # http-connections = 500;
+          warn-dirty = false;
+          log-lines = 50;
+          sandbox = "relaxed";
+          auto-optimise-store = true;
+          trusted-users = users;
+          allowed-users = users;
+          download-buffer-size = 1024 * 1024 * 1024;
 
-            substituters = [
-              cfg.default-substituter.url
-            ] ++ (mapAttrsToList (name: value: name) cfg.extra-substituters);
-            trusted-public-keys = [
-              cfg.default-substituter.key
-            ] ++ (mapAttrsToList (name: value: value.key) cfg.extra-substituters);
-          }
-          // (lib.optionalAttrs config.frgd.tools.direnv.enable {
-            keep-outputs = true;
-            keep-derivations = true;
-          });
+          substituters = [
+            cfg.default-substituter.url
+          ]
+          ++ (mapAttrsToList (name: value: name) cfg.extra-substituters);
+          trusted-public-keys = [
+            cfg.default-substituter.key
+          ]
+          ++ (mapAttrsToList (name: value: value.key) cfg.extra-substituters);
+        }
+        // (lib.optionalAttrs config.frgd.tools.direnv.enable {
+          keep-outputs = true;
+          keep-derivations = true;
+        });
 
         # flake-utils-plus
         generateRegistryFromInputs = true;
