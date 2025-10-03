@@ -23,11 +23,12 @@ in
       fastfetch
       zip
       gdu
-      yazi
       wakelan
       ripgrep
       fd
       fzf
+      duf
+      dysk
     ];
   };
 }
