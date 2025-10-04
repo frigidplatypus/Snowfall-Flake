@@ -41,6 +41,7 @@ rec {
   mkBoolOpt' = mkOpt' types.bool;
 
   tailnet = "fluffy-rooster.ts.net";
+  tsidpUrl = "https://dns.${tailnet}:8443";
   # font-mono = " Iosevka Nerd Font Mono";
   # font = "Iosevka Nerd Font Propo";
 
