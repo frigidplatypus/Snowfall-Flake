@@ -46,6 +46,7 @@ with lib.frgd;
     pv
     devenv
     opencode
+    colmena
   ];
 
   # Enable OpenGL
@@ -73,6 +74,51 @@ with lib.frgd;
     services = {
       # espanso = enabled;
       # esphome = enabled;
+      zfs-replication = {
+        sanoid = {
+          templates = {
+            default = {
+              hourly = 24;
+              daily = 7;
+              monthly = 12;
+              yearly = 1;
+              autosnap = true;
+              autoprune = true;
+            };
+          };
+          datasets = {
+            "zroot" = "default";
+            "zroot/development" = "default";
+            "zroot/docker_data" = "default";
+            "zroot/home_justin" = "default";
+          };
+        };
+        syncoid = {
+          enable = true;
+          commands = {
+            zroot = {
+              source = "zroot";
+              target = "root@dads-pve:zroot";
+              recursive = true;
+            };
+            development = {
+              source = "zroot/development";
+              target = "root@dads-pve:zroot/development";
+              recursive = true;
+            };
+            docker_data = {
+              source = "zroot/docker_data";
+              target = "root@dads-pve:zroot/docker_data";
+              recursive = true;
+            };
+            home_justin = {
+              source = "zroot/home_justin";
+              target = "root@dads-pve:zroot/home_justin";
+              recursive = true;
+            };
+          };
+        };
+      };
       samba = {
         enable = true;
         shares = {
