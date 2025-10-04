@@ -95,7 +95,47 @@ with lib.frgd;
       signal = enabled;
       steam = enabled;
     };
-    #services = { espanso = enabled; };
+    services = {
+      zfs-replication = {
+        sanoid = {
+          templates = {
+            default = {
+              hourly = 24;
+              daily = 7;
+              monthly = 12;
+              yearly = 1;
+              autosnap = true;
+              autoprune = true;
+            };
+          };
+          datasets = {
+            "zroot/development" = "default";
+            "zroot/home_justin" = "default";
+            "zroot/notes" = "default";
+          };
+        };
+        syncoid = {
+          enable = true;
+          commands = {
+            notes = {
+              source = "zroot/notes";
+              target = "root@p5810:zroot/notes"; # Adjust target as needed for t480
+              recursive = true;
+            };
+            development = {
+              source = "zroot/development";
+              target = "root@p5810:zroot/development";
+              recursive = true;
+            };
+            home_justin = {
+              source = "zroot/home_justin";
+              target = "root@p5810:zroot/home_justin";
+              recursive = true;
+            };
+          };
+        };
+      };
+    };
     security = {
       sops = {
         enable = true;
