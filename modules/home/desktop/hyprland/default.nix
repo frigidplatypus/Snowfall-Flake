@@ -252,7 +252,9 @@ in
         bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
         # Suspend when laptop is closed
-        bindl=,switch:[Lid Switch],exec, "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock && systemctl suspend"
+        bindl=,switch:[Lid Switch],exec, "${
+          inputs.hyprlock.packages.${pkgs.system}.hyprlock
+        }/bin/hyprlock && systemctl suspend"
 
         bindl=,XF86PowerOff,exec,systemctl suspend
       '';
