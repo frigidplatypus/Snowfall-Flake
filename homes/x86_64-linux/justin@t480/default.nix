@@ -45,6 +45,8 @@ with lib.frgd;
             # Only show these folders in aerc for a minimal list
             folders = "INBOX,Sent,Archive";
             syncMail = true;
+            syncCalendar = false;
+            syncContacts = false;
           };
           jk = {
             enable = true;
@@ -52,6 +54,8 @@ with lib.frgd;
             calendarColor = "light green";
             folders = "INBOX,Sent,Archive";
             syncMail = true;
+            syncCalendar = false;
+            syncContacts = false;
           };
           icloud = {
             enable = true;
@@ -66,6 +70,11 @@ with lib.frgd;
             carddavUrl = "https://contacts.icloud.com/";
             calendarUser = "jus10mar10@gmail.com";
             contactsUser = "jus10mar10@gmail.com";
+            # Prefer the Martin Family Calendar as the primary collection
+            # (discovered via `vdirsyncer discover`); also sync the other
+            # Family collection UUID so both family calendars are available.
+            primaryCollection = "5B01F554-FE12-4970-95F6-2F696FE78DE4";
+            collections = [ "93ecfb14-a475-4195-bec8-594e43e16837" "2896ed90-ccfb-4fff-8230-640843f10b70" "bca077e4f0da7a50c411c079c843d1d5826d2caf9667a2aed7d7ef9b3ca666bd" "home"];
           };
         };
         contacts.enable = true;
@@ -134,12 +143,4 @@ with lib.frgd;
   # If you want a minimal accounts.conf to be managed directly, add a
   # home.file entry here. By default the PIM module emits per-account
   # folders when configured and avoids conflicts with other modules.
-
-  # Fix casing in generated aerc accounts.conf so default mailbox is INBOX
-  home.activation.fix-aerc-default-casing = ''#!/bin/sh -e
-CONFIG="${config.home.homeDirectory}/.config/aerc/accounts.conf"
-if [ -f "$CONFIG" ]; then
-  sed -i 's/^default = Inbox$/default = INBOX/' "$CONFIG" || true
-fi
-'';
 }

@@ -67,6 +67,10 @@ in
             contactsUser = mkOpt (nullOr str) defaultContactsUser "Override the CardDAV username; defaults to the account email.";
             # Comma-separated list of folders to expose in aerc for this account
             folders = mkOpt (nullOr str) null "Comma-separated list of folders to show in aerc for this account.";
+            # Additional CalDAV collection identifiers (UUIDs or names) to
+            # sync for this account. If provided these will be appended after
+            # `primaryCollection` when generating vdirsyncer collections.
+            collections = mkOpt (nullOr (listOf str)) null "List of additional CalDAV collection ids or names to sync.";
           };
         });
     in {
@@ -133,7 +137,12 @@ in
               realName = acc.realName;
               address = acc.email;
               flavor = acc.imapFlavor;
-              aerc = enabled;
+              aerc = {
+                enable = true;
+                extraAccounts = {
+                  default = "INBOX";
+                };
+              };
               primary = acc.primary;
               passwordCommand = "cat ${config.sops.secrets.${acc.appPasswordSecret}.path}";
             };
@@ -162,10 +171,19 @@ in
                 khal = {
                   enable = true;
                   color = acc.calendarColor;
+                  type = "discover";
+                  glob = "*";
                 };
-                vdirsyncer = {
+                # Build the list of vdirsyncer collections. If a
+                # `primaryCollection` is configured for the account include it
+                # first, then append any additional `collections` the user set
+                # in their Home Manager config.
+                vdirsyncer = let
+                  primaryList = if acc.primaryCollection != null then [ acc.primaryCollection ] else [];
+                  extraList = if acc.collections != null then acc.collections else [];
+                in {
                   enable = true;
-                  collections = [ "from a" "from b" ];
+                  collections = lib.concatLists [ primaryList extraList ];
                   conflictResolution = "remote wins";
                 };
                 remote =
@@ -242,13 +260,7 @@ in
       hasCalendars = calendarAccounts != { };
       hasContacts = contactAccounts != { };
       needVdirsyncer = hasCalendars || hasContacts;
-      # Build a semicolon-separated list of account|folders pairs for the
-      # activation script. Null entries are filtered out so the resulting
-      # string is safe to interpolate.
-      localFolderPairs = let
-        raw = map (a: if a.value.folders != null then "${a.name}|${a.value.folders}" else null) accountList;
-      in lib.filter (x: x != null) raw;
-      folderPairs = concatStringsSep ";" localFolderPairs;
+      # (no activation-time folder injection data required here)
     in
     mkMerge [
       # Always materialise SOPS secrets for enabled accounts and toggle vdirsyncer globally.
@@ -288,36 +300,7 @@ in
             };
           };
         };
-
-        # Install a small injector script and a systemd --user oneshot that
-        # runs at login to patch the generated aerc accounts.conf so the
-        # default mailbox name uses uppercase INBOX. This avoids timing
-        # issues with Home Manager generation and is idempotent.
-        home.file.".local/bin/pim-inject-aerc-default" = {
-          text = ''#!/bin/sh -e
-CONFIG="$HOME/.config/aerc/accounts.conf"
-if [ -f "$CONFIG" ]; then
-  sed -i 's/^default = Inbox$/default = INBOX/' "$CONFIG" || true
-fi
-'';
-          executable = true;
-        };
-
-        systemd.user.services.pim-inject-aerc-default = {
-          Unit = { Description = "Inject uppercase INBOX into aerc accounts.conf"; };
-          Service = {
-            Type = "oneshot";
-            ExecStart = "${config.home.homeDirectory}/.local/bin/pim-inject-aerc-default";
-          };
-          Install = { WantedBy = [ "default.target" ]; };
-        };
       })
-
-      # After Home Manager writes the generated aerc accounts.conf, insert
-      # per-account `folders = ...` lines requested in the PIM
-      # configuration. We build a small shell script at activation time so
-      # we don't create a conflicting managed file and avoid option type
-      # errors by not touching the `accounts.email.accounts` option tree.
 
       # Calendar sync / khal integration.
       (mkIf (cfg.calendar.enable && hasCalendars) {
@@ -337,7 +320,13 @@ fi
           # these as top-level options.
           hostProvided = lib.attrByPath [ "default" "default_calendar" ] null cfg.calendar.settings;
           hostDefaultCalendar = if hostProvided != null && elem hostProvided calendarNames then hostProvided else defaultCalendarName;
-        in {
+
+          defaultCalendar = let
+            firstAcc = lib.head (lib.attrValues calendarAccounts);
+            collections = firstAcc.vdirsyncer.collections;
+          in
+            if collections != [] then lib.head collections else null;
+          in {
           enable = true;
 
           locale = {
@@ -356,7 +345,7 @@ fi
           settings = recursiveUpdate cfg.calendar.settings ({
             default = {
               print_new = "path";
-              default_calendar = hostDefaultCalendar;
+              default_calendar = if defaultCalendar != null then defaultCalendar else hostDefaultCalendar;
             };
 
             view = {
