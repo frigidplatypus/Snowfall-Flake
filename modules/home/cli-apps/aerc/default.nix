@@ -22,7 +22,6 @@ in
       # bat # Uncomment if you want to use bat for syntax highlighting
     ];
     sops.secrets.jk_app_password = { };
-    sops.secrets.gmail_app_password = { };
     accounts.email.accounts.jk = {
       realName = "Justin Martin";
       address = "justin@justinandkathryn.com";

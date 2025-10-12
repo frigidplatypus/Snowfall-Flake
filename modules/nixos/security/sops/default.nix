@@ -21,6 +21,9 @@ with lib.frgd;
     matrix_registration_shared_secret = {
       enable = mkBoolOpt false "Matrix Registration Shared Secret";
     };
+    github_access_token = {
+      enable = mkBoolOpt false "GitHub Access Token for Nix";
+    };
 
   };
 

@@ -23,6 +23,10 @@ in
     enable = mkBoolOpt true "Whether or not to manage nix configuration.";
     # package = mkOpt package pkgs.nixVersions.latest "Which nix package to use.";
 
+    github-access-token = {
+      enable = mkBoolOpt false "Whether to enable GitHub access token via SOPS";
+    };
+
     default-substituter = {
       url = mkOpt str "https://cache.nixos.org" "The url for the substituter.";
       key =
@@ -33,13 +37,14 @@ in
     extra-substituters = mkOpt (attrsOf substituters-submodule) { } "Extra substituters to configure.";
   };
 
-  config = mkIf cfg.enable {
-    assertions = mapAttrsToList
-      (name: value: {
-        assertion = value.key != null;
-        message = "frgd.nix.extra-substituters.${name}.key must be set";
-      })
-      cfg.extra-substituters;
+  config = mkIf cfg.enable (mkMerge [
+    {
+      assertions = mapAttrsToList
+        (name: value: {
+          assertion = value.key != null;
+          message = "frgd.nix.extra-substituters.${name}.key must be set";
+        })
+        cfg.extra-substituters;
 
     environment.systemPackages = with pkgs; [
       nixfmt-rfc-style
@@ -84,11 +89,35 @@ in
           keep-derivations = true;
         });
 
+        # Include GitHub access tokens from SOPS template
+        extraOptions = lib.optionalString cfg.github-access-token.enable ''
+          !include ${config.sops.templates.github_access_tokens.path}
+        '';
+
         # flake-utils-plus
         generateRegistryFromInputs = true;
         generateNixPathFromInputs = true;
         linkInputs = true;
       };
+
     system.stateVersion = "24.05";
-  };
+    }
+
+    # SOPS secrets for GitHub access token
+    (mkIf cfg.github-access-token.enable {
+      # The actual secret containing the token value
+      sops.secrets.github_api_token = {
+        mode = "0400";
+      };
+      
+      # Template to create the access tokens file that nix.conf will include
+      sops.templates.github_access_tokens = {
+        content = ''
+          access-tokens = github.com=${config.sops.placeholder.github_api_token}
+        '';
+        mode = "0440";
+        group = config.users.groups.keys.name;
+      };
+    })
+  ]);
 }

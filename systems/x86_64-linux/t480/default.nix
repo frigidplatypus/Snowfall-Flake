@@ -30,7 +30,6 @@ with lib.frgd;
     frgd.heynote
     frgd.deploy_select
     frgd.wakeonlan_script
-    frgd.copilot-cli
     cifs-utils
     remmina
     nom
@@ -48,6 +47,9 @@ with lib.frgd;
     nil
     bibletime
     claude-code
+    opencode
+    vimb
+    qutebrowser
   ];
 
   # services.bibleReadingPlan = {
@@ -71,7 +73,10 @@ with lib.frgd;
   # };
 
   frgd = {
-    nix = enabled;
+    nix = {
+      enable = true;
+      github-access-token = enabled;
+    };
     system = {
       boot = {
         enable = true;
