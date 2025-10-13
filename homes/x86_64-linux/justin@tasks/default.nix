@@ -1,12 +1,19 @@
 {
   lib,
-  # pkgs,
+  config,
   ...
 }:
 with lib;
 with lib.frgd;
 {
   # home.packages = with pkgs; [ frgd.taskwarrior-api ];
+  services.taskherald = {
+    enable = true;
+    settings = {
+      endpoint = "https://ntfy.${tailnet}";
+      topic = "taskherald";
+    };
+  };
   frgd = {
     security.sops = enabled;
     user = {
@@ -26,4 +33,6 @@ with lib.frgd;
     };
 
   };
+  sops.secrets.task_herald_ntfy = { };
+
 }
