@@ -32,6 +32,9 @@ in
       experimental-features = nix-command flakes
     '';
 
+    # Let Determinate manage Nix configuration on macOS when using Determinate's darwin module
+    # nix.enable = false;
+
     nixpkgs.config.allowUnfree = true;
     system = {
       stateVersion = 5;
