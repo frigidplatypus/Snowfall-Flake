@@ -50,6 +50,7 @@ with lib.frgd;
     opencode
     vimb
     qutebrowser
+    wtfutil
   ];
 
   # services.bibleReadingPlan = {
