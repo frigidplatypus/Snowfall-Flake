@@ -47,7 +47,7 @@ in
         tab_bar_style = "powerline";
         tab_powerline_style = "round";
         tab_activity_symbol = "";
-        hide_window_decoration = "yes";
+        hide_window_decoration = "titlebary-only";
       };
       shellIntegration = {
         enableFishIntegration = true;
