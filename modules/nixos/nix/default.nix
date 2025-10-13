@@ -35,6 +35,10 @@ in
     };
 
     extra-substituters = mkOpt (attrsOf substituters-submodule) { } "Extra substituters to configure.";
+
+    generateRegistryFromInputs = mkBoolOpt false "Whether to populate the flake registry from inputs during evaluation.";
+    generateNixPathFromInputs = mkBoolOpt false "Whether to populate NIX_PATH from inputs during evaluation.";
+    linkInputs = mkBoolOpt false "Whether to link flake inputs into the store at evaluation time.";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -60,6 +64,8 @@ in
           config.frgd.user.name
         ]
         ++ optional config.services.hydra.enable "hydra";
+        extraSubstituterUrls = mapAttrsToList (name: _value: name) cfg.extra-substituters;
+        extraSubstituterKeys = mapAttrsToList (_name: value: value.key) cfg.extra-substituters;
       in
       {
         # package = cfg.package;
@@ -71,6 +77,7 @@ in
           log-lines = 50;
           sandbox = "relaxed";
           auto-optimise-store = true;
+          eval-cache = true;
           trusted-users = users;
           allowed-users = users;
           download-buffer-size = 1024 * 1024 * 1024;
@@ -78,11 +85,11 @@ in
           substituters = [
             cfg.default-substituter.url
           ]
-          ++ (mapAttrsToList (name: value: name) cfg.extra-substituters);
+          ++ extraSubstituterUrls;
           trusted-public-keys = [
             cfg.default-substituter.key
           ]
-          ++ (mapAttrsToList (name: value: value.key) cfg.extra-substituters);
+          ++ extraSubstituterKeys;
         }
         // (lib.optionalAttrs config.frgd.tools.direnv.enable {
           keep-outputs = true;
@@ -95,9 +102,9 @@ in
         '';
 
         # flake-utils-plus
-        generateRegistryFromInputs = true;
-        generateNixPathFromInputs = true;
-        linkInputs = true;
+        generateRegistryFromInputs = cfg.generateRegistryFromInputs;
+        generateNixPathFromInputs = cfg.generateNixPathFromInputs;
+        linkInputs = cfg.linkInputs;
       };
 
     system.stateVersion = "24.05";
