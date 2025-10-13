@@ -125,37 +125,37 @@
           # "olm-3.2.16"
         ];
       };
-      overlays = with inputs; [
+      overlays = [
 
         # There is also a named overlay, though the output is the same.
-        snowfall-flake.overlays."package/flake"
-        neovim.overlays.default
-        neovim_notes.overlays.default
+        inputs.snowfall-flake.overlays."package/flake"
+        inputs.neovim.overlays.default
+        inputs.neovim_notes.overlays.default
         (final: prev: {
           taskpirate = prev.callPackage ./packages/taskpirate { };
         })
       ];
 
-      systems.modules.darwin = with inputs; [
-        home-manager.darwinModules.home-manager
+      systems.modules.darwin = [
+        inputs.home-manager.darwinModules.home-manager
       ];
 
-      systems.modules.nixos = with inputs; [
-        home-manager.nixosModules.home-manager
-        sops-nix.nixosModules.sops
-        disko.nixosModules.disko
+      systems.modules.nixos = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.sops-nix.nixosModules.sops
+        inputs.disko.nixosModules.disko
         # brp.nixosModules.default
         # bible-reading-plan.nixosModules.default
-        golink.nixosModules.default
-        vscode-server.nixosModules.default
-        hyprland.nixosModules.default
-        determinate.nixosModules.default
+        inputs.golink.nixosModules.default
+        inputs.vscode-server.nixosModules.default
+        inputs.hyprland.nixosModules.default
+        inputs.determinate.nixosModules.default
       ];
 
-      homes.modules = with inputs; [
-        sops-nix.homeManagerModules.sops
-        nix-index-database.homeModules.nix-index
-        hyprland.homeManagerModules.default
+      homes.modules = [
+        inputs.sops-nix.homeManagerModules.sops
+        inputs.nix-index-database.homeModules.nix-index
+        inputs.hyprland.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
@@ -166,8 +166,8 @@
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
-      systems.hosts.t480.modules = with inputs; [
-        nixos-hardware.nixosModules.lenovo-thinkpad-t480
+      systems.hosts.t480.modules = [
+        inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
 
         # Enable Determinate on this host. This is a minimal module that sets
         # the determinate.enable option to true. If you want to customize more
