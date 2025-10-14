@@ -280,7 +280,7 @@ in
           enable = true;
           extraConfig = {
             filters = {
-              "text/html" = "w3m -T text/html -o display_link_number=1";
+                "text/html" = "html2markdown | glow -";
               "text/plain" = "colorize";
             };
             general = {
