@@ -94,6 +94,9 @@
       url = "git+ssh://git@github.com/frigidplatypus/taskherald";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    html-to-markdown = {
+      url = "github:frigidplatypus/html-to-markdown";
+    };
 
   };
 
