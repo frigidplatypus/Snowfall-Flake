@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 with lib;
@@ -16,6 +17,7 @@ with lib.frgd;
     nerd-fonts.space-mono
     nerd-fonts.sauce-code-pro
     opencode
+    inputs.html-to-markdown.packages.${pkgs.system}.html-to-markdown
 
   ];
   sops.secrets.vikunja_api_key = { };
