@@ -34,7 +34,7 @@ with lib.frgd;
       };
     };
     cli-apps = {
-        pim = {
+      pim = {
         enable = true;
         accounts = {
           gmail = {
@@ -74,7 +74,12 @@ with lib.frgd;
             # (discovered via `vdirsyncer discover`); also sync the other
             # Family collection UUID so both family calendars are available.
             primaryCollection = "5B01F554-FE12-4970-95F6-2F696FE78DE4";
-            collections = [ "93ecfb14-a475-4195-bec8-594e43e16837" "2896ed90-ccfb-4fff-8230-640843f10b70" "bca077e4f0da7a50c411c079c843d1d5826d2caf9667a2aed7d7ef9b3ca666bd" "home"];
+            collections = [
+              "93ecfb14-a475-4195-bec8-594e43e16837"
+              "2896ed90-ccfb-4fff-8230-640843f10b70"
+              "bca077e4f0da7a50c411c079c843d1d5826d2caf9667a2aed7d7ef9b3ca666bd"
+              "home"
+            ];
           };
         };
         contacts.enable = true;
