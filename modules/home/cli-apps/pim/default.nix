@@ -315,7 +315,7 @@ in
 
           extraConfig = {
             filters = {
-              "text/html" = "!${pkgs.frgd.html-to-markdown}/bin/html2markdown | ${pkgs.mdcat}/bin/mdcat -p";
+              "text/html" = "!${pkgs.frgd.html-to-markdown}/bin/html2markdown | ${pkgs.glow}/bin/glow -p";
               "text/plain" = "colorize";
             };
             general = {
