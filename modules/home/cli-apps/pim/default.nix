@@ -20,7 +20,7 @@ let
       syncMail = true;
     };
     icloud = {
-      email = "justin@icloud.com";
+      email = "jus10mar10@gmail.com";
       calendarColor = "yellow";
       syncMail = false;
       caldavUrl = "https://caldav.icloud.com/";
@@ -109,7 +109,7 @@ in
         };
         icloud = {
           enable = false;
-          email = "justin@icloud.com";
+          email = "jus10mar10@gmail.com";
           calendarColor = "light yellow";
           syncMail = false;
           caldavUrl = "https://caldav.icloud.com/";
@@ -312,9 +312,10 @@ in
 
         programs.aerc = {
           enable = true;
+
           extraConfig = {
             filters = {
-              "text/html" = "${pkgs.frgd.html-to-markdown}/bin/html2markdown | glow -";
+              "text/html" = "!${pkgs.frgd.html-to-markdown}/bin/html2markdown | ${pkgs.mdcat}/bin/mdcat -p";
               "text/plain" = "colorize";
             };
             general = {
