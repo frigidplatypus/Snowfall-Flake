@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{ lib
+, config
+, pkgs
+, ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -95,7 +99,7 @@ with lib.frgd;
       neovim = enabled;
       home-manager = enabled;
       local-scripts = enabled;
-      atuin = enabled;
+      atuin = disabled;
       ranger = enabled;
       fish = enabled;
       taskwarrior = {
@@ -129,6 +133,8 @@ with lib.frgd;
       nix-index = enabled;
     };
   };
+
+  home.packages = with pkgs; [ cfonts ];
 
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering
   # programs.aerc = {
