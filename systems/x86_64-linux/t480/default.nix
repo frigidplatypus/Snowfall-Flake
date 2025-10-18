@@ -125,17 +125,17 @@ with lib.frgd;
           commands = {
             notes = {
               source = "zroot/notes";
-              target = "root@p5810:zroot/notes"; # Adjust target as needed for t480
+              target = "root@p5810:storage/notes"; # Adjust target as needed for t480
               recursive = true;
             };
             development = {
               source = "zroot/development";
-              target = "root@p5810:zroot/development";
+              target = "root@p5810:storage/development";
               recursive = true;
             };
             home_justin = {
               source = "zroot/home_justin";
-              target = "root@p5810:zroot/home_justin";
+              target = "root@p5810:storage/home_justin";
               recursive = true;
             };
           };
