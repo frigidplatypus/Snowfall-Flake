@@ -105,7 +105,7 @@
         inherit inputs;
 
         src = ./.;
-        flakeRoot = self.outPath;
+        flakeRoot = inputs.self.outPath;
 
         snowfall = {
           meta = {

@@ -87,7 +87,7 @@ with lib.frgd;
     suites = {
       desktop = {
         enable = true;
-        plasma = true;
+        cosmic = true;
       };
     };
   };
