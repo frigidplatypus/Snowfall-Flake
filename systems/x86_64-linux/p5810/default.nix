@@ -58,6 +58,7 @@ with lib.frgd;
   programs.nix-ld.enable = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi/";
   services.vscode-server.enable = true;
+  boot.zfs.extraPools = [ "storage" ];
 
   frgd = {
     nix = enabled;
@@ -152,4 +153,37 @@ with lib.frgd;
       # };
     };
   };
+
+  # System user for receiving replication via syncoid/ssh
+  users.groups.syncoid = {};
+
+  users.users.syncoid = {
+    isSystemUser = true;
+    description = "Syncoid replication user";
+    createHome = false;
+    home = "/nonexistent";
+    group = "syncoid";
+    # Provide a valid shell so remote SSH invocations can run commands (e.g., zfs receive)
+    shell = pkgs.bash;
+    # Add the SSH public key(s of the initiator) here. Prefer storing them in SOPS.
+    # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4NGfIOc4xx7s1pY/rsCURq/vYwLClKq3x2rF+AWZgl root@t480" ];
+  };
+
+  # Activation script to delegate ZFS permissions to the syncoid user for the datasets
+  system.activationScripts.syncoid-zfs-perms.text = ''
+    #!/bin/sh
+    set -e
+    # Only run if zpool command exists
+    if ! command -v zpool >/dev/null 2>&1; then
+      exit 0
+    fi
+
+    # Give the syncoid user delegated ZFS permissions on the relevant datasets
+    for ds in zroot zroot/development zroot/docker_data zroot/home_justin; do
+      if zfs list "$ds" >/dev/null 2>&1; then
+        # grant minimal permissions for receive/send and dataset management
+        /sbin/zfs allow syncoid send,receive,mount,create,destroy "$ds" || true
+      fi
+    done
+  '';
 }
