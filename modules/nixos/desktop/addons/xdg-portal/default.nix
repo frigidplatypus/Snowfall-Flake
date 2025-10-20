@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.xdg-portal;
+let
+  cfg = config.frgd.desktop.addons.xdg-portal;
 in
 {
   options.frgd.desktop.addons.xdg-portal = with types; {

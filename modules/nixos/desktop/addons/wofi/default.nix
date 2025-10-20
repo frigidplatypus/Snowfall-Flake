@@ -1,17 +1,26 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.wofi;
+let
+  cfg = config.frgd.desktop.addons.wofi;
 in
 {
   options.frgd.desktop.addons.wofi = with types; {
-    enable =
-      mkBoolOpt false "Whether to enable the Wofi in the desktop environment.";
+    enable = mkBoolOpt false "Whether to enable the Wofi in the desktop environment.";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ wofi wofi-emoji ];
+    environment.systemPackages = with pkgs; [
+      wofi
+      wofi-emoji
+    ];
 
     # config -> .config/wofi/config
     # css -> .config/wofi/style.css

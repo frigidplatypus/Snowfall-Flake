@@ -1,10 +1,16 @@
-{ lib, config, options, ... }:
+{
+  lib,
+  config,
+  options,
+  ...
+}:
 
 with lib;
 with lib.frgd;
 let
   cfg = config.frgd.services.avahi;
-in {
+in
+{
   options.frgd.services.avahi = with types; {
     enable = mkBoolOpt false "Whether or not to enable Avahi.";
   };

@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.mako;
+let
+  cfg = config.frgd.desktop.addons.mako;
 in
 {
   options.frgd.desktop.addons.mako = with types; {
@@ -10,7 +17,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ mako libnotify ];
+    environment.systemPackages = with pkgs; [
+      mako
+      libnotify
+    ];
 
     systemd.user.services.mako = {
       description = "Mako notification daemon";

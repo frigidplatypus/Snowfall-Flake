@@ -8,13 +8,13 @@
 with lib;
 with lib.frgd;
 
-  let
-    cfg = config.frgd.services.taskchampion;
-  in
-  {
-    options.frgd.services.taskchampion = with types; {
-      enable = mkBoolOpt false "Whether or not to enable taskchampion.";
-    };
+let
+  cfg = config.frgd.services.taskchampion;
+in
+{
+  options.frgd.services.taskchampion = with types; {
+    enable = mkBoolOpt false "Whether or not to enable taskchampion.";
+  };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [

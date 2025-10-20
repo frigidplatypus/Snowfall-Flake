@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -23,12 +28,14 @@ let
   is-local-postgres =
     let
       url = cfg.settings.database.url or "";
-      local-db-strings = [ "localhost" "127.0.0.1" "/run/postgresql" ];
+      local-db-strings = [
+        "localhost"
+        "127.0.0.1"
+        "/run/postgresql"
+      ];
       is-local-db-url = any (flip hasInfix url) local-db-strings;
     in
-    config.services.postgresql.enable
-    && hasPrefix "postgresql://" url
-    && is-local-db-url;
+    config.services.postgresql.enable && hasPrefix "postgresql://" url && is-local-db-url;
 in
 {
   options.frgd.services.attic = with types; {
@@ -36,7 +43,9 @@ in
 
     package = mkOpt types.package pkgs.attic-server "The attic-server package to use.";
 
-    credentials = mkOpt (types.nullOr types.path) null "The path to an optional EnvironmentFile for the atticd service to use.";
+    credentials =
+      mkOpt (types.nullOr types.path) null
+        "The path to an optional EnvironmentFile for the atticd service to use.";
 
     user = mkOpt types.str "atticd" "The user under which attic runs.";
     group = mkOpt types.str "atticd" "The group under which attic runs.";
@@ -80,8 +89,13 @@ in
 
     systemd.services.atticd = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ]
-        ++ optionals is-local-postgres [ "postgresql.service" "nss-lookup.target" ];
+      after = [
+        "network.target"
+      ]
+      ++ optionals is-local-postgres [
+        "postgresql.service"
+        "nss-lookup.target"
+      ];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/atticd -f ${server-toml}";
@@ -89,7 +103,8 @@ in
         User = cfg.user;
         Group = cfg.group;
         DynamicUser = true;
-      } // optionalAttrs (cfg.credentials != null) {
+      }
+      // optionalAttrs (cfg.credentials != null) {
         EnvironmentFile = mkDefault cfg.credentials;
       };
     };

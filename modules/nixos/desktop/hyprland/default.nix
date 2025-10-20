@@ -6,13 +6,13 @@
 }:
 with lib;
 with lib.frgd;
-  let
-    cfg = config.frgd.desktop.hyprland;
-  in
-  {
-    options.frgd.desktop.hyprland = with types; {
-      enable = mkBoolOpt false "Whether or not to enable the Hyprland window manager.";
-    };
+let
+  cfg = config.frgd.desktop.hyprland;
+in
+{
+  options.frgd.desktop.hyprland = with types; {
+    enable = mkBoolOpt false "Whether or not to enable the Hyprland window manager.";
+  };
 
   config = mkIf cfg.enable {
 

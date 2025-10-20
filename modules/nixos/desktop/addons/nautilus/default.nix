@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.nautilus;
+let
+  cfg = config.frgd.desktop.addons.nautilus;
 in
 {
   options.frgd.desktop.addons.nautilus = with types; {
@@ -12,8 +19,7 @@ in
   config = mkIf cfg.enable {
     # Enable support for browsing samba shares.
     services.gvfs.enable = true;
-    networking.firewall.extraCommands =
-      "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns";
+    networking.firewall.extraCommands = "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns";
 
     environment.systemPackages = with pkgs; [ gnome.nautilus ];
   };

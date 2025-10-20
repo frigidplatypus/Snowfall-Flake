@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -15,5 +21,5 @@ in
       comma
       #frgd.nix-update-index
     ];
-};
+  };
 }

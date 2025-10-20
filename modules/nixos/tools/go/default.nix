@@ -1,4 +1,10 @@
-{ options, config, pkgs, lib, ... }:
+{
+  options,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -12,7 +18,10 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = with pkgs; [ go gopls ];
+      systemPackages = with pkgs; [
+        go
+        gopls
+      ];
       sessionVariables = {
         GOPATH = "$HOME/work/go";
       };

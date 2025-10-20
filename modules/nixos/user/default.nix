@@ -68,7 +68,9 @@ in
         "wheel"
         "input"
         "dialout"
-      ] ++ cfg.extraGroups;
-    } // cfg.extraOptions;
+      ]
+      ++ cfg.extraGroups;
+    }
+    // cfg.extraOptions;
   };
 }

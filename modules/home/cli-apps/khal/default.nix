@@ -13,7 +13,7 @@ in
 {
   options.frgd.cli-apps.khal = with types; {
     enable = mkBoolOpt false "khal calendar application";
-    
+
     googleCalendar = {
       enable = mkBoolOpt false "Enable Google Calendar sync";
       username = mkOpt str "" "Google Calendar username/email";
@@ -21,12 +21,12 @@ in
     };
 
     icloudCalendar = {
-      enable = mkBoolOpt false "Enable iCloud Calendar sync";  
+      enable = mkBoolOpt false "Enable iCloud Calendar sync";
       username = mkOpt str "" "iCloud username/email";
       passwordCommand = mkOpt str "" "Command to get iCloud password";
     };
 
-    settings = mkOpt attrs {} "Additional khal configuration settings";
+    settings = mkOpt attrs { } "Additional khal configuration settings";
   };
 
   config = mkIf cfg.enable {
@@ -38,7 +38,7 @@ in
     # Configure calendar accounts for vdirsyncer
     accounts.calendar = {
       basePath = "$HOME/.local/share/calendars";
-      
+
       accounts = mkMerge [
         # Google Calendar configuration
         (mkIf cfg.googleCalendar.enable {
@@ -51,7 +51,10 @@ in
             };
             vdirsyncer = {
               enable = true;
-              collections = ["from a" "from b"];
+              collections = [
+                "from a"
+                "from b"
+              ];
               conflictResolution = "remote wins";
             };
             remote = {
@@ -67,7 +70,7 @@ in
           };
         })
 
-        # iCloud Calendar configuration  
+        # iCloud Calendar configuration
         (mkIf cfg.icloudCalendar.enable {
           icloud = {
             khal = {
@@ -76,7 +79,10 @@ in
             };
             vdirsyncer = {
               enable = true;
-              collections = ["from a" "from b"];
+              collections = [
+                "from a"
+                "from b"
+              ];
               conflictResolution = "remote wins";
             };
             remote = {
@@ -100,7 +106,7 @@ in
     # Configure khal
     programs.khal = {
       enable = true;
-      
+
       locale = {
         timeformat = "%H:%M";
         dateformat = "%Y-%m-%d";
@@ -115,7 +121,7 @@ in
           print_new = "path";
           default_calendar = mkIf cfg.googleCalendar.enable "google";
         };
-        
+
         view = {
           agenda_event_format = "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
         };

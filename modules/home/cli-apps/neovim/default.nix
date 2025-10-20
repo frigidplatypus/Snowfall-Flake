@@ -5,15 +5,15 @@
   ...
 }:
 
-  with lib;
-  with lib.frgd;
-  let
-    cfg = config.frgd.cli-apps.neovim;
-  in
-  {
-    options.frgd.cli-apps.neovim = with types; {
-      enable = mkBoolOpt false "Whether or not to enable Neovim.";
-    };
+with lib;
+with lib.frgd;
+let
+  cfg = config.frgd.cli-apps.neovim;
+in
+{
+  options.frgd.cli-apps.neovim = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Neovim.";
+  };
 
   config = mkIf cfg.enable {
     home = {
@@ -42,7 +42,6 @@
         vimdiff = "nvim -d";
       };
     };
-
 
   };
 }

@@ -3,8 +3,7 @@
     disk = {
       x = {
         type = "disk";
-        device =
-          "/dev/disk/by-id/ata-ACJC2M064HS_985110500063";
+        device = "/dev/disk/by-id/ata-ACJC2M064HS_985110500063";
         content = {
           type = "gpt";
           partitions = {

@@ -18,6 +18,7 @@ with lib.frgd;
     nerd-fonts.sauce-code-pro
     opencode
     inputs.html-to-markdown.packages.${pkgs.system}.html-to-markdown
+    github-copilot-cli
 
   ];
   sops.secrets.vikunja_api_key = { };

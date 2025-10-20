@@ -6,9 +6,11 @@
   ...
 }:
 with lib;
-with lib.frgd; let
+with lib.frgd;
+let
   cfg = config.frgd.tools.bottom;
-in {
+in
+{
   options.frgd.tools.bottom = with types; {
     enable = mkBoolOpt false "Whether or not to enable Bottom.";
   };

@@ -2,12 +2,13 @@
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.hardware.networking;
-in {
+let
+  cfg = config.frgd.hardware.networking;
+in
+{
   options.frgd.hardware.networking = with types; {
     enable = mkBoolOpt false "Whether or not to enable networking support";
-    hosts = mkOpt attrs { }
-      (mdDoc "An attribute set to merge with `networking.hosts`");
+    hosts = mkOpt attrs { } (mdDoc "An attribute set to merge with `networking.hosts`");
   };
 
   config = mkIf cfg.enable {
@@ -16,7 +17,8 @@ in {
     networking = {
       hosts = {
         "127.0.0.1" = [ "local.test" ] ++ (cfg.hosts."127.0.0.1" or [ ]);
-      } // cfg.hosts;
+      }
+      // cfg.hosts;
 
       networkmanager = {
         enable = true;

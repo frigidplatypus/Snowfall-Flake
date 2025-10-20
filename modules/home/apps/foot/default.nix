@@ -6,14 +6,14 @@
 }:
 with lib;
 with lib.frgd;
-  let
-    cfg = config.frgd.apps.foot;
-    inherit (colorScheme) palette;
-  in
-  {
-    options.frgd.apps.foot = with types; {
-      enable = mkBoolOpt false "Whether or not to enable Foot.";
-    };
+let
+  cfg = config.frgd.apps.foot;
+  inherit (colorScheme) palette;
+in
+{
+  options.frgd.apps.foot = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Foot.";
+  };
   config = mkIf cfg.enable {
     programs.foot = {
       enable = true;

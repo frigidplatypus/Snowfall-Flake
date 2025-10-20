@@ -1,13 +1,19 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.services.ntfy;
-in {
+let
+  cfg = config.frgd.services.ntfy;
+in
+{
   options.frgd.services.ntfy = with types; {
     enable = mkBoolOpt false "Whether or not to configure ntfy support.";
-    gui = mkBoolOpt false
-      "Whether or not to enable a gui to configure ntfy support.";
+    gui = mkBoolOpt false "Whether or not to enable a gui to configure ntfy support.";
   };
 
   config = mkIf cfg.enable {
@@ -25,9 +31,10 @@ in {
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig =
             # required when the target is also TLS server with multiple hosts
-            "proxy_ssl_server_name on;" +
-            # required when the server wants to use HTTP Authentication
-            "proxy_pass_header Authorization;";
+            "proxy_ssl_server_name on;"
+            +
+              # required when the server wants to use HTTP Authentication
+              "proxy_pass_header Authorization;";
         };
       };
     };

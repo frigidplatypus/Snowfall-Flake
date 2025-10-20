@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -7,8 +13,7 @@ let
 in
 {
   options.frgd.suites.emulation = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable emulation configuration.";
+    enable = mkBoolOpt false "Whether or not to enable emulation configuration.";
   };
 
   config = mkIf cfg.enable {

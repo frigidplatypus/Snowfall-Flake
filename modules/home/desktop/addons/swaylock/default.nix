@@ -1,12 +1,18 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
-  let
-    cfg = config.frgd.desktop.addons.swaylock;
-  in {
-    options.frgd.desktop.addons.swaylock = with types; {
-      enable = mkBoolOpt false "Whether or not to enable Swaylock.";
-    };
+let
+  cfg = config.frgd.desktop.addons.swaylock;
+in
+{
+  options.frgd.desktop.addons.swaylock = with types; {
+    enable = mkBoolOpt false "Whether or not to enable Swaylock.";
+  };
 
   config = mkIf cfg.enable {
     xdg.configFile."swaylock/config".text = ''
@@ -52,6 +58,8 @@ with lib.frgd;
       text-caps-lock-color = "009ddc"
     '';
 
-    programs.swaylock = { package = pkgs.swaylock-effects; };
+    programs.swaylock = {
+      package = pkgs.swaylock-effects;
+    };
   };
 }

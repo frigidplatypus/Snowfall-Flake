@@ -2,8 +2,10 @@
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.services.soft-serve;
-in {
+let
+  cfg = config.frgd.services.soft-serve;
+in
+{
   options.frgd.services.soft-serve = with types; {
     enable = mkBoolOpt false "Whether or not to configure soft-serve support.";
   };
