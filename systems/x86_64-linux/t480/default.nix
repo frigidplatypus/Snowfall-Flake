@@ -51,6 +51,8 @@ with lib.frgd;
     vimb
     qutebrowser
     wtfutil
+    github-copilot-cli
+    crush
   ];
 
   # services.bibleReadingPlan = {
