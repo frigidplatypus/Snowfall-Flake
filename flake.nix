@@ -105,6 +105,8 @@
         inherit inputs;
 
         src = ./.;
+        flakeRoot = self.outPath;
+
         snowfall = {
           meta = {
             name = "frgd";
