@@ -22,50 +22,50 @@ let
     default_calendar_view = ${cfg.settings.defaultCalendarView}
     start_week_day = ${toString cfg.settings.startWeekDay}
     weekend_days = ${concatStringsSep "," (map toString cfg.settings.weekendDays)}
-    
+
     show_keybindings = ${boolToYesNo cfg.settings.showKeybindings}
     split_screen = ${boolToYesNo cfg.settings.splitScreen}
     privacy_mode = ${boolToYesNo cfg.settings.privacyMode}
-    
+
     show_weather = ${boolToYesNo cfg.settings.showWeather}
     weather_city = ${cfg.settings.weatherCity}
     weather_metric_units = ${boolToYesNo cfg.settings.weatherMetricUnits}
-    
+
     show_holidays = ${boolToYesNo cfg.settings.showHolidays}
     holiday_country = ${cfg.settings.holidayCountry}
-    
+
     birthdays_from_abook = ${boolToYesNo cfg.settings.birthdaysFromAbook}
     show_moon_phases = ${boolToYesNo cfg.settings.showMoonPhases}
     show_calendar_borders = ${boolToYesNo cfg.settings.showCalendarBorders}
     show_current_time = ${boolToYesNo cfg.settings.showCurrentTime}
     show_nothing_planned = ${boolToYesNo cfg.settings.showNothingPlanned}
-    
+
     use_unicode_icons = ${boolToYesNo cfg.settings.useUnicodeIcons}
     use_24_hour_format = ${boolToYesNo cfg.settings.use24HourFormat}
     use_persian_calendar = ${boolToYesNo cfg.settings.usePersianCalendar}
-    
+
     minimal_today_indicator = ${boolToYesNo cfg.settings.minimalTodayIndicator}
     minimal_days_indicator = ${boolToYesNo cfg.settings.minimalDaysIndicator}
     minimal_weekend_indicator = ${boolToYesNo cfg.settings.minimalWeekendIndicator}
-    
+
     cut_titles_by_cell_length = ${boolToYesNo cfg.settings.cutTitlesByCellLength}
     ask_confirmations = ${boolToYesNo cfg.settings.askConfirmations}
     ask_confirmation_to_quit = ${boolToYesNo cfg.settings.askConfirmationToQuit}
     one_timer_at_a_time = ${boolToYesNo cfg.settings.oneTimerAtATime}
-    
+
     refresh_interval = ${toString cfg.settings.refreshInterval}
     data_reload_interval = ${toString cfg.settings.dataReloadInterval}
     right_pane_percentage = ${toString cfg.settings.rightPanePercentage}
-    
+
     journal_header = ${cfg.settings.journalHeader}
-    
-    ${optionalString (cfg.settings.icsEventFiles != []) ''
-    ics_event_files = ${concatStringsSep "," cfg.settings.icsEventFiles}
+
+    ${optionalString (cfg.settings.icsEventFiles != [ ]) ''
+      ics_event_files = ${concatStringsSep "," cfg.settings.icsEventFiles}
     ''}
-    ${optionalString (cfg.settings.icsTaskFiles != []) ''
-    ics_task_files = ${concatStringsSep "," cfg.settings.icsTaskFiles}
+    ${optionalString (cfg.settings.icsTaskFiles != [ ]) ''
+      ics_task_files = ${concatStringsSep "," cfg.settings.icsTaskFiles}
     ''}
-    
+
     # Icons
     event_icon = ${cfg.settings.icons.event}
     privacy_icon = ${cfg.settings.icons.privacy}
@@ -78,7 +78,7 @@ let
     important_icon = ${cfg.settings.icons.important}
     separator_icon = ${cfg.settings.icons.separator}
     deadline_icon = ${cfg.settings.icons.deadline}
-    
+
     [Colors]
     color_today = ${toString cfg.colors.today}
     color_events = ${toString cfg.colors.events}
@@ -107,7 +107,7 @@ let
     color_calendar_border = ${toString cfg.colors.calendarBorder}
     color_ics_calendars = ${concatStringsSep "," (map toString cfg.colors.icsCalendars)}
     color_background = ${toString cfg.colors.background}
-    
+
     [Styles]
     bold_today = ${boolToYesNo cfg.styles.boldToday}
     bold_days = ${boolToYesNo cfg.styles.boldDays}
@@ -124,78 +124,84 @@ let
     underlined_title = ${boolToYesNo cfg.styles.underlinedTitle}
     underlined_active_pane = ${boolToYesNo cfg.styles.underlinedActivePane}
     strikethrough_done = ${boolToYesNo cfg.styles.strikethroughDone}
-    
-    ${optionalString (cfg.eventIcons != {}) ''
-    [Event icons]
-    ${concatStringsSep "\n" (mapAttrsToList (k: v: "${k} = ${v}") cfg.eventIcons)}
+
+    ${optionalString (cfg.eventIcons != { }) ''
+      [Event icons]
+      ${concatStringsSep "\n" (mapAttrsToList (k: v: "${k} = ${v}") cfg.eventIcons)}
     ''}
   '';
 in
 {
   options.frgd.cli-apps.calcure = with types; {
     enable = mkBoolOpt false "Whether to enable calcure calendar and task manager";
-    
+
     package = mkOpt (nullOr package) null "Custom calcure package to use";
-    
+
     settings = {
       # General settings
       language = mkOpt str "en" "Interface language (en, ru, fr, it, br, tr, zh, tw, de, sk)";
-      defaultView = mkOpt (enum ["calendar" "journal"]) "calendar" "Default view on startup";
-      defaultCalendarView = mkOpt (enum ["monthly" "daily"]) "monthly" "Default calendar view type";
-      
+      defaultView = mkOpt (enum [
+        "calendar"
+        "journal"
+      ]) "calendar" "Default view on startup";
+      defaultCalendarView = mkOpt (enum [
+        "monthly"
+        "daily"
+      ]) "monthly" "Default calendar view type";
+
       # Calendar settings
       startWeekDay = mkOpt int 1 "First day of week (1=Monday, 7=Sunday)";
-      weekendDays = mkOpt (listOf int) [6 7] "Weekend days (6=Saturday, 7=Sunday)";
-      
+      weekendDays = mkOpt (listOf int) [ 6 7 ] "Weekend days (6=Saturday, 7=Sunday)";
+
       # Display settings
       showKeybindings = mkBoolOpt true "Show keybinding hints";
       splitScreen = mkBoolOpt true "Enable split screen view";
       privacyMode = mkBoolOpt false "Hide event/task details by default";
-      
+
       # Weather
       showWeather = mkBoolOpt false "Show weather information";
       weatherCity = mkOpt str "" "City for weather display";
       weatherMetricUnits = mkBoolOpt true "Use metric units for weather";
-      
+
       # Holidays and special days
       showHolidays = mkBoolOpt true "Show public holidays";
       holidayCountry = mkOpt str "UnitedStates" "Country for holiday information";
       birthdaysFromAbook = mkBoolOpt false "Import birthdays from abook";
       showMoonPhases = mkBoolOpt false "Show moon phase indicators";
-      
+
       # UI elements
       showCalendarBorders = mkBoolOpt false "Show borders around calendar";
       showCurrentTime = mkBoolOpt false "Show current time";
       showNothingPlanned = mkBoolOpt true "Show 'nothing planned' message";
-      
+
       # Formatting
       useUnicodeIcons = mkBoolOpt true "Use Unicode icons";
       use24HourFormat = mkBoolOpt true "Use 24-hour time format";
       usePersianCalendar = mkBoolOpt false "Use Persian calendar";
-      
+
       minimalTodayIndicator = mkBoolOpt true "Use minimal today indicator";
       minimalDaysIndicator = mkBoolOpt true "Use minimal day indicators";
       minimalWeekendIndicator = mkBoolOpt true "Use minimal weekend indicators";
-      
+
       cutTitlesByCellLength = mkBoolOpt false "Cut long titles to fit cell width";
-      
+
       # Behavior
       askConfirmations = mkBoolOpt true "Ask for confirmations before actions";
       askConfirmationToQuit = mkBoolOpt true "Ask confirmation before quitting";
       oneTimerAtATime = mkBoolOpt false "Allow only one timer at a time";
-      
+
       # Performance
       refreshInterval = mkOpt int 1 "Screen refresh interval in seconds";
       dataReloadInterval = mkOpt int 0 "Data reload interval (0=disabled)";
       rightPanePercentage = mkOpt int 25 "Width percentage of right pane";
-      
+
       # ICS calendar files
-      icsEventFiles = mkOpt (listOf str) [] "Paths to ICS event calendar files";
-      icsTaskFiles = mkOpt (listOf str) [] "Paths to ICS task files";
-      
+      icsEventFiles = mkOpt (listOf str) [ ] "Paths to ICS event calendar files";
+      icsTaskFiles = mkOpt (listOf str) [ ] "Paths to ICS task files";
+
       # Journal
       journalHeader = mkOpt str "JOURNAL" "Header text for journal view";
-      
+
       # Icons
       icons = {
         event = mkOpt str "•" "Icon for events";
@@ -211,7 +217,7 @@ in
         deadline = mkOpt str "⚑" "Icon for deadlines";
       };
     };
-    
+
     # Color settings (terminal color numbers 0-7 or -1 for default)
     colors = {
       today = mkOpt int 2 "Color for today's date";
@@ -239,10 +245,21 @@ in
       activePane = mkOpt int 2 "Color for active pane indicator";
       separator = mkOpt int 7 "Color for separators";
       calendarBorder = mkOpt int 7 "Color for calendar borders";
-      icsCalendars = mkOpt (listOf int) [2 3 1 7 4 5 2 3 1 7] "Colors for ICS calendars";
+      icsCalendars = mkOpt (listOf int) [
+        2
+        3
+        1
+        7
+        4
+        5
+        2
+        3
+        1
+        7
+      ] "Colors for ICS calendars";
       background = mkOpt int (-1) "Background color (-1 for default)";
     };
-    
+
     # Style settings
     styles = {
       boldToday = mkBoolOpt false "Bold text for today";
@@ -261,27 +278,33 @@ in
       underlinedActivePane = mkBoolOpt false "Underline active pane";
       strikethroughDone = mkBoolOpt false "Strikethrough completed tasks";
     };
-    
+
     # Event icon mappings (keyword -> icon)
-    eventIcons = mkOpt (attrsOf str) {} ''
+    eventIcons = mkOpt (attrsOf str) { } ''
       Mapping of keywords to icons for events.
       Example: { travel = "✈"; meeting = "🎙️"; }
     '';
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; let
-      placeholder = writeShellScriptBin "calcure" ''
-        #!/bin/sh
-        echo "calcure is not yet available in nixpkgs."
-        echo "Consider packaging it or using an overlay."
-        exit 1
-      '';
-      calcurePkg = 
-        if cfg.package != null then cfg.package
-        else if pkgs ? calcure then pkgs.calcure
-        else placeholder;
-    in [ calcurePkg ];
+    home.packages =
+      with pkgs;
+      let
+        placeholder = writeShellScriptBin "calcure" ''
+          #!/bin/sh
+          echo "calcure is not yet available in nixpkgs."
+          echo "Consider packaging it or using an overlay."
+          exit 1
+        '';
+        calcurePkg =
+          if cfg.package != null then
+            cfg.package
+          else if pkgs ? calcure then
+            pkgs.calcure
+          else
+            placeholder;
+      in
+      [ calcurePkg ];
 
     home.file = {
       ".config/calcure/config.ini".text = configFile;

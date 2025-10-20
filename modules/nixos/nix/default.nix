@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 
 with lib;
@@ -43,71 +44,69 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      assertions = mapAttrsToList
-        (name: value: {
-          assertion = value.key != null;
-          message = "frgd.nix.extra-substituters.${name}.key must be set";
-        })
-        cfg.extra-substituters;
+      assertions = mapAttrsToList (name: value: {
+        assertion = value.key != null;
+        message = "frgd.nix.extra-substituters.${name}.key must be set";
+      }) cfg.extra-substituters;
 
-    environment.systemPackages = with pkgs; [
-      nixfmt-rfc-style
-      nix-index
-      nix-prefetch-git
-      nix-output-monitor
-    ];
+      environment.systemPackages = with pkgs; [
+        nixfmt-rfc-style
+        nix-index
+        nix-prefetch-git
+        nix-output-monitor
+      ];
 
-    nix =
-      let
-        users = [
-          "root"
-          config.frgd.user.name
-        ]
-        ++ optional config.services.hydra.enable "hydra";
-        extraSubstituterUrls = mapAttrsToList (name: _value: name) cfg.extra-substituters;
-        extraSubstituterKeys = mapAttrsToList (_name: value: value.key) cfg.extra-substituters;
-      in
-      {
-        # package = cfg.package;
-
-        settings = {
-          experimental-features = "nix-command flakes";
-          # http-connections = 500;
-          warn-dirty = false;
-          log-lines = 50;
-          sandbox = "relaxed";
-          auto-optimise-store = true;
-          eval-cache = true;
-          trusted-users = users;
-          allowed-users = users;
-          download-buffer-size = 1024 * 1024 * 1024;
-
-          substituters = [
-            cfg.default-substituter.url
+      nix =
+        let
+          users = [
+            "root"
+            config.frgd.user.name
           ]
-          ++ extraSubstituterUrls;
-          trusted-public-keys = [
-            cfg.default-substituter.key
-          ]
-          ++ extraSubstituterKeys;
-        }
-        // (lib.optionalAttrs config.frgd.tools.direnv.enable {
-          keep-outputs = true;
-          keep-derivations = true;
-        });
+          ++ optional config.services.hydra.enable "hydra";
+          extraSubstituterUrls = mapAttrsToList (name: _value: name) cfg.extra-substituters;
+          extraSubstituterKeys = mapAttrsToList (_name: value: value.key) cfg.extra-substituters;
+        in
+        {
+          # package = cfg.package;
 
-        # Include GitHub access tokens from SOPS template
-        extraOptions = lib.optionalString cfg.github-access-token.enable ''
-          !include ${config.sops.templates.github_access_tokens.path}
-        '';
+          settings = {
+            experimental-features = "nix-command flakes";
+            # http-connections = 500;
+            warn-dirty = false;
+            log-lines = 50;
+            sandbox = "relaxed";
+            auto-optimise-store = true;
+            eval-cache = true;
+            trusted-users = users;
+            allowed-users = users;
+            download-buffer-size = 1024 * 1024 * 1024;
 
-        # flake-utils-plus
-        generateRegistryFromInputs = cfg.generateRegistryFromInputs;
-        generateNixPathFromInputs = cfg.generateNixPathFromInputs;
-        linkInputs = cfg.linkInputs;
-      };
+            substituters = [
+              cfg.default-substituter.url
+            ]
+            ++ extraSubstituterUrls;
+            trusted-public-keys = [
+              cfg.default-substituter.key
+            ]
+            ++ extraSubstituterKeys;
+          }
+          // (lib.optionalAttrs config.frgd.tools.direnv.enable {
+            keep-outputs = true;
+            keep-derivations = true;
+          });
 
-    system.stateVersion = "24.05";
+          # Include GitHub access tokens from SOPS template
+          extraOptions = lib.optionalString cfg.github-access-token.enable ''
+            !include ${config.sops.templates.github_access_tokens.path}
+          '';
+
+          # flake-utils-plus
+          generateRegistryFromInputs = cfg.generateRegistryFromInputs;
+          generateNixPathFromInputs = cfg.generateNixPathFromInputs;
+          linkInputs = cfg.linkInputs;
+        };
+
+      system.stateVersion = "24.05";
     }
 
     # SOPS secrets for GitHub access token
@@ -116,7 +115,7 @@ in
       sops.secrets.github_api_token = {
         mode = "0400";
       };
-      
+
       # Template to create the access tokens file that nix.conf will include
       sops.templates.github_access_tokens = {
         content = ''

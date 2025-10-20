@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.term;
+let
+  cfg = config.frgd.desktop.addons.term;
 in
 {
   options.frgd.desktop.addons.term = with types; {

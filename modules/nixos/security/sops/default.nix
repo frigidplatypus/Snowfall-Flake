@@ -1,23 +1,34 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
-  let
-    cfg = config.frgd.security.sops;
-  in {
-    options.frgd.security.sops = with types; {
-      enable = mkBoolOpt false "Whether or not to enable sops.";
+let
+  cfg = config.frgd.security.sops;
+in
+{
+  options.frgd.security.sops = with types; {
+    enable = mkBoolOpt false "Whether or not to enable sops.";
 
     taskwarrior = {
-      enable = mkBoolOpt false
-        "Whether or not to enable automatic connection to Tailscale";
+      enable = mkBoolOpt false "Whether or not to enable automatic connection to Tailscale";
     };
     wireguard_server_key = {
       enable = mkBoolOpt false "Whether or not to enable Wireguard server key";
     };
 
-    vultr_api_key = { enable = mkBoolOpt false "Vultr API Key"; };
-    namecheap_api_key = { enable = mkBoolOpt false "Namecheap API Key"; };
-    porkbun = { enable = mkBoolOpt false "Namecheap API Key"; };
+    vultr_api_key = {
+      enable = mkBoolOpt false "Vultr API Key";
+    };
+    namecheap_api_key = {
+      enable = mkBoolOpt false "Namecheap API Key";
+    };
+    porkbun = {
+      enable = mkBoolOpt false "Namecheap API Key";
+    };
     matrix_registration_shared_secret = {
       enable = mkBoolOpt false "Matrix Registration Shared Secret";
     };

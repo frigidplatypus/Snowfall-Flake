@@ -9,8 +9,8 @@ with lib;
 with lib.frgd;
 let
   cfg = config.frgd.desktop.addons.hyprlock;
-    # Define the battery script as a Nix derivation
-    hyprlockBatteryScript = pkgs.writeShellScriptBin "hyprlock-battery-status" ''
+  # Define the battery script as a Nix derivation
+  hyprlockBatteryScript = pkgs.writeShellScriptBin "hyprlock-battery-status" ''
     #!/bin/bash
 
     # Path to your battery (adjust if needed, e.g., BAT1)

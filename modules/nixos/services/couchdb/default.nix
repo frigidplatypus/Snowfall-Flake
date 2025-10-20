@@ -9,7 +9,8 @@ with lib;
 with lib.frgd;
 let
   cfg = config.frgd.services.couchdb;
-in {
+in
+{
   options.frgd.services.couchdb = with types; {
     enable = mkBoolOpt false "Whether or not to enable couchdb.";
   };

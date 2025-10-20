@@ -1,4 +1,8 @@
-{ lib, fetchurl, appimageTools }:
+{
+  lib,
+  fetchurl,
+  appimageTools,
+}:
 
 let
   pname = "numara";
@@ -6,13 +10,13 @@ let
   version = "5.0.1";
 
   src = fetchurl {
-    url =
-      "https://github.com/bornova/numara-calculator/releases/download/v${version}/Numara-${version}-x86_64.AppImage";
+    url = "https://github.com/bornova/numara-calculator/releases/download/v${version}/Numara-${version}-x86_64.AppImage";
     hash = "sha256-snMYWVCbnB3w3kvtgyziqnRKVmWBKiE/OWpyhP3m1hY=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
-in appimageTools.wrapType2 rec {
+in
+appimageTools.wrapType2 rec {
   inherit pname version src;
   #    mv $out/bin/{${pname}-${version},${pname}}
 

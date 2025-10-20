@@ -1,13 +1,19 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.swappy;
+let
+  cfg = config.frgd.desktop.addons.swappy;
 in
 {
   options.frgd.desktop.addons.swappy = with types; {
-    enable =
-      mkBoolOpt false "Whether to enable Swappy in the desktop environment.";
+    enable = mkBoolOpt false "Whether to enable Swappy in the desktop environment.";
   };
 
   config = mkIf cfg.enable {

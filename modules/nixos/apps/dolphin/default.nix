@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.apps.dolphin;
+let
+  cfg = config.frgd.apps.dolphin;
 in
 {
   options.frgd.apps.dolphin = with types; {

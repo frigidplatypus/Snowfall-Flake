@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.tools.nix-ld;
+let
+  cfg = config.frgd.tools.nix-ld;
 in
 {
   options.frgd.tools.nix-ld = with types; {

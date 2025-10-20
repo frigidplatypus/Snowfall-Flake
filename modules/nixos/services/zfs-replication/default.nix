@@ -17,9 +17,13 @@ in
     sanoid = {
       enable = mkBoolOpt true "Whether or not to enable sanoid snapshots.";
 
-      templates = mkOpt (attrsOf (attrsOf (either str (either bool int)))) { } "Sanoid templates for snapshot policies (supports strings, booleans, and integers for options like hourly, autosnap, etc.).";
+      templates =
+        mkOpt (attrsOf (attrsOf (either str (either bool int)))) { }
+          "Sanoid templates for snapshot policies (supports strings, booleans, and integers for options like hourly, autosnap, etc.).";
 
-      datasets = mkOpt (attrsOf str) { } "Dataset-specific sanoid configurations (values are template names, e.g., { zroot = \"default\"; }).";
+      datasets =
+        mkOpt (attrsOf str) { }
+          "Dataset-specific sanoid configurations (values are template names, e.g., { zroot = \"default\"; }).";
     };
 
     syncoid = {
@@ -89,11 +93,11 @@ in
         ]
       );
 
-    services.sanoid = mkIf cfg.sanoid.enable {
-      enable = true;
-      templates = cfg.sanoid.templates;
-      datasets = lib.mapAttrs (name: val: { useTemplate = [ val ]; }) cfg.sanoid.datasets;
-    };
+      services.sanoid = mkIf cfg.sanoid.enable {
+        enable = true;
+        templates = cfg.sanoid.templates;
+        datasets = lib.mapAttrs (name: val: { useTemplate = [ val ]; }) cfg.sanoid.datasets;
+      };
 
       services.syncoid = mkIf cfg.syncoid.enable {
         enable = true;
@@ -116,36 +120,45 @@ in
           Type = "oneshot";
           User = cfg.syncoid.user;
         };
-      script =
-        let
-          syncoidCommands = lib.mapAttrsToList (name: cmd: ''
-            echo "Running syncoid for ${name}: ${cmd.source} -> ${cmd.target}"
-            ERROR_LOG=$(mktemp)
-            if ! syncoid "${cmd.source}" "${cmd.target}" 2> "$ERROR_LOG"; then
-              ERROR_MSG=$(cat "$ERROR_LOG")
-              ${if notifyEnabled then ''
-                ${pkgs.curl}/bin/curl -X POST \
-                  -H "Title: ${cfg.syncoid.notification.title}" \
-                  -H "Priority: ${cfg.syncoid.notification.priority}" \
-                  -d "Syncoid replication failed for ${name}!\nSource: ${cmd.source}\nTarget: ${cmd.target}\nHost: $(hostname)\nError:\n$ERROR_MSG" \
-                  "${cfg.syncoid.notification.url}/${cfg.syncoid.notification.topic}"
-              '' else ""}
-              exit 1
-            fi
-            rm "$ERROR_LOG"
-          '') cfg.syncoid.commands;
-          notifyCmd = if notifyEnabled then ''
-            ${pkgs.curl}/bin/curl -X POST \
-              -H "Title: ${cfg.syncoid.notification.title}" \
-              -H "Priority: ${cfg.syncoid.notification.priority}" \
-              -d "Syncoid replication failed!\nSource: $SRC\nTarget: $DST\nHost: $(hostname)\nError:\n$ERROR_MSG" \
-              "${cfg.syncoid.notification.url}/${cfg.syncoid.notification.topic}"
-          '' else "";
-        in
-        ''
-          set -e
-          ${lib.concatStringsSep "\n" syncoidCommands}
-        '';
+        script =
+          let
+            syncoidCommands = lib.mapAttrsToList (name: cmd: ''
+              echo "Running syncoid for ${name}: ${cmd.source} -> ${cmd.target}"
+              ERROR_LOG=$(mktemp)
+              if ! syncoid "${cmd.source}" "${cmd.target}" 2> "$ERROR_LOG"; then
+                ERROR_MSG=$(cat "$ERROR_LOG")
+                ${
+                  if notifyEnabled then
+                    ''
+                      ${pkgs.curl}/bin/curl -X POST \
+                        -H "Title: ${cfg.syncoid.notification.title}" \
+                        -H "Priority: ${cfg.syncoid.notification.priority}" \
+                        -d "Syncoid replication failed for ${name}!\nSource: ${cmd.source}\nTarget: ${cmd.target}\nHost: $(hostname)\nError:\n$ERROR_MSG" \
+                        "${cfg.syncoid.notification.url}/${cfg.syncoid.notification.topic}"
+                    ''
+                  else
+                    ""
+                }
+                exit 1
+              fi
+              rm "$ERROR_LOG"
+            '') cfg.syncoid.commands;
+            notifyCmd =
+              if notifyEnabled then
+                ''
+                  ${pkgs.curl}/bin/curl -X POST \
+                    -H "Title: ${cfg.syncoid.notification.title}" \
+                    -H "Priority: ${cfg.syncoid.notification.priority}" \
+                    -d "Syncoid replication failed!\nSource: $SRC\nTarget: $DST\nHost: $(hostname)\nError:\n$ERROR_MSG" \
+                    "${cfg.syncoid.notification.url}/${cfg.syncoid.notification.topic}"
+                ''
+              else
+                "";
+          in
+          ''
+            set -e
+            ${lib.concatStringsSep "\n" syncoidCommands}
+          '';
       };
 
       systemd.timers.syncoid-replication = mkIf syncoidSystemdEnabled {

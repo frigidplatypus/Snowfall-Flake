@@ -5,20 +5,20 @@
   ...
 }:
 
-  with lib;
-  with lib.frgd;
-  let
-    cfg = config.frgd.system.zfs;
-  in
-  {
-    options.frgd.system.zfs = with types; {
-      enable = mkBoolOpt false "Whether or not to enable ZFS support.";
+with lib;
+with lib.frgd;
+let
+  cfg = config.frgd.system.zfs;
+in
+{
+  options.frgd.system.zfs = with types; {
+    enable = mkBoolOpt false "Whether or not to enable ZFS support.";
 
-      pools = mkOpt (listOf str) [ "zpool" ] "The ZFS pools to manage.";
+    pools = mkOpt (listOf str) [ "zpool" ] "The ZFS pools to manage.";
 
-      auto-snapshot = {
-        enable = mkBoolOpt false "Whether or not to enable ZFS auto snapshotting.";
-      };
+    auto-snapshot = {
+      enable = mkBoolOpt false "Whether or not to enable ZFS auto snapshotting.";
+    };
 
     hostID = mkOpt str "00000000" "The host ID to use for ZFS auto snapshotting.";
 

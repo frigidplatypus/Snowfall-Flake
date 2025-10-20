@@ -5,12 +5,12 @@
   ...
 }:
 
-  with lib;
-  with lib.frgd;
-  let
-    cfg = config.frgd.cli-apps.local-scripts;
-  in
-  {
+with lib;
+with lib.frgd;
+let
+  cfg = config.frgd.cli-apps.local-scripts;
+in
+{
   options.frgd.cli-apps.local-scripts = with types; {
     enable = mkBoolOpt false "Whether or not to enable local-scripts.";
     flakePath = mkOpt str "~/Snowfall-Flake" "Path to the NixOS flake.";

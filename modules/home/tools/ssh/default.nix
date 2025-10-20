@@ -21,7 +21,7 @@ in
           addKeysToAgent = "yes";
           # Other common default settings can be added here
         };
-        
+
         # Specific host configurations
         soft = {
           port = 23231;

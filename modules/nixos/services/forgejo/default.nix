@@ -1,9 +1,17 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.services.forgejo;
-in {
+let
+  cfg = config.frgd.services.forgejo;
+in
+{
   options.frgd.services.forgejo = with types; {
     enable = mkBoolOpt false "Whether or not to enable forgejo.";
   };
@@ -18,4 +26,3 @@ in {
     };
   };
 }
-

@@ -1,8 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
-let cfg = config.frgd.apps.inkscape;
+let
+  cfg = config.frgd.apps.inkscape;
 in
 {
   options.frgd.apps.inkscape = with types; {
@@ -10,6 +17,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ inkscape-with-extensions google-fonts ];
+    environment.systemPackages = with pkgs; [
+      inkscape-with-extensions
+      google-fonts
+    ];
   };
 }

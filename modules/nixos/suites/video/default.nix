@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -13,8 +19,8 @@ in
   config = mkIf cfg.enable {
     frgd = {
       apps = {
-#        pitivi = enabled;
-#        obs = enabled;
+        #        pitivi = enabled;
+        #        obs = enabled;
       };
     };
   };

@@ -1,8 +1,15 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
-let cfg = config.frgd.desktop.addons.swaylock;
-in {
+let
+  cfg = config.frgd.desktop.addons.swaylock;
+in
+{
   options.frgd.desktop.addons.swaylock = with types; {
     enable = mkBoolOpt false "Whether or not to enable Swaylock.";
   };

@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -9,8 +15,7 @@ let
 in
 {
   options.frgd.desktop.addons.kanshi = with types; {
-    enable =
-      mkBoolOpt false "Whether to enable Kanshi in the desktop environment.";
+    enable = mkBoolOpt false "Whether to enable Kanshi in the desktop environment.";
   };
 
   config = mkIf cfg.enable {
@@ -23,7 +28,9 @@ in
       description = "Kanshi output autoconfig ";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
-      environment = { XDG_CONFIG_HOME = "${home}/.config"; };
+      environment = {
+        XDG_CONFIG_HOME = "${home}/.config";
+      };
       serviceConfig = {
         ExecCondition = ''
           ${pkgs.bash}/bin/bash -c '[ -n "$WAYLAND_DISPLAY" ]'
