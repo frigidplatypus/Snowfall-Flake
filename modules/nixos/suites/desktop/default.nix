@@ -18,7 +18,7 @@ in
     gnome = mkBoolOpt false "Whether or not to enable gnome.";
     plasma = mkBoolOpt false "Whether or not to enable plasma.";
     xfce = mkBoolOpt false "Whether or not to enable xfce.";
-
+    cosmic = mkBoolOpt false "Whether or not to enable cosmic.";
   };
 
   config = mkIf cfg.enable {
@@ -28,6 +28,7 @@ in
         hyprland = mkIf cfg.hyprland enabled;
         plasma = mkIf cfg.plasma enabled;
         xfce = mkIf cfg.xfce enabled;
+        cosmic = mkIf cfg.cosmic enabled;
         #        addons = { wallpapers = enabled; };
       };
       hardware = {
