@@ -27,13 +27,11 @@ in
     frgd.home.extraOptions = {
       programs.git = {
         enable = true;
-        inherit (cfg) userName userEmail;
-        lfs = enabled;
-        signing = {
-          key = cfg.signingKey;
-          signByDefault = mkIf gpg.enable true;
-        };
-        extraConfig = {
+        settings = {
+          user = {
+            name = cfg.userName;
+            email = cfg.userEmail;
+          };
           init = {
             defaultBranch = "main";
           };
@@ -49,6 +47,11 @@ in
           safe = {
             directory = "${config.users.users.${user.name}.home}/work/config";
           };
+        };
+        lfs = enabled;
+        signing = {
+          key = cfg.signingKey;
+          signByDefault = mkIf gpg.enable true;
         };
       };
     };
