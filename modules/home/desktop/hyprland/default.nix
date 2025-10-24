@@ -38,7 +38,6 @@ in
         swayidle
         xorg.xeyes
         xorg.xwininfo
-        copyq
         # GTK themes
         gruvbox-dark-gtk
         sweet
@@ -241,7 +240,6 @@ in
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
             "${pkgs.mako}"
             "${pkgs.udiskie}/bin/udiskie --tray --notify"
-            "${pkgs.copyq}/bin/copyq --start-server"
             "systemctl --user start hyprpolkitagent"
           ];
         }
