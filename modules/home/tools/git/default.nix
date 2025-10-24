@@ -21,10 +21,11 @@ in
   config = mkIf cfg.enable {
     programs.git = {
       enable = true;
-      inherit (cfg) userName userEmail;
-      lfs = enabled;
-
-      extraConfig = {
+      settings = {
+        user = {
+          name = cfg.userName;
+          email = cfg.userEmail;
+        };
         init = {
           defaultBranch = "main";
         };
@@ -38,6 +39,7 @@ in
           whitespace = "trailing-space,space-before-tab";
         };
       };
+      lfs = enabled;
     };
     home.packages = with pkgs; [ lazygit ];
   };
