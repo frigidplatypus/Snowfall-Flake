@@ -155,7 +155,7 @@ with lib.frgd;
   };
 
   # System user for receiving replication via syncoid/ssh
-  users.groups.syncoid = {};
+  users.groups.syncoid = { };
 
   users.users.syncoid = {
     isSystemUser = true;
