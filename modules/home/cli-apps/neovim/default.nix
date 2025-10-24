@@ -20,8 +20,8 @@ in
       packages = with pkgs; [
         # less
         # #rnix-lsp
-        # nixfmt-rfc-style
-        # ripgrep
+        nixfmt-rfc-style
+        ripgrep
         # alejandra
         # nodejs
         # gcc
@@ -29,6 +29,12 @@ in
         # cargo
         # nil
         frgd.neovim
+        prettier
+        treefmt
+        lynx
+        shfmt
+        shellcheck
+        shellharden
       ];
 
       sessionVariables = {
