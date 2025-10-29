@@ -29,6 +29,9 @@ in
       fzf
       duf
       dysk
+      tree
+      treefmt
+      nixfmt-rfc-style
     ];
   };
 }
