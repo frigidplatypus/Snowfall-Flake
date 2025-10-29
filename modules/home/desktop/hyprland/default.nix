@@ -41,7 +41,6 @@ in
         # GTK themes
         gruvbox-dark-gtk
         sweet
-        awf
         zuki-themes
         yaru-theme
         whitesur-icon-theme
