@@ -1,8 +1,7 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
+{ lib
+, config
+, pkgs
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -53,7 +52,6 @@ in
       programs.taskwarrior = {
         enable = true;
         package = pkgs.taskwarrior3;
-        colorTheme = "dark-violets-256";
         # dataLocation = mkIf (cfg.dataLocation) cfg.dataLocation;
         config = {
           confirmation = false;
@@ -90,6 +88,14 @@ in
             notification_date = {
               type = "date";
               label = "Notification Date";
+            };
+            ntfy_topic = {
+              type = "string";
+              label = "Ntfy Topic";
+            };
+            taskherald_notified = {
+              type = "date";
+              label = "Taskherald Notified";
             };
           };
           context.western.read = "project:Western or project:Inbox or priority:H";
