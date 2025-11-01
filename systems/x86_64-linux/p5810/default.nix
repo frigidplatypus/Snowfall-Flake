@@ -61,7 +61,10 @@ with lib.frgd;
   boot.zfs.extraPools = [ "storage" ];
 
   frgd = {
-    nix = enabled;
+    nix = {
+      enable = true;
+      github-access-token.enable = true;
+    };
     system = {
       boot = {
         enable = true;
