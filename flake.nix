@@ -89,7 +89,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     taskherald = {
-      url = "git+ssh://git@github.com/frigidplatypus/taskherald";
+      url = "github:frigidplatypus/taskherald";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     html-to-markdown = {
@@ -159,6 +159,7 @@
         inputs.sops-nix.homeManagerModules.sops
         inputs.nix-index-database.homeModules.nix-index
         inputs.hyprland.homeManagerModules.default
+        inputs.taskherald.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
