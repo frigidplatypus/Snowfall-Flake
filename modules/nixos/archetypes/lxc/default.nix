@@ -18,6 +18,24 @@ in
   config = mkIf cfg.enable {
     boot.isContainer = true;
     services.getty.autologinUser = "root";
+    services.prometheus.exporters.node = {
+      enable = true;
+      enabledCollectors = [
+        "cpu"
+        "meminfo"
+        "loadavg"
+        "filesystem"
+        "netdev"
+        "tcpstat"
+        "softirqs"
+        "processes"
+        "textfile"
+        "systemd"
+      ];
+      # Only add ethtool/wifi/systemd if you intentionally give the container extra access:
+      # enabledCollectors = lib.optional st.systemdRunning "systemd" ++ ...
+    };
+
     systemd.suppressedSystemUnits = [
       "dev-mqueue.mount"
       "sys-kernel-debug.mount"

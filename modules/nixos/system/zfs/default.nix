@@ -32,6 +32,7 @@ in
       pv
       mbuffer
     ];
+    services.prometheus.exporters.zfs = enabled;
     services.zfs = {
       autoScrub = {
         enable = true;
