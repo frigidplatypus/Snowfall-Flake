@@ -89,8 +89,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     taskherald = {
+<<<<<<< Updated upstream
       url = "github:frigidplatypus/taskherald";
       inputs.nixpkgs.follows = "nixpkgs";
+=======
+      url = "git+ssh://git@github.com/frigidplatypus/taskherald";
+      #   inputs.nixpkgs.follows = "nixpkgs";
+>>>>>>> Stashed changes
     };
     html-to-markdown = {
       url = "github:frigidplatypus/html-to-markdown";
