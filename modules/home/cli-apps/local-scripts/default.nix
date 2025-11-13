@@ -13,7 +13,9 @@ in
 {
   options.frgd.cli-apps.local-scripts = with types; {
     enable = mkBoolOpt false "Whether or not to enable local-scripts.";
-    flakePath = mkOpt str "~/Snowfall-Flake" "Path to the NixOS flake.";
+  # Use an absolute path by default so shell tilde-expansion issues don't
+  # cause tools (like deploy scripts) to pass a literal '~' into nix.
+  flakePath = mkOpt str "/home/justin/Snowfall-Flake" "Path to the NixOS flake.";
     remoteUser = mkOpt str "root" "User to use for remote deployment.";
   };
 
