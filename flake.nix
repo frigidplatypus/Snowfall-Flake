@@ -70,6 +70,10 @@
       url = "github:tailscale/golink";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tclip = {
+      url = "github:tailscale-dev/tclip";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
