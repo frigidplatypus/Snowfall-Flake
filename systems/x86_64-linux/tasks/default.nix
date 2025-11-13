@@ -2,6 +2,7 @@
   lib,
   modulesPath,
   pkgs,
+  inputs,
   config,
   ...
 }:
