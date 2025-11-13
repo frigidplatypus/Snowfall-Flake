@@ -45,8 +45,15 @@ in
       sops.defaultSopsFile = ./secrets.yaml;
       sops.defaultSopsFormat = "yaml";
       sops.age.keyFile = "/sops/keys.txt";
-      sops.secrets.tailscale_api_key = { };
+      sops.secrets.tailscale_api_key = {
+        owner = "root";
+        group = "tailscale";
+        mode = "0640";
+      };
       sops.secrets.justin_password = { };
+      # Ensure the tailscale group exists so files created with group=tailscale
+      # on the target will validate and be created with the correct group.
+      users.groups.tailscale = {};
       #sops.templates.justin_password.contents = ''
       #  adminPass = "${config.sops.placeholder.justin_password}"
       #'';
