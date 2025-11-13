@@ -168,8 +168,11 @@ with lib.frgd;
     group = "syncoid";
     # Provide a valid shell so remote SSH invocations can run commands (e.g., zfs receive)
     shell = pkgs.bash;
-    # Add the SSH public key(s of the initiator) here. Prefer storing them in SOPS.
-    # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4NGfIOc4xx7s1pY/rsCURq/vYwLClKq3x2rF+AWZgl root@t480" ];
+    # Add the SSH public key(s) of the initiator here. Prefer storing them in SOPS.
+    # Replace the placeholder below with the real public key for t480's syncoid user.
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP4RssWl8vYZrOaLxKvkU7DhkKem/wGteCEvqNLATyPX syncoid@t480"
+    ];
   };
 
   # Activation script to delegate ZFS permissions to the syncoid user for the datasets
