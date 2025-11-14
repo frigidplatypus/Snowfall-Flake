@@ -73,7 +73,9 @@ in
       templates = cfg.sanoid.templates;
       datasets = lib.mapAttrs' (name: dataset: {
         name = dataset.source;
-        value = { template = dataset.template; };
+        value = {
+          template = dataset.template;
+        };
       }) cfg.datasets;
     };
 
@@ -81,9 +83,9 @@ in
     services.syncoid = {
       enable = true;
       interval = cfg.syncoid.interval;
-      user = "root";  # Run as root to have ZFS permissions, use SSH key for remote auth
+      user = "root"; # Run as root to have ZFS permissions, use SSH key for remote auth
       sshKey = useSshKey cfg.syncoid.sshKey;
-      commonArgs = [ "--no-sync-snap" ];  # Use sanoid snapshots instead of creating syncoid snapshots
+      commonArgs = [ "--no-sync-snap" ]; # Use sanoid snapshots instead of creating syncoid snapshots
       commands = lib.mapAttrs' (name: dataset: {
         name = name;
         value = {
