@@ -11,7 +11,7 @@ with lib.frgd;
 
     suites.common = enabled;
     desktop = {
-      hyprland = enabled;
+      # hyprland = enabled;
     };
 
     security = {
