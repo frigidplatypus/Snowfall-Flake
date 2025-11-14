@@ -1,9 +1,10 @@
-{ lib
-, config
-, pkgs
-, osConfig ? { }
-, format ? "unknown"
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  osConfig ? { },
+  format ? "unknown",
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -158,6 +159,8 @@ with lib.frgd;
               mv = "ask";
               cp = "ask";
               mkdir = "ask";
+              zfs = "ask";
+              doas = "ask";
             };
           };
           command = {
