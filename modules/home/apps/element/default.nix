@@ -15,5 +15,7 @@ in
     enable = mkBoolOpt false "Whether or not to enable Element.";
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ element-desktop ]; };
+  config = mkIf cfg.enable { home.packages = with pkgs; [ 
+    #element-desktop 
+  ]; };
 }
