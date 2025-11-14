@@ -53,7 +53,7 @@ in
       sops.secrets.justin_password = { };
       # Ensure the tailscale group exists so files created with group=tailscale
       # on the target will validate and be created with the correct group.
-      users.groups.tailscale = {};
+      users.groups.tailscale = { };
       #sops.templates.justin_password.contents = ''
       #  adminPass = "${config.sops.placeholder.justin_password}"
       #'';

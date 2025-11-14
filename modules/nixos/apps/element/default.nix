@@ -17,7 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ #element-desktop 
+    environment.systemPackages = with pkgs; [
+      # element-desktop
     ];
   };
 }

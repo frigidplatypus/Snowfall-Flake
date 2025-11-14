@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, inputs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  inputs,
+  config,
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -129,8 +130,6 @@ with lib.frgd;
       misc = enabled;
     };
   };
-
-
 
   frgd.services.zfs-replication = {
     enable = true;

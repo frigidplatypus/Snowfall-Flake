@@ -33,6 +33,6 @@ buildGoModule {
     description = "tclip - paste service (CLI/daemon)";
     homepage = "https://github.com/tailscale-dev/tclip";
     license = licenses.mit;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
   };
 }
