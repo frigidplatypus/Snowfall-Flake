@@ -1,9 +1,8 @@
-{
-  lib,
-  pkgs,
-  inputs,
-  config,
-  ...
+{ lib
+, pkgs
+, inputs
+, config
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -103,47 +102,6 @@ with lib.frgd;
       signal = enabled;
       steam = enabled;
     };
-    services = {
-      zfs-replication = {
-        sanoid = {
-          templates = {
-            default = {
-              hourly = 24;
-              daily = 7;
-              monthly = 12;
-              yearly = 1;
-              autosnap = true;
-              autoprune = true;
-            };
-          };
-          datasets = {
-            "zroot/development" = "default";
-            "zroot/home_justin" = "default";
-            "zroot/notes" = "default";
-          };
-        };
-        syncoid = {
-          enable = true;
-          commands = {
-            notes = {
-              source = "zroot/notes";
-              target = "root@p5810:storage/notes"; # Adjust target as needed for t480
-              recursive = true;
-            };
-            development = {
-              source = "zroot/development";
-              target = "root@p5810:storage/development";
-              recursive = true;
-            };
-            home_justin = {
-              source = "zroot/home_justin";
-              target = "root@p5810:storage/home_justin";
-              recursive = true;
-            };
-          };
-        };
-      };
-    };
     security = {
       sops = {
         enable = true;
@@ -171,4 +129,27 @@ with lib.frgd;
       misc = enabled;
     };
   };
+
+
+
+  frgd.services.zfs-replication = {
+    enable = true;
+    syncoid.sshKey = null;
+    syncoid.interval = "hourly";
+    datasets = {
+      notes = {
+        source = "zroot/notes";
+        target = "syncoid@p5810.fluffy-rooster.ts.net:storage/notes";
+      };
+      development = {
+        source = "zroot/development";
+        target = "syncoid@p5810.fluffy-rooster.ts.net:storage/development";
+      };
+      home_justin = {
+        source = "zroot/home_justin";
+        target = "syncoid@p5810.fluffy-rooster.ts.net:storage/home_justin";
+      };
+    };
+  };
+
 }
