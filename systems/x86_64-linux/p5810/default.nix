@@ -22,6 +22,10 @@ with lib.frgd;
   # programs.steam = enabled;
   # xdg.portal = enabled;
   networking.firewall.enable = false;
+  environment.pathsToLink = [
+    "/share/applications"
+    "/share/xdg-desktop-portal"
+  ];
 
   environment.systemPackages = with pkgs; [
     alacritty
