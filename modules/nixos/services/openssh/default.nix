@@ -89,6 +89,10 @@ in
       Host *
         HostKeyAlgorithms +ssh-rsa
 
+      Host *.fluffy-rooster.ts.net
+        StrictHostKeyChecking no
+        UserKnownHostsFile /dev/null
+
       ${optionalString cfg.manage-other-hosts other-hosts-config}
     '';
 

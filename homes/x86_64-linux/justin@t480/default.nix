@@ -1,10 +1,9 @@
-{
-  lib,
-  config,
-  pkgs,
-  osConfig ? { },
-  format ? "unknown",
-  ...
+{ lib
+, config
+, pkgs
+, osConfig ? { }
+, format ? "unknown"
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -20,11 +19,7 @@ with lib.frgd;
       enable = true;
       name = "justin";
     };
-    home = {
-      extraOptions = {
-        home.stateVersion = "24.11";
-      };
-    };
+
     desktop = {
       hyprland = {
         enable = true;
@@ -187,11 +182,6 @@ with lib.frgd;
               description = "Update flake inputs";
             };
           };
-          formatter = {
-            nix = "nixfmt";
-            "*.md" = "prettier";
-          };
-          webfetch = "allow";
         };
       };
       # neomutt = enabled;

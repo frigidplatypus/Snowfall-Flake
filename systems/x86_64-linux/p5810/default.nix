@@ -188,8 +188,15 @@ with lib.frgd;
       exit 0
     fi
 
-    # Give the syncoid user delegated ZFS permissions on the relevant datasets
-    for ds in zroot zroot/development zroot/docker_data zroot/home_justin; do
+    # Create target datasets if they don't exist
+    for ds in storage/development storage/notes storage/home_justin; do
+      if ! zfs list "$ds" >/dev/null 2>&1; then
+        /sbin/zfs create "$ds" || true
+      fi
+    done
+
+    # Grant permissions to all datasets under storage and zroot pools
+    for ds in $(zfs list -H -o name | grep -E "^(storage|zroot)"); do
       if zfs list "$ds" >/dev/null 2>&1; then
         # grant minimal permissions for receive/send and dataset management
         /sbin/zfs allow syncoid send,receive,mount,create,destroy "$ds" || true
