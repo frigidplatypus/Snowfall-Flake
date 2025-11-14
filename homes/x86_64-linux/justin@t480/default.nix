@@ -2,6 +2,8 @@
   lib,
   config,
   pkgs,
+  osConfig ? { },
+  format ? "unknown",
   ...
 }:
 with lib;
@@ -17,6 +19,11 @@ with lib.frgd;
     user = {
       enable = true;
       name = "justin";
+    };
+    home = {
+      extraOptions = {
+        home.stateVersion = "24.11";
+      };
     };
     desktop = {
       hyprland = {
@@ -114,6 +121,79 @@ with lib.frgd;
       hass-cli = enabled;
       cliflux = enabled;
       yazi = enabled;
+      opencode = {
+        enable = true;
+        settings = {
+          "$schema" = "https://opencode.ai/config.json";
+          theme = "gruvbox";
+          permission = {
+            bash = {
+              "git status" = "allow";
+              "git diff" = "allow";
+              "git log" = "allow";
+              "git show" = "allow";
+              "git branch" = "allow";
+              "git add" = "ask";
+              "git reset" = "ask";
+              "git checkout" = "ask";
+              "git commit" = "ask";
+              "git commit *" = "ask";
+              "git push" = "ask";
+              "git push *" = "ask";
+              pwd = "allow";
+              ls = "allow";
+              cat = "allow";
+              head = "allow";
+              tail = "allow";
+              tree = "allow";
+              rg = "allow";
+              grep = "allow";
+              find = "allow";
+              "nix flake check" = "allow";
+              "nix flake update" = "ask";
+              "nix develop" = "allow";
+              "nix search" = "allow";
+              "nix shell" = "allow";
+              treefmt = "allow";
+              "nix build" = "ask";
+              "nix run" = "ask";
+              "nix *" = "ask";
+              rm = "ask";
+              "rm *" = "ask";
+              mv = "ask";
+              cp = "ask";
+              mkdir = "ask";
+            };
+          };
+          command = {
+            check = {
+              template = "Run `nix flake check` to validate the flake and show any errors or warnings.";
+              description = "Validate flake configuration";
+            };
+            format = {
+              template = "Run `treefmt` to format all Nix files according to the project standards.";
+              description = "Format Nix files";
+            };
+            build = {
+              template = "Build the specified package using `nix build`. If no package is specified, build cliflux.";
+              description = "Build Nix packages";
+            };
+            deploy = {
+              template = "Deploy the NixOS configuration using `nixos-rebuild switch --flake .#<hostname>`. Ask which hostname to deploy if not specified.";
+              description = "Deploy NixOS system";
+            };
+            update = {
+              template = "Run `nix flake update` to update all flake inputs and show what changed.";
+              description = "Update flake inputs";
+            };
+          };
+          formatter = {
+            nix = "nixfmt";
+            "*.md" = "prettier";
+          };
+          webfetch = "allow";
+        };
+      };
       # neomutt = enabled;
       # zellij = enabled;
     };
