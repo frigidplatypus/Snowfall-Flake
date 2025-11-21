@@ -34,7 +34,8 @@ in
       displayManager.sddm = {
         enable = true;
         wayland.enable = true;
-        theme = "${pkgs.where-is-my-sddm-theme}/share/sddm/themes/where_is_my_sddm_theme";
+        extraPackages = with pkgs; [ kdePackages.qt5compat ];
+        theme = "where_is_my_sddm_theme";
       };
     };
 
@@ -87,7 +88,8 @@ in
         audio = enabled;
       };
       desktop.addons = {
-        swaylock = enabled;
+        # swaylock = enabled;
+        # greetd = enabled;
         # waybar = enabled;
         # foot = enabled;
         # rofi = enabled;

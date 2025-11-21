@@ -68,6 +68,8 @@ in
       xwayland.enable = true;
       systemd.enable = true;
       plugins = with pkgs.hyprlandPlugins; [
+        hyprfocus
+        hyprgrass
       ];
       settings = mkMerge [
         {
@@ -166,10 +168,6 @@ in
             "CTRL,left,resizeactive,-20 0"
             "CTRL,up,resizeactive,0 -20"
             "CTRL,down,resizeactive,0 20"
-            #"SUPER, V, exec, ${pkgs.clipman}/bin/clipman pick -t ${pkgs.rofi}/bin/rofi"
-
-            # Rofi Shortcuts
-            "SUPER, C, exec, ${pkgs.rofi}/bin/rofi -show calc"
 
             # Change workspaces
             "SUPER,1,workspace,1"
@@ -205,7 +203,7 @@ in
             "SUPER,Escape,exit,"
             "SUPER,E,exec,${pkgs.nautilus}/bin/nautilus"
             "SUPER,H,togglefloating,"
-            "SUPER,Space,exec,${pkgs.rofi}/bin/rofi -show drun"
+            "SUPER,Space,exec,rofi -modi 'drun,calc,clipboard:cliphist-rofi-img,filebrowser' -show drun"
             "SUPER,P,pseudo,"
             "SUPER,F,fullscreen"
             "SUPER,R,forcerendererreload"
@@ -219,27 +217,27 @@ in
             ",XF86MonBrightnessUP,exec,${pkgs.avizo}/bin/lightctl up"
           ];
           windowrule = [
-            # "float,^(Rofi)$"
-            "float,title:^(Volume Control)$"
-            "float,title:^(Picture-in-Picture)$"
-            "pin,title:^(Picture-in-Picture)$"
-            "move 75% 75% ,title:^(Picture-in-Picture)$"
-            "size 24% 24% ,title:^(Picture-in-Picture)$"
+            "match:float true, match:title ^(Volume Control)$"
+            "match:float true, match:title ^(Picture-in-Picture)$"
+            "match:pin true, match:title ^(Picture-in-Picture)$"
+            "move 75% 75%, match:title ^(Picture-in-Picture)$"
+            "size 24% 24%, match:title ^(Picture-in-Picture)$"
           ];
-          windowrulev2 = [ "float,class:(floating)" ]; # ensure you have defined a floating window class
+          # windowrulev2 = [ "float,class:(floating)" ]; # ensure you have defined a floating window class
 
           exec-once = [
             "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
             "${pkgs.clipse}/bin/clipse -listen"
             "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden"
-
+            "${pkgs._1password-gui}/bin/1password --silent"
             "${pkgs.waybar}/bin/waybar"
             "${pkgs.foot}/bin/foot --server &"
             "hyprctl setcursor 'Capitaine Cursors (Gruvbox)' 14"
             "${pkgs.mako}"
             "${pkgs.udiskie}/bin/udiskie --tray --notify"
             "systemctl --user start hyprpolkitagent"
+            "systemctl --user start cliphist"
           ];
         }
 
@@ -248,10 +246,10 @@ in
       extraConfig = ''
         bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
-        # Suspend when laptop is closed
-        bindl=,switch:[Lid Switch],exec, "${
-          inputs.hyprlock.packages.${pkgs.system}.hyprlock
-        }/bin/hyprlock && systemctl suspend"
+        # Lid switch handling removed here; prefer system-level handling or hypridle
+        # (hypridle below will call hyprlock before suspend). If you still want
+        # Hyprland to handle the lid switch, re-add a bindl but be aware it can
+        # be unreliable and may conflict with systemd/logind.
 
         bindl=,XF86PowerOff,exec,systemctl suspend
       '';
@@ -261,15 +259,22 @@ in
       settings = {
         general = {
           after_sleep_cmd = "hyprctl dispatch dpms on";
-          before_sleep_cmd = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
-          ignore_dbus_inhibit = false;
-          lock_cmd = "pidof hyprlock || ${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
+          before_sleep_cmd = "${
+            inputs.hyprlock.packages.${pkgs.system}.hyprlock
+          }/bin/hyprlock --immediate-render --no-fade-in";
+          # Ignore DBus inhibitors so hypridle can lock/suspend reliably when the lid closes.
+          ignore_dbus_inhibit = true;
+          lock_cmd = "pidof hyprlock || ${
+            inputs.hyprlock.packages.${pkgs.system}.hyprlock
+          }/bin/hyprlock --immediate-render --no-fade-in";
         };
 
         listener = [
           {
             timeout = 120;
-            on-timeout = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
+            on-timeout = "${
+              inputs.hyprlock.packages.${pkgs.system}.hyprlock
+            }/bin/hyprlock --immediate-render --no-fade-in";
           }
           {
             timeout = 600;
