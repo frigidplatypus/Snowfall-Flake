@@ -31,45 +31,6 @@ in
         { }
         cfg.extraShellAliases
       ];
-      interactiveShellInit = ''
-        ${pkgs.cfonts}/bin/cfonts FrigidPlatypus -f tiny -g "#cc241d,#d79921,#458588,#8ec07c" -t -a center
-
-        set host (hostname)
-        set ip (hostname -I | awk '{print $1}')
-
-        # Battery detection
-        if test -f /sys/class/power_supply/BAT0/capacity
-          set battery (cat /sys/class/power_supply/BAT0/capacity)%
-        else if test -f /sys/class/power_supply/BAT1/capacity
-          set battery (cat /sys/class/power_supply/BAT1/capacity)%
-        else
-          set battery ""
-        end
-
-        # Improved Tailscale detection
-        if type -q tailscale
-          set tailscale_ip (tailscale ip --4 2>/dev/null | head -n 1)
-          if test -n "$tailscale_ip"
-            set network "IP: $ip / $tailscale_ip"
-          else
-            set network "IP: $ip"
-          end
-        else
-          set network "IP: $ip"
-        end
-
-        # Compose info line
-        set info_line "Hostname: $host | $network"
-        if test -n "$battery"
-          set info_line "$info_line | Battery: $battery"
-        end
-
-        # Get terminal width and pad/trim as needed
-        set term_width (math (tput cols) - 4)
-        set info_line (string sub -l $term_width -- $info_line)
-
-        ${pkgs.gum}/bin/gum style --border double --padding "0" --margin "0" --width $term_width --align center --foreground "#458588" --background "#282828" "$info_line"
-      '';
       shellInitLast = ''
         alias cd=z
         alias cdi=zi
