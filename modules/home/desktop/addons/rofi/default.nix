@@ -28,6 +28,11 @@ in
         rofi-screenshot
         rofimoji
         rofi-games
+        (writeShellScriptBin "clipboard" ''
+          #!/bin/bash
+           rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons
+        '')
+
       ];
     };
 
@@ -48,92 +53,106 @@ in
         ];
         theme = {
           "*" = {
-            bg0 = mkLiteral "#${colorScheme.palette.base00}";
-            bg1 = mkLiteral "#${colorScheme.palette.base07}";
-            fg0 = mkLiteral "#${colorScheme.palette.base06}";
-            fg1 = mkLiteral "#${colorScheme.palette.base09}";
+
+            bg0 = mkLiteral "#${colorScheme.palette.base00}"; # 282828
+            bg1 = mkLiteral "#${colorScheme.palette.base01}";
+            bg2 = mkLiteral "#${colorScheme.palette.base02}";
+            bg3 = mkLiteral "#${colorScheme.palette.base09}";
+
+            fg0 = mkLiteral "#${colorScheme.palette.base07}"; # fbf1c7
+            fg1 = mkLiteral "#${colorScheme.palette.base06}";
+            fg2 = mkLiteral "#${colorScheme.palette.base05}";
+            fg3 = mkLiteral "#${colorScheme.palette.base03}";
 
             background-color = mkLiteral "transparent";
             text-color = mkLiteral "@fg0";
 
-            margin = 0;
-            padding = 0;
-            spacing = 0;
+            margin = mkLiteral "0px";
+            padding = mkLiteral "0px";
+            spacing = mkLiteral "0px";
           };
 
-          "element-icon, element-text, scrollbar" = {
-            cursor = mkLiteral "pointer";
+          window = {
+            location = mkLiteral "north";
+            y-offset = mkLiteral "calc(50% - 176px)";
+            width = mkLiteral "480px";
+            border-radius = mkLiteral "12px";
+            border-color = mkLiteral "@bg3";
+            border = "2px";
+            background-color = mkLiteral "@bg2";
           };
 
-          "window" = {
-            # location = mkLiteral "northwest";
-            width = mkLiteral "580px";
-            x-offset = mkLiteral "8px";
-            y-offset = mkLiteral "34px";
-
-            background-color = mkLiteral "@bg0";
-            border = mkLiteral "1px";
-            border-color = mkLiteral "@bg1";
-            border-radius = mkLiteral "6px";
+          mainbox = {
+            padding = mkLiteral "12px";
           };
 
-          "inputbar" = {
+          inputbar = {
+            background-color = mkLiteral "@bg1";
+            border-color = mkLiteral "@bg3";
+
+            border = mkLiteral "2px";
+            border-radius = mkLiteral "16px";
+
+            padding = mkLiteral "8px 16px";
             spacing = mkLiteral "8px";
-            padding = mkLiteral "4px 8px";
-            children = mkLiteral "[ entry ]";
-            background-color = mkLiteral "@bg0";
+            children = mkLiteral "[ prompt, entry ]";
           };
 
-          "entry, element-icon, element-text" = {
-            vertical-align = mkLiteral "0.5";
+          prompt = {
+            text-color = mkLiteral "@fg2";
           };
 
-          "textbox" = {
-            padding = mkLiteral "4px 8px";
-            background-color = mkLiteral "@bg0";
+          entry = {
+            placeholder = mkLiteral "\"Search\"";
+            placeholder-color = mkLiteral "@fg3";
           };
 
-          "listview" = {
-            padding = mkLiteral "4px 0px";
+          message = {
+            margin = mkLiteral "12px 0 0";
+            border-radius = mkLiteral "16px";
+            border-color = mkLiteral "@bg2";
+            background-color = mkLiteral "@bg2";
+          };
+
+          textbox = {
+            padding = mkLiteral "8px 24px";
+          };
+
+          listview = {
+            background-color = mkLiteral "transparent";
+
+            margin = mkLiteral "12px 0 0";
             lines = 8;
             columns = 1;
-            scrollbar = true;
+
+            fixed-height = false;
           };
 
-          "element" = {
-            padding = mkLiteral "4px 8px";
+          element = {
+            padding = mkLiteral "8px 16px";
             spacing = mkLiteral "8px";
-          };
-
-          "element normal urgent" = {
-            text-color = mkLiteral "@fg1";
+            border-radius = mkLiteral "16px";
           };
 
           "element normal active" = {
-            text-color = mkLiteral "@fg1";
+            text-color = mkLiteral "@bg3";
           };
 
-          "element selected" = {
-            text-color = mkLiteral "@bg0"; # 1
-            background-color = mkLiteral "@fg1";
+          "element alternate active" = {
+            text-color = mkLiteral "@bg3";
           };
 
-          "element selected urgent" = {
-            background-color = mkLiteral "@fg1";
+          "element selected normal, element selected active" = {
+            background-color = mkLiteral "@bg3";
           };
 
           "element-icon" = {
-            size = mkLiteral "0.8em";
+            size = mkLiteral "1em";
+            vertical-align = mkLiteral "0.5";
           };
 
           "element-text" = {
             text-color = mkLiteral "inherit";
-          };
-
-          "scrollbar" = {
-            handle-width = mkLiteral "4px";
-            handle-color = mkLiteral "@fg1";
-            padding = mkLiteral "0 4px";
           };
         };
       };
