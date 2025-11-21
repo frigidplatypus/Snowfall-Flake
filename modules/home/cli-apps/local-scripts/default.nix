@@ -39,7 +39,7 @@ in
 
           echo "Deploying to remote system: $HOST"
           nixos-rebuild switch --flake "${cfg.flakePath}#$HOST" --target-host "${cfg.remoteUser}@$HOST" "$@" |& nom
-        '') # Common scripts for all systems
+        '')
         (writeShellScriptBin "fu" ''
           #!/bin/bash
           cd ${cfg.flakePath} || { echo "Error: Could not change to ${cfg.flakePath}"; exit 1; }
