@@ -77,42 +77,42 @@ with lib.frgd;
       nushell = enabled;
       tmux = enabled;
       zoxide = enabled;
-      cria = {
-        enable = true;
-        apiUrl = "https://tasks.${tailnet}";
-        apiKeyFile = config.sops.secrets.vikunja_api_key.path;
-        defaultFilter = "Western";
-        # layouts = {
-        #   default = {
-        #     columns = [
-        #       "id"
-        #       "title"
-        #       "due_date"
-        #       "priority"
-        #       "status"
-        #     ];
-        #     sortBy = "due_date";
-        #     sortOrder = "asc";
-        #   };
-        # };
-        quick_actions = [
-          {
-            key = "w";
-            action = "project";
-            target = "Western";
-          }
-          {
-            key = "p";
-            action = "project";
-            target = "Personal";
-          }
-          {
-            key = "q";
-            action = "label";
-            target = "qmlativ";
-          }
-        ];
-      };
+      # cria = {
+      #   enable = true;
+      #   apiUrl = "https://tasks.${tailnet}";
+      #   apiKeyFile = config.sops.secrets.vikunja_api_key.path;
+      #   defaultFilter = "Western";
+      #   # layouts = {
+      #   #   default = {
+      #   #     columns = [
+      #   #       "id"
+      #   #       "title"
+      #   #       "due_date"
+      #   #       "priority"
+      #   #       "status"
+      #   #     ];
+      #   #     sortBy = "due_date";
+      #   #     sortOrder = "asc";
+      #   #   };
+      #   # };
+      #   quick_actions = [
+      #     {
+      #       key = "w";
+      #       action = "project";
+      #       target = "Western";
+      #     }
+      #     {
+      #       key = "p";
+      #       action = "project";
+      #       target = "Personal";
+      #     }
+      #     {
+      #       key = "q";
+      #       action = "label";
+      #       target = "qmlativ";
+      #     }
+      #   ];
+      # };
     };
 
     tools = {
