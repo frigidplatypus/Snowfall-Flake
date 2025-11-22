@@ -17,9 +17,13 @@ with lib.frgd;
     mode = "0550";
   };
 
-  # Add OIDC client credentials secret
+  # Admin credentials secret (moved from module)
+  sops.secrets.miniflux_admin_file = { };
+
+  # Add OIDC client credentials secret and Miniflux service settings
   services.miniflux = {
     enable = true;
+    # keep existing admin credentials file reference for compatibility
     adminCredentialsFile = config.sops.secrets.miniflux_password.path;
     config = {
       CLEANUP_FREQUENCY = 48;
@@ -37,6 +41,54 @@ with lib.frgd;
     };
   };
 
+  # Additional configuration moved from the miniflux module
+  frgd = {
+    nix = enabled;
+    archetypes.lxc = enabled;
+    security = {
+      sops = {
+        enable = true;
+        porkbun = enabled;
+      };
+    };
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      email = "jus10mar10@gmail.com";
+      dnsProvider = "porkbun";
+      environmentFile = config.sops.secrets.porkbun_api_key.path;
+      group = "nginx";
+    };
+    certs = {
+      "frgd.us" = {
+        extraDomainNames = [ "*.frgd.us" ];
+      };
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+    virtualHosts = {
+      "miniflux" = {
+        #enableACME = true;
+        forceSSL = true;
+        useACMEHost = "frgd.us";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8088";
+          proxyWebsockets = true;
+          extraConfig =
+            "proxy_ssl_server_name on;"
+            +
+              "proxy_pass_header Authorization;";
+        };
+      };
+    };
+  };
+
   services.caddy = {
     enable = true;
     virtualHosts = {
@@ -47,10 +99,5 @@ with lib.frgd;
         '';
       };
     };
-  };
-
-  frgd = {
-    nix = enabled;
-    archetypes.lxc = enabled;
   };
 }

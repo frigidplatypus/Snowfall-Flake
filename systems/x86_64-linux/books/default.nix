@@ -1,4 +1,4 @@
-{ lib, modulesPath, ... }:
+{ lib, modulesPath, pkgs, ... }:
 with lib;
 with lib.frgd;
 {
@@ -17,7 +17,7 @@ with lib.frgd;
           	header_up Remote-Addr {remote_host}
           	header_up Remote-Port {remote_port}
           	header_up Original-URI {uri}
-            	copy_headers {
+              copy_headers {
                 Tailscale-User>X-Webauth-User
                 Tailscale-Name>X-Webauth-Name
                 Tailscale-Login>X-Webauth-Login
@@ -32,11 +32,31 @@ with lib.frgd;
     };
   };
 
+  # Inlined calibre-web configuration (moved from modules/nixos/services/calibre-web)
+  services.calibre-web = {
+    enable = true;
+    listen.ip = "127.0.0.1";
+    options = {
+      enableBookUploading = true;
+      enableBookConversion = true;
+      enableKepubify = true;
+      calibreLibrary = "/books";
+      reverseProxyAuth = {
+        enable = true;
+        header = "X-Webauth-User";
+      };
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    calibre
+    calibre-web
+  ];
+
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
     services = {
-      calibre-web = enabled;
       tailscale.tailscaleAuth = enabled;
     };
   };
