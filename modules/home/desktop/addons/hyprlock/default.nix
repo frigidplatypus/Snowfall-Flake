@@ -1,9 +1,8 @@
-{
-  lib,
-  config,
-  pkgs,
-  inputs,
-  ...
+{ lib
+, config
+, pkgs
+, inputs
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -74,7 +73,7 @@ in
             # text = "cmd[update:1000] date \"+%H:%M\""; # Update every 1 second
             text = "$TIME12"; # Use Hyprland's built-in time variable
             color = "rgb(${colorScheme.palette.base07})"; # White
-            font_size = 120;
+            font_size = 200;
             font_family = "${font}"; # Ensure this font is available on your system
             position = "0,200"; # Adjust X, Y position
             # halign = "center";
@@ -90,26 +89,28 @@ in
             font_family = "${font-mono}"; # Or a specific Nerd Font like "Symbols Nerd Font Mono" or "JetBrainsMono Nerd Font"
             # halign = "center";
             valign = "bottom";
+            position = "0,50"; # Adjust X, Y position
           }
         ];
 
         input-field = [
           {
-            size = "200, 50";
+            size = "200, 200";
             position = "0, -80";
             monitor = "";
             dots_center = true;
-            fade_on_empty = false;
+            fade_on_empty = true;
             font_color = "rgb(${colorScheme.palette.base0A})";
             inner_color = "rgb(${colorScheme.palette.base03})";
             outer_color = "rgb(${colorScheme.palette.base09})";
             capslock_color = "rgb(${colorScheme.palette.base0F})";
             fail_color = "rgb(${colorScheme.palette.base08})";
             hide_input_base_color = "rgb(${colorScheme.palette.base0B})";
-            fail_text = "Wrong Password";
+            fail_text = "";
             outline_thickness = 5;
             shadow_passes = 2;
             hide_input = true;
+            placeholder_text = "";
           }
         ];
 

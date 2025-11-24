@@ -238,6 +238,8 @@ in
             "${pkgs.udiskie}/bin/udiskie --tray --notify"
             "systemctl --user start hyprpolkitagent"
             "systemctl --user start cliphist"
+            "systemctl --user start hyprpaper"
+
           ];
         }
 
