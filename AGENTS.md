@@ -1,21 +1,26 @@
 # AGENTS.md - Snowfall NixOS Flake
 
 ## Build / Lint / Test
-- **Check:** `nix flake check` — validate flake and all outputs
-- **Build package:** `nix build .#<package>` (e.g. `nix build .#cliflux`)
-- **Run a single package test:** `nix build .#<package>.tests` or `nix run .#<package>.tests` (when test output exists)
-- **Deploy NixOS:** `nixos-rebuild switch --flake .#<hostname>`
-- **Deploy Home Manager:** `home-manager switch --flake .#<user>@<hostname>`
-- **Dev shell:** `nix develop` — opens a development environment
-- **Format Nix:** `nixpkgs-fmt` or `alejandra` when configured in CI/dev shell
+- `nix flake check` — validate flake and all outputs
+- `nix build .#<package>` — build a single package (e.g. `nix build .#cliflux`)
+- `nix build .#<package>.tests` or `nix run .#<package>.tests` — run a single package test
+- `nix develop` — open dev shell with project tools
+- `nixpkgs-fmt` or `alejandra` — format Nix code (run before commits)
+- `nixos-rebuild switch --flake .#<hostname>` — deploy NixOS
+- `home-manager switch --flake .#<user>@<hostname>` — deploy Home Manager
 
-## Style & Conventions
-- **Imports:** prefer `with lib; with lib.frgd;` at top of module files
-- **Options:** define and validate with `mkOpt type default description`
-- **Patterns:** use `let cfg = config.frgd.<module>; in` and `inherit` attrs for clarity
-- **Naming:** kebab-case for module filenames, camelCase for option names, avoid one-letter vars
-- **Formatting:** keep expressions short, wrap long lines, run `nixpkgs-fmt` before commits
-- **Types & Errors:** prefer explicit option types and fail early with `throw` and clear messages
-- **Testing & CI:** prefer hermetic tests via `nix build .#...tests`; run single-test builds locally
-- **Comments & Reviews:** add concise comments for complex logic; keep modules pure (no side effects)
-- **Cursor/Copilot:** no `.cursor` or `.github/copilot-instructions.md` detected; include any such rules here when added
+## Code Style & Conventions
+- Imports: prefer `with lib; with lib.frgd;` at the top of module files for readable scope
+- Options: declare with explicit types using `mkOpt type default description`; validate early
+- Naming: module filenames use kebab-case, option names use camelCase; avoid one-letter vars
+- Structure: use `let cfg = config.frgd.<module>; in` and `inherit` for clarity and minimal duplication
+- Formatting: keep expressions short, wrap long lines, run `nixpkgs-fmt`; prefer small, pure modules
+- Types & errors: prefer explicit types for options; `throw` early with clear messages on invalid input
+- Testing: prefer hermetic tests via `nix build .#...tests`; run single-package tests locally
+- Comments: add concise comments for non-obvious logic; avoid noisy comments
+
+## Tooling Notes
+- If `.cursor/rules/` or `.cursorrules` exist, include those rules here for agent guidance
+- If `.github/copilot-instructions.md` exists, copy any repo-specific Copilot rules into this file
+
+Keep this file short and pragmatic — it guides automated agents operating in this repo.
