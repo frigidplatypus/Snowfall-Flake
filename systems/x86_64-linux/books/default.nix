@@ -1,4 +1,9 @@
-{ lib, modulesPath, pkgs, ... }:
+{
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 with lib;
 with lib.frgd;
 {

@@ -18,7 +18,10 @@ in
   config = mkIf cfg.enable {
     services.cliphist = {
       enable = true;
-      systemdTargets = [ "sway-session.target" "default.target" ];
+      systemdTargets = [
+        "sway-session.target"
+        "default.target"
+      ];
     };
   };
 }
