@@ -25,8 +25,8 @@ with lib.frgd;
   };
 
   services.n8n = {
-enable = true;
-};
+    enable = true;
+  };
 
   services.caddy = {
     enable = true;
