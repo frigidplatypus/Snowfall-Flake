@@ -60,6 +60,7 @@ with lib.frgd;
         efi = true;
         oldBoot = true;
       };
+      home-wifi = enabled;
     };
     apps = {
       # element = enabled;
@@ -87,7 +88,7 @@ with lib.frgd;
     suites = {
       desktop = {
         enable = true;
-        cosmic = true;
+        plasma = true;
       };
     };
   };
