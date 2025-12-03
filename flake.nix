@@ -14,7 +14,7 @@
     # nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -79,11 +79,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Enable fingerprint reader for T480
-    nixos-06cb-009a-fingerprint-sensor = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+    wifitui = {
+      url = "github:shazow/wifitui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Enable fingerprint reader for T480
+    # nixos-06cb-009a-fingerprint-sensor = {
+    #   url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -100,7 +105,6 @@
     html-to-markdown = {
       url = "github:frigidplatypus/html-to-markdown";
     };
-
   };
 
   outputs =
