@@ -24,6 +24,7 @@ with lib.frgd;
   hardware.xpadneo = enabled;
 
   environment.systemPackages = with pkgs; [
+    codex
     lswt
     waylevel
     frgd.numara
