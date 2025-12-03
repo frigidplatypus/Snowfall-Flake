@@ -94,7 +94,7 @@
     };
     taskherald = {
 
-      url = "git+ssh://git@github.com/frigidplatypus/taskherald";
+      url = "github:frigidplatypus/taskherald";
       #   inputs.nixpkgs.follows = "nixpkgs";
     };
     html-to-markdown = {
