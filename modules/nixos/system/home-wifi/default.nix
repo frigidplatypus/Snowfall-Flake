@@ -39,8 +39,8 @@ in
       CBCoffice.pskRaw = "ext:PSK_CBCoffice";
       "Western Devices".pskRaw = "ext:PSK_WesternDevices";
     };
-    environment.systemPackages = with pkgs; [
-      inputs.wifitui
+    environment.systemPackages = [
+      inputs.wifitui.packages.${pkgs.system}.default
     ];
 
   };
