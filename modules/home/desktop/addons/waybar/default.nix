@@ -52,7 +52,7 @@ in
             # "custom/pad"
             "bluetooth"
             # "custom/pad"
-            # "pulseaudio"
+            "pulseaudio"
             # "custom/pad"
             "idle_inhibitor"
             # "custom/pad"
@@ -144,16 +144,16 @@ in
             format-disconnected = "<span font='${icon-size}'>睊</span> Not connected";
             #format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format = "{essid} {ipaddr}/{cidr}";
-            on-click-right = "${pkgs.foot}/bin/footclient -e nmtui";
+            on-click-right = "${pkgs.foot}/bin/footclient -e wifitui";
           };
-          pulseaudio = {
-            format = "{icon} {format_source}";
+          pulseaudio = { 
+            format = " {icon} ";
             format-bluetooth = "{icon} {volume}% {format_source} ";
             format-bluetooth-muted = " {volume}% {format_source} ";
-            format-muted = " {format_source} ";
+            format-muted = "{format_source}";
             #format-source = "{volume}% <span font='11'></span>";
-            format-source = " ";
-            format-source-muted = " ";
+            format-source = "";
+            format-source-muted = "";
             format-icons = {
               default = [
                 ""
@@ -230,6 +230,7 @@ in
 
           #pulseaudio {
             background-color: #${colorScheme.palette.base0E};
+            color: #${colorScheme.palette.base00};
           }
 
           #network {
