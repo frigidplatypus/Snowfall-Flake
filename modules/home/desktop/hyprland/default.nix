@@ -240,7 +240,7 @@ in
             "systemctl --user start hyprpolkitagent"
             "systemctl --user start cliphist"
             "systemctl --user start hyprpaper"
-
+            "systemctl --user start avizo"
           ];
         }
 
@@ -294,7 +294,7 @@ in
 
     services.swayosd = {
       enable = true;
-      topMargin = 0.3;
+      topMargin = 0.1;
     };
 
     services.hyprpaper = {
