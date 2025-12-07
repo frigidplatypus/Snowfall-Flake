@@ -315,7 +315,22 @@ in
       };
     };
     services.avizo.enable = true;
-    services.wob.enable = true;
+    services.avizo.settings = {
+      default = {
+        time = 1.0;
+        "x-offset" = 0.5;
+        "y-offset" = 0.1;
+        "fade-in" = 0.1;
+        "fade-out" = 0.2;
+        padding = 10;
+        # Use repo palette but render explicit rgba(...) strings (avizo docs
+        # indicate rgba(...) is the documented format). This converts the
+        # RRGGBB hex entries from `colorScheme.palette` into `rgba(r,g,b,a)`.
+        background = hexToRgba colorScheme.palette.base00 0.9;
+        "bar-fg-color" = hexToRgba colorScheme.palette.base06 1.0;
+        "bar-bg-color" = hexToRgba colorScheme.palette.base01 0.6;
+      };
+    };
     frgd = {
       apps.foot = enabled;
       services.cliphist = enabled;
