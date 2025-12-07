@@ -21,35 +21,27 @@ with lib.frgd;
 
   services.caddy = {
     enable = true;
-    environmentFile = config.sops.secrets.tailscale_caddy_env.path;
-    virtualHosts = {
-      "dns.${tailnet}" = {
-        extraConfig =
-          #Caddyfile
-          ''
-            reverse_proxy http://127.0.0.1:3000
-            encode gzip
-          '';
-      };
-      "imessage.frgd.us" = {
-        useACMEHost = "imessage.frgd.us";
-        extraConfig =
-          #Caddyfile
-          ''
-            reverse_proxy http://100.88.184.75:1234
-            encode gzip
-          '';
-      };
-      "chores.frgd.us" = {
-        useACMEHost = "chores.frgd.us";
-        extraConfig =
-          #Caddyfile
-          ''
-            reverse_proxy http://192.168.0.14:2021
-            encode gzip
-          '';
+  };
+
+  frgd.services.caddy-proxy = {
+    enable = true;
+    caddyEnvironmentFile = config.sops.secrets.tailscale_caddy_env.path;
+    hosts = {
+      dns = {
+        hostname = "dns.${tailnet}";
+        backendAddress = "http://127.0.0.1:3000";
+        useTailnet = true;
       };
 
+      imessage = {
+        hostname = "imessage.frgd.us";
+        backendAddress = "http://100.88.184.75:1234";
+      };
+
+      chores = {
+        hostname = "chores.frgd.us";
+        backendAddress = "http://192.168.0.14:2021";
+      };
     };
   };
   networking.firewall.enable = false;
@@ -62,9 +54,7 @@ with lib.frgd;
     };
   };
 
-  security.acme.certs."imessage.frgd.us" = { };
-  security.acme.certs."chores.frgd.us" = { };
-  security.acme.certs."dns.frgd.us" = { };
+  # ACME certs are now created automatically by `services.caddyProxy` for `*.frgd.us` hosts.
 
   sops.secrets.golink_tailscale_api_key = {
     owner = "golink";
