@@ -44,6 +44,8 @@ with lib.frgd;
     cura-appimage
     libation
     devenv
+    localsend
+    jocalsend
 
   ];
   frgd = {
