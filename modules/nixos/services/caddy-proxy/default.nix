@@ -42,6 +42,9 @@ in
             if h.tailnetHostname != null then h.tailnetHostname
             else if h.hostname != null then h.hostname
             else name;
+          
+          # Auto-detect tailnet usage: if hostname contains ".ts.net" or explicit useTailnet is set
+          autoUseTailnet = (hasSuffix ".ts.net" hostname) || h.useTailnet;
         in
         {
           inherit name;
@@ -49,7 +52,7 @@ in
             inherit hostname;
             backend = h.backendAddress;
             extra = h.extraConfig;
-            useTailnet = h.useTailnet;
+            useTailnet = autoUseTailnet;
           };
         }
       ) hosts;
@@ -70,11 +73,13 @@ in
       neededCerts = listToAttrs (
         map (h: {
           name = h.value.hostname;
+          # Empty attrset - let frgd.security.acme defaults handle configuration
           value = { };
         }) frgdHosts
       );
 
       anyTailnet = any (h: h.value.useTailnet) hostList;
+      anyFrgd = frgdHosts != [];
       
       # Validate all hosts have backendAddress
       invalidHosts = filter (h: h.value.backend == "") hostList;
@@ -88,6 +93,12 @@ in
           message = "caddy-proxy: The following hosts are missing backendAddress: ${concatStringsSep ", " (map (h: h.name) invalidHosts)}";
         }
       ];
+      
+      # Enable Caddy web server
+      services.caddy.enable = true;
+      
+      # Enable ACME if any frgd.us hosts exist
+      frgd.security.acme.enable = mkIf anyFrgd true;
       
       # Add generated virtualHosts (existing user definitions will take priority via mkDefault)
       services.caddy.virtualHosts = mkMerge [
