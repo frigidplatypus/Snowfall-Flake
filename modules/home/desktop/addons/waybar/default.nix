@@ -115,8 +115,8 @@ in
               warning = 30;
               critical = 15;
             };
-            format = "{capacity}% <span font='${icon-size}'>{icon}</span>";
-            format-charging = "{capacity}% ";
+            format = " {capacity}% <span font='${icon-size}'>{icon}</span> ";
+            format-charging = " {capacity}%  ";
             format-icons = [
               ""
               ""
@@ -146,11 +146,11 @@ in
             tooltip-format = "{essid} {ipaddr}/{cidr}";
             on-click-right = "${pkgs.foot}/bin/footclient -e wifitui";
           };
-          pulseaudio = { 
-            format = " {icon} ";
-            format-bluetooth = "{icon} {volume}% {format_source} ";
-            format-bluetooth-muted = " {volume}% {format_source} ";
-            format-muted = "{format_source}";
+          pulseaudio = {
+            format = "{icon}";
+            format-bluetooth = "{icon} {volume}%";
+            format-bluetooth-muted = "{volume}%";
+            format-muted = "";
             #format-source = "{volume}% <span font='11'></span>";
             format-source = "";
             format-source-muted = "";
@@ -208,50 +208,52 @@ in
           #clock,
           #pulseaudio,
           #custom-sink,
-          #network,
           #mpd,
           #memory,
-          #network,
           #window,
           #cpu,
           #disk,
-          #battery,
-          #bluetooth,
-          #idle_inhibitor,
           #tray {
-          	color: #${colorScheme.palette.base07};
+          	color: #${colorScheme.palette.base09};
             padding: 0px 16px 0px 16px;
           }
 
-          #bluetooth {
-            background-color: #${colorScheme.palette.base0D};
-            color: #${colorScheme.palette.base00};
-          }
-
-          #pulseaudio {
-            background-color: #${colorScheme.palette.base0E};
-            color: #${colorScheme.palette.base00};
-          }
-
-          #network {
-            background-color: #${colorScheme.palette.base0E};
-            color: #${colorScheme.palette.base00};
-          }
-
+          #network,
+          #bluetooth,
+          #pulseaudio,
           #idle_inhibitor {
-            background-color: #${colorScheme.palette.base0F};
-            color: #${colorScheme.palette.base00};
+            padding: 0px 16px 0px 16px;
+          }
+
+          #network,
+          #bluetooth,
+          #pulseaudio,
+          #idle_inhibitor,
+          #battery,
+          #tray {
+            border-left: 1px solid #${colorScheme.palette.base01};
           }
 
           #custom-menu {
-          	color: #fe8019;
+          	color: #${colorScheme.palette.base09};
           	padding: 0px 10px 0px 16px;
           	background-clip: padding-box;
           }
 
           #battery {
-            background-color: #${colorScheme.palette.base0B};
-            color: #${colorScheme.palette.base00};
+            color: #${colorScheme.palette.base0B};
+          }
+
+          #network{
+            color: #${colorScheme.palette.base0E};
+          }
+
+          #bluetooth{
+            color: #${colorScheme.palette.base0D};
+          }
+
+          #idle_inhibitor{
+            color: #${colorScheme.palette.base0C};
           }
 
           #workspaces button {
@@ -280,7 +282,7 @@ in
           }
 
           #battery.warning {
-          	color: #${colorScheme.palette.base09};
+          	color: #${colorScheme.palette.base0A};
           }
 
           #battery.critical {
@@ -288,7 +290,7 @@ in
           }
 
           #battery.charging {
-          	color: #${colorScheme.palette.base00};
+          	color: #${colorScheme.palette.base0B};
           }
         '';
     };
