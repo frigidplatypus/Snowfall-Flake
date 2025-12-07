@@ -19,10 +19,6 @@ with lib.frgd;
     owner = "caddy";
   };
 
-  services.caddy = {
-    enable = true;
-  };
-
   frgd.services.caddy-proxy = {
     enable = true;
     caddyEnvironmentFile = config.sops.secrets.tailscale_caddy_env.path;
@@ -30,7 +26,6 @@ with lib.frgd;
       dns = {
         hostname = "dns.${tailnet}";
         backendAddress = "http://127.0.0.1:3000";
-        useTailnet = true;
       };
 
       imessage = {
