@@ -28,14 +28,13 @@ with lib.frgd;
     enable = true;
   };
 
-  services.caddy = {
+  frgd.services.caddy-proxy = {
     enable = true;
-    virtualHosts = {
-      "n8n.${tailnet}" = {
-        extraConfig = ''
-          reverse_proxy http://127.0.0.1:5678
-          encode gzip
-        '';
+    caddyEnvironmentFile = config.sops.secrets.tailscale_caddy_env.path;
+    hosts = {
+      n8n = {
+        hostname = "n8n.${tailnet}";
+        backendAddress = "http://127.0.0.1:5678";
       };
     };
   };
