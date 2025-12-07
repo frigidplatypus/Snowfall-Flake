@@ -164,6 +164,10 @@ with lib.frgd;
   # System user for receiving replication via syncoid/ssh
   users.groups.syncoid = { };
 
+  services.n8n = {
+    enable = true;
+  };
+
   users.users.syncoid = {
     isSystemUser = true;
     description = "Syncoid replication user";
