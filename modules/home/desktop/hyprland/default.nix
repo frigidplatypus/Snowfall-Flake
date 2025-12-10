@@ -217,11 +217,11 @@ in
             ",XF86MonBrightnessUP,exec,${pkgs.avizo}/bin/lightctl up"
           ];
           windowrule = [
-            "match:float true, match:title ^(Volume Control)$"
-            "match:float true, match:title ^(Picture-in-Picture)$"
-            "match:pin true, match:title ^(Picture-in-Picture)$"
-            "move 75% 75%, match:title ^(Picture-in-Picture)$"
-            "size 24% 24%, match:title ^(Picture-in-Picture)$"
+            # "match:float true, match:title ^(Volume Control)$"
+            # "match:float true, match:title ^(Picture-in-Picture)$"
+            # "match:pin true, match:title ^(Picture-in-Picture)$"
+            # "move 75% 75%, match:title ^(Picture-in-Picture)$"
+            # "size 24% 24%, match:title ^(Picture-in-Picture)$"
           ];
           # windowrulev2 = [ "float,class:(floating)" ]; # ensure you have defined a floating window class
 
