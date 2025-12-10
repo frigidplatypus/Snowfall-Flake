@@ -6,18 +6,20 @@
     # Use the official Determinate Systems flake from GitHub. This provides
     # a patched nixpkgs and NixOS modules (nixosModules.default) we can import.
     determinate = {
-      url = "github:DeterminateSystems/determinate";
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3.13.2.tar.gz";
     };
 
     # This is your standard nixpkgs input, which you might use to import packages
     # If you *don't* want the patched nixpkgs, this should be a standard reference
     # nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+
+    stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "https://flakehub.com/f/nix-community/home-manager/0.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # stable-home-manager = {
@@ -36,25 +38,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "https://flakehub.com/f/snowfallorg/lib/3.0.3.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-flake = {
-      url = "github:snowfallorg/flake";
+      url = "https://flakehub.com/f/snowfallorg/flake/1.4.1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+      url = "https://flakehub.com/f/nix-community/nixos-generators/0.1.485.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
-      url = "github:nix-community/disko";
+      url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix.url = "github:Mic92/sops-nix";
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    sops-nix.url = "https://flakehub.com/f/Mic92/sops-nix/0.1.1059.tar.gz";
+    deploy-rs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511.902883.tar.gz";
+    nixos-hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.2470.tar.gz";
     nix-colors.url = "github:misterio77/nix-colors";
     # agenix.url = "github:yaxitech/ragenix";
     neovim = {
