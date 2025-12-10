@@ -12,6 +12,10 @@ with lib.frgd;
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
+  sops.secrets.tailscale_caddy_env = {
+    owner = "caddy";
+  };
+
   # Enable networking
   frgd = {
     archetypes.lxc = enabled;
