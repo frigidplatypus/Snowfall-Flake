@@ -51,6 +51,7 @@ in
         squeekboard
         hyprpolkitagent
         hyprpicker
+        hyprtoolkit
         # walker
       ];
     };
@@ -331,6 +332,22 @@ in
         "bar-bg-color" = hexToRgba colorScheme.palette.base01 0.6;
       };
     };
+
+    # Hyprtoolkit theming for all hyprtoolkit-based apps (hyprlauncher, hyprlock, etc.)
+    xdg.configFile."hypr/hyprtoolkit.conf" = {
+      text = ''
+        background = rgba(${colorScheme.palette.base00}AA)
+        base = rgba(${colorScheme.palette.base01}AA)
+        text = rgba(${colorScheme.palette.base05}FF)
+        alternate_base = rgba(${colorScheme.palette.base02}FF)
+        bright_text = rgba(${colorScheme.palette.base07}FF)
+        accent = rgba(${colorScheme.palette.base0A}FF)
+        accent_secondary = rgba(${colorScheme.palette.base0E}FF)
+        font_family = ${font}
+        font_family_monospace = ${font-mono}
+      '';
+    };
+
     frgd = {
       apps.foot = enabled;
       services.cliphist = enabled;
@@ -340,6 +357,8 @@ in
         hyprlock = enabled;
         rofi = enabled;
         mako = enabled;
+        hyprlauncher = enabled;
+        ashell = enabled;
       };
     };
   };
