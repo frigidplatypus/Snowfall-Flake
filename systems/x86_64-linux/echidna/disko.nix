@@ -31,7 +31,6 @@
     zpool = {
       zroot = {
         type = "zpool";
-        # FIX: Set pool mountpoint to null for disko type checking
         mountpoint = null;
 
         # ZFS properties applied to the pool root itself
@@ -45,15 +44,13 @@
 
         datasets = {
           # 1. Operating System Root (Ephemeral)
-          ROOT = {
-            echidna = {
-              type = "zfs_fs";
-              mountpoint = "/";
-              options = {
-                "com.sun:auto-snapshot" = "false";
-              };
-              postCreateHook = "zfs snapshot zroot/ROOT/echidna@blank";
+          "ROOT/echidna" = {
+            type = "zfs_fs";
+            mountpoint = "/";
+            options = {
+              "com.sun:auto-snapshot" = "false";
             };
+            postCreateHook = "zfs snapshot zroot/ROOT/echidna@blank";
           };
 
           # 2. Nix Store (Tuned for small, read-heavy files)
