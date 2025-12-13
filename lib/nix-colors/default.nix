@@ -5,7 +5,10 @@
   ...
 }:
 let
-  inherit (inputs) nix-colors;
+  # Prefer a `stylix` input when available, but fall back to the
+  # existing `nix-colors` input so this module remains compatible.
+  useStylix = builtins.hasAttr "stylix" inputs;
+  colors = if useStylix then inputs.stylix else inputs.nix-colors;
   # Helper: convert a hex RRGGBB string (without '#') into an rgba(R,G,B,A)
   # string. Alpha is a floating value between 0.0 and 1.0.
   hexDigit =
@@ -55,9 +58,26 @@ let
     "rgba(${toString r},${toString g},${toString b},${toString alpha})";
 in
 {
-  colorScheme = nix-colors.colorSchemes.gruvbox-dark-medium;
-  # colorScheme = nix-colors.colorSchemes.kanagawa;
+  # Try to select a gruvbox-like scheme from stylix if present, falling
+  # back to the old nix-colors scheme. The exact attribute names for
+  # stylix vary between implementations, so check common shapes.
+  colorScheme =
+    if useStylix then
+      if builtins.hasAttr "colorSchemes" inputs.stylix then
+        inputs.stylix.colorSchemes.gruvbox-dark-medium or inputs.stylix.colorSchemes.gruvbox
+      else if builtins.hasAttr "schemes" inputs.stylix then
+        inputs.stylix.schemes.gruvbox-dark-medium or inputs.stylix.schemes.gruvbox
+      else
+        # Unknown stylix shape — fall back to nix-colors if present
+        (
+          if builtins.hasAttr "nix-colors" inputs then
+            inputs.nix-colors.colorSchemes.gruvbox-dark-medium
+          else
+            null
+        )
+    else
+      inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
 
-  # Export the helper for other modules
+  # Export the existing helper for other modules
   hexToRgba = _hexToRgba;
 }
