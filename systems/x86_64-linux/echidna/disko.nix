@@ -45,13 +45,15 @@
 
         datasets = {
           # 1. Operating System Root (Ephemeral)
-          root = {
-            type = "zfs_fs";
-            mountpoint = "/";
-            options = {
-              "com.sun:auto-snapshot" = "false";
+          ROOT = {
+            echidna = {
+              type = "zfs_fs";
+              mountpoint = "/";
+              options = {
+                "com.sun:auto-snapshot" = "false";
+              };
+              postCreateHook = "zfs snapshot zroot/ROOT/echidna@blank";
             };
-            postCreateHook = "zfs snapshot zroot/root@blank";
           };
 
           # 2. Nix Store (Tuned for small, read-heavy files)
