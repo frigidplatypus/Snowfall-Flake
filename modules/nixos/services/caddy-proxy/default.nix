@@ -8,19 +8,27 @@ in
   options.frgd.services.caddy-proxy = with types; {
     enable = mkBoolOpt false "Enable the caddy-proxy helper to create virtualHosts and ACME certs.";
 
-    caddyEnvironmentFile = mkOpt str "" "Path to env file for Caddy when using Tailscale. Leave empty to use sops secret.";
+    caddyEnvironmentFile =
+      mkOpt str ""
+        "Path to env file for Caddy when using Tailscale. Leave empty to use sops secret.";
 
     hosts = mkOpt (attrsOf (submodule {
       options = {
-        hostname = mkOpt (nullOr str) null "The public hostname for this reverse proxy (e.g., 'app.frgd.us' or 'service.ts.net').";
-        
-        tailnetHostname = mkOpt (nullOr str) null "Alternative tailnet hostname (overrides hostname if set).";
-        
+        hostname =
+          mkOpt (nullOr str) null
+            "The public hostname for this reverse proxy (e.g., 'app.frgd.us' or 'service.ts.net').";
+
+        tailnetHostname =
+          mkOpt (nullOr str) null
+            "Alternative tailnet hostname (overrides hostname if set).";
+
         backendAddress = mkOpt str "" "Backend address to proxy to (e.g., 'http://localhost:3000').";
-        
+
         useTailnet = mkBoolOpt false "Whether this host uses Tailscale (sets up environment file).";
-        
-        extraConfig = mkOpt str "" "Extra Caddyfile configuration to prepend before reverse_proxy directive.";
+
+        extraConfig =
+          mkOpt str ""
+            "Extra Caddyfile configuration to prepend before reverse_proxy directive.";
       };
     })) { } "Attribute set of reverse proxy hosts.";
   };
@@ -28,21 +36,26 @@ in
   config = mkIf cfg.enable (
     let
       hosts = cfg.hosts;
-      
+
       # Use sops secret path as default if caddyEnvironmentFile is empty
-      envFile = if cfg.caddyEnvironmentFile != "" 
-                then cfg.caddyEnvironmentFile 
-                else config.sops.secrets.tailscale_caddy_env.path;
+      envFile =
+        if cfg.caddyEnvironmentFile != "" then
+          cfg.caddyEnvironmentFile
+        else
+          config.sops.secrets.tailscale_caddy_env.path;
 
       hostList = mapAttrsToList (
         name: h:
         let
           # Determine hostname: tailnetHostname takes priority, then hostname, then attr name
-          hostname = 
-            if h.tailnetHostname != null then h.tailnetHostname
-            else if h.hostname != null then h.hostname
-            else name;
-          
+          hostname =
+            if h.tailnetHostname != null then
+              h.tailnetHostname
+            else if h.hostname != null then
+              h.hostname
+            else
+              name;
+
           # Auto-detect tailnet usage: if hostname contains ".ts.net" or explicit useTailnet is set
           autoUseTailnet = (hasSuffix ".ts.net" hostname) || h.useTailnet;
         in
@@ -79,27 +92,29 @@ in
       );
 
       anyTailnet = any (h: h.value.useTailnet) hostList;
-      anyFrgd = frgdHosts != [];
-      
+      anyFrgd = frgdHosts != [ ];
+
       # Validate all hosts have backendAddress
       invalidHosts = filter (h: h.value.backend == "") hostList;
-      hostsValid = invalidHosts == [];
+      hostsValid = invalidHosts == [ ];
 
     in
     {
       assertions = [
         {
           assertion = hostsValid;
-          message = "caddy-proxy: The following hosts are missing backendAddress: ${concatStringsSep ", " (map (h: h.name) invalidHosts)}";
+          message = "caddy-proxy: The following hosts are missing backendAddress: ${
+            concatStringsSep ", " (map (h: h.name) invalidHosts)
+          }";
         }
       ];
-      
+
       # Enable Caddy web server
       services.caddy.enable = true;
-      
+
       # Enable ACME if any frgd.us hosts exist
       frgd.security.acme.enable = mkIf anyFrgd true;
-      
+
       # Add generated virtualHosts (existing user definitions will take priority via mkDefault)
       services.caddy.virtualHosts = mkMerge [
         (mapAttrs (_: mkDefault) vhosts)
