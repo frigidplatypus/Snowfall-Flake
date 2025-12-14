@@ -1,9 +1,9 @@
 {
   disko.devices = {
     disk = {
-      x = {
+      nvme0 = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-eui.000000000000000100a07520265a0347";
         content = {
           type = "gpt";
           partitions = {
@@ -42,6 +42,12 @@
           atime = "off"; # Turn off access time logging
         };
 
+        # Options for the zpool create command
+        options = {
+          # Set ashift to 12 for 4k block size, optimal for modern SSDs.
+          ashift = "12";
+        };
+
         datasets = {
           # 1. Operating System Root (Ephemeral)
           "ROOT/echidna" = {
@@ -60,7 +66,8 @@
             options = {
               "com.sun:auto-snapshot" = "false";
               atime = "off";
-              recordsize = "64K";
+              # Use 16K recordsize for better performance with many small files.
+              recordsize = "16K";
             };
           };
 
@@ -70,21 +77,17 @@
             mountpoint = "/home/justin";
             options."com.sun:auto-snapshot" = "true";
           };
-
-          home_flake = {
+          "home_justin/flake" = {
             type = "zfs_fs";
             mountpoint = "/home/justin/flake";
             options."com.sun:auto-snapshot" = "true";
           };
-
-          # 4. Project Data
-          development = {
+          "home_justin/development" = {
             type = "zfs_fs";
             mountpoint = "/home/justin/development";
             options."com.sun:auto-snapshot" = "true";
           };
-
-          notes = {
+          "home_justin/notes" = {
             type = "zfs_fs";
             mountpoint = "/home/justin/notes";
             options."com.sun:auto-snapshot" = "true";
@@ -99,9 +102,7 @@
               compression = "zstd-1"; # Faster compression for frequently written data
             };
           };
-
-          # 6. /var/log (Logs)
-          var_log = {
+          "var/log" = { # This will create zroot/var/log
             type = "zfs_fs";
             mountpoint = "/var/log";
             options = {
@@ -109,9 +110,7 @@
               recordsize = "128K";
             };
           };
-
-          # 7. /var/lib (Application State/Databases)
-          var_lib = {
+          "var/lib" = { # This will create zroot/var/lib
             type = "zfs_fs";
             mountpoint = "/var/lib";
             options."com.sun:auto-snapshot" = "true";

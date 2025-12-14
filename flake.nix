@@ -26,12 +26,7 @@
     #   inputs.nixpkgs.follows = "stable-nixpkgs";
     # };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-    hyprlock = {
-      url = "github:hyprwm/Hyprlock";
-    };
+    
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,7 +45,10 @@
     };
 
     sops-nix.url = "https://flakehub.com/f/Mic92/sops-nix/0.1.1059.tar.gz";
-    deploy-rs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511.902883.tar.gz";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.2470.tar.gz";
         disko = {
       url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
