@@ -115,6 +115,10 @@ in
       # Enable ACME if any frgd.us hosts exist
       frgd.security.acme.enable = mkIf anyFrgd true;
 
+      sops.secrets.tailscale_caddy_env = {
+        owner = "caddy";
+      };
+
       # Add generated virtualHosts (existing user definitions will take priority via mkDefault)
       services.caddy.virtualHosts = mkMerge [
         (mapAttrs (_: mkDefault) vhosts)
