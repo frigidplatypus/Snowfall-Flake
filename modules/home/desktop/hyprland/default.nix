@@ -306,11 +306,11 @@ in
         splash_offset = 2.0;
 
         preload = [
-          "$HOME/Snowfall-Flake/assets/wall.png"
+          "$HOME/flake/assets/wall.png"
         ];
 
         wallpaper = [
-          "eDP-1,$HOME/Snowfall-Flake/assets/wall.png"
+          "eDP-1,$HOME/flake/assets/wall.png"
         ];
 
       };
