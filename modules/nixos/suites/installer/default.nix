@@ -19,10 +19,11 @@ in
     environment.systemPackages = with pkgs; [
       fish
       frgd.neovim
+      tmux
       disko
       nixos-anywhere
     ];
-
+    boot.supportedFilesystems = [ "zfs" ];
     networking.firewall.enable = false;
     services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
     services.getty.autologinUser = "justin";
