@@ -15,7 +15,7 @@ in
     enable = mkBoolOpt false "Whether or not to enable local-scripts.";
     # Use an absolute path by default so shell tilde-expansion issues don't
     # cause tools (like deploy scripts) to pass a literal '~' into nix.
-    flakePath = mkOpt str "/home/justin/Snowfall-Flake" "Path to the NixOS flake.";
+    flakePath = mkOpt str "/home/justin/flake" "Path to the NixOS flake.";
     remoteUser = mkOpt str "root" "User to use for remote deployment.";
   };
 
