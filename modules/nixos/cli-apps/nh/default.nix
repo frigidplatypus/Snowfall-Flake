@@ -14,6 +14,11 @@ in
 {
   options.frgd.cli-apps.nh = with types; {
     enable = mkBoolOpt false "Whether or not to enable nh.";
+    flakePath = mkOption {
+      type = str;
+      default = "/home/justin/flake";
+      description = "Path to the Nix flake to be used by nh.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -21,7 +26,7 @@ in
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/justin/Snowfall-Flake";
+      flake = cfg.flakePath;
     };
   };
 }
