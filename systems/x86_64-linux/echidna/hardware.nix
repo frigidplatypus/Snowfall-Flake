@@ -26,8 +26,8 @@
 
   #ZFS Support
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.forceImportRoot = false;
-  networking.hostId = "34e78754";
+  boot.zfs.forceImportRoot = true;
+  networking.hostId = "8425E349";
 
   swapDevices = [ ];
 
