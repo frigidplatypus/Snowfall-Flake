@@ -15,6 +15,10 @@ with lib.frgd;
   ];
 
   services.blueman.enable = true;
+
+  # Power Management
+  services.auto-cpufreq.enable = true;
+  # powerManagement.powertop.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
   services.flatpak.enable = true;
@@ -101,6 +105,10 @@ with lib.frgd;
       signal = enabled;
       steam = enabled;
     };
+    cli-apps = {
+      nh.flakePath = "/home/justin/flake";
+    };
+
     security = {
       sops = {
         enable = true;
@@ -137,11 +145,15 @@ with lib.frgd;
       syncoid.interval = "hourly";
       datasets = {
         notes = {
-          source = "zroot/notes";
+          source = "zroot/home_justin/notes";
           target = "syncoid@p5810.fluffy-rooster.ts.net:storage/notes";
         };
+        flake = {
+          source = "zroot/home_justin/flake";
+          target = "syncoid@p5810.fluffy-rooster.ts.net:storage/flake";
+        };
         development = {
-          source = "zroot/development";
+          source = "zroot/home_justin/development";
           target = "syncoid@p5810.fluffy-rooster.ts.net:storage/development";
         };
         home_justin = {

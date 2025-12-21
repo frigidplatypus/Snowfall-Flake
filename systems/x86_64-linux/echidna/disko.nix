@@ -102,7 +102,8 @@
               compression = "zstd-1"; # Faster compression for frequently written data
             };
           };
-          "var/log" = { # This will create zroot/var/log
+          "var/log" = {
+            # This will create zroot/var/log
             type = "zfs_fs";
             mountpoint = "/var/log";
             options = {
@@ -110,7 +111,8 @@
               recordsize = "128K";
             };
           };
-          "var/lib" = { # This will create zroot/var/lib
+          "var/lib" = {
+            # This will create zroot/var/lib
             type = "zfs_fs";
             mountpoint = "/var/lib";
             options."com.sun:auto-snapshot" = "true";
