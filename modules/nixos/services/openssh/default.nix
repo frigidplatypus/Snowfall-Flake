@@ -25,6 +25,7 @@ let
   nixserver-key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrOrtvn3cWVvqHsF5ueQ4Qqod0hDE2jLagGosZqbH70H3aUOYq0ZeZ3EuwldAPMYATjz7azO6N7pVp0u4XJtJr5+yxgrBFmcr5eXilgR/8RHTf93BO+kZpkUOFFBNoAis0kQZ1dba/BFznsZDnvuie1G1evsJjAyQWhAizeDRW1MmjVQ/GfXLI8OY6mUZ2/W4CIItcq64pS0N0A5nnYmrd96Y/VOLCtf57nW6tcevN87vJpXrGV0iHnuax47OAUGFCibdRQg5eiyrf0r36jtPhOF5tJwP98JDlY0qR8Fp/pJaclZM6xY6fPA6lAxyfnTmMLpywsBQ1gSPm1/boTpLLGryniHZ3borcLnzqyJ+f47U/uMz9ILBkpV2L71KCXySng3yF//Tuf1hS//SdQwbpOKTgAZOkBcbdu6hHNLfkBkcoHND+zclVPueHJeP2+icRKNHPiR4oakRDjiP3x9MaocmsBSdY5AG5JmcZbd9/SFIOtmF4jAhhR2iRf2qkeWk= justin@nix";
   p5810-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFaf3lNuwDvzTl5wIe99h3PfwwyaNRiiGI8rHeFcxCwg justin@tsnix";
   t480-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDq8dTBM/d3El1DUy/MThcM2Tg/AyROHGECGCGdEcTOr justin@t480";
+  pve-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINjUoR/vBhT9rBoHPYi3kflw3P3+00EKiNa6OcyXoqc/ justin@pve";
 
   other-hosts = lib.filterAttrs (
     key: host: key != name && (host.config.frgd.user.name or null) != null
@@ -61,6 +62,7 @@ in
       nixserver-key
       p5810-key
       t480-key
+      pve-key
     ] "The public keys to apply.";
     #port = mkOpt port 2222 "The port to listen on (in addition to 22).";
     manage-other-hosts =
