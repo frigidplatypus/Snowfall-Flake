@@ -35,7 +35,8 @@ in
           "The trusted public key for the substituter.";
     };
 
-    extra-substituters = mkOpt (attrsOf substituters-submodule) { } "Extra substituters to configure.";
+    extra-substituters = mkOpt (attrsOf substituters-submodule) {
+    } "Extra substituters to configure.";
 
     generateRegistryFromInputs = mkBoolOpt false "Whether to populate the flake registry from inputs during evaluation.";
     generateNixPathFromInputs = mkBoolOpt false "Whether to populate NIX_PATH from inputs during evaluation.";
