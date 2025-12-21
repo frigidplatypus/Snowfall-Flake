@@ -13,8 +13,7 @@
     # If you *don't* want the patched nixpkgs, this should be a standard reference
     # nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
 
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
@@ -38,7 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-lib = {
-      url = "https://flakehub.com/f/snowfallorg/lib/3.0.3.tar.gz";
+      url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-flake = {
@@ -49,13 +48,14 @@
       url = "https://flakehub.com/f/nix-community/nixos-generators/0.1.485.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    disko = {
-      url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     sops-nix.url = "https://flakehub.com/f/Mic92/sops-nix/0.1.1059.tar.gz";
     deploy-rs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2511.902883.tar.gz";
     nixos-hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.2470.tar.gz";
+        disko = {
+      url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-colors.url = "github:misterio77/nix-colors";
     # agenix.url = "github:yaxitech/ragenix";
     neovim = {
@@ -156,9 +156,9 @@
       systems.modules.nixos = [
         inputs.home-manager.nixosModules.home-manager
         inputs.sops-nix.nixosModules.sops
-        inputs.disko.nixosModules.disko
         # brp.nixosModules.default
         # bible-reading-plan.nixosModules.default
+        inputs.disko.nixosModules.default
         inputs.golink.nixosModules.default
         inputs.vscode-server.nixosModules.default
         inputs.hyprland.nixosModules.default
@@ -172,11 +172,11 @@
         inputs.taskherald.homeManagerModules.default
       ];
 
-      deploy = lib.mkDeploy { inherit (inputs) self; };
+      # deploy = lib.mkDeploy { inherit (inputs) self; };
 
-      checks = builtins.mapAttrs (
-        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-      ) inputs.deploy-rs.lib;
+      # checks = builtins.mapAttrs (
+      #   system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+      # ) inputs.deploy-rs.lib;
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
