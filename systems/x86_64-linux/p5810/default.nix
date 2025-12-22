@@ -60,7 +60,9 @@ with lib.frgd;
 
   # Load nvidia driver for Xorg and Wayland
   programs.nix-ld.enable = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi/";
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
   services.vscode-server.enable = true;
   boot.zfs.extraPools = [ "storage" ];
 
@@ -153,7 +155,7 @@ with lib.frgd;
       docker = enabled;
     };
     suites = {
-      common = enabled;
+      common-slim = enabled;
       # desktop = {
       #   enable = true;
       #   gnome = true;
