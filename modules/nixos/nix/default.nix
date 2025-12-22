@@ -36,6 +36,9 @@ in
     };
 
     extra-substituters = mkOpt (attrsOf substituters-submodule) {
+      "https://install.determinate.systems" = {
+        key = "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=";
+      };
     } "Extra substituters to configure.";
 
     generateRegistryFromInputs = mkBoolOpt false "Whether to populate the flake registry from inputs during evaluation.";

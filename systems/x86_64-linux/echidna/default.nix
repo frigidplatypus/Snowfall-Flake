@@ -137,6 +137,8 @@ with lib.frgd;
     };
   };
 
+  determinate.enable = true;
+
   frgd.services = {
     tlp = enabled;
     zfs-replication = {
