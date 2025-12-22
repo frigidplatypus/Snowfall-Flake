@@ -26,7 +26,6 @@
     #   inputs.nixpkgs.follows = "stable-nixpkgs";
     # };
 
-    
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,7 +49,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.2470.tar.gz";
-        disko = {
+    disko = {
       url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -81,6 +80,10 @@
     wifitui = {
       url = "github:shazow/wifitui";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
     };
 
     # Enable fingerprint reader for T480
@@ -159,14 +162,12 @@
         inputs.disko.nixosModules.default
         inputs.golink.nixosModules.default
         inputs.vscode-server.nixosModules.default
-        inputs.hyprland.nixosModules.default
         inputs.determinate.nixosModules.default
       ];
 
       homes.modules = [
         inputs.sops-nix.homeManagerModules.sops
         inputs.nix-index-database.homeModules.nix-index
-        inputs.hyprland.homeManagerModules.default
         inputs.taskherald.homeManagerModules.default
       ];
 
