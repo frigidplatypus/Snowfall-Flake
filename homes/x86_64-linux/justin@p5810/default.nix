@@ -10,9 +10,6 @@ with lib.frgd;
     };
 
     suites.common = enabled;
-    desktop = {
-      # hyprland = enabled;
-    };
 
     security = {
       sops = {
