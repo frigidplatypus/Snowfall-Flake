@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+inputs,
   ...
 }:
 with lib;
@@ -50,7 +51,9 @@ with lib.frgd;
     pv
     devenv
     opencode
-    colmena
+    inputs.colmena.packages.${system}.colmena
+
+
   ];
 
   # Enable OpenGL

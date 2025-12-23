@@ -48,6 +48,7 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+        colmena.url = "github:zhaofengli/colmena";
     nixos-hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.2470.tar.gz";
     disko = {
       url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
