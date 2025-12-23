@@ -23,6 +23,7 @@ with lib.frgd;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;
+      ai-tools = enabled;
       pim = {
         enable = true;
         accounts = {
