@@ -41,6 +41,7 @@ in
       bottom
       btop
       systemctl-tui
+      ghostty.terminfo
     ];
   };
 }
