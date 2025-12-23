@@ -52,6 +52,8 @@ rec {
   font-mono = "${font}Mono";
   font-propo = "${font}Propo";
 
+  icon-theme = "Gruvbox Plus Dark";
+
   # font-mono = "Agave Nerd Font Mono";
   # font = "Agave Nerd Font";
 
