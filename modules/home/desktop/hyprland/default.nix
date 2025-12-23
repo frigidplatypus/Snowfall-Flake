@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 
 with lib;
@@ -52,6 +51,7 @@ in
         hyprpolkitagent
         hyprpicker
         hyprtoolkit
+        gruvbox-plus-icons
         # walker
       ];
     };
@@ -59,6 +59,7 @@ in
     gtk = {
       cursorTheme.name = cfg.cursorTheme;
       enable = true;
+      iconTheme.name = icon-theme;
       theme = {
         name = cfg.gtkTheme;
       };
