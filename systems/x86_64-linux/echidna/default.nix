@@ -54,6 +54,7 @@ with lib.frgd;
     wtfutil
     github-copilot-cli
     gemini-cli
+    nixos-anywhere
   ];
 
   # services.bibleReadingPlan = {
