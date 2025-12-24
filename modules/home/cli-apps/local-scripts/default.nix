@@ -17,6 +17,10 @@ in
     # cause tools (like deploy scripts) to pass a literal '~' into nix.
     flakePath = mkOpt str "/home/justin/flake" "Path to the NixOS flake.";
     remoteUser = mkOpt str "root" "User to use for remote deployment.";
+    maxParallel = mkOpt int 5 "Maximum number of parallel deployments.";
+    excludedHosts = mkOpt (listOf str) ["p5810"] "List of hosts to exclude from bulk deployments.";
+    ntfyTopic = mkOpt (nullOr str) null "Topic for ntfy.sh notifications.";
+    ntfyServer = mkOpt str "https://ntfy.sh" "Server for ntfy.sh notifications.";
   };
 
   config = mkIf cfg.enable {
@@ -24,22 +28,16 @@ in
       with pkgs;
       [
         nix-output-monitor # Make sure nom is available
-        (writeShellScriptBin "nr" ''
-          #!/bin/bash
-          if [ $# -eq 0 ]; then
-            echo "Error: hostname is required for remote deployment"
-            echo "Usage: nr <hostname> [additional-args]"
-            echo "Example: nr server"
-            echo "Example: nr tasks --show-trace"
-            exit 1
-          fi
-
-          HOST="$1"
-          shift
-
-          echo "Deploying to remote system: $HOST"
-          nixos-rebuild switch --flake "${cfg.flakePath}#$HOST" --target-host "${cfg.remoteUser}@$HOST" "$@" |& nom
-        '')
+        gum
+        jq
+        curl
+        (let
+          gum = lib.getExe pkgs.gum;
+          jq = lib.getExe pkgs.jq;
+          curl = lib.getExe pkgs.curl;
+          script = builtins.replaceStrings ["GUM_BIN" "JQ_BIN" "CURL_BIN"] ["${gum}" "${jq}" "${curl}"] (builtins.readFile ./nr.sh);
+        in
+          writeShellScriptBin "nr" ''${script}'')
         (writeShellScriptBin "fu" ''
           #!/bin/bash
           cd ${cfg.flakePath} || { echo "Error: Could not change to ${cfg.flakePath}"; exit 1; }
@@ -68,5 +66,14 @@ in
           sudo darwin-rebuild switch --flake ${cfg.flakePath}/#
         '')
       ];
+
+    home.file.".config/nr/nrrc".text = ''
+      MAX_PARALLEL=${toString cfg.maxParallel}
+      EXCLUDED_HOSTS="${lib.concatStringsSep " " cfg.excludedHosts}"
+      ${lib.optionalString (cfg.ntfyTopic != null) "NTFY_TOPIC=${cfg.ntfyTopic}"}
+      NTFY_SERVER=${cfg.ntfyServer}
+    '';
+
   };
+
 }
