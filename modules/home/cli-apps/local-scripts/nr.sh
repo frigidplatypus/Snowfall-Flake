@@ -4,7 +4,6 @@ if [ -f ~/.config/nr/nrrc ]; then
 fi
 
 # Set defaults
-MAX_PARALLEL=${MAX_PARALLEL:-5}
 
 # Parse options
 dry_run=false
@@ -110,7 +109,7 @@ if [ $# -eq 0 ]; then
       exit 0
     fi
 
-    echo "Starting parallel deployment..."
+    echo "Starting sequential deployment..."
 
     # Function to deploy one host
     deploy_host() {
@@ -140,48 +139,28 @@ if [ $# -eq 0 ]; then
       fi
     }
 
-    # Run deployments with limited parallelism
-    succeeded=0
-    failed=0
-    active_jobs=0
-    pids=()
+    # Run deployments sequentially
+    succeeded_hosts=()
+    failed_hosts=()
     for host in $deploy_systems; do
-      deploy_host "$host" &
-      pids+=($!)
-      active_jobs=$((active_jobs + 1))
-
-      # Wait if at max parallel
-      if [ "$active_jobs" -ge "$MAX_PARALLEL" ]; then
-        for pid in "${pids[@]}"; do
-          if wait "$pid" 2>/dev/null; then
-            succeeded=$((succeeded + 1))
-          else
-            failed=$((failed + 1))
-          fi
-        done
-        pids=()
-        active_jobs=0
-      fi
-    done
-
-    # Wait for remaining
-    for pid in "${pids[@]}"; do
-      if wait "$pid" 2>/dev/null; then
-        succeeded=$((succeeded + 1))
+      if deploy_host "$host"; then
+        succeeded_hosts+=("$host")
       else
-        failed=$((failed + 1))
+        failed_hosts+=("$host")
       fi
     done
 
     echo
     GUM_BIN style --foreground 212 --bold "Deployment Summary:"
-    GUM_BIN style --foreground 2 "Succeeded: $succeeded"
-    GUM_BIN style --foreground 1 "Failed: $failed"
+    GUM_BIN style --foreground 2 "Succeeded: ${#succeeded_hosts[@]} (${succeeded_hosts[*]})"
+    GUM_BIN style --foreground 1 "Failed: ${#failed_hosts[@]} (${failed_hosts[*]})"
 
     # Send notification if configured and --notify flag used
     if $notify_mode && [ -n "$NTFY_TOPIC" ]; then
       NTFY_SERVER=${NTFY_SERVER:-https://ntfy.sh}
-      CURL_BIN -s -d "Deployment complete: $succeeded succeeded, $failed failed" "$NTFY_SERVER/$NTFY_TOPIC" >/dev/null 2>&1 || true
+      succeeded_list="${succeeded_hosts[*]}"
+      failed_list="${failed_hosts[*]}"
+      CURL_BIN -s -d "Deployment complete: Succeeded ${#succeeded_hosts[@]} ($succeeded_list), Failed ${#failed_hosts[@]} ($failed_list)" "$NTFY_SERVER/$NTFY_TOPIC" >/dev/null 2>&1 || true
     fi
   else
     echo "Deployment cancelled."
