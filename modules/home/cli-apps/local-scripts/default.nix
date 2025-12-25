@@ -17,7 +17,6 @@ in
     # cause tools (like deploy scripts) to pass a literal '~' into nix.
     flakePath = mkOpt str "/home/justin/flake" "Path to the NixOS flake.";
     remoteUser = mkOpt str "root" "User to use for remote deployment.";
-    maxParallel = mkOpt int 5 "Maximum number of parallel deployments.";
     excludedHosts = mkOpt (listOf str) ["p5810"] "List of hosts to exclude from bulk deployments.";
     ntfyTopic = mkOpt (nullOr str) null "Topic for ntfy.sh notifications.";
     ntfyServer = mkOpt str "https://ntfy.sh" "Server for ntfy.sh notifications.";
@@ -68,7 +67,6 @@ in
       ];
 
     home.file.".config/nr/nrrc".text = ''
-      MAX_PARALLEL=${toString cfg.maxParallel}
       EXCLUDED_HOSTS="${lib.concatStringsSep " " cfg.excludedHosts}"
       ${lib.optionalString (cfg.ntfyTopic != null) "NTFY_TOPIC=${cfg.ntfyTopic}"}
       NTFY_SERVER=${cfg.ntfyServer}
