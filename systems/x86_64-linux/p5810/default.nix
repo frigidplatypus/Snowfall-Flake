@@ -100,32 +100,29 @@ with lib.frgd;
             };
           };
           datasets = {
-            "zroot" = "default";
-            "zroot/development" = "default";
-            "zroot/docker_data" = "default";
-            "zroot/home_justin" = "default";
+            "zroot/var/lib" = "default";
+            "zroot/var/lib/libvirt" = "default";
+            "zhome/home_justin" = "default";
+            "zhome/home_justin/flake" = "default";
+            "zhome/home_justin/development" = "default";
+            "zhome/home_justin/notes" = "default";
           };
         };
         syncoid = {
           enable = true;
           commands = {
-            zroot = {
-              source = "zroot";
-              target = "root@dads-pve:zroot";
+            var_lib = {
+              source = "zroot/var/lib";
+              target = "root@dads-pve:zroot/var/lib";
               recursive = true;
             };
-            development = {
-              source = "zroot/development";
-              target = "root@dads-pve:zroot/development";
-              recursive = true;
-            };
-            docker_data = {
-              source = "zroot/docker_data";
-              target = "root@dads-pve:zroot/docker_data";
+            libvirt = {
+              source = "zroot/var/lib/libvirt";
+              target = "root@dads-pve:zroot/var/lib/libvirt";
               recursive = true;
             };
             home_justin = {
-              source = "zroot/home_justin";
+              source = "zhome/home_justin";
               target = "root@dads-pve:zroot/home_justin";
               recursive = true;
             };
@@ -171,6 +168,26 @@ with lib.frgd;
 
   services.n8n = {
     enable = true;
+  };
+
+  # Give the n8n service a usable PATH for "Execute Command" style workflows
+  systemd.services.n8n.path = with pkgs; [
+    nix
+    git
+    coreutils
+    jq
+    bash
+    nh
+    nvd
+  ];
+
+  # Optional but often useful if your workflows call flakes a lot:
+  systemd.services.n8n.environment = {
+    # Makes sure flakes work even if your global config is stricter.
+    NIX_CONFIG = ''
+      experimental-features = nix-command flakes
+      accept-flake-config = true
+    '';
   };
 
   users.users.syncoid = {
