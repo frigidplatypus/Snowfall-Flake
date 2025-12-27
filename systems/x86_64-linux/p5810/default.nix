@@ -184,16 +184,6 @@ with lib.frgd;
         experimental-features = nix-command flakes
         accept-flake-config = true
       '';
-      PATH = lib.makeBinPath (with pkgs; [
-        nix
-        git
-        coreutils
-        jq
-        bash
-        nh
-        nvd
-        gh
-      ]);
       HOME = "/var/lib/n8n";
       XDG_CONFIG_HOME = "/var/lib/n8n/.config";
       XDG_CACHE_HOME = "/var/lib/n8n/.cache";
@@ -207,6 +197,18 @@ with lib.frgd;
       N8N_PUBLIC_API_SWAGGERUI_DISABLED = "true";
     };
   };
+
+  # Keep PATH as systemd override to avoid conflicts with module environment
+  systemd.services.n8n.path = with pkgs; [
+    nix
+    git
+    coreutils
+    jq
+    bash
+    nh
+    nvd
+    gh
+  ];
 
   users.users.syncoid = {
     isSystemUser = true;
