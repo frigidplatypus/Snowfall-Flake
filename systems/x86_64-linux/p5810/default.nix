@@ -2,7 +2,7 @@
   lib,
   pkgs,
   config,
-inputs,
+  inputs,
   ...
 }:
 with lib;
@@ -53,7 +53,6 @@ with lib.frgd;
     opencode
     inputs.colmena.packages.${system}.colmena
 
-
   ];
 
   # Enable OpenGL
@@ -85,6 +84,18 @@ with lib.frgd;
       element = enabled;
     };
     services = {
+
+      caddy-proxy = {
+        enable = true;
+        hosts = {
+          n8n = {
+            hostname = "p5810.${tailnet}:8000";
+            backendAddress = "http://127.0.0.1:5678";
+            useTailnet = true;
+            extraConfig = "encode gzip";
+          };
+        };
+      };
       # espanso = enabled;
       # esphome = enabled;
       zfs-replication = {
@@ -179,6 +190,7 @@ with lib.frgd;
     bash
     nh
     nvd
+    gh
   ];
 
   # Optional but often useful if your workflows call flakes a lot:
