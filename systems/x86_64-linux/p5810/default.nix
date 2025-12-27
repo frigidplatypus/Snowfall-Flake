@@ -179,27 +179,33 @@ with lib.frgd;
 
   services.n8n = {
     enable = true;
-  };
-
-  # Give the n8n service a usable PATH for "Execute Command" style workflows
-  systemd.services.n8n.path = with pkgs; [
-    nix
-    git
-    coreutils
-    jq
-    bash
-    nh
-    nvd
-    gh
-  ];
-
-  # Optional but often useful if your workflows call flakes a lot:
-  systemd.services.n8n.environment = {
-    # Makes sure flakes work even if your global config is stricter.
-    NIX_CONFIG = ''
-      experimental-features = nix-command flakes
-      accept-flake-config = true
-    '';
+    environment = {
+      NIX_CONFIG = ''
+        experimental-features = nix-command flakes
+        accept-flake-config = true
+      '';
+      PATH = lib.makeBinPath (with pkgs; [
+        nix
+        git
+        coreutils
+        jq
+        bash
+        nh
+        nvd
+        gh
+      ]);
+      HOME = "/var/lib/n8n";
+      XDG_CONFIG_HOME = "/var/lib/n8n/.config";
+      XDG_CACHE_HOME = "/var/lib/n8n/.cache";
+      XDG_STATE_HOME = "/var/lib/n8n/.local/state";
+      GH_PROMPT_DISABLED = "1";
+      N8N_EDITOR_BASE_URL = "https://p5810.fluffy-rooster.ts.net:8000";
+      N8N_PROTOCOL = "https";
+      N8N_HIRING_BANNER_ENABLED = "false";
+      N8N_DIAGNOSTICS_ENABLED = "false";
+      N8N_PERSONALIZATION_ENABLED = "false";
+      N8N_PUBLIC_API_SWAGGERUI_DISABLED = "true";
+    };
   };
 
   users.users.syncoid = {
