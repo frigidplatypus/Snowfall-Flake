@@ -18,7 +18,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       gemini-cli
-      crush
+      # crush
       opencode
       github-copilot-cli
     ];
