@@ -38,6 +38,8 @@ in
       extraConfig = ''
         set-option -g status-position top
         set-option -g status-left-length 30
+        set-option -g allow-passthrough on
+
       '';
     };
   };

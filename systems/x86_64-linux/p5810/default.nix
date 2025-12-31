@@ -51,7 +51,7 @@ with lib.frgd;
     pv
     devenv
     opencode
-    inputs.colmena.packages.${system}.colmena
+    gh
 
   ];
 
@@ -199,16 +199,22 @@ with lib.frgd;
   };
 
   # Keep PATH as systemd override to avoid conflicts with module environment
-  systemd.services.n8n.path = with pkgs; [
-    nix
-    git
-    coreutils
-    jq
-    bash
-    nh
-    nvd
-    gh
-  ];
+  systemd.services.n8n = {
+    path = with pkgs; [
+      nix
+      git
+      coreutils
+      jq
+      bash
+      nh
+      nvd
+      gh
+    ];
+    serviceConfig = {
+      # This specifically punches a hole in the sandbox for this directory
+      ReadWritePaths = [ "/var/lib/private/n8n/files" ];
+    };
+  };
 
   users.users.syncoid = {
     isSystemUser = true;
