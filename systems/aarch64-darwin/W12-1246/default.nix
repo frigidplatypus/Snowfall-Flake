@@ -1,9 +1,8 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, lib
+, config
+, pkgs
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -30,4 +29,5 @@ with lib.frgd;
     "jmartin"
     "root"
   ];
+
 }

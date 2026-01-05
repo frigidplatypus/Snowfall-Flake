@@ -19,7 +19,8 @@ with lib.frgd;
     opencode
     inputs.html-to-markdown.packages.${pkgs.system}.html-to-markdown
     github-copilot-cli
-
+    gemini-cli
+    nh
   ];
   sops.secrets.vikunja_api_key = { };
   frgd = {
