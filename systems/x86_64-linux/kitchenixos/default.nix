@@ -26,6 +26,7 @@ with lib.frgd;
   };
 
   environment.systemPackages = with pkgs; [
+    logseq
     wezterm
     alacritty
     lswt
