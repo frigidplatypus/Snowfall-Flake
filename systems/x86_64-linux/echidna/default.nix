@@ -27,6 +27,8 @@ with lib.frgd;
   hardware.xpadneo = enabled;
 
   environment.systemPackages = with pkgs; [
+    popsicle
+    qemu
     lswt
     waylevel
     frgd.numara
