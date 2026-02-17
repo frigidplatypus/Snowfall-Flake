@@ -50,6 +50,11 @@
             mountpoint = "/home/justin";
             options."com.sun:auto-snapshot" = "true";
           };
+          "home_justin/flake" = {
+            type = "zfs_fs";
+            mountpoint = "/home/justin/flake";
+            options."com.sun:auto-snapshot" = "true";
+          };
           development = {
             type = "zfs_fs";
             mountpoint = "/home/justin/development";
