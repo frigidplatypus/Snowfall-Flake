@@ -25,7 +25,8 @@ Located under `frgd.services.caddy-proxy`:
 ## Example
 
 ```nix
-frgd.services.caddy-proxy = {
+frgd.services = {
+caddy-proxy = {
   enable = true;
   hosts = {
     dns = {
@@ -34,13 +35,8 @@ frgd.services.caddy-proxy = {
       useTailnet = true;
       extraConfig = "encode gzip";
     };
-    
-    chores = {
-      hostname = "chores.frgd.us";
-      backendAddress = "http://192.168.0.14:2021";
-      extraConfig = "encode gzip";
-    };
   };
+};
 };
 ```
 
