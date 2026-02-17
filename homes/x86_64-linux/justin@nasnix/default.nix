@@ -16,11 +16,13 @@ with lib.frgd;
     };
 
     cli-apps = {
+      ai-tools = enabled;
       fish = enabled;
       neovim = enabled;
       home-manager = enabled;
       ranger = enabled;
       tmux = enabled;
+      yazi = enabled;
     };
 
     tools = {
