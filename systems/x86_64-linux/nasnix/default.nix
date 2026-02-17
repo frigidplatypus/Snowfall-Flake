@@ -43,6 +43,22 @@ with lib.frgd;
     archetypes.server = enabled;
     services.jellyfin = enabled;
     services = {
+      caddy-proxy = {
+        enable = true;
+        hosts = {
+          dns = {
+            hostname = "nasnix.${tailnet}";
+            backendAddress = "http://127.0.0.1:8000";
+            useTailnet = true;
+            extraConfig = "encode gzip";
+          };
+          romm = {
+            hostname = "romm.wc-12.com";
+            backendAddress = "http://127.0.0.1:8000";
+            extraConfig = "encode gzip";
+          };
+        };
+      };
       tailscale.autoconnect = enabled;
       nix-serve = enabled;
       netdata = enabled;

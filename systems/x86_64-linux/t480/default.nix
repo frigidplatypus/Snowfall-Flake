@@ -1,9 +1,8 @@
-{
-  lib,
-  pkgs,
-  inputs,
-  config,
-  ...
+{ lib
+, pkgs
+, inputs
+, config
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -22,6 +21,7 @@ with lib.frgd;
   xdg.portal = enabled;
   services.zram-generator = enabled;
   hardware.xpadneo = enabled;
+  determinate = enabled;
 
   environment.systemPackages = with pkgs; [
     codex
