@@ -3,7 +3,7 @@
     disk = {
       ata139273 = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-SAMSUNG_MZ7LH240HAHQ-00005_S45RNA0N139273";
+        device = "/dev/disk/by-id/ata-ADATA_SU760_2L102LA8JKUW";
         content = {
           type = "gpt";
           partitions = {
