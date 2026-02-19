@@ -36,6 +36,7 @@ in
         "godap"
       ];
       casks = mkIf cfg.casks.enable [
+        "antigravity"
         "raycast"
         "amethyst"
         "logseq"
@@ -44,7 +45,7 @@ in
         "element"
         # "karabiner-elements"
         "openscad"
-        "syncthing"
+        "syncthing-app"
         "iterm2"
         "keyboard-maestro"
         "popclip"
