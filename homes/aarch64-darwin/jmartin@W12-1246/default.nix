@@ -21,6 +21,8 @@ with lib.frgd;
     github-copilot-cli
     gemini-cli
     nh
+    bitwarden-cli
+    nodejs
   ];
   sops.secrets.vikunja_api_key = { };
   frgd = {
@@ -68,7 +70,10 @@ with lib.frgd;
           };
         };
       };
-      local-scripts = enabled;
+      local-scripts = {
+        enable = true;
+        flakePath = "/Users/jmartin/Snowfall-Flake/";
+      };
       fish = {
         enable = true;
         extraShellAliases = {
