@@ -14,13 +14,17 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
               };
             };
-            zfs = {
+            root = {
               size = "100%";
+              type = "8300";
               content = {
-                type = "zfs";
-                pool = "zroot";
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+                mountOptions = [ "noatime" "nodiratime" ];
               };
             };
           };
@@ -62,86 +66,7 @@
       };
     };
     zpool = {
-      # Boot pool on the single NVMe/boot disk
-      zroot = {
-        type = "zpool";
-        mountpoint = null;
-
-        # ZFS properties applied to the pool root itself
-        rootFsOptions = {
-          compression = "zstd";
-          "com.sun:auto-snapshot" = "false";
-          xattr = "sa";
-          acltype = "posixacl";
-          atime = "off";
-        };
-
-        # Options for the zpool create command
-        options = {
-          ashift = "12";
-        };
-
-        datasets = {
-          "ROOT/p5810" = {
-            type = "zfs_fs";
-            mountpoint = "/";
-            options = {
-              "com.sun:auto-snapshot" = "false";
-            };
-            postCreateHook = "sh -c 'zfs list -t snapshot zroot/ROOT/p5810@blank >/dev/null 2>&1 || zfs snapshot zroot/ROOT/p5810@blank'";
-          };
-
-          nix = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-            options."com.sun:auto-snapshot" = "false";
-          };
-
-          var = {
-            type = "zfs_fs";
-            mountpoint = "/var";
-            options = {
-              "com.sun:auto-snapshot" = "false";
-              compression = "zstd-1";
-            };
-          };
-
-          "var/log" = {
-            type = "zfs_fs";
-            mountpoint = "/var/log";
-            options = {
-              "com.sun:auto-snapshot" = "false";
-              recordsize = "128K";
-            };
-          };
-
-          "var/lib" = {
-            type = "zfs_fs";
-            mountpoint = "/var/lib";
-            options."com.sun:auto-snapshot" = "true";
-          };
-
-          "var/lib/containers" = {
-            type = "zfs_fs";
-            mountpoint = "/var/lib/containers";
-            options = {
-              "com.sun:auto-snapshot" = "false";
-              compression = "lz4";
-            };
-          };
-
-          "var/lib/libvirt" = {
-            type = "zfs_fs";
-            mountpoint = "/var/lib/libvirt";
-            options = {
-              "com.sun:auto-snapshot" = "true";
-              compression = "lz4";
-            };
-          };
-        };
-      };
-
-      # Home data pool mirrored across the two remaining disks for redundancy
+# Home data pool mirrored across the two remaining disks for redundancy
       zhome = {
         type = "zpool";
         # Use mirror vdev of the two spare SATA/SSD devices (sdd and sde)
