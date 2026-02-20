@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
 }:
 
 with lib;
@@ -70,8 +71,8 @@ in
       xwayland.enable = true;
       systemd.enable = true;
       plugins = with pkgs.hyprlandPlugins; [
-        hyprfocus
-        hyprgrass
+        # hyprfocus
+        # hyprgrass
       ];
       settings = mkMerge [
         {
