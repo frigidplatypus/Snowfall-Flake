@@ -95,7 +95,7 @@ with lib.frgd;
         enable = true;
         fontpreview = true;
       };
-      home-wifi = enabled;
+      # home-wifi = enabled;
     };
     # hardware = {
     #   fingerprint = {
