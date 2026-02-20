@@ -20,7 +20,7 @@ in
       packages = with pkgs; [
         # less
         # #rnix-lsp
-        nixfmt-rfc-style
+        nixfmt
         ripgrep
         # alejandra
         # nodejs
