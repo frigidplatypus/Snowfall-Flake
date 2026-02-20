@@ -81,7 +81,7 @@ in
           # libsForQt5.polkit-kde-agent
           hyprpolkitagent
           hyprutils
-          xorg.xeyes
+          xeyes
           udiskie
           xdg-desktop-portal-gtk
           xdg-desktop-portal-xapp
