@@ -23,6 +23,8 @@ with lib.frgd;
   config = {
     frgd.home.extraOptions = {
       home.stateVersion = config.system.stateVersion;
+      programs.yazi.shellWrapperName = "yy";
+      programs.zsh.dotDir = "/home/${config.frgd.user.name}";
       home.file = mkAliasDefinitions options.frgd.home.file;
       xdg.enable = true;
       xdg.configFile = mkAliasDefinitions options.frgd.home.configFile;

@@ -36,8 +36,8 @@ in
         swaybg
         wofi
         swayidle
-        xorg.xeyes
-        xorg.xwininfo
+        xeyes
+        xwininfo
         # GTK themes
         gruvbox-dark-gtk
         sweet
