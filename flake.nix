@@ -115,7 +115,7 @@
       lib = inputs.snowfall-lib.mkLib {
         inherit inputs;
 
-        src = ./.;
+        src = null;
         flakeRoot = inputs.self.outPath;
 
         snowfall = {
