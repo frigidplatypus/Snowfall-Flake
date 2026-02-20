@@ -31,7 +31,7 @@ in
       dysk
       tree
       treefmt
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
 }

@@ -54,7 +54,7 @@ in
       }) cfg.extra-substituters;
 
       environment.systemPackages = with pkgs; [
-        nixfmt-rfc-style
+        nixfmt
         nix-index
         nix-prefetch-git
         nix-output-monitor
