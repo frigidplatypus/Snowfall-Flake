@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, inputs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  inputs,
+  config,
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -22,8 +23,11 @@ with lib.frgd;
   services.zram-generator = enabled;
   hardware.xpadneo = enabled;
   determinate = enabled;
+  boot.zfs.forceImportRoot = true;
 
   environment.systemPackages = with pkgs; [
+    popsicle
+    ventoy-full
     codex
     lswt
     waylevel
