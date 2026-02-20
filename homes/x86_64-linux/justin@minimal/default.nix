@@ -8,7 +8,7 @@ with lib.frgd;
       name = "justin";
     };
 
-    suites.common-slim = enabled;
+    suites.common = enabled;
 
     security = {
       sops = {
