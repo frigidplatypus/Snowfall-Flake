@@ -25,7 +25,8 @@ in
     services.moonraker = {
       user = "root";
       enable = true;
-      address = "100.120.26.54";
+      # bind on all interfaces so Fluidd (or other remote UIs) can connect
+      address = "0.0.0.0";
       allowSystemControl = true;
       settings = {
         # octoprint_compat = { };
