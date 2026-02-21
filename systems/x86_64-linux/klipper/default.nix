@@ -22,5 +22,6 @@ with lib.frgd;
     };
     system.boot.efi = true;
     system.boot.oldBoot = true;
+    user.extraGroups = [ "moonraker" ];
   };
 }
