@@ -45,6 +45,9 @@ in
       sops.defaultSopsFile = ./secrets.yaml;
       sops.defaultSopsFormat = "yaml";
       sops.age.keyFile = "/sops/keys.txt";
+      # Disable SSH host key paths - use only age key for decryption
+      # This prevents errors during installation when SSH keys don't exist yet
+      sops.age.sshKeyPaths = [ ];
       sops.secrets.tailscale_api_key = {
         owner = "root";
         group = "tailscale";

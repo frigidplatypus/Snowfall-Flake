@@ -155,6 +155,9 @@ with lib.frgd;
         enable = true;
       };
     };
+    services.openssh = {
+      enable = true;
+    };
     archetypes = {
       # workstation = enabled;
     };
@@ -177,45 +180,6 @@ with lib.frgd;
   # System user for receiving replication via syncoid/ssh
   users.groups.syncoid = { };
 
-  services.n8n = {
-    enable = true;
-    environment = {
-      NIX_CONFIG = ''
-        experimental-features = nix-command flakes
-        accept-flake-config = true
-      '';
-      HOME = "/var/lib/n8n";
-      XDG_CONFIG_HOME = "/var/lib/n8n/.config";
-      XDG_CACHE_HOME = "/var/lib/n8n/.cache";
-      XDG_STATE_HOME = "/var/lib/n8n/.local/state";
-      GH_PROMPT_DISABLED = "1";
-      N8N_EDITOR_BASE_URL = "https://p5810.fluffy-rooster.ts.net:8000";
-      N8N_PROTOCOL = "https";
-      N8N_HIRING_BANNER_ENABLED = "false";
-      N8N_DIAGNOSTICS_ENABLED = "false";
-      N8N_PERSONALIZATION_ENABLED = "false";
-      N8N_PUBLIC_API_SWAGGERUI_DISABLED = "true";
-    };
-  };
-
-  # Keep PATH as systemd override to avoid conflicts with module environment
-  systemd.services.n8n = {
-    path = with pkgs; [
-      nix
-      git
-      coreutils
-      jq
-      bash
-      nh
-      nvd
-      gh
-    ];
-    serviceConfig = {
-      # This specifically punches a hole in the sandbox for this directory
-      ReadWritePaths = [ "/var/lib/private/n8n/files" ];
-    };
-  };
-
   users.users.syncoid = {
     isSystemUser = true;
     description = "Syncoid replication user";
@@ -231,28 +195,4 @@ with lib.frgd;
     ];
   };
 
-  # Activation script to delegate ZFS permissions to the syncoid user for the datasets
-  system.activationScripts.syncoid-zfs-perms.text = ''
-    #!/bin/sh
-    set -e
-    # Only run if zpool command exists
-    if ! command -v zpool >/dev/null 2>&1; then
-      exit 0
-    fi
-
-    # Create target datasets if they don't exist
-    for ds in storage/development storage/notes storage/home_justin; do
-      if ! zfs list "$ds" >/dev/null 2>&1; then
-        /sbin/zfs create "$ds" || true
-      fi
-    done
-
-    # Grant permissions to all datasets under storage and zroot pools
-    for ds in $(zfs list -H -o name | grep -E "^(storage|zroot)"); do
-      if zfs list "$ds" >/dev/null 2>&1; then
-        # grant minimal permissions for receive/send and dataset management
-        /sbin/zfs allow syncoid send,receive,mount,create,destroy "$ds" || true
-      fi
-    done
-  '';
 }
