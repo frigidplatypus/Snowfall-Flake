@@ -48,8 +48,6 @@ with lib.frgd;
       DISABLE_NEW_RELEASE_CHECK = "true";
       # OAuth/OIDC Configuration
       OAUTH_WELLKNOWN_URL = "${tsidpUrl}/.well-known/openid-configuration";
-      OAUTH_CLIENT_ID = "hoarder";
-      OAUTH_CLIENT_SECRET = "hoarder";
       OAUTH_SCOPE = "openid profile email"; # Correct: singular OAUTH_SCOPE
       OAUTH_PROVIDER_NAME = "Tailscale";
       # Required base configuration

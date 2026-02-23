@@ -62,10 +62,15 @@ with lib.frgd;
     verbose = true;
   };
 
+  services.tsidp = {
+    enable = true;
+    # Uses the system's local tailscaled (replaces -use-local-tailscaled)
+    environmentFile = config.sops.secrets.tailscale_caddy_env.path;
+
+  };
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
-    services.tsidp = enabled;
     security = {
       acme = enabled;
       sops = enabled;

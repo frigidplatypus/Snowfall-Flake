@@ -29,7 +29,6 @@ with lib.frgd;
                 Tailscale-Tailnet>X-Webauth-Tailnet
                 Tailscale-Profile-Picture>X-Webauth-Profile-Picture
               }
-
           }
           reverse_proxy localhost:8083
         '';
