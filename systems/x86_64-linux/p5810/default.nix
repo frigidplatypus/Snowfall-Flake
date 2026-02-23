@@ -61,8 +61,8 @@ with lib.frgd;
     sleep-on-lan
     nixos-anywhere
     disko
-    deploy-rs
     nixos-generators
+    deploy-rs
     compose2nix
     sanoid
     lzo
@@ -71,6 +71,9 @@ with lib.frgd;
     devenv
     opencode
     gh
+
+    #Ollama TUIs
+    gollama
 
   ];
 
@@ -86,6 +89,22 @@ with lib.frgd;
   boot.loader.efi.efiSysMountPoint = "/boot";
   services.vscode-server.enable = true;
   boot.zfs.extraPools = [ "storage" ];
+
+  services.ollama = {
+    enable = true;
+    host = "0.0.0.0";
+  };
+
+  services.open-webui = {
+    enable = true;
+    port = 8888;
+    host = "0.0.0.0";
+  };
+
+  services.nextjs-ollama-llm-ui = {
+    enable = true;
+    hostname = "p5810.${tailnet}";
+  };
 
   frgd = {
     nix = {
@@ -174,6 +193,7 @@ with lib.frgd;
         enable = true;
       };
     };
+    system.zramSwap = enabled;
     services.openssh = {
       enable = true;
     };
@@ -193,8 +213,8 @@ with lib.frgd;
       #   gnome = true;
       # };
     };
-  };
 
+  };
   # System user for receiving replication via syncoid/ssh
   users.groups.syncoid = { };
 
