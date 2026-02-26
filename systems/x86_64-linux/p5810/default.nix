@@ -29,7 +29,7 @@ with lib.frgd;
   ];
 
   virtualisation.docker = {
-    # Consider disabling the system wide Docker daemon
+    # Disable the system-wide Docker daemon when using rootless mode
     enable = false;
 
     rootless = {
@@ -48,6 +48,9 @@ with lib.frgd;
 
   environment.systemPackages = with pkgs; [
     docker
+    nftables
+    slirp4netns
+    fuse-overlayfs
     alacritty
     lswt
     waylevel
@@ -77,6 +80,14 @@ with lib.frgd;
 
   ];
 
+  # Ensure the user session can find the rootless docker socket and helper binaries
+  environment.sessionVariables = {
+    DOCKER_HOST = "unix:///run/user/1000/docker.sock";
+    # make sure system helpers (nft, slirp4netns, fuse-overlayfs) are on the
+    # PATH seen by login shells and systemd --user services
+    PATH = "/run/current-system/sw/bin:/run/current-system/profile/bin:/home/justin/.nix-profile/bin";
+  };
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
@@ -93,17 +104,6 @@ with lib.frgd;
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
-  };
-
-  services.open-webui = {
-    enable = true;
-    port = 8888;
-    host = "0.0.0.0";
-  };
-
-  services.nextjs-ollama-llm-ui = {
-    enable = true;
-    hostname = "p5810.${tailnet}";
   };
 
   frgd = {
@@ -214,6 +214,16 @@ with lib.frgd;
       # };
     };
 
+  };
+
+  # Create a local docker group for rootless dockerd socket ownership and add
+  # the primary user to it via the frgd.user.extraGroups option below.
+  users.groups.docker = { };
+
+  # Add the docker group to the default user so rootless dockerd can set the
+  # socket group without warnings.
+  frgd.user = {
+    extraGroups = [ "docker" ];
   };
   # System user for receiving replication via syncoid/ssh
   users.groups.syncoid = { };
