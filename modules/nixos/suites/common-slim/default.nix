@@ -31,10 +31,9 @@ in
         misc = enabled;
       };
 
-      hardware = {
-        # storage = enabled;
-        networking = enabled;
-      };
+      # hardware = {
+      #   # storage = enabled;
+      # };
 
       services = {
         openssh = enabled;
