@@ -99,7 +99,7 @@ in
           };
           clock = {
             format = " {:%I:%M }";
-            tooltip-format = ''<tt>{calendar}</tt>'';
+            tooltip-format = "<tt>{calendar}</tt>";
             #format-alt = "{:%A, %B %d, %Y} ";
           };
           "idle_inhibitor" = {
