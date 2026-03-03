@@ -119,7 +119,7 @@ in
       } "Account definitions keyed by name.";
 
       calendar = {
-        enable = mkBoolOpt true "Enable calendar client (khal)";
+        enable = mkBoolOpt false "Enable calendar client (khal)";
         settings = mkOpt attrs { } "Additional khal configuration settings";
       };
 
