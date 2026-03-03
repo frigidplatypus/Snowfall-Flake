@@ -14,12 +14,15 @@ with lib.frgd;
 
   # Enable networking
   sops.secrets.miniflux_password = {
-    mode = "0550";
+    owner = "miniflux";
+      mode = "0440";
   };
 
   # Admin credentials secret (moved from module)
-  sops.secrets.miniflux_admin_file = { };
 
+  sops.secrets.miniflux_admin_file = {
+    owner = "miniflux";
+  };
   # Add OIDC client credentials secret and Miniflux service settings
   services.miniflux = {
     enable = true;
