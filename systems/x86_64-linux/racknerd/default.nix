@@ -13,24 +13,23 @@ with lib.frgd;
   security.acme = {
     certs."audiobooks.frgd.us" = { };
     certs."tasks.frgd.us" = { };
+    certs."recipes.frgd.us" = { };
   };
-  services.nginx = {
-    virtualHosts."audiobooks.frgd.us" = {
-      enableACME = true;
-      forceSSL = true;
-      locations."/" = {
-        proxyPass = "http://audiobooks.fluffy-rooster.ts.net:8000";
-        proxyWebsockets = true; # needed if you need to use WebSocket
-      };
+  services.nginx.virtualHosts."audiobooks.frgd.us" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://audiobooks.fluffy-rooster.ts.net:8000";
+      proxyWebsockets = true;
     };
-    # virtualHosts."tasks.frgd.us" = {
-    #   enableACME = true;
-    #   forceSSL = true;
-    #   locations."/" = {
-    #     proxyPass = "http://127.0.0.1:3456";
-    #     proxyWebsockets = true; # needed if you need to use WebSocket
-    #   };
-    # };
+  };
+  services.nginx.virtualHosts."recipes.frgd.us" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "https://recipes.fluffy-rooster.ts.net";
+      proxyWebsockets = true;
+    };
   };
   # services.vikunja = {
   #   enable = true;
