@@ -35,6 +35,7 @@ with lib.frgd;
     frgd.heynote
     frgd.deploy_select
     frgd.wakeonlan_script
+    frgd.matcha
     cifs-utils
     remmina
     nom
