@@ -1,8 +1,7 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
+{ lib
+, config
+, pkgs
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -54,6 +53,13 @@ in
         mode = "0640";
       };
       sops.secrets.justin_password = { };
+      # Guacamole gateway login password (plaintext; hashed at activation time).
+      # Used by frgd.services.guacamole on any host where it is enabled.
+      # Add the secret value with: sops modules/nixos/security/sops/secrets.yaml
+      sops.secrets.guacamole_password = {
+        owner = "root";
+        mode = "0400";
+      };
       # Ensure the tailscale group exists so files created with group=tailscale
       # on the target will validate and be created with the correct group.
       users.groups.tailscale = { };
