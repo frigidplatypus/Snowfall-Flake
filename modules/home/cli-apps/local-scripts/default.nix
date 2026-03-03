@@ -39,7 +39,7 @@ in
               builtins.readFile ./nr.sh
             );
           in
-          writeShellScriptBin "nr" ''${script}''
+          writeShellScriptBin "nr" "${script}"
         )
         (writeShellScriptBin "fu" ''
           #!/bin/bash
