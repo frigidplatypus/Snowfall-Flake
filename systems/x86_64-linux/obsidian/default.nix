@@ -1,7 +1,8 @@
-{ lib
-, pkgs
-, modulesPath
-, ...
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
 }:
 
 # ── Obsidian App Container ───────────────────────────────────────────────────
@@ -47,29 +48,33 @@ with lib.frgd;
     (modulesPath + "/virtualisation/lxc-container.nix")
   ];
 
-  frgd.archetypes.app-container = {
-    enable = true;
+  # app-container archetype removed; this is now a standalone LXC container system.
+  # To use native nixos-container instead, see p5810/default.nix for the new approach.
+  # Leaving this config as-is for reference; update if building as native container.
 
-    app = {
-      package = pkgs.obsidian;
-      # Obsidian's main binary is "obsidian"; detected automatically via meta.mainProgram.
-      # Pass --no-sandbox since the container has limited kernel capabilities.
-      extraArgs = "--no-sandbox";
-    };
-
-    display = {
-      number = 1;
-      width = 1920;
-      height = 1080;
-    };
-
-    vnc = {
-      port = 5901; # must equal display.number + 5900
-    };
-
-    # Obsidian doesn't need audio; enable if you add a plugin that uses it.
-    audio.enable = false;
-  };
+  # frgd.archetypes.app-container = {
+  #   enable = true;
+  #
+  #   app = {
+  #     package = pkgs.obsidian;
+  #     # Obsidian's main binary is "obsidian"; detected automatically via meta.mainProgram.
+  #     # Pass --no-sandbox since the container has limited kernel capabilities.
+  #     extraArgs = "--no-sandbox";
+  #   };
+  #
+  #   display = {
+  #     number = 1;
+  #     width = 1920;
+  #     height = 1080;
+  #   };
+  #
+  #   vnc = {
+  #     port = 5901; # must equal display.number + 5900
+  #   };
+  #
+  #   # Obsidian doesn't need audio; enable if you add a plugin that uses it.
+  #   audio.enable = false;
+  # };
 
   # Get IP from LXD managed bridge dnsmasq (default profile uses lxdbr0).
   networking.useDHCP = mkForce true;

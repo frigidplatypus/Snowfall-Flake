@@ -36,7 +36,8 @@ with lib.frgd;
     remmina
     wl-clipboard
     inkscape
-    fontfinder
+    # fontfinder removed upstream; replace with 'font-manager' as a maintained alternative
+    font-manager
     frgd.wakeonlan_script
     frgd.numara
     # stable-pkgs.cura

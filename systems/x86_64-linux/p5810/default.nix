@@ -106,6 +106,74 @@ with lib.frgd;
     host = "0.0.0.0";
   };
 
+  # Native NixOS containers with Tailscale
+  containers.obsidian-notes = {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "10.233.0.1";
+    localAddress = "10.233.0.2";
+    ephemeral = false;
+    config =
+      { config, pkgs, ... }:
+      {
+        # Minimal X11 + Openbox desktop environment
+        services.xserver = {
+          enable = true;
+          displayManager.lightdm.enable = true;
+          windowManager.openbox.enable = true;
+        };
+
+        # VNC server for Guacamole
+        services.xvfb.enable = true;
+        services.tigervnc = {
+          enable = true;
+          defaults = {
+            geometry = "1920x1080";
+            depth = "24";
+          };
+        };
+
+        # Tailscale VPN
+        services.tailscale.enable = true;
+
+        # Basic system packages
+        environment.systemPackages = with pkgs; [
+          openbox
+          xterm
+          firefox
+        ];
+
+        # System config
+        system.stateVersion = "24.05";
+        networking.firewall.enable = false;
+      };
+  };
+
+  containers.libation = {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "10.233.1.1";
+    localAddress = "10.233.1.2";
+    ephemeral = false;
+    config =
+      { config, pkgs, ... }:
+      {
+        # Libation (audible converter) - headless container
+
+        # Tailscale VPN
+        services.tailscale.enable = true;
+
+        # Libation package
+        environment.systemPackages = with pkgs; [
+          libation
+        ];
+
+        # System config
+        system.stateVersion = "24.05";
+        networking.firewall.enable = false;
+      };
+  };
+
   frgd = {
     nix = {
       enable = true;
@@ -184,6 +252,21 @@ with lib.frgd;
           ROMS = {
             path = "/storage/ROMs";
             public = true;
+          };
+        };
+      };
+      guacamole = {
+        enable = true;
+        username = "admin";
+        headerAuth.enable = true;
+        headerAuth.authorizedUsers = [ "jus10mar10@gmail.com" ];
+        connections = {
+          obsidian = {
+            displayName = "Obsidian Notes";
+            hostname = "10.233.0.2";
+            port = 5901;
+            width = 1920;
+            height = 1080;
           };
         };
       };
