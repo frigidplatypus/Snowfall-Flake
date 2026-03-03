@@ -1,7 +1,8 @@
-{ lib
-, config
-, options
-, ...
+{
+  lib,
+  config,
+  options,
+  ...
 }:
 
 with lib;

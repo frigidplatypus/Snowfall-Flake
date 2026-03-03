@@ -1,9 +1,8 @@
-{
-  options,
-  config,
-  pkgs,
-  lib,
-  ...
+{ options
+, config
+, pkgs
+, lib
+, ...
 }:
 
 with lib;
@@ -41,7 +40,7 @@ in
         carlito # NixOS
         vegur # NixOS
         source-code-pro
-        jetbrains-mono
+        # jetbrains-mono
         font-awesome # Icons
         fantasque-sans-mono
         # corefonts # MS
