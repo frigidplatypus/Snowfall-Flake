@@ -33,7 +33,6 @@ with lib.frgd;
     waylevel
     frgd.numara
     frgd.heynote
-    frgd.deploy_select
     frgd.wakeonlan_script
     frgd.matcha
     cifs-utils

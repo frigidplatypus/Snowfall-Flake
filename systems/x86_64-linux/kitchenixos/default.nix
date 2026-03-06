@@ -36,7 +36,6 @@ with lib.frgd;
     remmina
     wl-clipboard
     inkscape
-    fontfinder
     frgd.wakeonlan_script
     frgd.numara
     # stable-pkgs.cura
