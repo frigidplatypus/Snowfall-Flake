@@ -1,9 +1,8 @@
-{
-  lib,
-  pkgs,
-  config,
-  inputs,
-  ...
+{ lib
+, pkgs
+, config
+, inputs
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -55,7 +54,6 @@ with lib.frgd;
     lswt
     waylevel
     # frgd.numara
-    frgd.deploy_select
     # devede
     # dvdstyler
     # bombono
