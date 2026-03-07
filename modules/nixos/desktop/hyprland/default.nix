@@ -96,6 +96,7 @@ in
           stilo-themes
           wl-clipboard
           sddm-theme
+          brightnessctl
         ];
       };
 
@@ -127,7 +128,6 @@ in
             thunar-archive-plugin
             thunar-media-tags-plugin
             thunar-volman
-            brightnessctl
           ];
         };
       };
