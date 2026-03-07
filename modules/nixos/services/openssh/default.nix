@@ -103,7 +103,7 @@ in
     frgd.user.extraOptions.openssh.authorizedKeys.keys = cfg.authorizedKeys;
 
     frgd.home.extraOptions = {
-      programs.fish.shellAliases = foldl (
+      programs.fish.shellAliases = foldl' (
         aliases: system:
         aliases
         // {
