@@ -14,15 +14,11 @@ with lib.frgd;
 
   # Enable networking
   sops.secrets.miniflux_password = {
-    owner = "miniflux";
-      mode = "0440";
+    mode = "0550";
   };
 
   # Admin credentials secret (moved from module)
 
-  sops.secrets.miniflux_admin_file = {
-    owner = "miniflux";
-  };
   # Add OIDC client credentials secret and Miniflux service settings
   services.miniflux = {
     enable = true;
@@ -56,39 +52,46 @@ with lib.frgd;
     };
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      email = "jus10mar10@gmail.com";
-      dnsProvider = "porkbun";
-      environmentFile = config.sops.secrets.porkbun_api_key.path;
-      group = "nginx";
-    };
-    certs = {
-      "frgd.us" = {
-        extraDomainNames = [ "*.frgd.us" ];
-      };
-    };
-  };
+  # security.acme = {
+  #   acceptTerms = true;
+  #   defaults = {
+  #     email = "jus10mar10@gmail.com";
+  #     dnsProvider = "porkbun";
+  #     environmentFile = config.sops.secrets.porkbun_api_key.path;
+  #     group = "nginx";
+  #   };
+  #   certs = {
+  #     "frgd.us" = {
+  #       extraDomainNames = [ "*.frgd.us" ];
+  #     };
+  #   };
+  # };
 
+  # services.nginx = {
+  #   enable = true;
+  #   recommendedProxySettings = true;
+  #   recommendedTlsSettings = true;
+  #   virtualHosts = {
+  #     "miniflux" = {
+  #       #enableACME = true;
+  #       forceSSL = true;
+  #       useACMEHost = "frgd.us";
+  #       locations."/" = {
+  #         proxyPass = "http://127.0.0.1:8088";
+  #         proxyWebsockets = true;
+  #         extraConfig = "proxy_ssl_server_name on;" + "proxy_pass_header Authorization;";
+  #       };
+  #     };
+  #   };
+  # };
+
+  # Explicitly disable nginx so only Caddy binds 80/443.
   services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    virtualHosts = {
-      "miniflux" = {
-        #enableACME = true;
-        forceSSL = true;
-        useACMEHost = "frgd.us";
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8088";
-          proxyWebsockets = true;
-          extraConfig = "proxy_ssl_server_name on;" + "proxy_pass_header Authorization;";
-        };
-      };
-    };
+    enable = false;
   };
 
+  # Disable Caddy here to avoid binding conflicts with nginx (both wanted 80/443).
+  # If you prefer Caddy as the public proxy, enable it and disable nginx instead.
   services.caddy = {
     enable = true;
     virtualHosts = {
