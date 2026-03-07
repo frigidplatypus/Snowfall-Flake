@@ -118,7 +118,7 @@ in
         hyprland = {
           enable = true;
         };
-        light = enabled;
+        # `programs.light` was removed from nixpkgs; replace with brightnessctl
         dconf = enabled;
         udevil = enabled;
         thunar = {
@@ -127,6 +127,7 @@ in
             thunar-archive-plugin
             thunar-media-tags-plugin
             thunar-volman
+            brightnessctl
           ];
         };
       };
