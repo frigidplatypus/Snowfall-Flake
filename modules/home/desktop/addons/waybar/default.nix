@@ -98,7 +98,7 @@ in
             "separate-outputs" = true;
           };
           clock = {
-            format = " {:%I:%M }";
+            format = " {:%I:%M} - {:%b %d}";
             tooltip-format = "<tt>{calendar}</tt>";
             #format-alt = "{:%A, %B %d, %Y} ";
           };
