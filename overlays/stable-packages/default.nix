@@ -2,4 +2,11 @@
 
 final: prev:
 
-{ inherit (channels.stable-nixpkgs) kitty n8n matrix-synapse; }
+{
+  inherit (channels.stable-nixpkgs)
+    kitty
+    n8n
+    matrix-synapse
+    calibre-web
+    ;
+}
