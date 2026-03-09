@@ -85,11 +85,6 @@ with lib.frgd;
   #   };
   # };
 
-  # Explicitly disable nginx so only Caddy binds 80/443.
-  services.nginx = {
-    enable = false;
-  };
-
   # Disable Caddy here to avoid binding conflicts with nginx (both wanted 80/443).
   # If you prefer Caddy as the public proxy, enable it and disable nginx instead.
   services.caddy = {
