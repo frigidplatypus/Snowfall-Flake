@@ -26,6 +26,7 @@ with lib.frgd;
   boot.zfs.forceImportRoot = true;
 
   environment.systemPackages = with pkgs; [
+    cura-appimage
     popsicle
     ventoy-full
     codex
