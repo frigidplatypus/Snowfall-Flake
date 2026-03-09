@@ -45,11 +45,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772379624,
-        "narHash": "sha256-NG9LLTWlz4YiaTAiRGChbrzbVxBfX+Auq4Ab/SWmk4A=",
+        "lastModified": 1773000227,
+        "narHash": "sha256-zm3ftUQw0MPumYi91HovoGhgyZBlM4o3Zy0LhPNwzXE=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "52d061516108769656a8bd9c6e811c677ec5b462",
+        "rev": "da529ac9e46f25ed5616fd634079a5f3c579135f",
         "type": "github"
       },
       "original": {
@@ -718,12 +718,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1772633327,
-        "narHash": "sha256-jl+DJB2DUx7EbWLRng+6HNWW/1/VQOnf0NsQB4PlA7I=",
-        "rev": "5a75730e6f21ee624cbf86f4915c6e7489c74acc",
-        "revCount": 6331,
+        "lastModified": 1773093840,
+        "narHash": "sha256-u/96NoAyN8BSRuM3ZimGf7vyYgXa3pLx4MYWjokuoH4=",
+        "rev": "bb014746edb2a98d975abde4dd40fa240de4cf86",
+        "revCount": 6337,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.6331%2Brev-5a75730e6f21ee624cbf86f4915c6e7489c74acc/019cb92f-0655-7e07-bf7d-af874fc287bf/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.6337%2Brev-bb014746edb2a98d975abde4dd40fa240de4cf86/019cd4a2-0bc9-789e-8770-e0b40337fa9d/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -1021,11 +1021,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772341813,
-        "narHash": "sha256-/PQ0ubBCMj/MVCWEI/XMStn55a8dIKsvztj4ZVLvUrQ=",
+        "lastModified": 1772945408,
+        "narHash": "sha256-PMt48sEQ8cgCeljQ9I/32uoBq/8t8y+7W/nAZhf72TQ=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "a2051ff239ce2e8a0148fa7a152903d9a78e854f",
+        "rev": "1c1d8ea87b047788fd7567adf531418c5da321ec",
         "type": "github"
       },
       "original": {
@@ -1240,11 +1240,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1772542754,
-        "narHash": "sha256-WGV2hy+VIeQsYXpsLjdr4GvHv5eECMISX1zKLTedhdg=",
+        "lastModified": 1772963539,
+        "narHash": "sha256-9jVDGZnvCckTGdYT53d/EfznygLskyLQXYwJLKMPsZs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8c809a146a140c5c8806f13399592dbcb1bb5dc4",
+        "rev": "9dcb002ca1690658be4a04645215baea8b95f31d",
         "type": "github"
       },
       "original": {
@@ -1578,12 +1578,12 @@
     },
     "stable-nixpkgs": {
       "locked": {
-        "lastModified": 1772598333,
-        "narHash": "sha256-YaHht/C35INEX3DeJQNWjNaTcPjYmBwwjFJ2jdtr+5U=",
-        "rev": "fabb8c9deee281e50b1065002c9828f2cf7b2239",
-        "revCount": 908740,
+        "lastModified": 1772822230,
+        "narHash": "sha256-yf3iYLGbGVlIthlQIk5/4/EQDZNNEmuqKZkQssMljuw=",
+        "rev": "71caefce12ba78d84fe618cf61644dce01cf3a96",
+        "revCount": 909025,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2511.908740%2Brev-fabb8c9deee281e50b1065002c9828f2cf7b2239/019cb9f7-a916-7359-a77d-0a005d3360ab/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2511.909025%2Brev-71caefce12ba78d84fe618cf61644dce01cf3a96/019cc963-0eee-7029-b0d3-31798a845baa/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -1843,11 +1843,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1771528899,
-        "narHash": "sha256-H2V9m7SDFwzpVdpErDiubmRdKguGq5JHouWWiuDNQV4=",
+        "lastModified": 1773071635,
+        "narHash": "sha256-mCjc+3zTj68vuw1Fi2hALbZm1S/HcI4x+Fo3/GI1RbI=",
         "owner": "tailscale-dev",
         "repo": "tclip",
-        "rev": "630a2999008b1d7a33cb6bb08b762849b1bfede4",
+        "rev": "c460fa2d9f9e91d81cd85eadae6dbc98326f3894",
         "type": "github"
       },
       "original": {
@@ -1921,11 +1921,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771374035,
-        "narHash": "sha256-KzhwRL/WomtyL2p2FFeSrCDk5LXQ6KvcKU0HZZBfOTc=",
+        "lastModified": 1773089756,
+        "narHash": "sha256-C34YXANI/jocGZKy/WMVoexuQQXl7VE8koZ73zOkPv4=",
         "owner": "shazow",
         "repo": "wifitui",
-        "rev": "2eec53e443fe3b78a03bd31e54702b84c020ebb4",
+        "rev": "d3f2095e4cf62807a34f46f9eeb631527103ad9a",
         "type": "github"
       },
       "original": {
