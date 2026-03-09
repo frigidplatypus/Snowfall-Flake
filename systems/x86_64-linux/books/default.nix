@@ -55,11 +55,13 @@ with lib.frgd;
   environment.systemPackages = with pkgs; [
     calibre
     calibre-web
+    neovim
   ];
 
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
+    virtualization.docker = enabled;
     services = {
       tailscale.tailscaleAuth = enabled;
     };
