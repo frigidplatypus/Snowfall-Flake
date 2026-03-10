@@ -98,7 +98,9 @@ in
             "separate-outputs" = true;
           };
           clock = {
-            format = " {:%I:%M} - {:%b %d}";
+            # Use a single chrono-style placeholder so Waybar's formatter applies properly
+            # (Waybar accepts a single "{:%...}" chrono format for the clock)
+            format = "{:%I:%M - %b %d}";
             tooltip-format = "<tt>{calendar}</tt>";
             #format-alt = "{:%A, %B %d, %Y} ";
           };
