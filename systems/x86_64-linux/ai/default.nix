@@ -1,7 +1,8 @@
-{ lib
-, modulesPath
-, config
-, ...
+{
+  lib,
+  modulesPath,
+  config,
+  ...
 }:
 with lib;
 with lib.frgd;

@@ -5,7 +5,9 @@
   inputs,
   config,
   ...
-}: with lib; with lib.frgd;
+}:
+with lib;
+with lib.frgd;
 {
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
