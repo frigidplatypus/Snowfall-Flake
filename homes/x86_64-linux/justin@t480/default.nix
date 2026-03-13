@@ -103,7 +103,7 @@ with lib.frgd;
       neovim = enabled;
       home-manager = enabled;
       local-scripts = enabled;
-      atuin = disabled;
+      atuin = enabled;
       ranger = enabled;
       fish = enabled;
       taskwarrior = {
