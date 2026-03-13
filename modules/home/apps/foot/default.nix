@@ -26,7 +26,7 @@ in
         mouse = {
           hide-when-typing = "yes";
         };
-        colors = {
+        colors-dark = {
           cursor = "${palette.base01} ${palette.base05}";
           # Base colors
           foreground = palette.base05; # ebdbb2 - Light foreground
