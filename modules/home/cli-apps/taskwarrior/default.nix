@@ -12,6 +12,7 @@ in
 {
   options.frgd.cli-apps.taskwarrior = with types; {
     enable = mkBoolOpt false "Whether or not to enable Taskwarrior.";
+    dataLocation = mkOpt (nullOr str) null "Path to Taskwarrior data directory (absolute).";
     recurrence = {
       enable = mkBoolOpt false "Whether or not to enable recurrence (only enable on one device).";
     };
@@ -48,12 +49,13 @@ in
 
       # Normalize a leading '~/'
       hooksDir = replaceStrings [ "~/" ] [ "" ] cfg.taskpirate.hooksDir;
-    in
-    {
-      programs.taskwarrior = {
+
+      # Base taskwarrior config used below; dataLocation is only set when
+      # provided to avoid defining a null value for home-manager (which
+      # expects a string).
+      baseTaskwarrior = {
         enable = true;
         package = pkgs.taskwarrior3;
-        # dataLocation = mkIf (cfg.dataLocation) cfg.dataLocation;
         config = {
           confirmation = false;
           hooks.location = mkIf cfg.taskpirate.enable cfg.taskpirate.hooksDir;
@@ -110,6 +112,11 @@ in
           sync.encryption_secret = "7c0b8b0c-6de0-4b15-b4c3-9bafae2ba872";
         };
       };
+    in
+    {
+      programs.taskwarrior = lib.recursiveUpdate baseTaskwarrior (
+        if cfg.dataLocation != null then { dataLocation = cfg.dataLocation; } else { }
+      );
 
       home.packages = basePkgs ++ (if cfg.taskpirate.enable then [ pkgs.frgd.taskpirate ] else [ ]);
 
@@ -253,6 +260,7 @@ in
               };
             };
       };
+
       frgd.services.taskwarrior-sync = enabled;
     }
   );
