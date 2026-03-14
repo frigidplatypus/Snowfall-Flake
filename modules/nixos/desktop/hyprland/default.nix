@@ -124,10 +124,10 @@ in
         udevil = enabled;
         thunar = {
           enable = true;
-          plugins = with pkgs.xfce; [
-            thunar-archive-plugin
-            thunar-media-tags-plugin
-            thunar-volman
+          plugins = [
+            pkgs.thunar-archive-plugin
+            pkgs.thunar-media-tags-plugin
+            pkgs.thunar-volman
           ];
         };
       };
