@@ -30,7 +30,9 @@ in
       xfce.gigolo
       xfce.catfish
       xfce.xfdashboard
-      xfce.thunar-volman
+      thunar-archive-plugin
+      thunar-media-tags-plugin
+      thunar-volman
       xfce.xfce4-appfinder
       xfce.xfce4-timer-plugin
       xfce.xfce4-weather-plugin
