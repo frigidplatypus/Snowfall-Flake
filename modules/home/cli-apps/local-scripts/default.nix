@@ -58,15 +58,15 @@ in
         (writeShellScriptBin "fs" ''
           #!/bin/bash
           ${figlet}/bin/figlet $(hostname)
-          sudo nixos-rebuild switch --flake ${cfg.flakePath}/#
+          nh os switch --flake ${cfg.flakePath}/#
         '')
       ]
       # macOS-only scripts
       ++ lib.optionals stdenv.isDarwin [
         (writeShellScriptBin "ds" ''
-          #!/bin/bash
-          ${figlet}/bin/figlet $(hostname)
-          sudo darwin-rebuild switch --flake ${cfg.flakePath}/#
+           #!/bin/bash
+           ${figlet}/bin/figlet $(hostname)
+          nh darwin switch --flake ${cfg.flakePath}/#
         '')
       ];
 

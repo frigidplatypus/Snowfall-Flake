@@ -9,7 +9,7 @@
 
 let
   # Update `version`, `sha256` and `vendorHash` to real values before building.
-  version = "0.19.1";
+  version = "0.23.2";
 in
 
 buildGoModule {
@@ -24,11 +24,11 @@ buildGoModule {
     repo = "matcha";
     rev = "v${version}";
     # Real sha256 obtained from a build attempt.
-    sha256 = "sha256-oGYVYV3CxTUMKGx02xFAZaFCcfqiN6cZXYK+gUpBC3o=";
+    sha256 = "sha256-r39Mm2b1I3sL0r9pBnAGu6UKCcjVOZp+W5gHeV3vkuE=";
   };
 
   # vendorHash for go modules (computed from an earlier build attempt).
-  vendorHash = "sha256-BO/f59UfZ1mjYYVpO7e3FIe1L03wrzicLF+/h/UlqUI=";
+  vendorHash = "sha256-QP0POCKRc0IFqjod1iRUKIqnBVk5wTe/wpceiJT98gQ=";
 
   # Ensure the build uses Go 1.26 from the provided package set.
   nativeBuildInputs = [ go_1_26 ];
