@@ -164,6 +164,8 @@
         inputs.golink.nixosModules.default
         inputs.vscode-server.nixosModules.default
         inputs.determinate.nixosModules.default
+        inputs.nix-index-database.nixosModules.nix-index
+
       ];
 
       homes.modules = [
@@ -174,9 +176,11 @@
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
 
-      checks = builtins.mapAttrs (
-        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-      ) inputs.deploy-rs.lib;
+      checks = builtins.mapAttrs
+        (
+          system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+        )
+        inputs.deploy-rs.lib;
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
