@@ -20,22 +20,30 @@ with lib.frgd;
     extraOptions = mkOpt attrs { } "Options to pass directly to home-manager.";
   };
 
-  config = {
-    frgd.home.extraOptions = {
-      home.stateVersion = config.system.stateVersion;
-      programs.yazi.shellWrapperName = "yy";
-      programs.zsh.dotDir = "/home/${config.frgd.user.name}";
-      home.file = mkAliasDefinitions options.frgd.home.file;
-      xdg.enable = true;
-      xdg.configFile = mkAliasDefinitions options.frgd.home.configFile;
-    };
+  config =
+    let
+      sv =
+        if builtins.hasAttr "system" config && builtins.hasAttr "stateVersion" config.system then
+          config.system.stateVersion
+        else
+          "24.05";
+    in
+    {
+      frgd.home.extraOptions = {
+        home.stateVersion = sv;
+        programs.yazi.shellWrapperName = "yy";
+        programs.zsh.dotDir = "/home/${config.frgd.user.name}";
+        home.file = mkAliasDefinitions options.frgd.home.file;
+        xdg.enable = true;
+        xdg.configFile = mkAliasDefinitions options.frgd.home.configFile;
+      };
 
-    home-manager = {
-      useUserPackages = true;
-      useGlobalPkgs = true;
-      backupFileExtension = "backuphm";
+      home-manager = {
+        useUserPackages = true;
+        useGlobalPkgs = true;
+        backupFileExtension = "backuphm";
 
-      users.${config.frgd.user.name} = mkAliasDefinitions options.frgd.home.extraOptions;
+        users.${config.frgd.user.name} = mkAliasDefinitions options.frgd.home.extraOptions;
+      };
     };
-  };
 }
