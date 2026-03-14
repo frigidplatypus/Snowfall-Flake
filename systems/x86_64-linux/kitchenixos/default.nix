@@ -26,6 +26,7 @@ with lib.frgd;
   };
 
   environment.systemPackages = with pkgs; [
+    openscad
     logseq
     wezterm
     alacritty
@@ -62,7 +63,6 @@ with lib.frgd;
         efi = true;
         oldBoot = true;
       };
-      home-wifi = enabled;
     };
     apps = {
       # element = enabled;
@@ -87,10 +87,31 @@ with lib.frgd;
       };
       docker = enabled;
     };
+    system = {
+      home-wifi = {
+        enable = true;
+        # Declarative home wifi networks (PSKs are stored in sops secrets file)
+        networks = {
+          Mar10 = {
+            ssid = "Mar10";
+            pskEnv = "PSK_MAR10";
+          };
+          Martins5 = {
+            ssid = "Martins-5";
+            pskEnv = "PSK_Martins-5";
+          };
+          CBCoffice = {
+            ssid = "CBCoffice";
+            pskEnv = "PSK_CBCoffice";
+          };
+        };
+      };
+    };
     suites = {
       desktop = {
         enable = true;
-        plasma = true;
+        cosmic = true;
+        # plasma = true;
       };
     };
   };
