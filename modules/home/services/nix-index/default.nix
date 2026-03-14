@@ -19,7 +19,7 @@ in
     programs.nix-index = {
       enable = true;
       enableFishIntegration = true;
-      enableNushIntegration = true;
+      enableNushellIntegration = true;
       enableBashIntegration = true;
     };
   };
