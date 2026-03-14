@@ -53,6 +53,9 @@ in
         hyprpicker
         hyprtoolkit
         gruvbox-plus-icons
+        xdg-desktop-portal-gtk
+        zathura
+        kdePackages.okular
         # walker
       ];
     };
@@ -60,7 +63,7 @@ in
     gtk = {
       cursorTheme.name = cfg.cursorTheme;
       enable = true;
-      iconTheme.name = icon-theme;
+      iconTheme.name = "Gruvbox-Plus-Dark";
       theme = {
         name = cfg.gtkTheme;
       };
