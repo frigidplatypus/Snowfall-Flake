@@ -2,7 +2,7 @@ inputs@{
   options,
   config,
   lib,
-  pkgs,
+
   ...
 }:
 
