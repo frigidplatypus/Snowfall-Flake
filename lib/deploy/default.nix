@@ -33,12 +33,12 @@ in
       # names = builtins.attrNames hosts;
       names = builtins.filter (name: !(builtins.elem name excludedHosts)) (builtins.attrNames hosts);
       # names = builtins.filter (name: name != "p5810") (builtins.attrNames hosts);
-      nodes = lib.foldl (
+      nodes = lib.foldr (
         result: name:
         let
           host = hosts.${name};
           user = host.config.${namespace}.user.name or null;
-          inherit (host.pkgs) system;
+          inherit (host.pkgs.stdenv.hostPlatform) system;
         in
         result
         // {
