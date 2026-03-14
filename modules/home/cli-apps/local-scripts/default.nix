@@ -58,7 +58,7 @@ in
         (writeShellScriptBin "fs" ''
           #!/bin/bash
           ${figlet}/bin/figlet $(hostname)
-          nh os switch --flake ${cfg.flakePath}/#
+          nh os switch 
         '')
       ]
       # macOS-only scripts
@@ -66,7 +66,7 @@ in
         (writeShellScriptBin "ds" ''
            #!/bin/bash
            ${figlet}/bin/figlet $(hostname)
-          nh darwin switch --flake ${cfg.flakePath}/#
+          nh darwin switch 
         '')
       ];
 
