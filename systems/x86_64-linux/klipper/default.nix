@@ -12,6 +12,7 @@ with lib.frgd;
     networkmanager.enable = true;
   };
   networking.firewall.enable = false;
+
   frgd = {
     nix = enabled;
     archetypes.server = enabled;
@@ -22,6 +23,21 @@ with lib.frgd;
     };
     system.boot.efi = true;
     system.boot.oldBoot = true;
-    user.extraGroups = [ "moonraker" ];
+    # Ensure the user can access serial devices
+    user.extraGroups = [
+      "moonraker"
+      "dialout"
+    ];
   };
+
+  # Make the klipper service restart on failure so it will retry connecting
+  # and bind to the serial device unit so systemd stops/starts it when the
+  # device appears/disappears. Escape '-' as \x2d in unit names.
+  systemd.services."klipper".serviceConfig = {
+    Restart = "always";
+    RestartSec = "5s";
+    BindsTo = [ "dev-serial-by\x2did-usb-Klipper_stm32f103xe_33FFD5054242363213680157-if00.device" ];
+    After = [ "dev-serial-by\x2did-usb-Klipper_stm32f103xe_33FFD5054242363213680157-if00.device" ];
+  };
+
 }
