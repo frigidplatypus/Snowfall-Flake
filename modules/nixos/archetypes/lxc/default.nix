@@ -17,7 +17,7 @@ in
 
   config = mkIf cfg.enable {
     boot.isContainer = true;
-    services.getty.autologinUser = "root";
+    services.getty.autologinUser = "justin";
     services.prometheus.exporters.node = {
       enable = true;
       enabledCollectors = [
