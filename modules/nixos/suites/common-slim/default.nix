@@ -16,6 +16,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    determinate = enabled;
+
     frgd = {
       nix = enabled;
 
