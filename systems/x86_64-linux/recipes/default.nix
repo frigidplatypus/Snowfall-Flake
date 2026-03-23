@@ -16,7 +16,10 @@ with lib.frgd;
     virtualHosts = {
       "recipes.${tailnet}" = {
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:9000
+          reverse_proxy http://127.0.0.1:9000 {
+            header_up X-Forwarded-Proto https
+            header_down Strict-Transport-Security max-age=31536000
+          }
           encode gzip
         '';
       };
@@ -37,25 +40,19 @@ with lib.frgd;
 
   services.mealie = {
     enable = true;
-    listenAddress = "127.0.0.1";
+    listenAddress = "0.0.0.0";
     credentialsFile = config.sops.secrets.mealie_env.path;
     settings = {
-      # OpenID Connect
+      BASE_URL = "https://recipes.mar10s.cloud";
+      ALLOW_PASSWORD_LOGIN = "true";
       OIDC_AUTH_ENABLED = "true";
       OIDC_SIGNUP_ENABLED = "true";
       OIDC_CONFIGURATION_URL = "${tsidpUrl}/.well-known/openid-configuration";
-      # OIDC_CLIENT_ID = "mealie";
-      # OIDC_CLIENT_SECRET = "mealie";
       OIDC_AUTO_REDIRECT = "false";
       OIDC_PROVIDER_NAME = "Tailscale";
       OIDC_REMEMBER_ME = "true";
-      OIDC_SIGNING_ALGORITHM = "RS256";
       OIDC_USER_CLAIM = "email";
       OIDC_NAME_CLAIM = "name";
-      # Optional group-based access control
-      # OIDC_USER_GROUP = "mealie-users";
-      # OIDC_ADMIN_GROUP = "mealie-admins";
-      # OIDC_GROUPS_CLAIM = "groups";
     };
   };
 }
