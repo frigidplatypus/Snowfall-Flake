@@ -9,26 +9,36 @@ with lib.frgd;
   # Enable networking
   networking = {
     networkmanager.enable = true;
+    firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
-  security.acme = {
-    certs."audiobooks.frgd.us" = { };
-    certs."tasks.frgd.us" = { };
-    certs."recipes.frgd.us" = { };
-  };
-  services.nginx.virtualHosts."audiobooks.frgd.us" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = "http://audiobooks.fluffy-rooster.ts.net:8000";
-      proxyWebsockets = true;
-    };
-  };
-  services.nginx.virtualHosts."recipes.frgd.us" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = "https://recipes.fluffy-rooster.ts.net";
-      proxyWebsockets = true;
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "audiobooks.frgd.us" = {
+        extraConfig = ''
+          reverse_proxy http://audiobooks.${tailnet}:8000
+          encode gzip
+        '';
+      };
+      "recipes.frgd.us" = {
+        extraConfig = ''
+          reverse_proxy http://recipes.${tailnet}:9000 {
+            header_up X-Forwarded-Proto https
+          }
+          encode gzip
+        '';
+      };
+      "recipes.mar10s.cloud" = {
+        extraConfig = ''
+          reverse_proxy http://recipes.${tailnet}:9000 {
+            header_up X-Forwarded-Proto https
+          }
+          encode gzip
+        '';
+      };
     };
   };
   # services.vikunja = {
@@ -51,7 +61,7 @@ with lib.frgd;
       openssh = enabled;
       tailscale = enabled;
       # mealie = enabled;
-      matrix-synapse = enabled;
+      matrix-synapse = disabled;
     };
     security = {
       sops = enabled;
