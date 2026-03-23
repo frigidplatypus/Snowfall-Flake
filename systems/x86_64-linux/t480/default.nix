@@ -42,7 +42,6 @@ with lib.frgd;
     nom
     # ventoy-full
     wljoywake
-    # cura
     inkscape-with-extensions
     krita
     gimp
@@ -77,16 +76,8 @@ with lib.frgd;
         enable = true;
         fontpreview = true;
       };
-      # home-wifi = enabled;
     };
-    # hardware = {
-    #   fingerprint = {
-    #     enable = true;
-    #     t480 = true;
-    #   };
-    # };
     apps = {
-      # element = disabled;
       signal = enabled;
       steam = enabled;
     };
