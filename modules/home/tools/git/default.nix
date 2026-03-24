@@ -43,7 +43,10 @@ in
         };
         lfs = enabled;
       };
-      home.packages = with pkgs; [ lazygit ];
+      home.packages = with pkgs; [
+        git
+        lazygit
+      ];
     }
     // mkIf cfg.internalGitKey {
       programs.ssh.enable = true;
