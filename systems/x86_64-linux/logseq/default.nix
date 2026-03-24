@@ -22,18 +22,15 @@ with lib.frgd;
       Group = "users";
       ExecStart = pkgs.writeScript "start-vnc.sh" ''
         #!${pkgs.bash}/bin/bash
+        set -x
         export HOME=/home/justin
         export DISPLAY=:99
-        export XDG_CONFIG_HOME=/etc/xdg
-        export XAUTHORITY=/home/justin/.Xauthority
 
-        # Clean up old lock files
         rm -f /tmp/.X99-lock /tmp/.X99-:99
 
         touch /home/justin/.Xauthority
         chown justin:users /home/justin/.Xauthority
-
-        rm -rf /home/justin/.config/openbox
+        export XAUTHORITY=/home/justin/.Xauthority
 
         PATH=${pkgs.xvfb}/bin:${pkgs.openbox}/bin:${pkgs.xterm}/bin:${pkgs.x11vnc}/bin:${pkgs.logseq}/bin:${pkgs.obsidian}/bin:$PATH
 
@@ -46,9 +43,11 @@ with lib.frgd;
 
         openbox &
 
+        sleep 2
+
         xterm &
-        ${pkgs.logseq}/bin/logseq &
-        ${pkgs.obsidian}/bin/obsidian &
+        logseq &
+        obsidian &
 
         wait $XVFB_PID
       '';
@@ -65,43 +64,6 @@ with lib.frgd;
     obsidian
     git
   ];
-
-  services.xserver.enable = true;
-  services.xserver.windowManager.openbox.enable = true;
-
-  environment.etc."xdg/openbox/rc.xml".source = pkgs.writeText "rc.xml" ''
-    <?xml version="1.0"?>
-    <openbox_config xmlns="http://openbox.org/3.4/rc">
-      <resistance><enable>yes</enable></resistance>
-      <focus><focusNew>yes</focusNew></focus>
-      <menu><file>menu.xml</file></menu>
-    </openbox_config>
-  '';
-
-  environment.etc."xdg/openbox/menu.xml".source = pkgs.writeText "menu.xml" ''
-    <?xml version="1.0"?>
-    <openbox_menu>
-      <menu id="root" label="Menu">
-        <item label="Logseq" exec="${pkgs.logseq}/bin/logseq"/>
-        <item label="Obsidian" exec="${pkgs.obsidian}/bin/obsidian"/>
-        <separator/>
-        <item label="Terminal" exec="xterm"/>
-        <separator/>
-        <item label="Reboot" exec="systemctl reboot"/>
-        <item label="Shutdown" exec="systemctl poweroff"/>
-        <separator/>
-        <item label="Logout" exec="openbox --exit"/>
-      </menu>
-    </openbox_menu>
-  '';
-
-  environment.etc."xdg/openbox/autostart".source = pkgs.writeText "autostart" ''
-    #!${pkgs.bash}/bin/bash
-    export PATH=${pkgs.xterm}/bin:${pkgs.logseq}/bin:${pkgs.obsidian}/bin:$PATH
-    xterm &
-    ${pkgs.logseq}/bin/logseq &
-    ${pkgs.obsidian}/bin/obsidian &
-  '';
 
   services.guacamole-server = {
     enable = true;
