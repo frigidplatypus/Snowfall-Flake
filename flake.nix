@@ -13,7 +13,8 @@
     # If you *don't* want the patched nixpkgs, this should be a standard reference
     # nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
     stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
@@ -176,11 +177,9 @@
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
 
-      checks = builtins.mapAttrs
-        (
-          system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-        )
-        inputs.deploy-rs.lib;
+      checks = builtins.mapAttrs (
+        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+      ) inputs.deploy-rs.lib;
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
