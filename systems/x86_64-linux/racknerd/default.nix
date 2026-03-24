@@ -49,6 +49,18 @@ with lib.frgd;
 
   # boot.loader.grub.enable = true;
 
+  services.forgejo = {
+    enable = true;
+    settings = {
+      server = {
+        SSH_PORT = 22;
+        SSH_DOMAIN = "git.${tailnet}";
+        SSH_LISTEN_PORT = 2222;
+        START_SSH_SERVER = true;
+      };
+    };
+  };
+
   services.getty.autologinUser = "root";
   services.qemuGuest = enabled;
   frgd = {

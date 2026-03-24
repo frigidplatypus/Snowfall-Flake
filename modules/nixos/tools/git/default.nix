@@ -19,6 +19,7 @@ in
     userName = mkOpt types.str user.fullName "The name to configure git with.";
     userEmail = mkOpt types.str user.email "The email to configure git with.";
     signingKey = mkOpt types.str "9762169A1B35EA68" "The key ID to sign commits with.";
+    internalGitKey = mkBoolOpt false "Install SSH key for internal git server.";
   };
 
   config = mkIf cfg.enable {
@@ -53,6 +54,13 @@ in
           key = cfg.signingKey;
           signByDefault = mkIf gpg.enable true;
         };
+      };
+      sops.secrets.git_server_ssh_key = mkIf cfg.internalGitKey { };
+      programs.ssh.matchBlocks."git.${tailnet}" = mkIf cfg.internalGitKey {
+        hostname = "git.${tailnet}";
+        user = "git";
+        identityFile = config.sops.secrets.git_server_ssh_key.path;
+        addKeysToAgent = "yes";
       };
     };
   };
