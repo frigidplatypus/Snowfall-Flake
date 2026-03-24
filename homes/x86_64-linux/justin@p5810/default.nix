@@ -86,7 +86,10 @@ with lib.frgd;
     };
 
     tools = {
-      git = enabled;
+      git = {
+        enable = true;
+        internalGitKey = true;
+      };
       direnv = enabled;
       misc = enabled;
       charms = enabled;

@@ -17,7 +17,7 @@ in
         name = "FRGD Repo";
         ssh.public_url = "ssh://git.frgd.us:23231";
         initial_admin_keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLUmRA2xE2ff5Z8pW/I/vKVgWnFKV71vArcdYD+OfIH justin@gramarye"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX8wyj3krYdE0ETi9Lhd+y4Bcn4goOvYPAM+GU781SC justin@p5810"
         ]; # Set before initial set up on new machine.  Do not use a key that wil be a user key.
       };
     };
