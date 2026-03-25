@@ -6,7 +6,7 @@
     # Use the official Determinate Systems flake from GitHub. This provides
     # a patched nixpkgs and NixOS modules (nixosModules.default) we can import.
     determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/3.13.2.tar.gz";
+      url = "github:DeterminateSystems/determinate";
     };
 
     # This is your standard nixpkgs input, which you might use to import packages
@@ -19,7 +19,7 @@
     stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
     home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0.1";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # stable-home-manager = {
@@ -36,22 +36,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-flake = {
-      url = "https://flakehub.com/f/snowfallorg/flake/1.4.1.tar.gz";
+      url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {
-      url = "https://flakehub.com/f/nix-community/nixos-generators/0.1.485.tar.gz";
+      url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix.url = "https://flakehub.com/f/Mic92/sops-nix/0.1.1059.tar.gz";
+    sops-nix.url = "github:Mic92/sops-nix";
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "https://flakehub.com/f/NixOS/nixos-hardware/0.1.2470.tar.gz";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     disko = {
-      url = "https://flakehub.com/f/nix-community/disko/1.12.0.tar.gz";
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
