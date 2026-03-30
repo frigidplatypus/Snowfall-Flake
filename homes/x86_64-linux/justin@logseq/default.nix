@@ -66,4 +66,42 @@ with lib.frgd;
       </menu>
     </openbox_menu>
   '';
+
+  home.file."bin/logseq-sync.sh".text = ''
+    #!/bin/bash
+    set -e
+    cd ~/logseq
+    git fetch
+    git pull --rebase
+    git push
+  '';
+
+  systemd.user.services.logseq-sync = {
+    Unit = {
+      Description = "Git pull/push for Logseq";
+      After = [ "network-online.target" ];
+      Wants = [ "network-online.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash %h/bin/logseq-sync.sh";
+    };
+    Install = {
+      WantedBy = [ "multi-user.target" ];
+    };
+  };
+
+  systemd.user.timers.logseq-sync = {
+    Unit = {
+      Description = "Timer for Logseq git sync";
+    };
+    Timer = {
+      OnBootSec = "5min";
+      OnUnitActiveSec = "5min";
+      Persistent = true;
+    };
+    Install = {
+      WantedBy = [ "timers.target" ];
+    };
+  };
 }
