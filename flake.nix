@@ -26,7 +26,7 @@
     #   url = "github:nix-community/home-manager/release-24.05";
     #   inputs.nixpkgs.follows = "stable-nixpkgs";
     # };
-
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -134,11 +134,6 @@
         allowUnfree = true;
         permittedInsecurePackages = [
           "ventoy-1.1.10"
-          # "ventoy-1.1.05"
-          # "libsoup-2.74.3"
-          # "electron-27.3.11"
-          # "electron-28.3.3"
-          # "olm-3.2.16"
         ];
       };
       overlays = [
@@ -166,20 +161,23 @@
         inputs.vscode-server.nixosModules.default
         inputs.determinate.nixosModules.default
         inputs.nix-index-database.nixosModules.nix-index
-
+        inputs.nix-flatpak.nixosModules.nix-flatpak
       ];
 
       homes.modules = [
         inputs.sops-nix.homeManagerModules.sops
         inputs.nix-index-database.homeModules.nix-index
         inputs.taskherald.homeManagerModules.default
+        inputs.nix-flatpak.homeManagerModules.nix-flatpak
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
 
-      checks = builtins.mapAttrs (
-        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-      ) inputs.deploy-rs.lib;
+      checks = builtins.mapAttrs
+        (
+          system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+        )
+        inputs.deploy-rs.lib;
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 

@@ -16,7 +16,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ logseq ];
-    nixpkgs.config.permittedInsecurePackages = [ "electron-24.8.6" ];
+    services.flatpak = {
+      enable = true;
+      packages = [
+        {
+          appId = "com.logseq.Logseq";
+          origin = "flathub";
+        }
+      ];
+    };
+
   };
 }
