@@ -1,9 +1,6 @@
 {
   lib,
-  config,
   pkgs,
-  osConfig ? { },
-  format ? "unknown",
   ...
 }:
 with lib;
@@ -31,6 +28,7 @@ with lib.frgd;
     };
     apps = {
       obsidian = enabled;
+      logseq = enabled;
       kitty = enabled;
       matrix_clients = enabled;
       ghostty = enabled;
@@ -199,7 +197,10 @@ with lib.frgd;
       };
     };
     tools = {
-      git = enabled;
+      git = {
+        enable = true;
+        internalGitKey = true;
+      };
       direnv = enabled;
       misc = enabled;
       charms = enabled;
@@ -208,7 +209,9 @@ with lib.frgd;
     };
   };
 
-  home.packages = with pkgs; [ cfonts ];
+  home.packages = with pkgs; [
+    cfonts
+  ];
 
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering
   # programs.aerc = {
