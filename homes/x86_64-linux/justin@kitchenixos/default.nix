@@ -9,7 +9,7 @@ with lib.frgd;
     };
     apps = {
       kitty = enabled;
-      matrix_clients = enabled;
+      logseq = enabled;
       obsidian = enabled;
       ghostty = enabled;
     };

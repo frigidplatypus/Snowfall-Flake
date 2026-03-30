@@ -10,6 +10,11 @@ with lib.frgd;
       enable = true;
       name = "justin";
     };
+    security = {
+      sops = {
+        enable = true;
+      };
+    };
 
     cli-apps = {
       # fish = enabled;
@@ -19,7 +24,10 @@ with lib.frgd;
     };
 
     tools = {
-      git = enabled;
+      git = {
+        enable = true;
+        internalGitKey = true;
+      };
       # misc = enabled;
     };
   };

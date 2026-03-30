@@ -27,7 +27,6 @@ with lib.frgd;
 
   environment.systemPackages = with pkgs; [
     openscad
-    logseq
     wezterm
     alacritty
     lswt

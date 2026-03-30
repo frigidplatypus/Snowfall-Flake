@@ -57,6 +57,7 @@ with lib.frgd;
         SSH_DOMAIN = "git.${tailnet}";
         SSH_LISTEN_PORT = 2222;
         START_SSH_SERVER = true;
+        ROOT_URL = "https://git.${tailnet}";
       };
     };
   };

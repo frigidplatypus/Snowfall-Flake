@@ -178,6 +178,14 @@
             mountpoint = "/home/justin/notes";
             options."com.sun:auto-snapshot" = "true";
           };
+          "home_justin/logseq" = {
+            type = "zfs_fs";
+            mountpoint = "/home/justin/logseq";
+            options = {
+              "com.sun:auto-snapshot" = "true";
+              recordsize = "128K";
+            };
+          };
         };
       };
     };
