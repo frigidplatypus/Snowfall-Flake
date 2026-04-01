@@ -38,6 +38,7 @@ with lib.frgd;
 
     apps = {
       kitty = enabled;
+      ghostty = enabled;
     };
 
     security = {

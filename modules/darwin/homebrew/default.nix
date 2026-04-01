@@ -59,7 +59,7 @@ in
         "heynote"
         "sourcetree"
         "font-fantasque-sans-mono"
-        # "nikitabobko/tap/aerospace"
+        "nikitabobko/tap/aerospace"
         "element"
         "background-music"
         "ghostty"
