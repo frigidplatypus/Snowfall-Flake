@@ -29,7 +29,10 @@ with lib.frgd;
     };
 
     tools = {
-      git = enabled;
+      git = {
+        enable = true;
+        internalGitKey = true;
+      };
       ssh = enabled;
       lsd = enabled;
     };

@@ -54,63 +54,32 @@ with lib.frgd;
       fonts = {
         enable = true;
       };
-      zfs = {
-        enable = true;
-      };
+      #zfs = {
+      #  enable = true;
+      #};
       boot = {
         enable = true;
         efi = true;
-        oldBoot = true;
       };
     };
     apps = {
       # element = enabled;
       signal = enabled;
-      brave = enabled;
       steam = enabled;
     };
-    # services = { espanso = enabled; };
     security = {
       sops = {
         enable = true;
-        taskwarrior = enabled;
       };
     };
     archetypes = {
       workstation = enabled;
     };
-    virtualization = {
-      libvirtd = {
-        enable = true;
-        virt-manager = enabled;
-      };
-      docker = enabled;
-    };
-    system = {
-      # home-wifi = {
-      #   enable = true;
-      #   # Declarative home wifi networks (PSKs are stored in sops secrets file)
-      #   networks = {
-      #     Mar10 = {
-      #       ssid = "Mar10";
-      #       pskEnv = "PSK_MAR10";
-      #     };
-      #     Martins5 = {
-      #       ssid = "Martins-5";
-      #       pskEnv = "PSK_Martins-5";
-      #     };
-      #     CBCoffice = {
-      #       ssid = "CBCoffice";
-      #       pskEnv = "PSK_CBCoffice";
-      #     };
-      #   };
-      # };
-    };
     suites = {
       desktop = {
         enable = true;
         # cosmic = true;
-        plasma = true;
+        gnome = true;
       };
     };
   };
