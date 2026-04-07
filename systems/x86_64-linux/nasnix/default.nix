@@ -42,7 +42,9 @@ with lib.frgd;
     security.sops = enabled;
     archetypes.server = enabled;
     services.jellyfin = enabled;
+
     services = {
+      beszel-agent = enabled;
       caddy-proxy = {
         enable = true;
         hosts = {

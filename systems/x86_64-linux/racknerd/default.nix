@@ -41,13 +41,11 @@ with lib.frgd;
       };
     };
   };
-  # services.vikunja = {
-  #   enable = true;
-  #   frontendScheme = "https";
-  #   frontendHostname = "tasks.frgd.us";
-  # };
 
-  # boot.loader.grub.enable = true;
+  services.beszel.hub = {
+    enable = true;
+    host = "0.0.0.0";
+  };
 
   services.forgejo = {
     enable = true;

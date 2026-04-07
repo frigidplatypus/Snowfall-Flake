@@ -20,6 +20,7 @@ in
     frgd.home.extraOptions = {
       programs.direnv = {
         enable = true;
+        enableFishIntegration = true;
         nix-direnv = enabled;
       };
     };

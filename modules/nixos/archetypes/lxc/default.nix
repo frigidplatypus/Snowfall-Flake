@@ -53,6 +53,7 @@ in
           enable = true;
           autoconnect = enabled;
         };
+        beszel-agent = enabled;
       };
       security = {
         sops = enabled;

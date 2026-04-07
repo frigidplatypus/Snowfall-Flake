@@ -100,6 +100,22 @@ with lib.frgd;
   services.vscode-server.enable = true;
   boot.zfs.extraPools = [ "storage" ];
 
+  # sops.secrets.open-webui-environment = {
+  #   mode = "0660";
+  #   group = "open-webui";
+  # };
+
+  services.open-webui = {
+    enable = true;
+    port = 8888;
+    environment = {
+      ANONYMIZED_TELEMETRY = "False";
+      DO_NOT_TRACK = "True";
+      SCARF_NO_ANALYTICS = "True";
+    };
+
+  };
+
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
@@ -117,10 +133,8 @@ with lib.frgd;
       };
       zfs = enabled;
     };
-    apps = {
-      element = enabled;
-    };
     services = {
+      beszel-agent = enabled;
 
       caddy-proxy = {
         enable = true;

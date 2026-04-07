@@ -1,8 +1,6 @@
-{
-  config,
-  lib,
-
-  ...
+{ config
+, lib
+, ...
 }:
 
 with lib;
@@ -42,6 +40,7 @@ in
         tailscale = enabled;
         avahi = enabled;
         syncthing = enabled;
+        beszel-agent = enabled;
       };
 
       security = {
