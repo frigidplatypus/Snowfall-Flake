@@ -27,6 +27,20 @@ with lib.frgd;
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];
+  services.kmscon = {
+    enable = true;
+    hwRender = true; # Use the GPU for smoother text rendering
+    fonts = [
+      {
+        name = "Source Code Pro";
+        package = pkgs.source-code-pro;
+      }
+    ];
+    extraConfig = ''
+      xkb-layout=us
+      font-size=14
+    '';
+  };
 
   virtualisation.docker = {
     # Disable the system-wide Docker daemon when using rootless mode

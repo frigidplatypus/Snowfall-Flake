@@ -32,6 +32,21 @@ with lib.frgd;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = true;
 
+  services.kmscon = {
+    enable = true;
+    hwRender = true; # Use the GPU for smoother text rendering
+    fonts = [
+      {
+        name = "Source Code Pro";
+        package = pkgs.source-code-pro;
+      }
+    ];
+    extraConfig = ''
+      xkb-layout=us
+      font-size=14
+    '';
+  };
+
   services = {
     zfs.autoScrub = enabled;
     nfs.server.enable = true;
