@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{ lib
+, pkgs
+, config
+, ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -49,6 +53,7 @@ with lib.frgd;
 
   services.forgejo = {
     enable = true;
+    package = pkgs.forgejo;
     settings = {
       server = {
         SSH_PORT = 22;
