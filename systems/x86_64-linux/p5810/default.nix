@@ -114,10 +114,7 @@ with lib.frgd;
   services.vscode-server.enable = true;
   boot.zfs.extraPools = [ "storage" ];
 
-  # sops.secrets.open-webui-environment = {
-  #   mode = "0660";
-  #   group = "open-webui";
-  # };
+  sops.secrets.open-webui-environment = { };
 
   services.open-webui = {
     enable = true;
@@ -127,6 +124,7 @@ with lib.frgd;
       DO_NOT_TRACK = "True";
       SCARF_NO_ANALYTICS = "True";
     };
+    environmentFile = config.sops.secrets.open-webui-environment.path;
 
   };
 
@@ -134,6 +132,8 @@ with lib.frgd;
     enable = true;
     host = "0.0.0.0";
   };
+
+  services.n8n.enable = true;
 
   frgd = {
     nix = {
@@ -150,19 +150,6 @@ with lib.frgd;
     services = {
       beszel-agent = enabled;
 
-      caddy-proxy = {
-        enable = true;
-        hosts = {
-          n8n = {
-            hostname = "p5810.${tailnet}:8000";
-            backendAddress = "http://127.0.0.1:5678";
-            useTailnet = true;
-            extraConfig = "encode gzip";
-          };
-        };
-      };
-      # espanso = enabled;
-      # esphome = enabled;
       zfs-replication = {
         sanoid = {
           templates = {
