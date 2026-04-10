@@ -56,6 +56,9 @@ in
         user = "git";
         identityFile = config.sops.secrets.git_server_ssh_key.path;
         addKeysToAgent = "yes";
+        extraOptions = {
+          KexAlgorithms = "curve25519-sha256,curve25519-sha256@libssh.org";
+        };
       };
     };
 }
