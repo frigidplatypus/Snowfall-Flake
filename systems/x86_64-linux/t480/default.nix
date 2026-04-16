@@ -23,13 +23,13 @@ with lib.frgd;
   services.zram-generator = enabled;
   hardware.xpadneo = enabled;
   boot.zfs.forceImportRoot = true;
+  fonts.fontconfig.enable = true;
 
   environment.systemPackages = with pkgs; [
     openscad
     cura-appimage
     popsicle
     ventoy-full
-    codex
     lswt
     waylevel
     frgd.numara
@@ -40,12 +40,9 @@ with lib.frgd;
     remmina
     nom
     # ventoy-full
-    wljoywake
     inkscape-with-extensions
     krita
     gimp
-    kdePackages.partitionmanager
-    kdePackages.ark
     devenv
     gh
     rclone
@@ -53,10 +50,8 @@ with lib.frgd;
     bibletime
     claude-code
     opencode
-    vimb
-    qutebrowser
     wtfutil
-    github-copilot-cli
+    godot
   ];
 
   frgd = {
