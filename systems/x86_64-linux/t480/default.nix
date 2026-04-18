@@ -24,6 +24,7 @@ with lib.frgd;
   hardware.xpadneo = enabled;
   boot.zfs.forceImportRoot = true;
   fonts.fontconfig.enable = true;
+  services.upower = enabled;
 
   environment.systemPackages = with pkgs; [
     openscad
@@ -96,6 +97,7 @@ with lib.frgd;
       desktop = {
         enable = true;
         hyprland = true;
+        niri = true;
       };
     };
     tools = {
@@ -105,7 +107,6 @@ with lib.frgd;
   };
 
   frgd.services = {
-    tlp = enabled;
     zfs-replication = {
       enable = true;
       syncoid.sshKey = null;

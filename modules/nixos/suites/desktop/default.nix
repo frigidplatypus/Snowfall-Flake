@@ -18,6 +18,7 @@ in
     plasma = mkBoolOpt false "Whether or not to enable plasma.";
     xfce = mkBoolOpt false "Whether or not to enable xfce.";
     cosmic = mkBoolOpt false "Whether or not to enable cosmic.";
+    niri = mkBoolOpt false "Whether or not to enable niri.";
   };
 
   config = mkIf cfg.enable {
@@ -28,6 +29,7 @@ in
         plasma = mkIf cfg.plasma enabled;
         xfce = mkIf cfg.xfce enabled;
         cosmic = mkIf cfg.cosmic enabled;
+        niri = mkIf cfg.niri enabled;
         #        addons = { wallpapers = enabled; };
       };
       hardware = {
