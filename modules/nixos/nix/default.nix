@@ -102,7 +102,7 @@ in
 
           # Include GitHub access tokens from SOPS template
           extraOptions = lib.optionalString cfg.github-access-token.enable ''
-            !include ${config.sops.templates.github_access_tokens.path}
+            !include ${config.sops.templates."nix-github-token.conf".path}
           '';
 
           # flake-utils-plus
@@ -116,18 +116,20 @@ in
 
     # SOPS secrets for GitHub access token
     (mkIf cfg.github-access-token.enable {
-      # The actual secret containing the token value
+      # Path to the encrypted file containing this secret
       sops.secrets.github_api_token = {
+        owner = "root";
         mode = "0400";
+        restartUnits = [ "nix-daemon.service" ];
       };
 
-      # Template to create the access tokens file that nix.conf will include
-      sops.templates.github_access_tokens = {
+      # Render a nix.conf snippet with the secret substituted in
+      sops.templates."nix-github-token.conf" = {
         content = ''
           access-tokens = github.com=${config.sops.placeholder.github_api_token}
         '';
-        mode = "0440";
-        group = config.users.groups.keys.name;
+        owner = "root";
+        mode = "0400";
       };
     })
   ]);
