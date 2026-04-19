@@ -28,6 +28,10 @@ with lib.frgd;
       taskwarrior = enabled;
     };
 
+    security = {
+      sops = enabled;
+    };
+
     tools = {
       git = {
         enable = true;
