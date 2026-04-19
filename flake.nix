@@ -32,7 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:anntnzrb/snowfall-lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snowfall-flake = {
@@ -108,9 +108,11 @@
     html-to-markdown = {
       url = "github:frigidplatypus/html-to-markdown";
     };
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
+
+    email-to-miniflux = {
+      url = "git+https://git.fluffy-rooster.ts.net/justin/email-to-miniflux";
     };
+
   };
 
   outputs =
@@ -145,10 +147,6 @@
         inputs.snowfall-flake.overlays."package/flake"
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
-        inputs.niri-flake.overlays.niri
-        (final: prev: {
-          taskpirate = prev.callPackage ./packages/taskpirate { };
-        })
       ];
 
       systems.modules.darwin = [
@@ -166,7 +164,7 @@
         inputs.determinate.nixosModules.default
         inputs.nix-index-database.nixosModules.nix-index
         inputs.nix-flatpak.nixosModules.nix-flatpak
-        inputs.niri-flake.nixosModules.niri
+        inputs.email-to-miniflux.nixosModules.emailToMiniflux
       ];
 
       homes.modules = [
@@ -178,11 +176,9 @@
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
 
-      checks = builtins.mapAttrs
-        (
-          system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-        )
-        inputs.deploy-rs.lib;
+      checks = builtins.mapAttrs (
+        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+      ) inputs.deploy-rs.lib;
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
