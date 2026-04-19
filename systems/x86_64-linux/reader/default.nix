@@ -17,6 +17,11 @@ with lib.frgd;
     mode = "0550";
   };
 
+  sops.secrets.email_to_miniflux_env = {
+    owner = "email-to-miniflux";
+    mode = "0550";
+  };
+
   # Admin credentials secret (moved from module)
 
   # Add OIDC client credentials secret and Miniflux service settings
@@ -37,6 +42,7 @@ with lib.frgd;
       # Add client credentials (you'll need to set these in your secrets)
       OAUTH2_CLIENT_ID = "tsidp";
       OAUTH2_CLIENT_SECRET = "tsidp";
+      FETCHER_ALLOW_PRIVATE_NETWORKS = "1";
     };
   };
 
@@ -97,5 +103,19 @@ with lib.frgd;
         '';
       };
     };
+  };
+
+  services.email-to-miniflux = {
+    enable = true;
+    environmentFile = config.sops.secrets.email_to_miniflux_env.path;
+    imapHost = "imap.gmail.com";
+    imapPort = 993;
+    imapUser = "justin.meskan@gmail.com";
+    imapFolder = "Newsletters";
+    minifluxUrl = "https://${host}.${tailnet}";
+    interval = "30m";
+    blacklist = [
+      "unwanted@example.com"
+    ];
   };
 }
