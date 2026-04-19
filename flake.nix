@@ -82,6 +82,9 @@
       url = "github:shazow/wifitui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+    };
 
     hyprlock = {
       url = "github:hyprwm/hyprlock";
@@ -147,6 +150,7 @@
         inputs.snowfall-flake.overlays."package/flake"
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
+        inputs.niri-flake.overlays.niri
       ];
 
       systems.modules.darwin = [
@@ -165,6 +169,7 @@
         inputs.nix-index-database.nixosModules.nix-index
         inputs.nix-flatpak.nixosModules.nix-flatpak
         inputs.email-to-miniflux.nixosModules.emailToMiniflux
+        inputs.niri-flake.nixosModules.niri
       ];
 
       homes.modules = [
