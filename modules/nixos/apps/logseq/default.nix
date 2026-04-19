@@ -16,12 +16,16 @@ in
 
   config = mkIf cfg.enable {
     # environment.systemPackages = with pkgs; [ logseq ];
-    services.flatpak = {
-      enable = true;
-      packages = [
-        "com.logseq.Logseq"
-      ];
-    };
+    environment.systemPackages = with pkgs; [
+      #logseq
+      (logseq.override { electron = electron_39; })
+    ];
+    # services.flatpak = {
+    #   enable = true;
+    #   packages = [
+    #     "com.logseq.Logseq"
+    #   ];
+    # };
 
   };
 

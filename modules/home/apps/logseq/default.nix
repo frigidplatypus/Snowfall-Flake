@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 
 with lib;
@@ -16,16 +15,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ openssh-askpass ];
-    services.flatpak = {
-      enable = true;
-      packages = [
-        {
-          appId = "com.logseq.Logseq";
-          origin = "flathub";
-        }
-      ];
-    };
+    home.packages = with pkgs; [ (logseq.override { electron = electron_39; }) ];
+    # services.flatpak = {
+    #   enable = true;
+    #   packages = [
+    #     {
+    #       appId = "com.logseq.Logseq";
+    #       origin = "flathub";
+    #     }
+    #   ];
+    # };
 
   };
 }
