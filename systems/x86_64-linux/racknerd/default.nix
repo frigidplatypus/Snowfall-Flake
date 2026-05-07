@@ -52,6 +52,11 @@ with lib.frgd;
     host = "0.0.0.0";
   };
 
+  services.silverbullet = {
+    enable = true;
+    listenPort = 8888;
+  };
+
   services.forgejo = {
     enable = true;
     package = pkgs.forgejo;
@@ -79,6 +84,12 @@ with lib.frgd;
       tailscale = enabled;
       # mealie = enabled;
       matrix-synapse = disabled;
+      borgmatic = {
+        enable = true;
+        autoInit.enable = true;
+        directories = [ config.services.forgejo.stateDir ];
+        repositories = [ "ssh://dnmk5e0n@dnmk5e0n.repo.borgbase.com/./repo" ];
+      };
     };
     security = {
       sops = enabled;
