@@ -44,7 +44,7 @@ in
       apps = {
         _1password = enabled;
         vlc = enabled;
-        cider = enabled;
+        # cider = enabled; # broken in nixpkgs
         firefox = enabled;
         vscode = enabled;
         # logseq = enabled;
