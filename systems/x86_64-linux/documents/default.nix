@@ -72,6 +72,7 @@ in
   };
 
   services.stirling-pdf = enabled;
+  services.silverbullet = enabled;
 
   services.paperless = {
     enable = true;
@@ -104,63 +105,19 @@ in
     };
   };
 
-  services.borgbackup.jobs.home-danbst = {
-    paths = "/var/lib/paperless";
-    encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/justin/.ssh/borg.pub";
-    repo = "ssh://d9h4up4b@d9h4up4b.repo.borgbase.com/./repo";
-    compression = "auto,zstd";
-    startAt = "daily";
-  };
-
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
+    tools.git = enabled;
+    security.sops = enabled;
     services = {
       borgmatic = {
         enable = true;
-
-        # Directory to back up
-        directories = [
-          "/var/lib/paperless"
-        ];
-
-        # Where to store the backups - adjust to your backup location
-        repositories = [
-          "ssh://d9h4up4b@d9h4up4b.repo.borgbase.com/./repo"
-          # Or remote: "ssh://user@backup-server/./paperless-backup.borg"
-        ];
-
-        # Optional: Set specific retention policy for these backups
-        retention = {
-          enable = true;
-          keepDaily = 7; # Keep daily backups for the last week
-          keepWeekly = 4; # Keep weekly backups for the last month
-          keepMonthly = 6; # Keep monthly backups for the last 6 months
-          keepYearly = 2; # Keep yearly backups for 2 years
-        };
-
-        # Optional: Configure backup schedule
-        schedule = {
-          enable = true;
-          frequency = "daily";
-          time = "02:30:00"; # Run at 2:30 AM
-        };
-
-        # Optional: Run a command before backup to ensure consistency
-        hooks.beforeBackup = [
-          "systemctl stop paperless"
-        ];
-
-        # Optional: Restart service after backup completes
-        hooks.afterBackup = [
-          "systemctl start paperless"
-        ];
-
-        # Optional: Send notification on failure
-        hooks.onError = [
-          "echo 'Paperless backup failed' | mail -s 'Backup Error' admin@example.com"
-        ];
+        autoInit.enable = true;
+        directories = [ "/var/lib/paperless" ];
+        repositories = [ "ssh://d9h4up4b@d9h4up4b.repo.borgbase.com/./repo" ];
+        retention.keepYearly = 2;
+        schedule.time = "02:30:00";
       };
       tailscale.tailscaleAuth = enabled;
       samba = {
