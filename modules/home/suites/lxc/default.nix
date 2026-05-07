@@ -23,7 +23,6 @@ in
         neovim = mkForce disabled;
         home-manager = enabled;
         ranger = mkForce disabled;
-        fish = mkForce disabled;
       };
 
       tools = {
