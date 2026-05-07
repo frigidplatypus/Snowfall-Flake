@@ -137,7 +137,6 @@ with lib.frgd;
   frgd = {
     nix = {
       enable = true;
-      github-access-token.enable = true;
     };
     system = {
       boot = {
