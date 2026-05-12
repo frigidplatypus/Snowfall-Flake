@@ -19,8 +19,8 @@ in
     internalGitKey = mkBoolOpt false "Install SSH key for internal git server.";
   };
 
-  config =
-    mkIf cfg.enable {
+  config = mkMerge [
+    (mkIf cfg.enable {
       programs.git = {
         enable = true;
         settings = {
@@ -47,8 +47,9 @@ in
         git
         lazygit
       ];
-    }
-    // mkIf cfg.internalGitKey {
+    })
+
+    (mkIf cfg.internalGitKey {
       programs.ssh.enable = true;
       sops.secrets.git_server_ssh_key = { };
       programs.ssh.matchBlocks."git.${tailnet}" = {
@@ -60,5 +61,6 @@ in
           KexAlgorithms = "curve25519-sha256,curve25519-sha256@libssh.org";
         };
       };
-    };
+    })
+  ];
 }

@@ -23,4 +23,13 @@
 - If `.cursor/rules/` or `.cursorrules` exist, include those rules here for agent guidance
 - If `.github/copilot-instructions.md` exists, copy any repo-specific Copilot rules into this file
 
+## Snowfall + HM Debug Notes
+- Do not treat `nix flake show` output of `unknown` as authoritative for Snowfall outputs.
+- Verify concrete outputs with `nix eval`, for example:
+  - `nix eval --json .#darwinConfigurations --apply builtins.attrNames`
+  - `nix eval --json .#homeConfigurations --apply builtins.attrNames`
+  - `nix eval --json .#homeConfigurations."<user>@<host>".config.<path>`
+- For booleans, use `--json` (not `--raw`) to avoid coercion errors.
+- In Nix modules, do not combine conditional attrsets via `mkIf ... // mkIf ...`; use `mkMerge [ (mkIf ...) (mkIf ...) ]` so conditions are preserved by the module system.
+
 Keep this file short and pragmatic — it guides automated agents operating in this repo.
