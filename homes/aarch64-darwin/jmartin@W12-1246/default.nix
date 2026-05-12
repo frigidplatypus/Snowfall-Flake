@@ -51,7 +51,7 @@ with lib.frgd;
 
     cli-apps = {
       #zsh = enabled;
-      atuin = disabled;
+      atuin = enabled;
       neovim = enabled;
       cliflux = enabled;
       home-manager = enabled;
