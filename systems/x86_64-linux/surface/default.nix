@@ -27,32 +27,32 @@ with lib.frgd;
   services.upower = enabled;
 
   environment.systemPackages = with pkgs; [
-    openscad
-    cura-appimage
-    popsicle
-    ventoy-full
-    lswt
-    waylevel
-    frgd.numara
-    frgd.heynote
-    frgd.wakeonlan_script
-    frgd.matcha
-    cifs-utils
-    remmina
-    nom
+    # openscad
+    # cura-appimage
+    # popsicle
     # ventoy-full
-    inkscape-with-extensions
-    krita
-    gimp
-    devenv
-    gh
-    rclone
-    nil
-    bibletime
-    claude-code
-    opencode
-    wtfutil
-    godot
+    # lswt
+    # waylevel
+    # frgd.numara
+    # frgd.heynote
+    # frgd.wakeonlan_script
+    # frgd.matcha
+    # cifs-utils
+    # remmina
+    # nom
+    # # ventoy-full
+    # inkscape-with-extensions
+    # krita
+    # gimp
+    # devenv
+    # gh
+    # rclone
+    # nil
+    # bibletime
+    # claude-code
+    # opencode
+    # wtfutil
+    # godot
   ];
 
   frgd = {
@@ -74,8 +74,8 @@ with lib.frgd;
       };
     };
     apps = {
-      signal = enabled;
-      steam = enabled;
+      # signal = enabled;
+      # steam = enabled;
     };
     security = {
       sops = {
@@ -86,13 +86,13 @@ with lib.frgd;
     archetypes = {
       workstation = enabled;
     };
-    virtualization = {
-      libvirtd = {
-        enable = true;
-        virt-manager = enabled;
-      };
-      docker = enabled;
-    };
+    # virtualization = {
+    #   libvirtd = {
+    #     enable = true;
+    #     virt-manager = enabled;
+    #   };
+    #   docker = enabled;
+    # };
     suites = {
       desktop = {
         enable = true;
@@ -105,26 +105,26 @@ with lib.frgd;
     };
   };
 
-  frgd.services = {
-    zfs-replication = {
-      enable = true;
-      syncoid.sshKey = null;
-      syncoid.interval = "hourly";
-      datasets = {
-        notes = {
-          source = "zroot/notes";
-          target = "syncoid@p5810.fluffy-rooster.ts.net:storage/notes";
-        };
-        development = {
-          source = "zroot/development";
-          target = "syncoid@p5810.fluffy-rooster.ts.net:storage/development";
-        };
-        home_justin = {
-          source = "zroot/home_justin";
-          target = "syncoid@p5810.fluffy-rooster.ts.net:storage/home_justin";
-        };
-      };
-    };
-  };
+  # frgd.services = {
+  #   zfs-replication = {
+  #     enable = true;
+  #     syncoid.sshKey = null;
+  #     syncoid.interval = "hourly";
+  #     datasets = {
+  #       notes = {
+  #         source = "zroot/notes";
+  #         target = "syncoid@p5810.fluffy-rooster.ts.net:storage/notes";
+  #       };
+  #       development = {
+  #         source = "zroot/development";
+  #         target = "syncoid@p5810.fluffy-rooster.ts.net:storage/development";
+  #       };
+  #       home_justin = {
+  #         source = "zroot/home_justin";
+  #         target = "syncoid@p5810.fluffy-rooster.ts.net:storage/home_justin";
+  #       };
+  #     };
+  #   };
+  # };
 
 }
