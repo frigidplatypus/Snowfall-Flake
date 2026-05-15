@@ -142,6 +142,7 @@
         allowUnfree = true;
         permittedInsecurePackages = [
           "ventoy-1.1.12"
+          "openclaw-2026.4.22"
         ];
       };
       overlays = [
@@ -187,6 +188,19 @@
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
+      systems.hosts.surface.modules = [
+        inputs.nixos-hardware.nixosModules.microsoft-surface-common
+
+        # Enable Determinate on this host. This is a minimal module that sets
+        # the determinate.enable option to true. If you want to customize more
+        # determinate options per-host, add them here.
+        (
+          { config, pkgs, ... }:
+          {
+            determinate.enable = true;
+          }
+        )
+      ];
       systems.hosts.t480.modules = [
         inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
 

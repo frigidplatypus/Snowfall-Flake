@@ -25,6 +25,8 @@ with lib.frgd;
   ];
   users.users.justin.extraGroups = [ "silverbullet" ];
 
+  environment.systemPackages = [ pkgs.opencode];
+
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
@@ -32,7 +34,7 @@ with lib.frgd;
     services.caddy-proxy = {
       enable = true;
       hosts = {
-        ai = {
+        notes = {
           hostname = "notes.${tailnet}";
           backendAddress = "http://127.0.0.1:3000";
           useTailnet = true;

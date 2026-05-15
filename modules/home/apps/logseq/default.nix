@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 with lib;
@@ -15,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ (logseq.override { electron = electron_39; }) ];
+    home.packages = with pkgs; [ logseq ];
     # services.flatpak = {
     #   enable = true;
     #   packages = [

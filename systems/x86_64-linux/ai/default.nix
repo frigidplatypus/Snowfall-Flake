@@ -2,6 +2,7 @@
   lib,
   modulesPath,
   config,
+pkgs,
   ...
 }:
 with lib;
@@ -26,8 +27,9 @@ with lib.frgd;
       OLLAMA_API_BASE_URL = "http://p5810:11434";
     };
     environmentFile = config.sops.secrets.open-webui-environment.path;
-
   };
+
+  environment.systemPackages = with pkgs; [ openclaw ];
 
   frgd = {
     nix = enabled;
