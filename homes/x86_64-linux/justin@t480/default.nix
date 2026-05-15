@@ -19,12 +19,7 @@ with lib.frgd;
     };
 
     desktop = {
-      hyprland = {
-        enable = true;
-        extra-config = {
-          monitor = "eDP-1, 1920x1080, 0x0, 1";
-        };
-      };
+      niri = enabled;
     };
     apps = {
       obsidian = enabled;
