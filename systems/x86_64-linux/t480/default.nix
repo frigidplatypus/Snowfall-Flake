@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, inputs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  inputs,
+  config,
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -24,6 +25,7 @@ with lib.frgd;
   boot.zfs.forceImportRoot = true;
   fonts.fontconfig.enable = true;
   services.upower = enabled;
+  services.fwupd = enabled;
 
   environment.systemPackages = with pkgs; [
     openscad
@@ -52,8 +54,19 @@ with lib.frgd;
     opencode
     wtfutil
     godot
+    xwayland-satellite
+    fontconfig
+    poppler-utils
   ];
+  programs.xwayland = enabled;
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      steam = prev.steam.override {
+        extraArgs = "-cef-disable-gpu-compositing";
+      };
+    })
+  ];
   frgd = {
     # apps.logseq = enabled;
     nix = {
