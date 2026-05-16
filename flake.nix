@@ -170,7 +170,6 @@
         inputs.nix-index-database.nixosModules.nix-index
         inputs.nix-flatpak.nixosModules.nix-flatpak
         inputs.email-to-miniflux.nixosModules.emailToMiniflux
-        inputs.niri-flake.nixosModules.niri
       ];
 
       homes.modules = [
@@ -178,6 +177,7 @@
         inputs.nix-index-database.homeModules.nix-index
         inputs.taskherald.homeManagerModules.default
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
+        inputs.niri-flake.homeModules.config
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };

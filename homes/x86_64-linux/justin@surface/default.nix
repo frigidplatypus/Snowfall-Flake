@@ -6,6 +6,165 @@
 with lib;
 with lib.frgd;
 {
+  programs.niri.settings = {
+    input = {
+      keyboard.xkb = {
+        layout = "us";
+        options = "caps:hyper";
+      };
+      touchpad = {
+        tap-button-map = "left-right-middle";
+        click-method = "clickfinger";
+        dwt = true;
+        natural-scroll = true;
+      };
+    };
+
+    layout = {
+      gaps = 6;
+      center-focused-column = "never";
+      focus-ring = {
+        enable = false;
+        width = 2;
+        active.color = "#fe8019";
+        inactive.color = "#504945";
+        urgent.color = "#fb4934";
+      };
+      border = {
+        enable = false;
+        width = 2;
+        active.color = "#fe8019";
+        inactive.color = "#504945";
+        urgent.color = "#fb4934";
+      };
+      preset-column-widths = [
+        { proportion = 1. / 3.; }
+        { proportion = 1. / 2.; }
+        { proportion = 2. / 3.; }
+      ];
+    };
+
+    hotkey-overlay.skip-at-startup = true;
+
+    prefer-no-csd = true;
+
+    window-rules = [
+      {
+        geometry-corner-radius = {
+          top-left = 4.;
+          top-right = 4.;
+          bottom-left = 4.;
+          bottom-right = 4.;
+        };
+        clip-to-geometry = true;
+      }
+      {
+        matches = [{
+          app-id = "firefox$";
+          title = "^Picture-in-Picture$";
+        }];
+        open-floating = true;
+      }
+    ];
+
+    spawn-at-startup = [
+      { argv = ["${pkgs.foot}/bin/foot" "--server"]; }
+      { argv = ["${pkgs._1password-gui}/bin/1password" "--silent"]; }
+    ];
+
+    binds = {
+      "Print".action.screenshot = {};
+      "Control+Print".action."screenshot-screen" = {};
+      "Alt+Print".action."screenshot-window" = {};
+      "Super+Return".action.spawn = ["${pkgs.foot}/bin/footclient"];
+      "Super+Shift+Return".action.spawn = ["${pkgs.firefox}/bin/firefox"];
+      "Super+E".action.spawn = ["${pkgs.nautilus}/bin/nautilus"];
+      "Super+Space".action."spawn-sh" = "${pkgs.rofi}/bin/rofi -modi 'drun,calc,clipboard:cliphist-rofi-img,filebrowser' -show drun";
+      "Super+Shift+Q".action."close-window" = {};
+      "Super+Shift+E".action."quit" = {};
+      "Super+h".action."focus-column-left" = {};
+      "Super+l".action."focus-column-right" = {};
+      "Mod3+h".action."focus-column-left" = {};
+      "Mod3+l".action."focus-column-right" = {};
+      "Super+Up".action."focus-window-up" = {};
+      "Super+Down".action."focus-window-down" = {};
+      "Super+Shift+Left".action."move-column-left" = {};
+      "Super+Shift+Right".action."move-column-right" = {};
+      "Super+Shift+Up".action."move-window-up" = {};
+      "Super+Shift+Down".action."move-window-down" = {};
+      "Super+Ctrl+Left".action."set-column-width" = "-10%";
+      "Super+Ctrl+Right".action."set-column-width" = "+10%";
+      "Super+Ctrl+Up".action."set-window-height" = "+10%";
+      "Super+Ctrl+Down".action."set-window-height" = "-10%";
+      "Super+j".action."focus-workspace-down" = {};
+      "Super+k".action."focus-workspace-up" = {};
+      "Mod3+j".action."focus-workspace-down" = {};
+      "Mod3+k".action."focus-workspace-up" = {};
+      "Super+Alt+Shift+Right".action."move-column-to-workspace-down" = {};
+      "Super+Alt+Shift+Left".action."move-column-to-workspace-up" = {};
+      "Super+1".action."focus-workspace" = 1;
+      "Super+2".action."focus-workspace" = 2;
+      "Super+3".action."focus-workspace" = 3;
+      "Super+4".action."focus-workspace" = 4;
+      "Super+5".action."focus-workspace" = 5;
+      "Super+6".action."focus-workspace" = 6;
+      "Super+7".action."focus-workspace" = 7;
+      "Super+8".action."focus-workspace" = 8;
+      "Super+9".action."focus-workspace" = 9;
+      "Super+0".action."focus-workspace" = 10;
+      "Super+Shift+1".action."move-column-to-workspace" = 1;
+      "Super+Shift+2".action."move-column-to-workspace" = 2;
+      "Super+Shift+3".action."move-column-to-workspace" = 3;
+      "Super+Shift+4".action."move-column-to-workspace" = 4;
+      "Super+Shift+5".action."move-column-to-workspace" = 5;
+      "Super+Shift+6".action."move-column-to-workspace" = 6;
+      "Super+Shift+7".action."move-column-to-workspace" = 7;
+      "Super+Shift+8".action."move-column-to-workspace" = 8;
+      "Super+Shift+9".action."move-column-to-workspace" = 9;
+      "Super+Shift+0".action."move-column-to-workspace" = 10;
+      "Super+Shift+F".action."fullscreen-window" = {};
+      "Super+F".action."maximize-column" = {};
+      "Super+V".action."toggle-window-floating" = {};
+      "Super+C".action."center-column" = {};
+      "Super+Ctrl+C".action."center-visible-columns" = {};
+      "Super+BracketLeft".action."consume-or-expel-window-left" = {};
+      "Super+BracketRight".action."consume-or-expel-window-right" = {};
+      "Super+Comma".action."consume-window-into-column" = {};
+      "Super+Period".action."expel-window-from-column" = {};
+      "Super+R".action.spawn = ["${pkgs.niri-unstable}/bin/niri" "msg" "action" "reload-config"];
+      "Super+O".action."toggle-overview" = {};
+      "Super+Shift+P".action."power-off-monitors" = {};
+      "Super+W".action."switch-preset-column-width" = {};
+      "Mod3+V".action.spawn = ["qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"];
+      "XF86AudioPlay".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "play-pause"];
+      "XF86AudioNext".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "next"];
+      "XF86AudioPrev".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "previous"];
+      "XF86AudioStop".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "stop"];
+      "XF86MonBrightnessUp".action."spawn-sh" = "current=$(dms brightness get backlight:intel_backlight | cut -d' ' -f2 | tr -d '%'); new=$((current + 10)); [ $new -gt 100 ] && new=100; dms brightness set backlight:intel_backlight $new";
+      "XF86MonBrightnessDown".action."spawn-sh" = "current=$(dms brightness get backlight:intel_backlight | cut -d' ' -f2 | tr -d '%'); new=$((current - 10)); [ $new -lt 0 ] && new=0; dms brightness set backlight:intel_backlight $new";
+      "XF86AudioRaiseVolume".action."spawn-sh" = "qs ipc --id yo27v1odt call audio increment \"10%\"";
+      "XF86AudioLowerVolume".action."spawn-sh" = "qs ipc --id yo27v1odt call audio decrement \"10%\"";
+      "XF86AudioMute".action."spawn-sh" = "qs ipc --id yo27v1odt call audio mute";
+    };
+
+    cursor = {
+      theme = "Capitaine Cursors (Gruvbox)";
+      size = 24;
+    };
+
+    environment = {
+      XCURSOR_THEME = "Capitaine Cursors (Gruvbox)";
+      XCURSOR_SIZE = "24";
+      GTK_THEME = "Gruvbox-Plus-Dark";
+      GTK_ICON_THEME = "Gruvbox-Plus-Dark";
+      GTK_THEME_VARIANT = "dark";
+      QT_QPA_PLATFORMTHEME = "gtk3";
+      QT_STYLE_OVERRIDE = "gtk3";
+      ADW_COLOR_SCHEME = "prefer-dark";
+      XDG_CURRENT_DESKTOP = "niri";
+    };
+  };
+
   sops.secrets.vikunja_api_key = { };
   sops.secrets.apple_app_password = { };
   # SOPS secrets for PIM calendar sync
@@ -20,6 +179,7 @@ with lib.frgd;
 
     desktop = {
       niri = enabled;
+      addons.rofi = enabled;
     };
     apps = {
       # obsidian = enabled;

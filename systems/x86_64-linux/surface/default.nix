@@ -85,7 +85,6 @@ with lib.frgd;
     suites = {
       desktop = {
         enable = true;
-        hyprland = true;
         niri = true;
       };
     };
