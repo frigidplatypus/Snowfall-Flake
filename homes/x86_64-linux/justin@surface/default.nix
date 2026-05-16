@@ -107,7 +107,7 @@ with lib.frgd;
       #   };
       # };
       # matrix_clients = enabled;
-      # hass-cli = enabled;
+      hass-cli = enabled;
       cliflux = enabled;
       yazi = enabled;
       # opencode = {
