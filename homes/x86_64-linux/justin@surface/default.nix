@@ -1,6 +1,7 @@
-{ lib
-, pkgs
-, ...
+{
+  lib,
+  pkgs,
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -19,10 +20,7 @@ with lib.frgd;
 
     desktop = {
       hyprland = {
-        enable = false;
-        extra-config = {
-          monitor = "eDP-1, 1920x1080, 0x0, 1";
-        };
+        enable = true;
       };
     };
     apps = {

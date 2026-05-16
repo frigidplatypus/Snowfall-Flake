@@ -27,32 +27,31 @@ with lib.frgd;
   services.upower = enabled;
 
   environment.systemPackages = with pkgs; [
-    # openscad
-    # cura-appimage
-    # popsicle
+    openscad
+    cura-appimage
+    popsicle
+    ventoy-full
+    lswt
+    waylevel
+    frgd.numara
+    frgd.heynote
+    frgd.wakeonlan_script
+    frgd.matcha
+    cifs-utils
+    remmina
+    nom
     # ventoy-full
-    # lswt
-    # waylevel
-    # frgd.numara
-    # frgd.heynote
-    # frgd.wakeonlan_script
-    # frgd.matcha
-    # cifs-utils
-    # remmina
-    # nom
-    # # ventoy-full
-    # inkscape-with-extensions
-    # krita
-    # gimp
-    # devenv
-    # gh
-    # rclone
-    # nil
-    # bibletime
-    # claude-code
-    # opencode
-    # wtfutil
-    # godot
+    inkscape-with-extensions
+    krita
+    gimp
+    devenv
+    gh
+    rclone
+    nil
+    bibletime
+    opencode
+    wtfutil
+    godot
   ];
 
   frgd = {
@@ -96,6 +95,7 @@ with lib.frgd;
     suites = {
       desktop = {
         enable = true;
+        hyprland = true;
         niri = true;
       };
     };
