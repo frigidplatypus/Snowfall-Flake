@@ -63,8 +63,8 @@ with lib.frgd;
       };
     };
     apps = {
-      # signal = enabled;
-      # steam = enabled;
+      signal = enabled;
+      steam = enabled;
     };
     security = {
       sops = {

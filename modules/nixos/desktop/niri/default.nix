@@ -73,10 +73,19 @@ in
 
       xdg.portal = {
         enable = true;
-        extraPortals = mkIf (
-          !niriPkg.cargoBuildNoDefaultFeatures
-          || builtins.elem "xdp-gnome-screencast" niriPkg.cargoBuildFeatures
-        ) [ pkgs.xdg-desktop-portal-gnome ];
+        extraPortals =
+          [
+            pkgs.xdg-desktop-portal-gtk
+          ]
+          ++ (
+            if
+              !niriPkg.cargoBuildNoDefaultFeatures
+              || builtins.elem "xdp-gnome-screencast" niriPkg.cargoBuildFeatures
+            then
+              [ pkgs.xdg-desktop-portal-gnome ]
+            else
+              [ ]
+          );
         configPackages = [ niriPkg ];
       };
 
