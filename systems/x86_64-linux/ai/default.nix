@@ -31,23 +31,6 @@ with lib.frgd;
   # environment.systemPackages = with pkgs; [ openclaw ];
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
 
-  # MESSAGING_CWD is deprecated in favor of terminal.cwd (already in settings).
-  # Remove it from systemd env so hermes doesn't warn on every startup.
-  systemd.services.hermes-agent.environment = lib.mkForce {
-    HOME = "/var/lib/hermes";
-    HERMES_HOME = "/var/lib/hermes/.hermes";
-    HERMES_MANAGED = "true";
-  };
-
-  systemd.services.hermes-agent.path = with pkgs; [
-    git
-    curl
-    jq
-    nix
-    forgejo-cli
-    openssh
-  ];
-
   sops.secrets.hermes_env = {
     owner = "hermes";
     group = "hermes";
@@ -100,6 +83,13 @@ with lib.frgd;
     extraDependencyGroups = [
       "messaging"
       "web"
+    ];
+    extraPackages = with pkgs; [
+      curl
+      jq
+      nix
+      forgejo-cli
+      openssh
     ];
     environmentFiles = [ config.sops.secrets.hermes_env.path ];
     settings = {
