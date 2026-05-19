@@ -35,7 +35,7 @@ with lib.frgd;
     lswt
     waylevel
     frgd.numara
-    frgd.heynote
+    pkgs.heynote
     frgd.wakeonlan_script
     matcha
     cifs-utils
