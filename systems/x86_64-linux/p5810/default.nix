@@ -85,6 +85,7 @@ with lib.frgd;
     pv
     devenv
     opencode
+    crush
     gh
 
     #Ollama TUIs
