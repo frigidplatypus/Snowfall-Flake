@@ -25,6 +25,9 @@ with lib.frgd;
   boot.zfs.forceImportRoot = true;
   fonts.fontconfig.enable = true;
   services.upower = enabled;
+  services.power-profiles-daemon.enable = false;
+  services.auto-cpufreq.enable = true;
+  powerManagement.powertop.enable = true;
 
   environment.systemPackages = with pkgs; [
     # openscad
@@ -42,6 +45,8 @@ with lib.frgd;
     opencode
     wtfutil
     godot
+    acpi
+    powertop
   ];
 
   frgd = {
