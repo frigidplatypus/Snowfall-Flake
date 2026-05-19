@@ -169,19 +169,19 @@ with lib.frgd;
         "current=$(dms brightness get backlight:intel_backlight | cut -d' ' -f2 | tr -d '%'); new=$((current + 10)); [ $new -gt 100 ] && new=100; dms brightness set backlight:intel_backlight $new";
       "XF86MonBrightnessDown".action."spawn-sh" =
         "current=$(dms brightness get backlight:intel_backlight | cut -d' ' -f2 | tr -d '%'); new=$((current - 10)); [ $new -lt 0 ] && new=0; dms brightness set backlight:intel_backlight $new";
-      "XF86AudioRaiseVolume".action."spawn-sh" = "qs ipc --id yo27v1odt call audio increment \"10%\"";
-      "XF86AudioLowerVolume".action."spawn-sh" = "qs ipc --id yo27v1odt call audio decrement \"10%\"";
-      "XF86AudioMute".action."spawn-sh" = "qs ipc --id yo27v1odt call audio mute";
+      "XF86AudioRaiseVolume".action."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
+      "XF86AudioLowerVolume".action."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+      "XF86AudioMute".action."spawn-sh" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
     };
 
     cursor = {
       theme = "Capitaine Cursors (Gruvbox)";
-      size = 24;
+      size = 40;
     };
 
     environment = {
       XCURSOR_THEME = "Capitaine Cursors (Gruvbox)";
-      XCURSOR_SIZE = "24";
+      XCURSOR_SIZE = "40";
       GTK_THEME = "Gruvbox-Plus-Dark";
       GTK_ICON_THEME = "Gruvbox-Plus-Dark";
       GTK_THEME_VARIANT = "dark";
@@ -231,6 +231,7 @@ with lib.frgd;
       # kitty = enabled;
       # matrix_clients = enabled;
       ghostty = enabled;
+      foot = enabled;
     };
     security = {
       sops = {
@@ -411,6 +412,8 @@ with lib.frgd;
   home.packages = with pkgs; [
     cfonts
     foot
+    forgejo-cli
+    telegram-desktop
   ];
 
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering
