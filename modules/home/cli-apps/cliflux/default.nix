@@ -30,7 +30,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = with pkgs; [ frgd.cliflux ];
+    home.packages = [ pkgs.cliflux ];
 
   };
 }
