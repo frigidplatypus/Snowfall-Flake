@@ -2,7 +2,7 @@
   lib,
   modulesPath,
   config,
-pkgs,
+  pkgs,
   ...
 }:
 with lib;
@@ -13,23 +13,148 @@ with lib.frgd;
   ];
   networking.firewall.enable = false;
 
-  sops.secrets.open-webui-environment = {
-    mode = "0660";
-    group = "open-webui";
+  # sops.secrets.open-webui-environment = {
+  #   mode = "0660";
+  #   group = "open-webui";
+  # };
+
+  # services.open-webui = {
+  #   enable = true;
+  #   environment = {
+  #     ANONYMIZED_TELEMETRY = "False";
+  #     DO_NOT_TRACK = "True";
+  #     SCARF_NO_ANALYTICS = "True";
+  #     OLLAMA_API_BASE_URL = "http://p5810:11434";
+  #   };
+  # };
+
+  # environment.systemPackages = with pkgs; [ openclaw ];
+  systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
+
+  # MESSAGING_CWD is deprecated in favor of terminal.cwd (already in settings).
+  # Remove it from systemd env so hermes doesn't warn on every startup.
+  systemd.services.hermes-agent.environment = lib.mkForce {
+    HOME = "/var/lib/hermes";
+    HERMES_HOME = "/var/lib/hermes/.hermes";
+    HERMES_MANAGED = "true";
   };
 
-  services.open-webui = {
+  systemd.services.hermes-agent.path = with pkgs; [
+    git
+    curl
+    jq
+    nix
+    forgejo-cli
+    openssh
+  ];
+
+  sops.secrets.hermes_env = {
+    owner = "hermes";
+    group = "hermes";
+    mode = "0440";
+  };
+
+  sops.secrets.git_server_ssh_key = {
+    owner = "hermes";
+    group = "hermes";
+    mode = "0600";
+  };
+
+  system.activationScripts.hermes-git-setup = lib.stringAfter [ "hermes-agent-setup" ] ''
+        mkdir -p /var/lib/hermes/.ssh
+        chmod 700 /var/lib/hermes/.ssh
+        chown hermes:hermes /var/lib/hermes/.ssh
+
+        cp ${config.sops.secrets.git_server_ssh_key.path} /var/lib/hermes/.ssh/id_ed25519
+        chmod 600 /var/lib/hermes/.ssh/id_ed25519
+        chown hermes:hermes /var/lib/hermes/.ssh/id_ed25519
+
+        cat > /var/lib/hermes/.ssh/config << 'SSH_EOF'
+    Host git.fluffy-rooster.ts.net
+      Hostname git.fluffy-rooster.ts.net
+      User git
+      IdentityFile /var/lib/hermes/.ssh/id_ed25519
+      StrictHostKeyChecking no
+    SSH_EOF
+        chmod 600 /var/lib/hermes/.ssh/config
+        chown hermes:hermes /var/lib/hermes/.ssh/config
+
+        cat > /var/lib/hermes/.gitconfig << 'GIT_EOF'
+    [user]
+      name = Hermes Agent
+      email = hermes@fluffy-rooster.ts.net
+    [init]
+      defaultBranch = main
+    [pull]
+      rebase = true
+    [push]
+      autoSetupRemote = true
+    GIT_EOF
+        chmod 644 /var/lib/hermes/.gitconfig
+        chown hermes:hermes /var/lib/hermes/.gitconfig
+  '';
+
+  services.hermes-agent = {
     enable = true;
-    environment = {
-      ANONYMIZED_TELEMETRY = "False";
-      DO_NOT_TRACK = "True";
-      SCARF_NO_ANALYTICS = "True";
-      OLLAMA_API_BASE_URL = "http://p5810:11434";
+    addToSystemPackages = true;
+    extraDependencyGroups = [
+      "messaging"
+      "web"
+    ];
+    environmentFiles = [ config.sops.secrets.hermes_env.path ];
+    settings = {
+      model = {
+        default = "deepseek-v4-flash";
+        provider = "opencode-go";
+        base_url = "https://opencode.ai/zen/go/v1";
+        api_mode = "chat_completions";
+      };
+      toolsets = [ "hermes-cli" ];
+      terminal.cwd = "/var/lib/hermes/workspace";
+      agent.restart_drain_timeout = 180;
+      display = {
+        personality = "kawaii";
+        streaming = false;
+      };
+      approvals.mode = "manual";
     };
-    environmentFile = config.sops.secrets.open-webui-environment.path;
   };
 
-  environment.systemPackages = with pkgs; [ openclaw ];
+  # Hermes Dashboard — web UI, reverse-proxied by Caddy.
+  # Uses the same effectivePackage as the gateway (includes messaging + web deps).
+  systemd.services.hermes-dashboard =
+    let
+      effectivePackage = config.services.hermes-agent.package.override {
+        extraDependencyGroups = config.services.hermes-agent.extraDependencyGroups;
+      };
+    in
+    {
+      description = "Hermes Agent Dashboard";
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "network-online.target"
+        "hermes-agent.service"
+      ];
+      wants = [ "network-online.target" ];
+
+      environment = {
+        HERMES_HOME = "/var/lib/hermes/.hermes";
+        HERMES_MANAGED = "true";
+      };
+
+      serviceConfig = {
+        User = "hermes";
+        Group = "hermes";
+        ExecStart = "${effectivePackage}/bin/hermes dashboard --host 127.0.0.1 --port 9119 --no-open --tui";
+        Restart = "on-failure";
+        RestartSec = 5;
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        ProtectHome = false;
+        ReadWritePaths = [ "/var/lib/hermes" ];
+        PrivateTmp = true;
+      };
+    };
 
   frgd = {
     nix = enabled;
@@ -39,9 +164,17 @@ with lib.frgd;
       hosts = {
         ai = {
           hostname = "ai.${tailnet}";
-          backendAddress = "http://127.0.0.1:8080";
+          # Dashboard validates Host header against its bound address.
+          # Override via handle block so Host arrives as 127.0.0.1.
+          backendAddress = "http://127.0.0.1:9119";
           useTailnet = true;
-          extraConfig = "encode gzip";
+          extraConfig = ''
+            handle {
+              reverse_proxy http://127.0.0.1:9119 {
+                header_up Host 127.0.0.1
+              }
+            }
+          '';
         };
       };
     };
