@@ -89,6 +89,9 @@
     hyprlock = {
       url = "github:hyprwm/hyprlock";
     };
+    hermes = {
+      url = "github:nousresearch/hermes-agent";
+    };
 
     # Enable fingerprint reader for T480
     # nixos-06cb-009a-fingerprint-sensor = {
@@ -98,15 +101,6 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    cria = {
-      url = "github:frigidplatypus/cria";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    taskherald = {
-
-      url = "github:frigidplatypus/taskherald";
-      #   inputs.nixpkgs.follows = "nixpkgs";
     };
     html-to-markdown = {
       url = "github:frigidplatypus/html-to-markdown";
@@ -170,12 +164,12 @@
         inputs.nix-index-database.nixosModules.nix-index
         inputs.nix-flatpak.nixosModules.nix-flatpak
         inputs.email-to-miniflux.nixosModules.emailToMiniflux
+        inputs.hermes.nixosModules.default
       ];
 
       homes.modules = [
         inputs.sops-nix.homeManagerModules.sops
         inputs.nix-index-database.homeModules.nix-index
-        inputs.taskherald.homeManagerModules.default
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.niri-flake.homeModules.config
       ];
