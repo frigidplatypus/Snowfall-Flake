@@ -37,7 +37,7 @@ with lib.frgd;
     frgd.numara
     frgd.heynote
     frgd.wakeonlan_script
-    frgd.matcha
+    matcha
     cifs-utils
     remmina
     nom
