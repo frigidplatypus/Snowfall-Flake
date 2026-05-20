@@ -197,7 +197,6 @@ with lib.frgd;
           hostname = "ai.${tailnet}";
           # Dashboard validates Host header against its bound address.
           # Override via handle block so Host arrives as 127.0.0.1.
-          # Guacamole proxied at /guacamole path.
           backendAddress = "http://127.0.0.1:9119";
           useTailnet = true;
           extraConfig = ''
@@ -205,9 +204,6 @@ with lib.frgd;
               reverse_proxy http://127.0.0.1:9119 {
                 header_up Host 127.0.0.1
               }
-            }
-            handle_path /guacamole* {
-              reverse_proxy http://127.0.0.1:8080
             }
           '';
         };
