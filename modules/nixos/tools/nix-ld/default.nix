@@ -47,6 +47,11 @@ in
         xorg.libXrandr
         xorg.libxshmfence
         mesa
+        mesa.drivers
+        libgbm
+        freetype
+        zlib
+        fontconfig
       ];
     };
   };
