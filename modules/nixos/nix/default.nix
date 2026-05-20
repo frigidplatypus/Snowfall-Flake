@@ -66,6 +66,7 @@ in
             "root"
             config.frgd.user.name
             "n8n"
+            "hermes"
           ]
           ++ optional config.services.hydra.enable "hydra";
           extraSubstituterUrls = mapAttrsToList (name: _value: name) cfg.extra-substituters;
