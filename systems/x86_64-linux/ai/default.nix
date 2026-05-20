@@ -189,6 +189,7 @@ with lib.frgd;
     };
     apps.chromium = enabled;
     tools.xvfb = enabled;
+    tools.nix-ld = enabled;
     services.caddy-proxy = {
       enable = true;
       hosts = {
