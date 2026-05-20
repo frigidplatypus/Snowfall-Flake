@@ -391,6 +391,11 @@ with lib.frgd;
             <param name="hostname">localhost</param>
             <param name="port">5900</param>
           </connection>
+          <connection name="AI NotebookLM">
+            <protocol>vnc</protocol>
+            <param name="hostname">100.94.146.39</param>
+            <param name="port">5900</param>
+          </connection>
         </authorize>
       </user-mapping>
     '';
