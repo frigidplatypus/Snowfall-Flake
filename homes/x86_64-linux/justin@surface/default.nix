@@ -413,6 +413,8 @@ with lib.frgd;
     cfonts
     foot
     forgejo-cli
+    frgd.numara
+    heynote
     telegram-desktop
   ];
 

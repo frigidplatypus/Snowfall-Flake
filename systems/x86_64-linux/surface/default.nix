@@ -19,6 +19,7 @@ with lib.frgd;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
   services.flatpak.enable = true;
+  services.gvfs.enable = true;
   xdg.portal = enabled;
   services.zram-generator = enabled;
   hardware.xpadneo = enabled;
