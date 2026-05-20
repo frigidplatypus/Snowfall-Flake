@@ -92,6 +92,12 @@ with lib.frgd;
       openssh
     ];
     environmentFiles = [ config.sops.secrets.hermes_env.path ];
+    mcpServers = {
+      notebooklm = {
+        command = "npx";
+        args = [ "notebooklm-mcp@latest" ];
+      };
+    };
     settings = {
       model = {
         default = "deepseek-v4-flash";
