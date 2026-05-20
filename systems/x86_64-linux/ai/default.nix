@@ -160,6 +160,7 @@ with lib.frgd;
       pkg = pkgs.nodejs_24;
     };
     apps.chromium = enabled;
+    tools.xvfb = enabled;
     services.caddy-proxy = {
       enable = true;
       hosts = {
