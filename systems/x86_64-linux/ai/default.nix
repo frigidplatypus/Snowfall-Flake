@@ -149,6 +149,11 @@ with lib.frgd;
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
+    tools.node = {
+      enable = true;
+      pkg = pkgs.nodejs_24;
+    };
+    apps.chromium = enabled;
     services.caddy-proxy = {
       enable = true;
       hosts = {

@@ -13,8 +13,8 @@ let
 in
 {
   options.frgd.tools.node = with types; {
-    enable = mkBoolOpt false "Whether or not to install and configure git";
-    pkg = mkOpt package pkgs.nodejs-18_x "The NodeJS package to use";
+    enable = mkBoolOpt false "Whether or not to install NodeJS and related tools.";
+    pkg = mkOpt package pkgs.nodejs_22 "The NodeJS package to use";
     prettier = {
       enable = mkBoolOpt true "Whether or not to install Prettier";
       pkg = mkOpt package pkgs.nodePackages.prettier "The NodeJS package to use";
