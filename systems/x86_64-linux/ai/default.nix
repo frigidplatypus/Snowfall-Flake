@@ -125,7 +125,6 @@ with lib.frgd;
     guacamole-client = {
       enable = true;
       enableWebserver = true;
-      port = 8080;
       settings = {
         guacd-hostname = "127.0.0.1";
         guacd-port = 4822;
