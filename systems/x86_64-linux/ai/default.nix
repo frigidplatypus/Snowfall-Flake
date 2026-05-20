@@ -77,42 +77,71 @@ with lib.frgd;
         chown hermes:hermes /var/lib/hermes/.gitconfig
   '';
 
-  services.hermes-agent = {
-    enable = true;
-    addToSystemPackages = true;
-    extraDependencyGroups = [
-      "messaging"
-      "web"
-    ];
-    extraPackages = with pkgs; [
-      curl
-      jq
-      nix
-      forgejo-cli
-      openssh
-    ];
-    environmentFiles = [ config.sops.secrets.hermes_env.path ];
-    mcpServers = {
-      notebooklm = {
-        command = "npx";
-        args = [ "notebooklm-mcp@latest" ];
+  services = {
+    hermes-agent = {
+      enable = true;
+      addToSystemPackages = true;
+      extraDependencyGroups = [
+        "messaging"
+        "web"
+      ];
+      extraPackages = with pkgs; [
+        curl
+        jq
+        nix
+        forgejo-cli
+        openssh
+      ];
+      environmentFiles = [ config.sops.secrets.hermes_env.path ];
+      mcpServers = {
+        notebooklm = {
+          command = "npx";
+          args = [ "notebooklm-mcp@latest" ];
+        };
+      };
+      settings = {
+        model = {
+          default = "deepseek-v4-flash";
+          provider = "opencode-go";
+          base_url = "https://opencode.ai/zen/go/v1";
+          api_mode = "chat_completions";
+        };
+        toolsets = [ "hermes-cli" ];
+        terminal.cwd = "/var/lib/hermes/workspace";
+        agent.restart_drain_timeout = 180;
+        display = {
+          personality = "kawaii";
+          streaming = false;
+        };
+        approvals.mode = "manual";
       };
     };
-    settings = {
-      model = {
-        default = "deepseek-v4-flash";
-        provider = "opencode-go";
-        base_url = "https://opencode.ai/zen/go/v1";
-        api_mode = "chat_completions";
+
+    guacamole-server = {
+      enable = true;
+      host = "127.0.0.1";
+    };
+
+    guacamole-client = {
+      enable = true;
+      enableWebserver = true;
+      port = 8080;
+      settings = {
+        guacd-hostname = "127.0.0.1";
+        guacd-port = 4822;
       };
-      toolsets = [ "hermes-cli" ];
-      terminal.cwd = "/var/lib/hermes/workspace";
-      agent.restart_drain_timeout = 180;
-      display = {
-        personality = "kawaii";
-        streaming = false;
-      };
-      approvals.mode = "manual";
+      userMappingXml = pkgs.writeText "user-mapping.xml" ''
+        <?xml version="1.0" encoding="UTF-8"?>
+        <user-mapping>
+          <authorize username="guacuser" password="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8" encoding="sha256">
+            <connection name="AI Desktop">
+              <protocol>vnc</protocol>
+              <param name="hostname">127.0.0.1</param>
+              <param name="port">5900</param>
+            </connection>
+          </authorize>
+        </user-mapping>
+      '';
     };
   };
 
@@ -168,6 +197,7 @@ with lib.frgd;
           hostname = "ai.${tailnet}";
           # Dashboard validates Host header against its bound address.
           # Override via handle block so Host arrives as 127.0.0.1.
+          # Guacamole proxied at /guacamole path.
           backendAddress = "http://127.0.0.1:9119";
           useTailnet = true;
           extraConfig = ''
@@ -175,6 +205,9 @@ with lib.frgd;
               reverse_proxy http://127.0.0.1:9119 {
                 header_up Host 127.0.0.1
               }
+            }
+            handle_path /guacamole* {
+              reverse_proxy http://127.0.0.1:8080
             }
           '';
         };
