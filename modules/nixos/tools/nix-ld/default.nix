@@ -17,6 +17,37 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.nix-ld.enable = true;
+    programs.nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        glib
+        nss
+        nspr
+        atk
+        at-spi2-atk
+        at-spi2-core
+        cups
+        libdrm
+        libxkbcommon
+        libGL
+        pango
+        cairo
+        gtk3
+        expat
+        dbus
+        libxshmfence
+        udev
+        alsa-lib
+        xorg.libX11
+        xorg.libxcb
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        xorg.libxshmfence
+        mesa
+      ];
+    };
   };
 }
