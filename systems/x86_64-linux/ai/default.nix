@@ -7,47 +7,6 @@
 }:
 with lib;
 with lib.frgd;
-let
-  notebooklmWrapper = pkgs.writeShellScript "notebooklm-wrapper" ''
-    set -e
-    PROFILE_DIR="$HOME/.local/share/notebooklm-mcp/chrome_profile"
-    LOCK_FILE="$PROFILE_DIR/mcp-startup.lock"
-
-    exec 200>"$LOCK_FILE"
-    ${pkgs.util-linux}/bin/flock -n 200 || {
-      echo "Another instance is starting up. Exiting." >&2
-      exit 1
-    }
-
-    # Verify no Chrome process is holding the profile (check PID in SingletonLock symlink)
-    if [ -f "$PROFILE_DIR/SingletonLock" ]; then
-      LOCK_PID=$(readlink "$PROFILE_DIR/SingletonLock" 2>/dev/null | sed 's/^ai-//')
-      if [ -n "$LOCK_PID" ] && kill -0 "$LOCK_PID" 2>/dev/null; then
-        echo "ERROR: Live Chrome process holds profile lock. Aborting." >&2
-        exit 1
-      fi
-    fi
-
-    # Remove stale Singleton lock files so Patchright can use the base persistent profile
-    rm -f "$PROFILE_DIR/SingletonCookie" \
-          "$PROFILE_DIR/SingletonLock" \
-          "$PROFILE_DIR/SingletonSocket" 2>/dev/null
-
-    # Clean stale /tmp IPC sockets from previous runs
-    SOCKET_LINK="$PROFILE_DIR/SingletonSocket"
-    if [ -L "$SOCKET_LINK" ]; then
-      SOCKET_PATH=$(readlink -f "$SOCKET_LINK" 2>/dev/null || true)
-      if [ -n "$SOCKET_PATH" ]; then
-        rm -f "$SOCKET_PATH" 2>/dev/null
-      fi
-    fi
-    rm -rf /tmp/org.chromium.Chromium.* 2>/dev/null
-
-    ${pkgs.util-linux}/bin/flock -u 200
-
-    exec npx notebooklm-mcp@latest "$@"
-  '';
-in
 {
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
@@ -118,20 +77,6 @@ in
         openssh
       ];
       environmentFiles = [ config.sops.secrets.hermes_env.path ];
-      mcpServers = {
-        notebooklm = {
-          command = "${notebooklmWrapper}";
-          args = [ ];
-          env = {
-            BROWSER_CHANNEL = "chromium";
-            AUTO_LOGIN_ENABLED = "true";
-            DISPLAY = ":99";
-            NOTEBOOKLM_AI_MARKER = "false";
-            NOTEBOOK_CLEANUP_ON_SHUTDOWN = "false";
-            NOTEBOOK_PROFILE_STRATEGY = "single";
-          };
-        };
-      };
       settings = {
         model = {
           default = "deepseek-v4-flash";
@@ -213,25 +158,6 @@ in
         PrivateTmp = true;
       };
     };
-
-  # Hourly cleanup of orphaned Chrome processes left behind after MCP server crashes
-  systemd.services.cleanup-notebooklm-chrome = {
-    description = "Kill orphaned Chrome processes from NotebookLM MCP server";
-    after = [ "hermes-agent.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'for pid in $(pgrep -u hermes -f \"chrome.*chrome_profile\" 2>/dev/null || true); do ppid=$(ps -o ppid= -p \"$pid\" 2>/dev/null || echo 1); if [ \"$ppid\" -eq 1 ]; then kill \"$pid\" 2>/dev/null || true; fi; done'";
-    };
-  };
-
-  systemd.timers.cleanup-notebooklm-chrome = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "cleanup-notebooklm-chrome.service" ];
-    timerConfig = {
-      OnCalendar = "hourly";
-      Persistent = true;
-    };
-  };
 
   frgd = {
     nix = enabled;
