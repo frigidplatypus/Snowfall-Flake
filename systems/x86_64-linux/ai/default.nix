@@ -95,11 +95,13 @@ with lib.frgd;
       environmentFiles = [ config.sops.secrets.hermes_env.path ];
       mcpServers = {
         notebooklm = {
-          command = "npx";
-          args = [ "notebooklm-mcp@latest" ];
+          command = "/var/lib/hermes/.hermes/scripts/notebooklm-wrapper.sh";
+          args = [ ];
           env = {
             BROWSER_CHANNEL = "chrome";
             AUTO_LOGIN_ENABLED = "true";
+            NOTEBOOKLM_AI_MARKER = "false";
+            NOTEBOOK_CLEANUP_ON_SHUTDOWN = "false";
           };
         };
       };
