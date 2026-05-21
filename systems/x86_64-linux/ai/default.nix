@@ -98,11 +98,12 @@ with lib.frgd;
           command = "/var/lib/hermes/.hermes/scripts/notebooklm-wrapper.sh";
           args = [ ];
           env = {
-            BROWSER_CHANNEL = "chrome";
+            BROWSER_CHANNEL = "chromium";
             AUTO_LOGIN_ENABLED = "true";
             DISPLAY = ":99";
             NOTEBOOKLM_AI_MARKER = "false";
             NOTEBOOK_CLEANUP_ON_SHUTDOWN = "false";
+            NOTEBOOK_PROFILE_STRATEGY = "single";
           };
         };
       };
