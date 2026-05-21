@@ -121,6 +121,13 @@ with lib.frgd;
       };
     };
 
+    mattermost = {
+      enable = true;
+      siteUrl = "https://mm.${tailnet}";
+      siteName = "Hermes Chat";
+      database.create = true;
+    };
+
     guacamole-server = {
       enable = true;
       host = "127.0.0.1";
@@ -210,6 +217,11 @@ with lib.frgd;
               }
             }
           '';
+        };
+        mm = {
+          hostname = "mm.${tailnet}";
+          backendAddress = "http://127.0.0.1:8065";
+          useTailnet = true;
         };
       };
     };
