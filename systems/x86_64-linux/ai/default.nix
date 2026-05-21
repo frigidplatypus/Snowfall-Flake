@@ -117,7 +117,7 @@ with lib.frgd;
           personality = "kawaii";
           streaming = false;
         };
-        approvals.mode = "manual";
+        approvals.mode = "smart";
       };
     };
 
