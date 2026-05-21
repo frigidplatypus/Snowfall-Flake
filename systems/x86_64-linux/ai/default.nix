@@ -125,7 +125,10 @@ with lib.frgd;
       enable = true;
       siteUrl = "https://chat.${tailnet}";
       siteName = "Hermes Chat";
-      database.create = true;
+      database = {
+        create = true;
+        peerAuth = true;
+      };
     };
 
     guacamole-server = {
