@@ -123,7 +123,7 @@ with lib.frgd;
 
     mattermost = {
       enable = true;
-      siteUrl = "https://mm.${tailnet}";
+      siteUrl = "https://chat.${tailnet}";
       siteName = "Hermes Chat";
       database.create = true;
     };
@@ -217,11 +217,6 @@ with lib.frgd;
               }
             }
           '';
-        };
-        mm = {
-          hostname = "mm.${tailnet}";
-          backendAddress = "http://127.0.0.1:8065";
-          useTailnet = true;
         };
       };
     };
