@@ -97,6 +97,10 @@ with lib.frgd;
         notebooklm = {
           command = "npx";
           args = [ "notebooklm-mcp@latest" ];
+          env = {
+            BROWSER_CHANNEL = "chrome";
+            AUTO_LOGIN_ENABLED = "true";
+          };
         };
       };
       settings = {
