@@ -118,6 +118,7 @@ with lib.frgd;
           streaming = false;
         };
         approvals.mode = "smart";
+        telegram.topic_sessions = true;
       };
     };
 
