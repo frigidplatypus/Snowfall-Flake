@@ -18,5 +18,15 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ xvfb-run tigervnc ];
+
+    systemd.services.xvfb = {
+      description = "Virtual Framebuffer X Server";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.xvfb}/bin/Xvfb :99 -screen 0 1920x1080x24 +extension RANDR";
+        Restart = "always";
+        RestartSec = "2s";
+      };
+    };
   };
 }
