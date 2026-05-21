@@ -22,7 +22,12 @@ with lib.frgd;
   systemd.services.silverbullet.path = [
     pkgs.git
     pkgs.openssh
+    pkgs.chromium
   ];
+
+  systemd.services.silverbullet.environment = {
+    SB_CHROME_PATH = "${pkgs.chromium}/bin/chromium-browser";
+  };
   users.users.justin.extraGroups = [ "silverbullet" ];
 
   environment.systemPackages = [ pkgs.opencode];
