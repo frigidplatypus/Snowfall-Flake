@@ -100,6 +100,7 @@ with lib.frgd;
           env = {
             BROWSER_CHANNEL = "chrome";
             AUTO_LOGIN_ENABLED = "true";
+            DISPLAY = ":99";
             NOTEBOOKLM_AI_MARKER = "false";
             NOTEBOOK_CLEANUP_ON_SHUTDOWN = "false";
           };
