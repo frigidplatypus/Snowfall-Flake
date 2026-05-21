@@ -14,7 +14,7 @@ let
     LOCK_FILE="$PROFILE_DIR/mcp-startup.lock"
 
     exec 200>"$LOCK_FILE"
-    flock -n 200 || {
+    ${pkgs.util-linux}/bin/flock -n 200 || {
       echo "Another instance is starting up. Exiting." >&2
       exit 1
     }
@@ -43,7 +43,7 @@ let
     fi
     rm -rf /tmp/org.chromium.Chromium.* 2>/dev/null
 
-    flock -u 200
+    ${pkgs.util-linux}/bin/flock -u 200
 
     exec npx notebooklm-mcp@latest "$@"
   '';
