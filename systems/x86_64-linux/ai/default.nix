@@ -122,16 +122,6 @@ with lib.frgd;
       };
     };
 
-    mattermost = {
-      enable = true;
-      siteUrl = "https://chat.${tailnet}";
-      siteName = "Hermes Chat";
-      database = {
-        create = true;
-        peerAuth = true;
-      };
-    };
-
     guacamole-server = {
       enable = true;
       host = "127.0.0.1";
