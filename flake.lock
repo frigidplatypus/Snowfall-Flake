@@ -707,11 +707,11 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1779374933,
-        "narHash": "sha256-1p3Yn54727qNeuycxg7MD7HwDxkxIae+aKYnwemHid8=",
+        "lastModified": 1779415264,
+        "narHash": "sha256-RHvM/pPbGx39yQhmuslg41yvM/Aqf+vecrKyPUKUAUI=",
         "owner": "nousresearch",
         "repo": "hermes-agent",
-        "rev": "ba9964ff0d68002d9440f6b8a64276d7c34a77a4",
+        "rev": "9e30ef224d497bd1be8f5cf19b7a8151757b9716",
         "type": "github"
       },
       "original": {
@@ -827,11 +827,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1778856680,
-        "narHash": "sha256-3yZlRE61Dr5t6twD0alfjJkN7gVmRhbw5oQUMDHn9lg=",
+        "lastModified": 1779384774,
+        "narHash": "sha256-2ZOJofQwalZjjC7/VPJ3OjOpbY5XYtlL5aTgsGj+uBk=",
         "owner": "hyprwm",
         "repo": "hyprlock",
-        "rev": "274154f92a3ea546cdd8ef2dd1804d1d523b05b9",
+        "rev": "ae901a3eb2b2a507bbf213adfacac363433034da",
         "type": "github"
       },
       "original": {
@@ -2132,11 +2132,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776356196,
-        "narHash": "sha256-RoCZCDGtx3v7zb3cmYf3IoKrttuTjk0czbyGqfn4LMo=",
+        "lastModified": 1779389235,
+        "narHash": "sha256-QNKK3BHzL0b38ufgQJ6B12/LNyJSiHCrGPxEgas+u7c=",
         "owner": "shazow",
         "repo": "wifitui",
-        "rev": "4abaeb1bdd67ce69d585ef385226df0466d1eeb3",
+        "rev": "05e2f9ae75ea940f8e1ecdb8d2450e064962ceef",
         "type": "github"
       },
       "original": {
