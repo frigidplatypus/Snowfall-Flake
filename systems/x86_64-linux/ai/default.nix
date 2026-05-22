@@ -85,6 +85,7 @@ with lib.frgd;
         nix
         forgejo-cli
         openssh
+        x11vnc
       ];
       environmentFiles = [ config.sops.secrets.hermes_env.path ];
       settings = { };
@@ -114,6 +115,18 @@ with lib.frgd;
           </authorize>
         </user-mapping>
       '';
+    };
+  };
+
+  systemd.services.x11vnc = {
+    description = "VNC server for Xvfb display :99";
+    after = [ "xvfb.service" ];
+    wants = [ "xvfb.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -forever -shared -display :99 -rfbport 5900";
+      Restart = "on-failure";
+      RestartSec = 3;
     };
   };
 
