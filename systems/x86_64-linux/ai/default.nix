@@ -13,35 +13,17 @@ with lib.frgd;
   ];
   networking.firewall.enable = false;
 
-  security.sudo.extraRules = [
-    {
-      users = [ "hermes" ];
-      commands = [
-        {
-          command = "${pkgs.systemd}/bin/systemctl restart hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl stop hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl start hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl status hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl reset-failed hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
-
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
+
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.systemd1.manage-units" &&
+          subject.user == "hermes" &&
+          action.lookup("unit") == "hermes-agent.service") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   sops.secrets.hermes_env = {
     owner = "hermes";
