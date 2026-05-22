@@ -77,23 +77,7 @@ with lib.frgd;
         openssh
       ];
       environmentFiles = [ config.sops.secrets.hermes_env.path ];
-      settings = {
-        model = {
-          default = "deepseek-v4-flash";
-          provider = "opencode-go";
-          base_url = "https://opencode.ai/zen/go/v1";
-          api_mode = "chat_completions";
-        };
-        toolsets = [ "hermes-cli" ];
-        terminal.cwd = "/var/lib/hermes/workspace";
-        agent.restart_drain_timeout = 180;
-        display = {
-          personality = "kawaii";
-          streaming = false;
-        };
-        approvals.mode = "smart";
-        telegram.topic_sessions = true;
-      };
+      settings = { };
     };
 
     guacamole-server = {
