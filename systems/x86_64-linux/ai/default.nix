@@ -15,16 +15,6 @@ with lib.frgd;
 
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
 
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      if (action.id == "org.freedesktop.systemd1.manage-units" &&
-          subject.user == "hermes" &&
-          action.lookup("unit") == "hermes-agent.service") {
-        return polkit.Result.YES;
-      }
-    });
-  '';
-
   sops.secrets.hermes_env = {
     owner = "hermes";
     group = "hermes";
