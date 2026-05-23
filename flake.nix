@@ -27,6 +27,10 @@
     #   inputs.nixpkgs.follows = "stable-nixpkgs";
     # };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    silverbullet-mcp = {
+      url = "https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -3,6 +3,7 @@
   modulesPath,
   config,
   pkgs,
+  inputs,
   ...
 }:
 with lib;
@@ -76,6 +77,7 @@ with lib.frgd;
         forgejo-cli
         openssh
         x11vnc
+        inputs.silverbullet-mcp.packages.${pkgs.system}.default
       ];
       environmentFiles = [ config.sops.secrets.hermes_env.path ];
       settings = { };
