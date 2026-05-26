@@ -27,10 +27,6 @@
     #   inputs.nixpkgs.follows = "stable-nixpkgs";
     # };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    silverbullet-mcp = {
-      url = "https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -112,6 +108,9 @@
 
     email-to-miniflux = {
       url = "git+https://git.fluffy-rooster.ts.net/justin/email-to-miniflux";
+    };
+    silverbullet-mcp = {
+      url = "git+https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git";
     };
 
   };
