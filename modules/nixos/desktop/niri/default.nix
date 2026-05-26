@@ -86,7 +86,7 @@ in
             else
               [ ]
           );
-        configPackages = [ niriPkg ];
+        configPackages = [ niriPkg pkgs.xdg-desktop-portal-gtk ];
       };
 
       security.polkit.enable = true;

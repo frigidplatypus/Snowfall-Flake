@@ -410,12 +410,26 @@ with lib.frgd;
   };
 
   home.packages = with pkgs; [
+    gparted
+    kdePackages.partitionmanager
+    gnome-disk-utility
+    blivet-gui
     cfonts
+    exfatprogs
+    fatresize
     foot
     forgejo-cli
     frgd.numara
     heynote
+    parted
+    polkit
     telegram-desktop
+    util-linux
+    dosfstools
+    e2fsprogs
+    ffmpeg
+    yt-dlp
+    udiskie
   ];
 
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering
