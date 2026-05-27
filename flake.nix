@@ -149,36 +149,6 @@
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
         inputs.niri-flake.overlays.niri
-
-        # Fix: hermes-agent web_server.py does a module-level import of
-        # hermes_cli.dashboard_auth which doesn't exist in the packaged
-        # build (pyproject.toml omits "hermes_cli.*" from find.packages).
-        # We don't use auth, so patch the import to be optional.
-        (final: prev: {
-          hermes-agent = prev.hermes-agent.overrideAttrs (old: {
-            postInstall = (old.postInstall or "") + ''
-              patch_dir="$out/lib/site-patches/hermes_cli"
-              mkdir -p "$patch_dir"
-              cp "${prev.hermes-agent.hermesVenv}/lib/python3.12/site-packages/hermes_cli/__init__.py" "$patch_dir/"
-              cp "${prev.hermes-agent.hermesVenv}/lib/python3.12/site-packages/hermes_cli/web_server.py" "$patch_dir/"
-              ${final.python3}/bin/python3 -c "
-path = '$patch_dir/web_server.py'
-content = open(path).read()
-old = 'from hermes_cli.dashboard_auth.routes import router as _dashboard_auth_router  # noqa: E402\napp.include_router(_dashboard_auth_router)'
-new = '''try:
-    from hermes_cli.dashboard_auth.routes import router as _dashboard_auth_router  # noqa: E402
-    app.include_router(_dashboard_auth_router)
-except ModuleNotFoundError:
-    pass'''
-assert old in content, 'Could not find dashboard_auth import in web_server.py'
-content = content.replace(old, new)
-open(path, 'w').write(content)
-print('dashboard_auth: import patched to optional (no auth)')
-"
-              wrapProgram $out/bin/hermes --prefix PYTHONPATH : "$patch_dir"
-            '';
-          });
-        })
       ];
 
       systems.modules.darwin = [
