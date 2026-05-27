@@ -1228,6 +1228,20 @@
     },
     "nixpkgs_10": {
       "locked": {
+        "lastModified": 1779357205,
+        "narHash": "sha256-cCO8aTqss5x9Ky8GWkpY0Hy5fyTZEbtifSUV8QjSzic=",
+        "rev": "f83fc3c307e74bc5fd5adb7eb6b8b13ffd2a36e1",
+        "revCount": 1002845,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.1002845%2Brev-f83fc3c307e74bc5fd5adb7eb6b8b13ffd2a36e1/019e50ff-852f-75f3-83b7-9b2faf16fe0c/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
         "lastModified": 1775888245,
         "narHash": "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=",
         "owner": "NixOS",
@@ -1610,6 +1624,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_9",
+        "silverbullet-mcp": "silverbullet-mcp",
         "snowfall-flake": "snowfall-flake",
         "snowfall-lib": "snowfall-lib_4",
         "sops-nix": "sops-nix",
@@ -1617,6 +1632,24 @@
         "tclip": "tclip",
         "vscode-server": "vscode-server",
         "wifitui": "wifitui"
+      }
+    },
+    "silverbullet-mcp": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_10"
+      },
+      "locked": {
+        "lastModified": 1779577079,
+        "narHash": "sha256-i31VaLRyXWmpORp9P4usjB9rDsTSczLNOdRnUWC0JEY=",
+        "ref": "refs/heads/main",
+        "rev": "2f520267fa43779587e522f45efebe43360bd7aa",
+        "revCount": 6,
+        "type": "git",
+        "url": "https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git"
       }
     },
     "snowfall-flake": {
@@ -1735,7 +1768,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_10"
+        "nixpkgs": "nixpkgs_11"
       },
       "locked": {
         "lastModified": 1777944972,

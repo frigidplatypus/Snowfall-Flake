@@ -87,6 +87,7 @@ with lib.frgd;
     opencode
     crush
     gh
+    tg
 
     #Ollama TUIs
     gollama
