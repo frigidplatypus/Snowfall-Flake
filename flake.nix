@@ -149,6 +149,32 @@
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
         inputs.niri-flake.overlays.niri
+
+        # Fix: hermes-agent pyproject.toml omits "hermes_cli.*" from
+        # [tool.setuptools.packages.find] include list, so subpackages like
+        # dashboard_auth are missing from the installed Python package.
+        # Patch the venv post-build to include the missing directory.
+        (final: prev: let
+          hermesLocked = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.hermes.locked;
+          hermesSrc = builtins.fetchTree {
+            type = hermesLocked.type;
+            owner = hermesLocked.owner;
+            repo = hermesLocked.repo;
+            rev = hermesLocked.rev;
+            narHash = hermesLocked.narHash;
+          };
+        in {
+          hermes-agent = prev.hermes-agent.overrideAttrs (old: {
+            postInstall = (old.postInstall or "") + ''
+              # Copy missing dashboard_auth subpackage from source and add to PYTHONPATH
+              site_patches="$out/lib/python3.12/site-packages"
+              mkdir -p "$site_patches/hermes_cli"
+              cp -r ${hermesSrc}/hermes_cli/dashboard_auth "$site_patches/hermes_cli/"
+              echo "dashboard_auth: installed to $site_patches/hermes_cli/dashboard_auth"
+              wrapProgram $out/bin/hermes --suffix PYTHONPATH : "$site_patches"
+            '';
+          });
+        })
       ];
 
       systems.modules.darwin = [
