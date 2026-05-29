@@ -1,9 +1,8 @@
-{
-  lib,
-  modulesPath,
-  pkgs,
-  config,
-  ...
+{ lib
+, modulesPath
+, pkgs
+, config
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -17,6 +16,7 @@ with lib.frgd;
     spaceDir = "/home/justin/silverbullet";
     user = "justin";
     group = "users";
+    package = pkgs.frgd.silverbullet;
   };
 
   systemd.services.silverbullet.path = [
@@ -30,7 +30,7 @@ with lib.frgd;
   };
   users.users.justin.extraGroups = [ "silverbullet" ];
 
-  environment.systemPackages = [ pkgs.opencode];
+  environment.systemPackages = [ pkgs.opencode ];
 
   frgd = {
     nix = enabled;
