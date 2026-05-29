@@ -11,7 +11,7 @@ let
 
   src = fetchurl {
     url = "https://github.com/bornova/numara-calculator/releases/download/v${version}/Numara-${version}-x86_64.AppImage";
-    hash = "sha256-snMYWVCbnB3w3kvtgyziqnRKVmWBKiE/OWpyhP3m1hY=";
+    hash = "sha256-GMBF2tSdYMA2L/4hb4svwNOpO6V47gFJdAHEB3aRHaw=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
@@ -22,7 +22,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands = ''
     install -Dm444 ${appimageContents}/numara.desktop $out/share/applications/Numara.desktop
-    install -Dm444 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/numara.png $out/share/pixmaps/Numara.png
+    install -Dm444 ${appimageContents}/numara.png $out/share/pixmaps/Numara.png
     substituteInPlace $out/share/applications/Numara.desktop \
       --replace 'Exec=AppRun --no-sandbox %U' 'Exec=numara'
   '';
