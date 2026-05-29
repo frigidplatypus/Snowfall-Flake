@@ -9,7 +9,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sb";
-  version = "2.8.0";
+  version = "2.8.1";
 
   src =
     finalAttrs.passthru.sources.${stdenv.hostPlatform.system}
@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sources = {
       "x86_64-linux" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-linux-x86_64.zip";
-        hash = "sha256-dXA14flNLT88rbLHulnVvzCUyqcPlnQwYJxiMrNpJy4=";
+        hash = "sha256-DdMtn0RE0pioTGj2e59ioGQihotL6WNGHb3vRnrG1TI=";
         stripRoot = false;
       };
       "aarch64-linux" = fetchzip {
