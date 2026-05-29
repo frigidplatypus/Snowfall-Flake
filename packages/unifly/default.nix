@@ -17,7 +17,7 @@ in
 
 pkgs.rustPlatform.buildRustPackage {
   pname = "unifly";
-  version = "v0.9.1";
+  version = "v0.9.0";
   src = src;
   cargoHash = "sha256-j/poN2AdCeSNymYUAWxpy0MMqF5ZF5LTKrP1016oc94=";
   dontTest = true;
