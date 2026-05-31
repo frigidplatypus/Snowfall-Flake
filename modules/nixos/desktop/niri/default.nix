@@ -51,6 +51,8 @@ in
 
       environment.sessionVariables = {
         XCURSOR_THEME = "Capitaine Cursors (Gruvbox)";
+        GTK_USE_PORTAL = "1";
+        XDG_CURRENT_DESKTOP = "niri";
       };
 
       xdg = {
@@ -87,6 +89,7 @@ in
               [ ]
           );
         configPackages = [ niriPkg pkgs.xdg-desktop-portal-gtk ];
+        config.common.default = "*";
       };
 
       security.polkit.enable = true;

@@ -430,6 +430,7 @@ with lib.frgd;
     ffmpeg
     yt-dlp
     udiskie
+    frgd.sb
   ];
 
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering

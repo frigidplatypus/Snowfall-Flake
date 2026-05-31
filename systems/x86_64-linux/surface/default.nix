@@ -20,7 +20,6 @@ with lib.frgd;
   hardware.bluetooth.powerOnBoot = true;
   services.flatpak.enable = true;
   services.gvfs.enable = true;
-  xdg.portal = enabled;
   services.zram-generator = enabled;
   hardware.xpadneo = enabled;
   boot.zfs.forceImportRoot = true;
