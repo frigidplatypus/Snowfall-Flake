@@ -13,9 +13,6 @@ in
   options.frgd.security.sops = with types; {
     enable = mkBoolOpt false "Whether or not to enable sops.";
 
-    taskwarrior = {
-      enable = mkBoolOpt false "Whether or not to enable automatic connection to Tailscale";
-    };
     wireguard_server_key = {
       enable = mkBoolOpt false "Whether or not to enable Wireguard server key";
     };
@@ -68,27 +65,6 @@ in
       #  adminPass = "${config.sops.placeholder.justin_password}"
       #'';
     }
-    (mkIf (cfg.taskwarrior.enable) {
-      sops.secrets.taskwarrior_ca_cert = {
-        owner = "justin";
-        # group = "taskd";
-        mode = "0440";
-        #       path = "/home/justin/.taskcerts/taskwarrior_ca_cert";
-      };
-      sops.secrets.taskwarrior_private_key = {
-        owner = "justin";
-        # group = "taskd";
-        mode = "0440";
-        #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
-      };
-      sops.secrets.taskwarrior_public_cert = {
-        owner = "justin";
-        # group = "taskd";
-        mode = "0440";
-        #     path = "/home/justin/.taskcerts/taskwarrior_public_cert";
-      };
-
-    })
     (mkIf (cfg.wireguard_server_key.enable) {
       sops.secrets.wireguard_server_private_key = { };
     })
