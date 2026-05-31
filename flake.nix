@@ -19,7 +19,7 @@
     stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # stable-home-manager = {
@@ -149,6 +149,12 @@
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
         inputs.niri-flake.overlays.niri
+
+        (final: prev: {
+          frgd = (prev.frgd or { }) // {
+            html-to-markdown = inputs.html-to-markdown.packages.${final.system}.html-to-markdown;
+          };
+        })
       ];
 
       systems.modules.darwin = [
