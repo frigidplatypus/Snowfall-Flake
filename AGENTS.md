@@ -1,34 +1,67 @@
-# AGENTS.md - Snowfall NixOS Flake
+# AGENTS.md — Snowfall NixOS Flake
 
-## Build / Lint / Test
-- `nix flake check` — validate flake and all outputs
-- `nix build .#<package>` — build a single package (e.g. `nix build .#cliflux`)
-- `nix build .#<package>.tests` or `nix run .#<package>.tests` — run a single package test
-- `nix develop` — open dev shell with project tools
-- `nixpkgs-fmt` or `alejandra` — format Nix code (run before commits)
-- `nixos-rebuild switch --flake .#<hostname>` — deploy NixOS
-- `home-manager switch --flake .#<user>@<hostname>` — deploy Home Manager
+## Directory Layout (Snowfall Lib)
+
+```
+systems/<system>/<host>/       — NixOS / darwin / ISO host configs
+homes/<system>/<user>@<host>/  — Home Manager configs per user+host
+modules/nixos/                 — NixOS module tree (apps, services, hardware, etc.)
+modules/home/                  — Home Manager module tree
+modules/snowfall/              — Snowfall metadata module
+packages/<name>/               — Custom package derivations
+overlays/<name>/               — Package overlays
+lib/                           — Library helpers (see below)
+assets/                        — Static assets (wallpaper, etc.)
+scripts/                       — Bootstrap / utility scripts
+```
+
+## Build / Lint / Deploy
+
+- `nix flake check` — validate flake and all outputs (deploy-rs checks are wired)
+- `nix build .#<package>` — build a single package (e.g. `nix build .#silverbullet`)
+- `nix develop` — open a dev shell (currently **none defined** — gives a bare bash shell)
+- `nixfmt` — format Nix code (run before commits; configured in `treefmt.toml`)
+- `nixos-rebuild switch --flake .#<hostname>` — deploy NixOS (24 hosts)
+- `home-manager switch --flake .#<user>@<hostname>` — deploy Home Manager (15 configs)
+- `nix run github:serokell/deploy-rs -- --flake .#<hostname>` — deploy via deploy-rs (excludes p5810, t480)
+
+**No test infrastructure exists yet.** The package tree has no `passthru.tests` and there are no per-package test files. The `checks` output is currently empty — only `deploy-rs` checks are wired but produce no results.
 
 ## Code Style & Conventions
-- Imports: prefer `with lib; with lib.frgd;` at the top of module files for readable scope
-- Options: declare with explicit types using `mkOpt type default description`; validate early
-- Naming: module filenames use kebab-case, option names use camelCase; avoid one-letter vars
-- Structure: use `let cfg = config.frgd.<module>; in` and `inherit` for clarity and minimal duplication
-- Formatting: keep expressions short, wrap long lines, run `nixpkgs-fmt`; prefer small, pure modules
-- Types & errors: prefer explicit types for options; `throw` early with clear messages on invalid input
-- Testing: prefer hermetic tests via `nix build .#...tests`; run single-package tests locally
-- Comments: add concise comments for non-obvious logic; avoid noisy comments
 
-## Tooling Notes
-- If `.cursor/rules/` or `.cursorrules` exist, include those rules here for agent guidance
-- If `.github/copilot-instructions.md` exists, copy any repo-specific Copilot rules into this file
+- **Imports:** `with lib; with lib.frgd;` at the top of every module for readable scope.
+- **Options block:** `options.frgd.<category>.<name> = with types; { enable = mkBoolOpt false "..."; ... }`
+  - Use `mkOpt type default description` for non-bool options.
+  - `mkBoolOpt` is the curried form (`mkOpt types.bool`), preferred for boolean toggles.
+  - `with types;` inside the options block brings `str`, `bool`, `listOf`, etc. into scope.
+- **Shorthands** (from `lib/module/default.nix`):
+  - `enabled` → `{ enable = true; }`
+  - `disabled` → `{ enable = false; }`
+  - `font`, `tailnet` — other common value shorthands
+- **Config gating:** `config = mkIf cfg.enable { ... }` — the `enable` bool is the master switch.
+- **Naming:** module directory names are kebab-case; option names are camelCase.
+- **Structure:** `let cfg = config.frgd.<module>; in` with `inherit` for clarity and minimal duplication.
+- **Conditional config:** Use `mkMerge [ (mkIf cond1 { ... }) (mkIf cond2 { ... }) ]`, never `mkIf ... // mkIf ...`.
+- **Formatting:** keep expressions short, wrap long lines, run `nixfmt`.
+- **Types & errors:** prefer explicit option types; `throw` early on invalid input.
+- **Comments:** add concise comments for non-obvious logic; avoid noisy ones.
+
+## Lib Helpers (`lib/`)
+
+| File | Purpose |
+|---|---|
+| `lib/module/default.nix` | Core: `mkOpt`, `mkOpt'`, `mkBoolOpt`, `enabled`, `disabled`, `tailnet` |
+| `lib/deploy/default.nix` | `mkDeploy` — deploy-rs config generator (excludes p5810, t480) |
+| `lib/nix-colors/default.nix` | Color scheme selection + `hexToRgba` helper |
 
 ## SOPS Secrets
-- **NEVER** edit `modules/nixos/security/sops/secrets.yaml` manually with a text editor.
-- It is an encrypted SOPS file; editing it directly breaks the MAC integrity check.
-- To add/remove/edit secrets, use `sops edit modules/nixos/security/sops/secrets.yaml` or decrypt → edit → re-encrypt with `sops --encrypt --in-place`.
+
+- **NEVER** edit `modules/nixos/security/sops/secrets.yaml` or `modules/home/security/sops/secrets.yaml` manually with a text editor — they are AGE-encrypted SOPS files; direct edits break the MAC integrity check.
+- To add/remove/edit secrets, use `sops edit <path>` or decrypt → edit → re-encrypt with `sops --encrypt --in-place`.
+- Key file location: age key at `/sops/keys.txt` (Linux) or `~/.config/sops/age/keys.txt` (macOS).
 
 ## Snowfall + HM Debug Notes
+
 - Do not treat `nix flake show` output of `unknown` as authoritative for Snowfall outputs.
 - Verify concrete outputs with `nix eval`, for example:
   - `nix eval --json .#darwinConfigurations --apply builtins.attrNames`
@@ -37,4 +70,8 @@
 - For booleans, use `--json` (not `--raw`) to avoid coercion errors.
 - In Nix modules, do not combine conditional attrsets via `mkIf ... // mkIf ...`; use `mkMerge [ (mkIf ...) (mkIf ...) ]` so conditions are preserved by the module system.
 
-Keep this file short and pragmatic — it guides automated agents operating in this repo.
+## Known Gaps (to be addressed)
+
+- **No `devShell`** — `nix develop` returns a bare shell. A dev shell with `nixfmt`, `statix`, `deadnix`, `sops` is desirable.
+- **No package tests** — `passthru.tests` not defined on any package.
+- **No `checks`** — `checks.x86_64-linux` evaluates to an empty list.
