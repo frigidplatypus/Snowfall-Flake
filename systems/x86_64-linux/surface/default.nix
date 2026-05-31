@@ -1,9 +1,8 @@
-{
-  lib,
-  pkgs,
-  inputs,
-  config,
-  ...
+{ lib
+, pkgs
+, inputs
+, config
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -47,6 +46,8 @@ with lib.frgd;
     godot
     acpi
     powertop
+    mattermost-desktop
+    # matterhorn
   ];
 
   frgd = {
