@@ -23,6 +23,11 @@
 - If `.cursor/rules/` or `.cursorrules` exist, include those rules here for agent guidance
 - If `.github/copilot-instructions.md` exists, copy any repo-specific Copilot rules into this file
 
+## SOPS Secrets
+- **NEVER** edit `modules/nixos/security/sops/secrets.yaml` manually with a text editor.
+- It is an encrypted SOPS file; editing it directly breaks the MAC integrity check.
+- To add/remove/edit secrets, use `sops edit modules/nixos/security/sops/secrets.yaml` or decrypt → edit → re-encrypt with `sops --encrypt --in-place`.
+
 ## Snowfall + HM Debug Notes
 - Do not treat `nix flake show` output of `unknown` as authoritative for Snowfall outputs.
 - Verify concrete outputs with `nix eval`, for example:
