@@ -75,7 +75,6 @@ with lib.frgd;
     security = {
       sops = {
         enable = true;
-        taskwarrior = enabled;
       };
     };
     archetypes = {

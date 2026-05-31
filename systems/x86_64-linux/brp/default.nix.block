@@ -35,7 +35,6 @@ with lib.frgd;
     owner = "bible-reading-plan";
     # group = "taskd";
     mode = "0440";
-    #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
   };
 
   frgd = {

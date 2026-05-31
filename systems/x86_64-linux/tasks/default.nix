@@ -18,11 +18,7 @@ with lib.frgd;
     archetypes.lxc = enabled;
     cli-apps.tmux = enabled;
     security.sops = enabled;
-    services = {
-      taskchampion = {
-        enable = true;
-      };
-    };
+    services = { };
   };
 
   services.caddy = {

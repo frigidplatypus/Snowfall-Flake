@@ -71,14 +71,7 @@ with lib.frgd;
   #   adminPasswordFile = config.sops.secrets.brp_admin.path;
   # };
   #
-  # sops.secrets.brp_admin = {
-  #   owner = "bible-reading-plan";
-  #   # group = "taskd";
-  #   mode = "0440";
-  #   #      path = "/home/justin/.taskcerts/taskwarrior_private_key";
-  # };
-
-  frgd = {
+frgd = {
     nix = {
       enable = true;
       github-access-token = enabled;
@@ -114,7 +107,6 @@ with lib.frgd;
     security = {
       sops = {
         enable = true;
-        taskwarrior = enabled;
       };
     };
     archetypes = {
