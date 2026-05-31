@@ -20,7 +20,6 @@ with lib.frgd;
     };
 
     cli-apps = {
-      taskwarrior = enabled;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;

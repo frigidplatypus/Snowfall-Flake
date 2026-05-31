@@ -57,20 +57,6 @@ with lib.frgd;
       home-manager = enabled;
       matrix_clients = enabled;
       system-monitors = enabled;
-      taskwarrior = {
-        enable = true;
-        taskpirate = {
-          enable = true;
-          # hooksDir = "~/.local/share/task/hooks"; # optional override
-          defaultDateTime = {
-            enable = true;
-            time = "07:00:00";
-          };
-          shiftRecurrence = {
-            enable = true;
-          };
-        };
-      };
       local-scripts = {
         enable = true;
         flakePath = "/Users/jmartin/Snowfall-Flake/";

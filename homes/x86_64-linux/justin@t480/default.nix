@@ -99,13 +99,6 @@ with lib.frgd;
       atuin = enabled;
       ranger = enabled;
       fish = enabled;
-      taskwarrior = {
-        enable = true;
-        taskpirate = {
-          enable = true;
-          hooksDir = "~/.local/share/task/hooks";
-        };
-      };
       matrix_clients = enabled;
       hass-cli = enabled;
       cliflux = enabled;

@@ -25,7 +25,6 @@ with lib.frgd;
       home-manager = enabled;
       ranger = enabled;
       fish = enabled;
-      taskwarrior = enabled;
     };
 
     security = {
