@@ -21,7 +21,10 @@ in
       enable = true;
       extraRules = [
         {
-          users = [ config.frgd.user.name ];
+          users = [
+            config.frgd.user.name
+            "hermes"
+          ];
           noPass = true;
           keepEnv = true;
         }
