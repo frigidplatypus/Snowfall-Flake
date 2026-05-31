@@ -24,6 +24,7 @@ in
         home-manager = enabled;
         ranger = enabled;
         fish = enabled;
+        tmux = enabled;
       };
 
       tools = {
