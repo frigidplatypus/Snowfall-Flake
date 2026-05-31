@@ -17,10 +17,7 @@ in
 
   config = mkIf cfg.enable {
     # environment.systemPackages = with pkgs; [ logseq ];
-    environment.systemPackages = with pkgs; [
-      #logseq
-      (logseq.override { electron = electron_39; })
-    ];
+    # environment.systemPackages = with pkgs; [ logseq ];
     # services.flatpak = {
     #   enable = true;
     #   packages = [
