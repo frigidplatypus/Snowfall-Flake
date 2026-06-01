@@ -145,6 +145,7 @@ with lib.frgd;
         openssh
         x11vnc
         xauth
+        xorg.xdpyinfo
         inputs.silverbullet-mcp.packages.${pkgs.system}.default
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
