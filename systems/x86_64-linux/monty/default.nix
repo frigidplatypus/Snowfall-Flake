@@ -41,6 +41,7 @@ with lib.frgd;
   ];
 
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
+  systemd.services.hermes-agent.environment.DISPLAY = ":99";
 
   system.activationScripts.hermes-unmanaged = lib.stringAfter [ "hermes-agent-setup" ] ''
     rm -f /var/lib/hermes/.hermes/.managed
