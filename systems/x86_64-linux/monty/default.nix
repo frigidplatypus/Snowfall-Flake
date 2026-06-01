@@ -141,6 +141,41 @@ with lib.frgd;
     };
   };
 
+  # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
+  systemd.services.hermes-dashboard =
+    let
+      effectivePackage = config.services.hermes-agent.package.override {
+        extraDependencyGroups = config.services.hermes-agent.extraDependencyGroups;
+      };
+    in
+    {
+      description = "Hermes Agent Dashboard";
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "network-online.target"
+        "hermes-agent.service"
+      ];
+      wants = [ "network-online.target" ];
+
+      environment = {
+        HERMES_HOME = "/var/lib/hermes/.hermes";
+        HERMES_MANAGED = "true";
+      };
+
+      serviceConfig = {
+        User = "hermes";
+        Group = "hermes";
+        ExecStart = "${effectivePackage}/bin/hermes dashboard --host 127.0.0.1 --port 9119 --no-open --skip-build";
+        Restart = "on-failure";
+        RestartSec = 5;
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        ProtectHome = false;
+        ReadWritePaths = [ "/var/lib/hermes" ];
+        PrivateTmp = true;
+      };
+    };
+
   frgd = {
     apps = { };
     archetypes = {
