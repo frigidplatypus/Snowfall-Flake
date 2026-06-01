@@ -149,6 +149,47 @@ with lib.frgd;
     };
   };
 
+  # Hermes Desktop — headless desktop for browser-based auth (NotebookLM, etc.).
+  # System service running as Hermes user. Depends on xvfb.service from frgd.tools.xvfb.
+  systemd.services.hermes-desktop = {
+    description = "Headless desktop: fluxbox WM + x11vnc + noVNC proxy";
+    after = [ "xvfb.service" ];
+    wants = [ "xvfb.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      User = "hermes";
+      Group = "hermes";
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.writeShellScript "hermes-desktop-start" ''
+        set -e
+        ${pkgs.fluxbox}/bin/fluxbox &
+        ${pkgs.x11vnc}/bin/x11vnc -display :99 \
+          -forever -shared -rfbport 5900 -localhost &
+        ${pkgs.novnc}/bin/novnc --listen 127.0.0.1:6080 \
+          --vnc localhost:5900 &
+        wait -n
+      ''}";
+      ExecStop = "${pkgs.writeShellScript "hermes-desktop-stop" ''
+        pkill -f "novnc.*6080" 2>/dev/null || true
+        pkill x11vnc 2>/dev/null || true
+        pkill fluxbox 2>/dev/null || true
+        pkill Xvfb 2>/dev/null || true
+      ''}";
+    };
+  };
+
+  # NotebookLM MCP server — env vars for Chrome channel and auto-login.
+  services.hermes-agent.mcpServers.notebooklm = {
+    command = "npx";
+    args = [ "notebooklm-mcp@latest" ];
+    env = {
+      BROWSER_CHANNEL = "chrome";
+      AUTO_LOGIN_ENABLED = "true";
+    };
+  };
+
   # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
   systemd.services.hermes-dashboard =
     let
