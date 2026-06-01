@@ -56,6 +56,12 @@ with lib.frgd;
     });
   '';
 
+  # Upstream hermes-agent module adds extraPackages to users.users.hermes.packages,
+  # which causes user activation (systemctl --user) during nixos-rebuild switch.
+  # That fails remotely (no dbus). extraPackages already go on the service PATH
+  # via systemd.services.hermes-agent.path, so the user profile entry is redundant.
+  users.users.hermes.packages = lib.mkForce [ ];
+
   sops.secrets.monty_env = {
     owner = "hermes";
     group = "hermes";
