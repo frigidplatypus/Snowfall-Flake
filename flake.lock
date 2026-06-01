@@ -143,11 +143,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1776127668,
-        "narHash": "sha256-p2J+s3OiVpQmv49rckKak+DcLvlLim1s+RljNnyQLuE=",
+        "lastModified": 1780239913,
+        "narHash": "sha256-0Rg1uSReKEG/liMrCQViEhUkT0zNXXlpi5+5ZLN8VKA=",
         "ref": "refs/heads/main",
-        "rev": "050017063e3d0a633927b128fe3e93f283c372f2",
-        "revCount": 50,
+        "rev": "b7f77524c0329467491903a6f6706b39edd96dc1",
+        "revCount": 54,
         "type": "git",
         "url": "https://git.fluffy-rooster.ts.net/justin/email-to-miniflux"
       },
@@ -707,11 +707,11 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1780153088,
-        "narHash": "sha256-MW4ndX2eFJG/Xq3vTYP55jboZ0NZdL9m5Czq5KUzOcU=",
+        "lastModified": 1780278413,
+        "narHash": "sha256-T6cl0n4/li7xNvfEiNGpdHeKozVp9iHt4muwilt2nvw=",
         "owner": "nousresearch",
         "repo": "hermes-agent",
-        "rev": "6a72af044c44c9a05137bc448bc65ecf0ace5a89",
+        "rev": "758454d1e47e8c60faa89b2c3bd36f4301922cbd",
         "type": "github"
       },
       "original": {
@@ -1086,11 +1086,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779604987,
-        "narHash": "sha256-ZQ5z+fVhxYKtIFwtqGp5O0PD84BM1riASvqDaN5Xs+s=",
+        "lastModified": 1780210899,
+        "narHash": "sha256-4axz3OBPTKa6LIkXV8n0lc63MQU+et2CB5DGobEAi6k=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "8fba98c80b48fa013820e0163c5096922fea4ddd",
+        "rev": "97df9dc0b7c924344b793a15c1e8e4522ebb854e",
         "type": "github"
       },
       "original": {
@@ -1803,12 +1803,12 @@
     },
     "stable-nixpkgs": {
       "locked": {
-        "lastModified": 1779971959,
-        "narHash": "sha256-R5nauXyqyfRUFiZycFFZdkF7wl6eaUpPLst35+2nJQY=",
-        "rev": "ec942ba042dad5ef097e2ef3a3effc034241f011",
-        "revCount": 1004881,
+        "lastModified": 1780051219,
+        "narHash": "sha256-WnxzG4x47uCgjz+uD+vOzbF+Qid+hKyYdJWbduA9w7g=",
+        "rev": "e8e446a361172fe838243958325845d0b845c5e5",
+        "revCount": 1004943,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1004881%2Brev-ec942ba042dad5ef097e2ef3a3effc034241f011/019e7280-271d-7cc0-b0b7-e37f681daa84/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1004943%2Brev-e8e446a361172fe838243958325845d0b845c5e5/019e7f2a-4016-7f91-b703-b3568c6fbd62/source.tar.gz"
       },
       "original": {
         "type": "tarball",
