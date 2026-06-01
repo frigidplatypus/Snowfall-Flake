@@ -167,6 +167,7 @@ with lib.frgd;
     environment.DISPLAY = ":99";
 
     serviceConfig = {
+      Type = "simple";
       User = "hermes";
       Group = "hermes";
       ExecStart = "${pkgs.writeShellScript "hermes-desktop-start" ''
@@ -175,15 +176,16 @@ with lib.frgd;
           -forever -shared -rfbport 5900 -localhost &
         ${pkgs.novnc}/bin/novnc --listen 127.0.0.1:6080 \
           --vnc localhost:5900 &
-        # Block forever — systemd tracks this as the main process.
-        # If a child dies the service stays alive (not silently 'exited').
-        exec ${pkgs.coreutils}/bin/sleep infinity
+        # Block on first child death. systemd's Restart= recovers the whole stack.
+        wait -n
       ''}";
       ExecStop = "${pkgs.writeShellScript "hermes-desktop-stop" ''
         pkill -f "novnc.*6080" 2>/dev/null || true
         pkill x11vnc 2>/dev/null || true
         pkill fluxbox 2>/dev/null || true
       ''}";
+      Restart = "on-failure";
+      RestartSec = "5s";
     };
   };
 
