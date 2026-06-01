@@ -133,8 +133,10 @@ with lib.frgd;
         git
         jq
         nix
+        novnc
         openssh
         x11vnc
+        xauth
         inputs.silverbullet-mcp.packages.${pkgs.system}.default
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
@@ -195,6 +197,9 @@ with lib.frgd;
             backendAddress = "http://127.0.0.1:9119";
             useTailnet = true;
             extraConfig = ''
+              handle_path /vnc/* {
+                reverse_proxy localhost:6080
+              }
               handle {
                 reverse_proxy http://127.0.0.1:9119 {
                   header_up Host 127.0.0.1
