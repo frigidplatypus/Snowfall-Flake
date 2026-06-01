@@ -192,7 +192,7 @@ with lib.frgd;
     command = "npx";
     args = [ "notebooklm-mcp@latest" ];
     env = {
-      BROWSER_CHANNEL = "chrome";
+      BROWSER_CHANNEL = "chromium";
       AUTO_LOGIN_ENABLED = "true";
     };
   };
