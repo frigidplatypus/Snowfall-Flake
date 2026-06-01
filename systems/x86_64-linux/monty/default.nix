@@ -143,6 +143,7 @@ with lib.frgd;
         git
         jq
         nix
+        nodejs
         novnc
         openssh
         x11vnc
