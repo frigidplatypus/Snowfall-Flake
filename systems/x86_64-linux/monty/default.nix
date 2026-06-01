@@ -128,6 +128,7 @@ with lib.frgd;
       extraPackages = with pkgs; [
         curl
         ffmpeg
+        fluxbox
         forgejo-cli
         gh
         git
