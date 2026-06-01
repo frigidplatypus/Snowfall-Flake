@@ -40,6 +40,10 @@ with lib.frgd;
     }
   ];
 
+  # Run xvfb as hermes too — otherwise MIT-MAGIC-COOKIE is owned by root
+  # and the desktop processes (also User=hermes) can't connect to :99.
+  systemd.services.xvfb.serviceConfig.User = "hermes";
+
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
 
@@ -130,6 +134,7 @@ with lib.frgd;
         "web"
       ];
       extraPackages = with pkgs; [
+        chromium
         curl
         ffmpeg
         fluxbox
@@ -143,6 +148,7 @@ with lib.frgd;
         x11vnc
         xauth
         xorg.xdpyinfo
+        xorg.xhost
         inputs.silverbullet-mcp.packages.${pkgs.system}.default
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
@@ -157,25 +163,25 @@ with lib.frgd;
     wants = [ "xvfb.service" ];
     wantedBy = [ "multi-user.target" ];
 
+    environment.DISPLAY = ":99";
+
     serviceConfig = {
       User = "hermes";
       Group = "hermes";
-      Type = "oneshot";
-      RemainAfterExit = true;
       ExecStart = "${pkgs.writeShellScript "hermes-desktop-start" ''
-        set -e
         ${pkgs.fluxbox}/bin/fluxbox &
         ${pkgs.x11vnc}/bin/x11vnc -display :99 \
           -forever -shared -rfbport 5900 -localhost &
         ${pkgs.novnc}/bin/novnc --listen 127.0.0.1:6080 \
           --vnc localhost:5900 &
-        wait -n
+        # Block forever — systemd tracks this as the main process.
+        # If a child dies the service stays alive (not silently 'exited').
+        exec ${pkgs.coreutils}/bin/sleep infinity
       ''}";
       ExecStop = "${pkgs.writeShellScript "hermes-desktop-stop" ''
         pkill -f "novnc.*6080" 2>/dev/null || true
         pkill x11vnc 2>/dev/null || true
         pkill fluxbox 2>/dev/null || true
-        pkill Xvfb 2>/dev/null || true
       ''}";
     };
   };
