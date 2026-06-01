@@ -138,6 +138,7 @@ with lib.frgd;
         openssh
         x11vnc
         xauth
+        xvfb
         inputs.silverbullet-mcp.packages.${pkgs.system}.default
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
