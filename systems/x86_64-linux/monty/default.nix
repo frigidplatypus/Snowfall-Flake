@@ -43,10 +43,6 @@ with lib.frgd;
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
 
-  system.activationScripts.hermes-unmanaged = lib.stringAfter [ "hermes-agent-setup" ] ''
-    rm -f /var/lib/hermes/.hermes/.managed
-  '';
-
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
       if (action.id == "org.freedesktop.systemd1.manage-units" &&
@@ -57,15 +53,10 @@ with lib.frgd;
     });
   '';
 
-  # linger=true keeps the user manager (user@992.service) running at boot,
-  # providing the dbus socket for systemctl --user calls during remote activation
-  # (nixos-rebuild switch from p5810). Without it, user activation fails with
-  # "Could not connect to bus" on headless hosts.
-  # packages=mkForce suppresses the extraPackages from upstrea module, which
-  # would trigger user activation to rebuild the profile — now safe, but still
-  # redundant since those packages already reach the service via systemd PATH.
+  # packages=mkForce suppresses the extraPackages from upstream module, which
+  # would trigger user activation to rebuild the profile — redundant since
+  # those packages already reach the service via systemd PATH.
   users.users.hermes = {
-    linger = true;
     packages = lib.mkForce [ ];
   };
 
