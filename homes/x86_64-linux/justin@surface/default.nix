@@ -1,7 +1,6 @@
-{
-  lib,
-  pkgs,
-  ...
+{ lib
+, pkgs
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -13,7 +12,8 @@ with lib.frgd;
         options = "caps:hyper";
       };
       touchpad = {
-        tap-button-map = "left-right-middle";
+        tap = false;
+        # tap-button-map = "left-right-middle";
         click-method = "clickfinger";
         dwt = true;
         natural-scroll = true;
