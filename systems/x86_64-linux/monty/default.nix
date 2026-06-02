@@ -71,7 +71,7 @@ in
 
   # NoNewPrivileges prevents sudo from working — must be false
   # so the agent can run privileged commands via sudo.
-  systemd.services.hermes-agent.serviceConfig.NoNewPrivileges = false;
+  systemd.services.hermes-agent.serviceConfig.NoNewPrivileges = lib.mkForce false;
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
 
