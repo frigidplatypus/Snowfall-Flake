@@ -21,6 +21,7 @@ notify_mode=false
 build_mode=false
 health_checks=true
 strict_mode=false
+verbose_mode=false
 while [[ $# -gt 0 ]]; do
 	case $1 in
 	--dry-run)
@@ -51,6 +52,10 @@ while [[ $# -gt 0 ]]; do
 		strict_mode=true
 		shift
 		;;
+	--verbose)
+		verbose_mode=true
+		shift
+		;;
 	--help)
 		echo "Usage: nr [options] [hostname] [additional-args]"
 		echo ""
@@ -62,6 +67,7 @@ while [[ $# -gt 0 ]]; do
 		echo "  --health-checks    Enable post-deployment health checks (default)"
 		echo "  --no-health-checks Disable post-deployment health checks"
 		echo "  --strict           Fail deployment on health warnings"
+		echo "  --verbose          Show log file paths and detailed info on failure"
 		echo "  --help             Show this help message"
 		echo ""
 		echo "Environment Variables:"
@@ -108,56 +114,191 @@ rotate_log() {
 	fi
 }
 
+format_bytes() {
+	local bytes=$1
+	if command -v numfmt >/dev/null 2>&1; then
+		numfmt --to=iec "$bytes" 2>/dev/null || echo "${bytes}B"
+	else
+		echo "${bytes}B"
+	fi
+}
+
 deploy_host() {
 	local host="$1"
+	local start_time end_time elapsed
+	local log_file exit_code
+
+	start_time=$(date +%s)
+
 	if "$build_mode"; then
+		# ========== BUILD MODE ==========
+		log_file="/tmp/nr-build-${host}.log"
 		echo "Building system for $host..."
-		if timeout "$BUILD_TIMEOUT" nixos-rebuild build --flake "$NH_FLAKE#$host" 2>&1 | nom; then
-			echo "$host: SUCCESS"
-			log_msg "$host" "BUILD SUCCESS"
-			return 0
-		else
-			echo "$host: FAILED"
-			log_msg "$host" "BUILD FAILED"
+
+		timeout "$BUILD_TIMEOUT" nixos-rebuild build --flake "$NH_FLAKE#$host" 2>&1 | tee "$log_file" | nom
+		exit_code=${PIPESTATUS[0]}
+
+		if [ "$exit_code" -ne 0 ]; then
+			echo "$host: BUILD FAILED (nixos-rebuild exited with code $exit_code)"
+			if "$verbose_mode"; then
+				echo "Build log: $log_file"
+			fi
+			log_msg "$host" "BUILD FAILED (rc=$exit_code)"
 			return 1
 		fi
+
+		# Verify the result symlink was produced and is valid
+		local result_link="result"
+		if [ ! -L "$result_link" ]; then
+			echo "$host: BUILD VERIFICATION FAILED - no 'result' symlink found in $(pwd)"
+			echo "  The nixos-rebuild command exited 0 but did not produce a result symlink."
+			if "$verbose_mode"; then
+				echo "Build log: $log_file"
+			fi
+			log_msg "$host" "BUILD FAILED (no result symlink)"
+			return 1
+		fi
+
+		# Verify result points to a valid store path
+		local store_path
+		store_path=$(readlink "$result_link" 2>/dev/null)
+		if [ -z "$store_path" ]; then
+			echo "$host: BUILD VERIFICATION FAILED - result symlink is empty"
+			log_msg "$host" "BUILD FAILED (empty result)"
+			return 1
+		fi
+
+		if [ ! -e "$store_path" ]; then
+			echo "$host: BUILD VERIFICATION FAILED - result symlink points to non-existent path"
+			echo "  Path: $store_path"
+			log_msg "$host" "BUILD FAILED (result path missing: $store_path)"
+			return 1
+		fi
+
+		# Query build size as additional confidence check
+		local build_size
+		build_size=$(nix-store --query --size "$store_path" 2>/dev/null || echo "0")
+		if [ "$build_size" = "0" ] || [ -z "$build_size" ]; then
+			echo "$host: BUILD WARNING - could not determine build size (nix-store query failed)"
+		else
+			local size_str
+			size_str=$(format_bytes "$build_size")
+			echo "$host: Build size: $size_str"
+		fi
+
+		end_time=$(date +%s)
+		elapsed=$((end_time - start_time))
+
+		echo "$host: BUILD SUCCESS (derivation: $store_path, time: ${elapsed}s)"
+		log_msg "$host" "BUILD SUCCESS (derivation: $store_path, time: ${elapsed}s)"
+		return 0
+
 	else
-		echo "Pre-check: Pinging $host..."
+		# ========== DEPLOY MODE ==========
+		log_file="/tmp/nr-deploy-${host}.log"
+
+		echo "Pre-check: Testing reachability of $host..."
 		if ! ping -c 1 -W 5 "$host" >/dev/null 2>&1; then
 			echo "$host: PRE-CHECK FAILED - unreachable"
-			log_msg "$host" "PRE-CHECK FAILED"
+			log_msg "$host" "PRE-CHECK FAILED (ping)"
 			return 1
 		fi
-		echo "Deploying to $host..."
-		if ! output=$(nixos-rebuild switch --flake "$NH_FLAKE#$host" --target-host "root@$host" 2>&1 | nom); then
-			echo "$host: DEPLOY FAILED"
-			log_msg "$host" "DEPLOY FAILED"
-			return 1
-		fi
-		if echo "$output" | grep -q "Finished at.*after"; then
-			echo "$host: OUTPUT VALID - rebuild finished"
+
+		# Capture pre-deploy generation for later comparison
+		local pre_gen=""
+		pre_gen=$(ssh $SSH_OPTS -o BatchMode=yes "root@$host" readlink /run/current-system 2>/dev/null || echo "")
+		if [ -n "$pre_gen" ]; then
+			echo "Pre-deploy generation: $pre_gen"
 		else
-			echo "$host: OUTPUT INVALID - rebuild did not finish properly"
-			if "$strict_mode"; then
-				log_msg "$host" "OUTPUT INVALID"
-				return 1
-			fi
+			echo "Pre-deploy generation: unknown (could not determine via SSH)"
 		fi
-		echo "Post-check: Pinging $host..."
-		if ! ping -c 1 -W 10 "$host" >/dev/null 2>&1; then
-			echo "$host: POST-CHECK FAILED - unreachable after deploy"
-			if "$strict_mode"; then
-				log_msg "$host" "POST-CHECK FAILED"
-				return 1
+
+		echo "Deploying to $host..."
+		nixos-rebuild switch --flake "$NH_FLAKE#$host" --target-host "root@$host" 2>&1 | tee "$log_file" | nom
+		exit_code=${PIPESTATUS[0]}
+
+		if [ "$exit_code" -ne 0 ]; then
+			echo "$host: DEPLOY FAILED (nixos-rebuild exited with code $exit_code)"
+			if "$verbose_mode"; then
+				echo "Deploy log: $log_file"
+			fi
+			log_msg "$host" "DEPLOY FAILED (rc=$exit_code)"
+			return 1
+		fi
+
+		# Verify generation changed after deploy — this is the strongest signal
+		# that the new system actually took effect
+		local post_gen=""
+		post_gen=$(ssh $SSH_OPTS -o BatchMode=yes "root@$host" readlink /run/current-system 2>/dev/null || echo "")
+		if [ -n "$post_gen" ]; then
+			echo "Post-deploy generation: $post_gen"
+			if [ -n "$pre_gen" ] && [ "$pre_gen" = "$post_gen" ]; then
+				echo "$host: WARNING - generation unchanged after deploy (new system may not have taken effect)"
+				if "$verbose_mode"; then
+					echo "  Pre:  $pre_gen"
+					echo "  Post: $post_gen"
+				fi
+				if "$strict_mode"; then
+					log_msg "$host" "DEPLOY WARNING (gen unchanged)"
+					return 1
+				fi
 			else
-				echo "Continuing despite post-check failure..."
+				echo "Generation changed - deploy confirmed ✓"
 			fi
+		else
+			echo "Could not verify generation after deploy (SSH may be slow to respond)"
 		fi
+
+		# Verify SSH still works after deploy — an actual command, not just ping
+		echo "Post-check: Verifying SSH connectivity to $host..."
+		local ssh_check
+		ssh_check=$(ssh $SSH_OPTS -o BatchMode=yes "root@$host" "hostname" 2>/dev/null) || true
+		if [ -z "$ssh_check" ]; then
+			echo "$host: POST-CHECK FAILED - SSH not working after deploy"
+			if "$verbose_mode"; then
+				echo "Deploy log: $log_file"
+			fi
+			if "$strict_mode"; then
+				log_msg "$host" "POST-CHECK FAILED (SSH)"
+				return 1
+			fi
+		else
+			echo "SSH to $host working (hostname: $ssh_check) ✓"
+		fi
+
+		# Enhanced health checks
 		if "$health_checks"; then
 			echo "Health checks for $host..."
+
+			# Check overall system state
+			local system_state
+			system_state=$(ssh $SSH_OPTS -o BatchMode=yes "root@$host" systemctl is-system-running 2>/dev/null || echo "unknown")
+			case "$system_state" in
+			running)
+				echo "  System state: running ✓"
+				;;
+			degraded)
+				echo "  WARNING: System state is 'degraded'"
+				local failed_units
+				failed_units=$(ssh $SSH_OPTS -o BatchMode=yes "root@$host" systemctl --failed --no-legend --no-pager 2>/dev/null || true)
+				if [ -n "$failed_units" ]; then
+					echo "  Failed units:"
+					echo "$failed_units" | while IFS= read -r line; do echo "    $line"; done
+				fi
+				if "$strict_mode"; then
+					log_msg "$host" "HEALTH WARNING (degraded system)"
+					return 1
+				fi
+				;;
+			*)
+				echo "  System state: $system_state"
+				;;
+			esac
+
+			# Check configured service units
 			for unit in $HEALTH_CHECK_UNITS; do
 				if ! ssh $SSH_OPTS -o BatchMode=yes "root@$host" systemctl is-active "$unit" >/dev/null 2>&1; then
-					echo "$host: HEALTH WARNING - $unit inactive"
+					echo "  HEALTH WARNING - $unit is not active"
 					if "$strict_mode"; then
 						log_msg "$host" "HEALTH WARNING $unit"
 						return 1
@@ -165,8 +306,12 @@ deploy_host() {
 				fi
 			done
 		fi
-		echo "$host: SUCCESS"
-		log_msg "$host" "SUCCESS"
+
+		end_time=$(date +%s)
+		elapsed=$((end_time - start_time))
+
+		echo "$host: SUCCESS (time: ${elapsed}s)"
+		log_msg "$host" "SUCCESS (time: ${elapsed}s)"
 		return 0
 	fi
 }
@@ -176,13 +321,13 @@ if [ $# -eq 0 ]; then
 
 	EXCLUDED_HOSTS="${EXCLUDED_HOSTS:-p5810}"
 	excluded_hosts="$(hostname) $EXCLUDED_HOSTS"
-	excluded_hosts=$(echo "$excluded_hosts" | tr ' ' '\n' | sort | uniq | tr '\n' ' ' | xargs)
+	excluded_hosts=$(echo "$excluded_hosts" | tr ' ' '\\n' | sort | uniq | tr '\\n' ' ' | xargs)
 	GUM_BIN style --foreground 1 "Excluded hosts: $excluded_hosts"
 
 	tmp_systems=$(mktemp)
 	trap 'rm -f "$tmp_systems"' EXIT
 
-	if GUM_BIN spin --title "Fetching available systems from flake..." -- sh -c "nix eval \"$NH_FLAKE#nixosConfigurations\" --apply builtins.attrNames --json 2>/dev/null | JQ_BIN -r .[] > $tmp_systems 2>/dev/null" && [ -s "$tmp_systems" ]; then
+	if GUM_BIN spin --title "Fetching available systems from flake..." -- sh -c "nix eval \\\"$NH_FLAKE#nixosConfigurations\\\" --apply builtins.attrNames --json 2>/dev/null | JQ_BIN -r .[] > $tmp_systems 2>/dev/null" && [ -s "$tmp_systems" ]; then
 		systems=$(cat "$tmp_systems")
 	else
 		echo "Error: Failed to fetch systems from flake. Ensure NH_FLAKE is set and flake is valid."
@@ -249,7 +394,7 @@ else
 	tmp_hosts=$(mktemp)
 	trap 'rm -f "$tmp_hosts"' EXIT
 
-	if GUM_BIN spin --title "Validating hostname..." -- sh -c "nix eval \"$NH_FLAKE#nixosConfigurations\" --apply builtins.attrNames --json 2>/dev/null | JQ_BIN -r '.[]' > $tmp_hosts 2>/dev/null" && grep -q "^$HOST$" "$tmp_hosts" 2>/dev/null; then
+	if GUM_BIN spin --title "Validating hostname..." -- sh -c "nix eval \\\"$NH_FLAKE#nixosConfigurations\\\" --apply builtins.attrNames --json 2>/dev/null | JQ_BIN -r '.[]' > $tmp_hosts 2>/dev/null" && grep -q "^$HOST$" "$tmp_hosts" 2>/dev/null; then
 		:
 	else
 		echo "Error: Host '$HOST' not found in flake configurations."

@@ -30,17 +30,8 @@ in
         gum
         jq
         curl
-        (
-          let
-            gum = lib.getExe pkgs.gum;
-            jq = lib.getExe pkgs.jq;
-            curl = lib.getExe pkgs.curl;
-            script = builtins.replaceStrings [ "GUM_BIN" "JQ_BIN" "CURL_BIN" ] [ "${gum}" "${jq}" "${curl}" ] (
-              builtins.readFile ./nr.sh
-            );
-          in
-          writeShellScriptBin "nr" "${script}"
-        )
+        pkgs.nr  # Go rewrite of nr.sh
+
         (writeShellScriptBin "fu" ''
           #!/bin/bash
           cd ${cfg.flakePath} || { echo "Error: Could not change to ${cfg.flakePath}"; exit 1; }

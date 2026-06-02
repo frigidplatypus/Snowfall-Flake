@@ -113,6 +113,10 @@
       url = "git+https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git";
     };
 
+    nr = {
+      url = "git+https://git.fluffy-rooster.ts.net/FRGD/nr";
+    };
+
   };
 
   outputs =
@@ -154,6 +158,10 @@
           frgd = (prev.frgd or { }) // {
             html-to-markdown = inputs.html-to-markdown.packages.${final.system}.html-to-markdown;
           };
+        })
+
+        (final: prev: {
+          nr = inputs.nr.packages.${final.system}.default;
         })
       ];
 
