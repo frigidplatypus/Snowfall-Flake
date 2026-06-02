@@ -3,7 +3,7 @@
   pkgs,
   config,
   inputs,
-  ...,
+  ...
 }:
 with lib;
 with lib.frgd;
