@@ -199,6 +199,14 @@ in
       User = "hermes";
       Group = "hermes";
       ExecStart = "${pkgs.writeShellScript "hermes-desktop-start" ''
+        set -euo pipefail
+        # Preemptive cleanup: kill any processes left from a prior crash/restart
+        # that didn't run ExecStop (e.g. wait -n exit before kill)
+        pkill -f "novnc.*6080" 2>/dev/null || true
+        pkill x11vnc 2>/dev/null || true
+        killall fluxbox 2>/dev/null || true
+        sleep 0.5
+
         ${pkgs.fluxbox}/bin/fluxbox &
         ${pkgs.x11vnc}/bin/x11vnc -display :99 \
           -forever -shared -rfbport 5900 -localhost &
