@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, inputs
-, config
-, ...
+{
+  lib,
+  pkgs,
+  inputs,
+  config,
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -47,6 +48,7 @@ with lib.frgd;
     acpi
     powertop
     mattermost-desktop
+    remmina
     # matterhorn
   ];
 
