@@ -7,47 +7,6 @@
 }:
 with lib;
 with lib.frgd;
-let
-  # Wrapper for notebooklm-mcp that patches --no-sandbox into Chrome launch args.
-  # Required when NoNewPrivileges is set — Chromium can't use its sandbox.
-  notebooklm-wrapper = pkgs.writeShellScript "notebooklm-wrapper" ''
-    set -euo pipefail
-    PROFILE_DIR="''${HOME}/.local/share/notebooklm-mcp/chrome_profile"
-
-    # Clean stale Singleton locks
-    if [[ -d "$PROFILE_DIR" ]]; then
-      for lock in SingletonLock SingletonCookie SingletonSocket; do
-        lockfile="''${PROFILE_DIR}/''${lock}"
-        if [[ -L "$lockfile" || -f "$lockfile" ]]; then
-          lock_target=$(readlink "$lockfile" 2>/dev/null || echo "")
-          lock_pid=""
-          if [[ "$lock_target" =~ ^.*-([0-9]+)$ ]]; then
-            lock_pid="''${BASH_REMATCH[1]}"
-          fi
-          if [[ -n "$lock_pid" ]] && kill -0 "$lock_pid" 2>/dev/null; then
-            proc_name=$(ps -p "$lock_pid" -o comm= 2>/dev/null || echo "")
-            case "$proc_name" in *chrom*|*chrome*) ;; *) rm -f "$lockfile" ;; esac
-          else
-            rm -f "$lockfile"
-          fi
-        fi
-      done
-      for dir in /tmp/org.chromium.Chromium.*/; do
-        [[ -d "$dir" ]] || continue; rm -rf "$dir"
-      done
-    fi
-
-    # Patch --no-sandbox into the MCP server's Chrome launch args (idempotent)
-    CANDIDATE=$(find "''${HOME}/.npm/_npx" -path '*/notebooklm-mcp/dist/session/shared-context-manager.js' 2>/dev/null | head -1)
-    if [[ -n "$CANDIDATE" ]] && [[ -f "$CANDIDATE" ]]; then
-      if ! grep -q -- '--no-sandbox' "$CANDIDATE" 2>/dev/null; then
-        sed -i 's/"--no-default-browser-check",/"--no-default-browser-check",\n                "--no-sandbox",/' "$CANDIDATE"
-      fi
-    fi
-
-    exec npx notebooklm-mcp@latest
-  '';
-in
 {
   imports = [
     ./hardware.nix
@@ -227,7 +186,8 @@ in
 
   # NotebookLM MCP server — env vars for Chrome channel and auto-login.
   services.hermes-agent.mcpServers.notebooklm = {
-    command = "${notebooklm-wrapper}";
+    command = "npx";
+    args = [ "notebooklm-mcp@latest" ];
     env = {
       BROWSER_CHANNEL = "chromium";
       AUTO_LOGIN_ENABLED = "true";
