@@ -58,23 +58,7 @@ in
       users = [ "hermes" ];
       commands = [
         {
-          command = "${pkgs.systemd}/bin/systemctl restart hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl stop hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl start hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl status hermes-agent";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${pkgs.systemd}/bin/systemctl reset-failed hermes-agent";
+          command = "ALL";
           options = [ "NOPASSWD" ];
         }
       ];
@@ -85,6 +69,9 @@ in
   # and the desktop processes (also User=hermes) can't connect to :99.
   systemd.services.xvfb.serviceConfig.User = "hermes";
 
+  # NoNewPrivileges prevents sudo from working — must be false
+  # so the agent can run privileged commands via sudo.
+  systemd.services.hermes-agent.serviceConfig.NoNewPrivileges = false;
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
 
