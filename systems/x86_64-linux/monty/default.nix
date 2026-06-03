@@ -51,6 +51,10 @@ with lib.frgd;
     packages = lib.mkForce [ ];
   };
 
+  environment.systemPackages = [
+    inputs.silverbullet-mcp.packages.${pkgs.system}.default
+  ];
+
   sops.secrets.monty_env = {
     owner = "hermes";
     group = "hermes";
