@@ -52,7 +52,7 @@ with lib.frgd;
   };
 
   environment.systemPackages = [
-    inputs.silverbullet-mcp.packages.${pkgs.system}.default
+    inputs.self.packages.${pkgs.system}.sb
   ];
 
   sops.secrets.monty_env = {
