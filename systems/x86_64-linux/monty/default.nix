@@ -51,8 +51,24 @@ with lib.frgd;
     packages = lib.mkForce [ ];
   };
 
-  environment.systemPackages = [
-    pkgs.frgd.sb
+  environment.systemPackages = with pkgs; [
+    frgd.sb
+    # System tools for agent effectiveness
+    go
+    python3
+    uv
+    tmux
+    fd
+    eza
+    yq
+    gnumake
+    cargo
+    aria2
+    sshfs
+    htop
+    dust
+    procs
+    bandwhich
   ];
 
   sops.secrets.monty_env = {
