@@ -165,55 +165,55 @@ with lib.frgd;
 
   # Hermes Desktop — headless desktop for browser-based auth (NotebookLM, etc.).
   # System service running as Hermes user. Depends on xvfb.service from frgd.tools.xvfb.
-  systemd.services.hermes-desktop = {
-    description = "Headless desktop: fluxbox WM + x11vnc + noVNC proxy";
-    after = [ "xvfb.service" ];
-    wants = [ "xvfb.service" ];
-    wantedBy = mkForce [ ];
-
-    environment.DISPLAY = ":99";
-
-    serviceConfig = {
-      Type = "simple";
-      User = "hermes";
-      Group = "hermes";
-      ExecStart = "${pkgs.writeShellScript "hermes-desktop-start" ''
-        # Preemptive cleanup: kill any processes left from a prior crash/restart
-        # that didn't run ExecStop (e.g. wait -n exit before kill).
-        # Avoid pkill/killall — not available in systemd's minimal PATH.
-        for proc in fluxbox x11vnc novnc; do
-          for pid in $(ls /proc/*/cmdline 2>/dev/null); do
-            pid="''${pid%/cmdline}"; pid="''${pid#/proc/}"
-            if grep -ql "$proc" "/proc/$pid/cmdline" 2>/dev/null; then
-              kill "$pid" 2>/dev/null || true
-            fi
-          done
-        done
-        sleep 0.5
-
-        ${pkgs.fluxbox}/bin/fluxbox &
-        ${pkgs.x11vnc}/bin/x11vnc -display :99 \
-          -forever -shared -rfbport 5900 -localhost &
-        ${pkgs.novnc}/bin/novnc --listen 127.0.0.1:6080 \
-          --vnc localhost:5900 &
-        # Block on first child death. systemd's Restart= recovers the whole stack.
-        wait -n
-      ''}";
-      ExecStop = "${pkgs.writeShellScript "hermes-desktop-stop" ''
-        # Kill processes by scanning /proc — avoids dependency on pkill/killall
-        for proc in fluxbox x11vnc novnc; do
-          for pid_dir in /proc/*/cmdline; do
-            pid="''${pid_dir%/cmdline}"; pid="''${pid#/proc/}"
-            if grep -ql "$proc" "/proc/$pid/cmdline" 2>/dev/null; then
-              kill "$pid" 2>/dev/null || true
-            fi
-          done
-        done
-      ''}";
-      Restart = "on-failure";
-      RestartSec = "5s";
-    };
-  };
+  # systemd.services.hermes-desktop = {
+  #   description = "Headless desktop: fluxbox WM + x11vnc + noVNC proxy";
+  #   after = [ "xvfb.service" ];
+  #   wants = [ "xvfb.service" ];
+  #   wantedBy = mkForce [ ];
+  #
+  #   environment.DISPLAY = ":99";
+  #
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     User = "hermes";
+  #     Group = "hermes";
+  #     ExecStart = "${pkgs.writeShellScript "hermes-desktop-start" ''
+  #       # Preemptive cleanup: kill any processes left from a prior crash/restart
+  #       # that didn't run ExecStop (e.g. wait -n exit before kill).
+  #       # Avoid pkill/killall — not available in systemd's minimal PATH.
+  #       for proc in fluxbox x11vnc novnc; do
+  #         for pid in $(ls /proc/*/cmdline 2>/dev/null); do
+  #           pid="''${pid%/cmdline}"; pid="''${pid#/proc/}"
+  #           if grep -ql "$proc" "/proc/$pid/cmdline" 2>/dev/null; then
+  #             kill "$pid" 2>/dev/null || true
+  #           fi
+  #         done
+  #       done
+  #       sleep 0.5
+  #
+  #       ${pkgs.fluxbox}/bin/fluxbox &
+  #       ${pkgs.x11vnc}/bin/x11vnc -display :99 \
+  #         -forever -shared -rfbport 5900 -localhost &
+  #       ${pkgs.novnc}/bin/novnc --listen 127.0.0.1:6080 \
+  #         --vnc localhost:5900 &
+  #       # Block on first child death. systemd's Restart= recovers the whole stack.
+  #       wait -n
+  #     ''}";
+  #     ExecStop = "${pkgs.writeShellScript "hermes-desktop-stop" ''
+  #       # Kill processes by scanning /proc — avoids dependency on pkill/killall
+  #       for proc in fluxbox x11vnc novnc; do
+  #         for pid_dir in /proc/*/cmdline; do
+  #           pid="''${pid_dir%/cmdline}"; pid="''${pid#/proc/}"
+  #           if grep -ql "$proc" "/proc/$pid/cmdline" 2>/dev/null; then
+  #             kill "$pid" 2>/dev/null || true
+  #           fi
+  #         done
+  #       done
+  #     ''}";
+  #     Restart = "on-failure";
+  #     RestartSec = "5s";
+  #   };
+  # };
 
   # NotebookLM MCP server — env vars for Chrome channel and auto-login.
   services.hermes-agent.mcpServers.notebooklm = {
