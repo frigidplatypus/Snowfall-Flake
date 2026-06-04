@@ -169,7 +169,7 @@ with lib.frgd;
     description = "Headless desktop: fluxbox WM + x11vnc + noVNC proxy";
     after = [ "xvfb.service" ];
     wants = [ "xvfb.service" ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = mkForce [ ];
 
     environment.DISPLAY = ":99";
 
