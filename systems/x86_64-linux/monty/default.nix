@@ -52,7 +52,7 @@ with lib.frgd;
   };
 
   environment.systemPackages = [
-    inputs.self.packages.${pkgs.system}.sb
+    pkgs.frgd.sb
   ];
 
   sops.secrets.monty_env = {
