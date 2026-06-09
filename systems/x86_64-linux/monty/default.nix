@@ -222,6 +222,7 @@ with lib.frgd;
     env = {
       BROWSER_CHANNEL = "chromium";
       AUTO_LOGIN_ENABLED = "true";
+      DISPLAY = ":99";
     };
   };
 
@@ -299,6 +300,7 @@ with lib.frgd;
     };
     tools = {
       xvfb = enabled;
+      nix-ld = enabled;
     };
   };
 }
