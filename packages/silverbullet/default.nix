@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sources = {
       "x86_64-linux" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/silverbullet-server-linux-x86_64.zip";
-        hash = "sha256-qfUJnIOj3cRsjt9evdAUQc3J2fKwfrD6ST9zIUryj6U=";
+        hash = "sha256-O/pyhCumco/UanWd5C0ChNAJflERsTDqbuWegDqjoCg=";
         stripRoot = false;
       };
       "aarch64-linux" = fetchzip {
