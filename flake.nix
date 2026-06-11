@@ -19,7 +19,7 @@
     stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # stable-home-manager = {
@@ -144,6 +144,7 @@
         permittedInsecurePackages = [
           "ventoy-1.1.12"
           "openclaw-2026.4.22"
+          "electron-39.8.10"
         ];
       };
       overlays = [

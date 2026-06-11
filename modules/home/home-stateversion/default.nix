@@ -3,6 +3,6 @@
 with lib;
 {
   config = {
-    home.stateVersion = mkDefault "24.05";
+    home.stateVersion = mkDefault "26.05";
   };
 }

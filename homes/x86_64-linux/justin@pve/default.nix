@@ -9,7 +9,7 @@
 with lib;
 with lib.frgd;
 {
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
   frgd = {
     user = {
       enable = true;

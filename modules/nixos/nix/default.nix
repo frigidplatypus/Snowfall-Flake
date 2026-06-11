@@ -112,7 +112,7 @@ in
           linkInputs = cfg.linkInputs;
         };
 
-      system.stateVersion = "24.05";
+      system.stateVersion = "26.05";
     }
 
     # SOPS secrets for GitHub access token
