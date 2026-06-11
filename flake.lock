@@ -2102,11 +2102,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1779959027,
-        "narHash": "sha256-wc3Qa0TwwqszqkGcwjNhUOfNMNgzxWHgEnoigZnz3GE=",
+        "lastModified": 1781200222,
+        "narHash": "sha256-HoBCSIhYaL6VCZhqNsZMZAEbMFty74j/1ffeKEdILKc=",
         "owner": "tailscale-dev",
         "repo": "tclip",
-        "rev": "7fb27a38f91c9025d46132b12eb84db9563cecc3",
+        "rev": "cebc20f1dfe1839680ae74e58d1ec096431373d0",
         "type": "github"
       },
       "original": {
