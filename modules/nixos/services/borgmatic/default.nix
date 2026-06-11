@@ -19,7 +19,77 @@ let
     in
     merger attrList;
 
-  # Resolve SSH command: explicit override wins, then derive from sshKeySecret.
+  # Per-repository submodule type — allows per-repo SSH keys, passphrases,
+  # directories, and labels while keeping backward compatibility with
+  # plain-string repositories.
+  repositoryType = types.submodule ({ config, ... }: {
+    options = {
+      path = mkOption {
+        type = types.str;
+        description = "Repository path, e.g. ssh://user@host/./repo or /mnt/backup/repo.";
+      };
+
+      label = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "Optional human-readable label. Auto-derived from path if unset.";
+      };
+
+      directories = mkOption {
+        type = types.nullOr (types.listOf types.str);
+        default = null;
+        description = ''
+          Directories to back up TO THIS REPOSITORY ONLY.
+          Falls back to top-level `directories` if null.
+        '';
+      };
+
+      # SSH key — per-repo override of the global sshKeySecret
+      sshKeySecret = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Name of the sops secret containing the SSH private key for THIS repo.
+          Overrides the top-level sshKeySecret.  The module auto-declares
+          sops.secrets.<name> automatically.
+        '';
+      };
+
+      # SSH command — explicit override per repo
+      sshCommand = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Full SSH command for this repository.
+          Takes precedence over both per-repo sshKeySecret and top-level
+          sshCommand/sshKeySecret.
+        '';
+      };
+
+      # Per-repo encryption passphrase secret
+      encryption = {
+        passphraseSecret = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            Name of the sops secret for this repo's Borg passphrase.
+            Overrides the top-level encryption.passphraseSecret.
+          '';
+        };
+      };
+
+      encryptionPassCommand = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          Explicit passcommand for this repository.
+          Takes precedence over all other passphrase settings.
+        '';
+      };
+    };
+  });
+
+  # Resolve global SSH command: explicit override wins, then derive from sshKeySecret.
   effectiveSshCommand =
     if cfg.sshCommand != null then
       cfg.sshCommand
@@ -28,7 +98,7 @@ let
     else
       null;
 
-  # Resolve passcommand: explicit override wins, then derive from passphraseSecret.
+  # Resolve global passcommand: explicit override wins, then derive from passphraseSecret.
   effectivePassCommand =
     if cfg.encryptionPassCommand != null then
       cfg.encryptionPassCommand
@@ -37,11 +107,26 @@ let
     else
       null;
 
-  # Default settings that apply to all configurations
-  defaultSettings = {
+  # Compute effective per-repository settings, auto-deriving label.
+  # Note: per-repo ssh_command, encryption_passcommand, and source_directories
+  # are NOT included here because nixpkgs' services.borgmatic.settings
+  # repository submodule only accepts path + label.
+  effectiveRepositories = map (repo:
+    rec {
+      inherit (repo) path;
+
+      # Auto-derive label if not set
+      label = if repo.label or null != null then repo.label
+        else if hasPrefix "ssh://" path then builtins.elemAt (splitString "/" path) 2
+        else baseNameOf path;
+    }
+  ) cfg.repositories;
+
+  # Global defaults that apply config-wide (SSH, passphrase, retention, compression, checks, hooks)
+  globalDefaults = {
     compression = mkIf (cfg.compression != null) cfg.compression;
-    encryption_passcommand = mkIf (effectivePassCommand != null) effectivePassCommand;
     ssh_command = mkIf (effectiveSshCommand != null) effectiveSshCommand;
+    encryption_passcommand = mkIf (effectivePassCommand != null) effectivePassCommand;
 
     # Consistency and validation
     checks = [
@@ -79,16 +164,6 @@ let
       });
   };
 
-  # Basic configuration for simple setups
-  basicConfig = {
-    source_directories = cfg.directories;
-    repositories = map (repo: {
-      path = repo;
-      label =
-        if hasPrefix "ssh://" repo then builtins.elemAt (splitString "/" repo) 2 else baseNameOf repo;
-    }) cfg.repositories;
-  };
-
 in
 {
   options.frgd.services.borgmatic = with types; {
@@ -106,13 +181,26 @@ in
     };
 
     repositories = mkOption {
-      type = listOf str;
+      type = types.listOf (types.either types.str repositoryType);
       default = [ ];
-      description = "List of repository paths to back up to.";
-      example = [
-        "ssh://user@backupserver/./backup.borg"
-        "/mnt/external/backup.borg"
-      ];
+      description = "List of Borg repositories. Each can be a plain URL string or a detailed attrset with per-repo SSH key, passphrase, and directories.";
+      example = literalExpression ''
+        [
+          "ssh://user@host/./repo"
+          {
+            path = "ssh://user2@host2/./repo";
+            label = "critical";
+            sshKeySecret = "critical_borg_key";
+            directories = [ "/etc" "/root" ];
+          }
+        ]
+      '';
+      # Normalise plain strings to attrsets so downstream code always
+      # works with the structured format.
+      apply = map (repo:
+        if builtins.isString repo then { path = repo; }
+        else repo
+      );
     };
 
     # SSH — resolved from a sops secret by default.
@@ -125,6 +213,7 @@ in
         Name of the sops secret containing the Borg SSH private key.
         The module declares sops.secrets.<name> automatically and derives
         ssh_command from its runtime path.  Set to null to disable.
+        Per-repository sshKeySecret overrides this for individual repos.
       '';
     };
 
@@ -279,27 +368,39 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Auto-declare sops secrets — callers never need manual sops.secrets.* for borg.
+    # Auto-declare sops secrets — collect all unique names from both global
+    # and per-repository settings so callers never need manual sops.secrets.*
+    # declarations for borg.
     sops.secrets =
-      (lib.optionalAttrs (cfg.sshKeySecret != null) {
-        ${cfg.sshKeySecret} = {
+      let
+        sshSecrets = lib.unique (
+          lib.optional (cfg.sshKeySecret != null) cfg.sshKeySecret
+          ++ concatMap (repo: lib.optional (repo.sshKeySecret or null != null) repo.sshKeySecret) cfg.repositories
+        );
+        passSecrets = lib.unique (
+          lib.optional (cfg.encryption.enable && cfg.encryption.passphraseSecret != null) cfg.encryption.passphraseSecret
+          ++ concatMap (repo: lib.optional (repo.encryption.passphraseSecret or null != null) repo.encryption.passphraseSecret) cfg.repositories
+        );
+      in
+      lib.listToAttrs (map (name: {
+        inherit name;
+        value = {
           owner = "root";
           mode = "0400";
         };
-      })
-      // (lib.optionalAttrs (cfg.encryption.enable && cfg.encryption.passphraseSecret != null) {
-        ${cfg.encryption.passphraseSecret} = {
-          owner = "root";
-          mode = "0400";
-        };
-      });
+      }) (sshSecrets ++ passSecrets));
 
     services.borgmatic = {
       enable = true;
 
-      settings = mkIf (cfg.directories != [ ] && cfg.repositories != [ ]) (recursiveMerge [
-        basicConfig
-        defaultSettings
+      settings = mkIf (cfg.directories != [ ] || cfg.repositories != [ ]) (recursiveMerge [
+        {
+          # Top-level source_directories serves as fallback; per-repo
+          # source_directories in each repository entry take precedence.
+          source_directories = cfg.directories;
+          repositories = effectiveRepositories;
+        }
+        globalDefaults
         cfg.extraConfig
       ]);
 
