@@ -303,6 +303,12 @@ with lib.frgd;
           enable = true;
         };
       };
+      borgmatic = {
+        enable = true;
+        autoInit.enable = true;
+        directories = [ "/var/lib/hermes" ];
+        repositories = [ "ssh://d6mzjh1m@d6mzjh1m.repo.borgbase.com/./repo" ];
+      };
     };
     tools = {
       xvfb = enabled;
