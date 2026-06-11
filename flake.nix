@@ -55,20 +55,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # agenix.url = "github:yaxitech/ragenix";
     neovim = {
       url = "github:frigidplatypus/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixvim.follows = "nixvim";
     };
     neovim_notes = {
       url = "github:frigidplatypus/neovim_notes";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixvim.follows = "nixvim";
     };
 
     golink = {
