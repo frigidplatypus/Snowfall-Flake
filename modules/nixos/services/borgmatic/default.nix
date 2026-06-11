@@ -96,7 +96,7 @@ in
 
     directories = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [ "/var/lib" "/home" ];
       description = "List of directories to back up.";
       example = [
         "/home"
