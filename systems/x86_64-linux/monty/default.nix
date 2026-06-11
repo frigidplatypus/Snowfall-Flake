@@ -132,6 +132,12 @@ with lib.frgd;
       };
     };
 
+    # Pin postgresql version to prevent data directory changes on nixpkgs updates.
+    # The mattermost module enables postgresql via database.create but doesn't pin
+    # the version — without this, a nixpkgs bump can change the default version
+    # (e.g. 15→17), creating a new empty data directory and orphaning the old one.
+    postgresql.package = pkgs.postgresql_15;
+
     hermes-agent = {
       enable = true;
       addToSystemPackages = true;
