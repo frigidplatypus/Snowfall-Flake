@@ -9,7 +9,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sb";
-  version = "2.8.1";
+  version = "2.9.0";
 
   src =
     finalAttrs.passthru.sources.${stdenv.hostPlatform.system}
@@ -30,22 +30,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sources = {
       "x86_64-linux" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-linux-x86_64.zip";
-        hash = "sha256-DdMtn0RE0pioTGj2e59ioGQihotL6WNGHb3vRnrG1TI=";
+        hash = "sha256-ppS90ml8U1bE4kir6YL8kpsMbecYyGU5c6Wl1eZYLDg=";
         stripRoot = false;
       };
       "aarch64-linux" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-linux-aarch64.zip";
-        hash = "sha256-8+MpL8Ob2VQDwjIrOcjWCIjEnsZAW5Zj5bfZSVjAl2k=";
+        hash = "sha256-3mg84ZeihYkq74RgRjlvzuygpvqT0INvSAlhs/0RphA=";
         stripRoot = false;
       };
       "x86_64-darwin" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-darwin-x86_64.zip";
-        hash = "sha256-c9PrV144B23UaAI2vWJfn6yF+MpY4j9NrssCr81yOy0=";
+        hash = "sha256-I9mOMeuZVAmc/M8nUloCTrCa7K/yInUIcFJoz4OvePQ=";
         stripRoot = false;
       };
       "aarch64-darwin" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-darwin-aarch64.zip";
-        hash = "sha256-QO2yQoOhWZrXN+QVwi6MR6oKVK9V4BXiqIMW2qPJqu8=";
+        hash = "sha256-ULaFCEZ+bsK/vNnzCXfwl3c9vUeZYL1gfOU0UQqMDcs=";
         stripRoot = false;
       };
     };
