@@ -308,6 +308,12 @@ with lib.frgd;
         autoInit.enable = true;
         directories = [ "/var/lib/hermes" ];
         repositories = [ "ssh://d6mzjh1m@d6mzjh1m.repo.borgbase.com/./repo" ];
+        notifications.pushover = {
+          enable = true;
+          apiToken = "aphv2rpofwt7uco51vn672hfkfvagn";
+          userKey = "ub1izqc8tz9ps35nhnvt5zznqdsmav";
+          onError = true;
+        };
       };
     };
     tools = {

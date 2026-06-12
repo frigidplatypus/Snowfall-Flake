@@ -122,6 +122,14 @@ let
     }
   ) cfg.repositories;
 
+  # Compute Pushover error command when enabled
+  pushoverErrorCmd = lib.optional (cfg.notifications.pushover.enable && cfg.notifications.pushover.onError) {
+    after = "error";
+    run = [
+      ''curl -s -o /dev/null --data-urlencode "token=${lib.escapeShellArg cfg.notifications.pushover.apiToken}" --data-urlencode "user=${lib.escapeShellArg cfg.notifications.pushover.userKey}" --data-urlencode "message=Borg backup FAILED on $(hostname) - check: journalctl -u borgmatic.service -n 50" --data-urlencode "priority=1" --data-urlencode "sound=falling" https://api.pushover.net/1/messages.json''
+    ];
+  };
+
   # Global defaults that apply config-wide (SSH, passphrase, retention, compression, checks, hooks)
   globalDefaults = {
     compression = mkIf (cfg.compression != null) cfg.compression;
@@ -161,7 +169,8 @@ let
       ++ (lib.optional (cfg.hooks.onError != [ ]) {
         after = "error";
         run = cfg.hooks.onError;
-      });
+      })
+      ++ pushoverErrorCmd;
   };
 
 in
@@ -332,6 +341,48 @@ in
       };
     };
 
+    notifications = {
+      pushover = {
+        enable = mkBoolOpt false "Whether to send Pushover notifications on backup failure.";
+
+        apiToken = mkOption {
+          type = nullOr str;
+          default = null;
+          description = "Pushover Application API token.";
+        };
+
+        userKey = mkOption {
+          type = nullOr str;
+          default = null;
+          description = "Pushover User Key.";
+        };
+
+        onError = mkBoolOpt true "Send notification on backup failure. Requires apiToken and userKey.";
+      };
+
+      watchdog = {
+        enable = mkBoolOpt false ''
+          Enable a systemd timer that alerts if no backup has completed within the
+          grace period.  Catches cases where the machine was off, the timer was
+          disabled, or borgmatic never ran.
+        '';
+
+        gracePeriod = mkOption {
+          type = str;
+          default = "36h";
+          description = "How old the last backup can be before alerting (e.g. 24h, 48h).";
+          example = "48h";
+        };
+
+        checkInterval = mkOption {
+          type = str;
+          default = "6h";
+          description = "How often to check (e.g. 1h, 6h, 12h).";
+          example = "12h";
+        };
+      };
+    };
+
     # Automatic repository initialisation
     # Runs borgmatic rcreate once before the first backup, then never again
     # (sentinel file at /var/lib/borgmatic/.initialized guards against re-runs).
@@ -457,6 +508,55 @@ in
           touch "$sentinel"
           echo "borgmatic-init: done — remember to export and store the repo key"
         '';
+      };
+    };
+
+    # Watchdog timer — alerts if no backup completed within the grace period
+    # (catches machine-offline, timer-disabled, and silent-failure scenarios
+    # that onError hooks would miss).
+    systemd.services.borgmatic-watchdog = mkIf cfg.notifications.watchdog.enable {
+      description = "Borgmatic backup watchdog — alerts if backup is stale";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "borgmatic-watchdog" ''
+          set -euo pipefail
+
+          last_run=$(systemctl show borgmatic.service --property=ActiveEnterTimestamp --value 2>/dev/null || true)
+          if [ -z "$last_run" ]; then
+            ${pkgs.curl}/bin/curl -s -o /dev/null \
+              --data-urlencode "token=${lib.escapeShellArg cfg.notifications.pushover.apiToken}" \
+              --data-urlencode "user=${lib.escapeShellArg cfg.notifications.pushover.userKey}" \
+              --data-urlencode "message=Borg WATCHDOG: borgmatic has never run on $(hostname)!" \
+              --data-urlencode "priority=1" \
+              https://api.pushover.net/1/messages.json
+            exit 0
+          fi
+
+          last_epoch=$(date -d "$last_run" +%s 2>/dev/null || echo "0")
+          now_epoch=$(date +%s)
+          grace_seconds=$(( 3600 * $(echo "${cfg.notifications.watchdog.gracePeriod}" | sed 's/h//') ))
+          age=$(( now_epoch - last_epoch ))
+
+          if [ "$age" -gt "$grace_seconds" ]; then
+            ${pkgs.curl}/bin/curl -s -o /dev/null \
+              --data-urlencode "token=${lib.escapeShellArg cfg.notifications.pushover.apiToken}" \
+              --data-urlencode "user=${lib.escapeShellArg cfg.notifications.pushover.userKey}" \
+              --data-urlencode "message=Borg WATCHDOG: $(hostname) backup is stale! Last run: $last_run ($age seconds ago, grace: ${cfg.notifications.watchdog.gracePeriod})" \
+              --data-urlencode "priority=1" \
+              https://api.pushover.net/1/messages.json
+          fi
+        '';
+      };
+    };
+
+    systemd.timers.borgmatic-watchdog = mkIf cfg.notifications.watchdog.enable {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "*-*-* ${cfg.notifications.watchdog.checkInterval}:00:00";
+        Persistent = true;
+        RandomizedDelaySec = "15m";
       };
     };
   };
