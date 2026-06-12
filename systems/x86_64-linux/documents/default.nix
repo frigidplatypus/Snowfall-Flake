@@ -118,6 +118,12 @@ in
         repositories = [ "ssh://d9h4up4b@d9h4up4b.repo.borgbase.com/./repo" ];
         retention.keepYearly = 2;
         schedule.time = "02:30:00";
+        notifications.pushover = {
+          enable = true;
+          apiToken = "aphv2rpofwt7uco51vn672hfkfvagn";
+          userKey = "ub1izqc8tz9ps35nhnvt5zznqdsmav";
+          onError = true;
+        };
       };
       tailscale.tailscaleAuth = enabled;
       samba = {

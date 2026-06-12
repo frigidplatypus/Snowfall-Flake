@@ -89,6 +89,12 @@ with lib.frgd;
         autoInit.enable = true;
         directories = [ config.services.forgejo.stateDir ];
         repositories = [ "ssh://dnmk5e0n@dnmk5e0n.repo.borgbase.com/./repo" ];
+        notifications.pushover = {
+          enable = true;
+          apiToken = "aphv2rpofwt7uco51vn672hfkfvagn";
+          userKey = "ub1izqc8tz9ps35nhnvt5zznqdsmav";
+          onError = true;
+        };
       };
     };
     security = {
