@@ -323,7 +323,7 @@ with lib.frgd;
     serviceConfig = {
       # Override the nixpkgs module's StateDirectory which would only create
       # /var/lib/household — we need the full nested path.
-      StateDirectory = "hermes/workspace/household";
+      StateDirectory = lib.mkForce "hermes/workspace/household";
     };
   };
 
