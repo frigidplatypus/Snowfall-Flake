@@ -77,6 +77,12 @@ with lib.frgd;
     mode = "0440";
   };
 
+  sops.secrets.beszel_env = {
+    owner = "hermes";
+    group = "hermes";
+    mode = "0440";
+  };
+
   sops.secrets.git_server_ssh_key = {
     owner = "hermes";
     group = "hermes";
@@ -234,7 +240,7 @@ with lib.frgd;
   };
 
   # Beszel MCP server — query system stats from the hub on racknerd.
-  # Env vars (BESZEL_URL, BESZEL_EMAIL, BESZEL_PASSWORD) in monty_env SOPS secret.
+  # Env vars (BESZEL_URL, BESZEL_EMAIL, BESZEL_PASSWORD) in beszel_env SOPS secret.
   services.hermes-agent.mcpServers.beszel = {
     command = "bash";
     args = [ "/var/lib/hermes/.hermes/scripts/run-beszel-mcp.sh" ];
