@@ -236,8 +236,8 @@ with lib.frgd;
   # Beszel MCP server — query system stats from the hub on racknerd.
   # Env vars (BESZEL_URL, BESZEL_EMAIL, BESZEL_PASSWORD) in monty_env SOPS secret.
   services.hermes-agent.mcpServers.beszel = {
-    command = "uvx";
-    args = [ "--from" "git+https://github.com/Red5d/beszel-mcp" "beszel-mcp" ];
+    command = "bash";
+    args = [ "/var/lib/hermes/.hermes/scripts/run-beszel-mcp.sh" ];
   };
 
   # Miniflux MCP — RSS reader management.
