@@ -85,6 +85,7 @@ with lib.frgd;
     crush
     gh
     tg
+    nr
 
     #Ollama TUIs
     gollama
