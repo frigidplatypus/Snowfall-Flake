@@ -159,6 +159,7 @@ with lib.frgd;
         nodejs
         novnc
         openssh
+        uv
         x11vnc
         xauth
         xorg.xdpyinfo
@@ -230,6 +231,27 @@ with lib.frgd;
       AUTO_LOGIN_ENABLED = "true";
       DISPLAY = ":99";
     };
+  };
+
+  # Miniflux MCP — RSS reader management.
+  # Tokens from MINIFLUX_URL, MINIFLUX_API_KEY in .env
+  services.hermes-agent.mcpServers.miniflux = {
+    command = "bash";
+    args = [ "/var/lib/hermes/.hermes/scripts/run-miniflux-mcp.sh" ];
+  };
+
+  # Paperless MCP — document management.
+  # Tokens from PAPERLESS_URL, PAPERLESS_TOKEN in .env
+  services.hermes-agent.mcpServers.paperless = {
+    command = "bash";
+    args = [ "/var/lib/hermes/.hermes/scripts/run-paperless-mcp.sh" ];
+  };
+
+  # Audiobookshelf MCP — audiobook/podcast library management.
+  # Tokens from ABS_BASE_URL, ABS_API_KEY in .env
+  services.hermes-agent.mcpServers.audiobookshelf = {
+    command = "bash";
+    args = [ "/var/lib/hermes/.hermes/scripts/run-audiobookshelf-mcp.sh" ];
   };
 
   # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
