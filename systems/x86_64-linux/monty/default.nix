@@ -318,14 +318,14 @@ with lib.frgd;
         hosts = {
           monty = {
             hostname = "monty.${tailnet}";
-            backendAddress = "http://127.0.0.1:8065";
+            backendAddress = "http://127.0.0.1:9119";
             useTailnet = true;
             extraConfig = ''
               handle_path /vnc/* {
                 reverse_proxy localhost:6080
               }
               handle {
-                reverse_proxy http://127.0.0.1:8065 {
+                reverse_proxy http://127.0.0.1:9119 {
                   header_up Host 127.0.0.1
                 }
               }

@@ -1,8 +1,7 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
+{ lib
+, pkgs
+, config
+, ...
 }:
 with lib;
 with lib.frgd;
@@ -44,12 +43,23 @@ with lib.frgd;
           encode gzip
         '';
       };
+      "monty.mar10s.cloud" = {
+        extraConfig = ''
+          reverse_proxy https://monty.${tailnet} {
+            header_up X-Forwarded-Proto https
+          }
+          encode gzip
+        '';
+      };
     };
   };
 
   services.beszel.hub = {
     enable = true;
     host = "0.0.0.0";
+    environment = {
+      "SHARE_ALL_SYSTEMS" = "true";
+    };
   };
 
   services.silverbullet = {
