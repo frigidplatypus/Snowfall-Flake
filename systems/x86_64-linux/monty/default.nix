@@ -318,7 +318,7 @@ with lib.frgd;
   systemd.services.silverbullet = {
     path = with pkgs; [ git openssh ];
     environment = {
-      SB_BASE_URL = "https://monty.fluffy-rooster.ts.net/notes";
+      SB_URL_PREFIX = "/notes";
     };
     serviceConfig = {
       # Override the nixpkgs module's StateDirectory which would only create
@@ -346,7 +346,7 @@ with lib.frgd;
             backendAddress = "http://127.0.0.1:9119";
             useTailnet = true;
             extraConfig = ''
-              handle_path /notes/* {
+              handle /notes/* {
                 reverse_proxy http://127.0.0.1:3002
               }
               handle_path /vnc/* {
