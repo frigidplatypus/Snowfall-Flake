@@ -48,6 +48,9 @@ with lib.frgd;
           handle_path /notes/* {
             respond 404
           }
+          handle_path /vnc/* {
+            respond 404
+          }
           reverse_proxy https://monty.${tailnet} {
             header_up X-Forwarded-Proto https
           }
