@@ -725,17 +725,17 @@
         "uv2nix": "uv2nix_2"
       },
       "locked": {
-        "lastModified": 1781318724,
-        "narHash": "sha256-lGqLFYtjjB2OCRC8du1NrvYcNPcWI84+HCvYQCAIVpQ=",
-        "owner": "nousresearch",
-        "repo": "hermes-agent",
-        "rev": "7d183f64979ffd91d52175d03c695d1ecad752d1",
-        "type": "github"
+        "lastModified": 1781365587,
+        "narHash": "sha256-UEmWG5sBT490Ii1b+iF0LQy2hMwTtCf/y5v9Tc1omYw=",
+        "ref": "refs/heads/main",
+        "rev": "96bd70e3e65e25abbcba2ca0afdbb4c83a7a1b53",
+        "revCount": 11598,
+        "type": "git",
+        "url": "file:///var/lib/hermes/workspace/hermes-agent"
       },
       "original": {
-        "owner": "nousresearch",
-        "repo": "hermes-agent",
-        "type": "github"
+        "type": "git",
+        "url": "file:///var/lib/hermes/workspace/hermes-agent"
       }
     },
     "home-manager": {
