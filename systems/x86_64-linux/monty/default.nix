@@ -174,6 +174,17 @@ with lib.frgd;
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
     };
+
+    # Shared household Silverbullet — accessible at monty.fluffy-rooster.ts.net/notes
+    silverbullet = {
+      enable = true;
+      package = pkgs.frgd.silverbullet;
+      listenPort = 3002;
+      listenAddress = "127.0.0.1";
+      spaceDir = "/var/lib/hermes/workspace/household";
+      user = "hermes";
+      group = "hermes";
+    };
   };
 
   # Hermes Desktop — headless desktop for browser-based auth (NotebookLM, etc.).
@@ -302,6 +313,20 @@ with lib.frgd;
       };
     };
 
+  # Shared household Silverbullet — systemd overrides.
+  # The base service is created by services.silverbullet above; these settings merge in.
+  systemd.services.silverbullet = {
+    path = with pkgs; [ git openssh ];
+    environment = {
+      SB_BASE_URL = "https://monty.fluffy-rooster.ts.net/notes";
+    };
+    serviceConfig = {
+      # Override the nixpkgs module's StateDirectory which would only create
+      # /var/lib/household — we need the full nested path.
+      StateDirectory = "hermes/workspace/household";
+    };
+  };
+
   frgd = {
     apps = { };
     archetypes = {
@@ -321,6 +346,9 @@ with lib.frgd;
             backendAddress = "http://127.0.0.1:9119";
             useTailnet = true;
             extraConfig = ''
+              handle_path /notes/* {
+                reverse_proxy http://127.0.0.1:3002
+              }
               handle_path /vnc/* {
                 reverse_proxy localhost:6080
               }
