@@ -356,11 +356,6 @@ with lib.frgd;
               }
             '';
           };
-          household = {
-            hostname = "household.${tailnet}";
-            backendAddress = "http://127.0.0.1:3002";
-            useTailnet = true;
-          };
         };
       };
       tailscale = {

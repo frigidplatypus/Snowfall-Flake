@@ -731,11 +731,11 @@
         "rev": "96bd70e3e65e25abbcba2ca0afdbb4c83a7a1b53",
         "revCount": 11598,
         "type": "git",
-        "url": "https://git.fluffy-rooster.ts.net/FRGD/hermes-agent.git"
+        "url": "file:///var/lib/hermes/workspace/hermes-agent"
       },
       "original": {
         "type": "git",
-        "url": "https://git.fluffy-rooster.ts.net/FRGD/hermes-agent.git"
+        "url": "file:///var/lib/hermes/workspace/hermes-agent"
       }
     },
     "home-manager": {
