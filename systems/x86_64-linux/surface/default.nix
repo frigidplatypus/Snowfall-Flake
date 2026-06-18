@@ -79,6 +79,9 @@ with lib.frgd;
         enable = true;
       };
     };
+    services = {
+      sbtask = enabled;
+    };
     archetypes = {
       workstation = enabled;
     };
@@ -100,27 +103,5 @@ with lib.frgd;
       misc = enabled;
     };
   };
-
-  # frgd.services = {
-  #   zfs-replication = {
-  #     enable = true;
-  #     syncoid.sshKey = null;
-  #     syncoid.interval = "hourly";
-  #     datasets = {
-  #       notes = {
-  #         source = "zroot/notes";
-  #         target = "syncoid@p5810.fluffy-rooster.ts.net:storage/notes";
-  #       };
-  #       development = {
-  #         source = "zroot/development";
-  #         target = "syncoid@p5810.fluffy-rooster.ts.net:storage/development";
-  #       };
-  #       home_justin = {
-  #         source = "zroot/home_justin";
-  #         target = "syncoid@p5810.fluffy-rooster.ts.net:storage/home_justin";
-  #       };
-  #     };
-  #   };
-  # };
 
 }

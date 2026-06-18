@@ -127,6 +127,10 @@
       # (the cache is built against noctalia's own nixpkgs pin)
     };
 
+    sbtask = {
+      url = "git+https://git.fluffy-rooster.ts.net/FRGD/sbtask";
+    };
+
   };
 
   outputs =
@@ -178,6 +182,10 @@
 
         (final: prev: {
           nr = inputs.nr.packages.${final.system}.default;
+        })
+
+        (final: prev: {
+          sbtask = inputs.sbtask.packages.${final.system}.default;
         })
       ];
 

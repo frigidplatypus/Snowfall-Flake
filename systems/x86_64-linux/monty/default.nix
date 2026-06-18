@@ -338,6 +338,7 @@ with lib.frgd;
       efi = true;
     };
     services = {
+      sbtask = enabled;
       caddy-proxy = {
         enable = true;
         hosts = {

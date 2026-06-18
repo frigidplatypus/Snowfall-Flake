@@ -67,6 +67,9 @@ with lib.frgd;
       signal = enabled;
       steam = enabled;
     };
+    services = {
+      sbtask = enabled;
+    };
     security = {
       sops = {
         enable = true;
