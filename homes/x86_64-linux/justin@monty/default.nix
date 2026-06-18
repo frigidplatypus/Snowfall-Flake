@@ -4,23 +4,6 @@ with lib.frgd;
 {
   sops.secrets.apple_app_password = { };
 
-  programs.sbtask = {
-    enable = true;
-    settings = {
-      spaces = {
-        main = {
-          space = "https://notes.fluffy-rooster.ts.net";
-          defaultPage = "Tasks";
-        };
-        household = {
-          space = "https://notes.fluffy-rooster.ts.net";
-          defaultPage = "HouseholdTasks";
-        };
-      };
-      activeSpace = "main";
-    };
-  };
-
   frgd = {
     user = {
       enable = true;
@@ -32,6 +15,7 @@ with lib.frgd;
     security.sops = enabled;
 
     cli-apps = {
+      sbtask = enabled;
       ai-tools = enabled;
     };
 

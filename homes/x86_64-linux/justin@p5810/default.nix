@@ -5,23 +5,6 @@ with lib.frgd;
   sops.secrets.vikunja_api_key = { };
   sops.secrets.apple_app_password = { };
 
-  programs.sbtask = {
-    enable = true;
-    settings = {
-      spaces = {
-        main = {
-          space = "https://notes.fluffy-rooster.ts.net";
-          defaultPage = "Tasks";
-        };
-        household = {
-          space = "https://notes.fluffy-rooster.ts.net";
-          defaultPage = "HouseholdTasks";
-        };
-      };
-      activeSpace = "main";
-    };
-  };
-
   frgd = {
     user = {
       enable = true;
@@ -38,6 +21,7 @@ with lib.frgd;
     };
 
     cli-apps = {
+      sbtask = enabled;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;

@@ -6,23 +6,6 @@ with lib;
 with lib.frgd;
 {
 
-  programs.sbtask = {
-    enable = true;
-    settings = {
-      spaces = {
-        main = {
-          space = "https://notes.fluffy-rooster.ts.net";
-          defaultPage = "Tasks";
-        };
-        household = {
-          space = "https://notes.fluffy-rooster.ts.net";
-          defaultPage = "HouseholdTasks";
-        };
-      };
-      activeSpace = "main";
-    };
-  };
-
   programs.niri.settings = {
     input = {
       keyboard.xkb = {
@@ -301,6 +284,7 @@ with lib.frgd;
       #     };
       #   };
       # };
+      sbtask = enabled;
       neovim = enabled;
       home-manager = enabled;
       local-scripts = enabled;
