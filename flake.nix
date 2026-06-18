@@ -117,6 +117,16 @@
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/nr";
     };
 
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+    };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      # Omit inputs.nixpkgs.follows so the binary cache hits
+      # (the cache is built against noctalia's own nixpkgs pin)
+    };
+
   };
 
   outputs =
@@ -139,6 +149,11 @@
       };
     in
     lib.mkFlake {
+      nixConfig = {
+        extra-substituters = [ "https://noctalia.cachix.org" ];
+        extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+      };
+
       channels-config = {
         allowUnfree = true;
         permittedInsecurePackages = [
@@ -183,6 +198,7 @@
         inputs.nix-flatpak.nixosModules.nix-flatpak
         inputs.email-to-miniflux.nixosModules.emailToMiniflux
         inputs.hermes.nixosModules.default
+        inputs.noctalia-greeter.nixosModules.default
       ];
 
       homes.modules = [
@@ -190,6 +206,7 @@
         inputs.nix-index-database.homeModules.nix-index
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.niri-flake.homeModules.config
+        inputs.noctalia.homeModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
@@ -210,6 +227,15 @@
           { config, pkgs, ... }:
           {
             determinate.enable = true;
+          }
+        )
+        (
+          { config, pkgs, ... }:
+          {
+            nix.settings = {
+              extra-substituters = [ "https://noctalia.cachix.org" ];
+              extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+            };
           }
         )
       ];
