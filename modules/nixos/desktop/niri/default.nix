@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -43,9 +44,13 @@ in
       environment.systemPackages = with pkgs; [
         xdg-utils
         niriPkg
+        inputs.noctalia.packages.${pkgs.system}.default
       ];
 
-      programs.dms-shell.enable = true;
+      programs.noctalia-greeter = {
+        enable = true;
+        greeter-args = "--session niri";
+      };
 
       services.dbus.enable = true;
 
@@ -64,10 +69,6 @@ in
 
       services = {
         displayManager.defaultSession = "niri";
-        displayManager.dms-greeter = {
-          enable = true;
-          compositor.name = "niri";
-        };
         displayManager.sessionPackages = [ niriPkg ];
       };
 
