@@ -140,15 +140,6 @@ with lib.frgd;
       "Super+O".action."toggle-overview" = { };
       "Super+Shift+P".action."power-off-monitors" = { };
       "Super+r".action."switch-preset-column-width" = { };
-      "Mod3+V".action.spawn = [
-        "qs"
-        "-c"
-        "noctalia-shell"
-        "ipc"
-        "call"
-        "launcher"
-        "clipboard"
-      ];
       "XF86AudioPlay".action.spawn = [
         "${pkgs.playerctl}/bin/playerctl"
         "play-pause"
@@ -165,10 +156,8 @@ with lib.frgd;
         "${pkgs.playerctl}/bin/playerctl"
         "stop"
       ];
-      "XF86MonBrightnessUp".action."spawn-sh" =
-        "current=$(dms brightness get backlight:intel_backlight | cut -d' ' -f2 | tr -d '%'); new=$((current + 10)); [ $new -gt 100 ] && new=100; dms brightness set backlight:intel_backlight $new";
-      "XF86MonBrightnessDown".action."spawn-sh" =
-        "current=$(dms brightness get backlight:intel_backlight | cut -d' ' -f2 | tr -d '%'); new=$((current - 10)); [ $new -lt 0 ] && new=0; dms brightness set backlight:intel_backlight $new";
+      "XF86MonBrightnessUp".action."spawn-sh" = "${pkgs.brightnessctl}/bin/brightnessctl set +10%";
+      "XF86MonBrightnessDown".action."spawn-sh" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
       "XF86AudioRaiseVolume".action."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
       "XF86AudioLowerVolume".action."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
       "XF86AudioMute".action."spawn-sh" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -194,19 +183,15 @@ with lib.frgd;
 
   xdg.configFile = {
     niri-config.target = lib.mkForce "niri/hm.kdl";
-    niri-config-dms = {
+    niri-config-main = {
       target = "niri/config.kdl";
-      text = builtins.concatStringsSep "\n" [
-        ''include "hm.kdl"''
-        ''include "dms/outputs.kdl"''
-        ''include "dms/binds.kdl"''
-        ''include "dms/windowrules.kdl"''
-        ''include "dms/alttab.kdl"''
-        ''include "dms/wpblur.kdl"''
-        ''include "dms/colors.kdl"''
-        ''include "dms/cursor.kdl"''
-      ];
+      text = ''include "hm.kdl"'';
     };
+  };
+
+  programs.noctalia = {
+    enable = true;
+    systemd.enable = true;
   };
 
   sops.secrets.vikunja_api_key = { };
@@ -407,6 +392,7 @@ with lib.frgd;
     kdePackages.partitionmanager
     gnome-disk-utility
     blivet-gui
+    brightnessctl
     cfonts
     exfatprogs
     fatresize
