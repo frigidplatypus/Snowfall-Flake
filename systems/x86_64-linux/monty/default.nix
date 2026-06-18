@@ -53,6 +53,7 @@ with lib.frgd;
 
   environment.systemPackages = with pkgs; [
     frgd.sb
+    sbtask
     # System tools for agent effectiveness
     go
     python3
@@ -121,6 +122,20 @@ with lib.frgd;
     GIT_EOF
         chmod 644 /var/lib/hermes/.gitconfig
         chown hermes:hermes /var/lib/hermes/.gitconfig
+
+        mkdir -p /var/lib/hermes/.config/sbtask
+        cat > /var/lib/hermes/.config/sbtask/config.yaml << 'SBTASK_EOF'
+spaces:
+  main:
+    space: "https://notes.fluffy-rooster.ts.net"
+    default_page: "Tasks"
+  household:
+    space: "https://notes.fluffy-rooster.ts.net"
+    default_page: "HouseholdTasks"
+active_space: main
+SBTASK_EOF
+        chmod 600 /var/lib/hermes/.config/sbtask/config.yaml
+        chown hermes:hermes /var/lib/hermes/.config/sbtask/config.yaml
   '';
 
   services = {
@@ -338,7 +353,6 @@ with lib.frgd;
       efi = true;
     };
     services = {
-      sbtask = enabled;
       caddy-proxy = {
         enable = true;
         hosts = {

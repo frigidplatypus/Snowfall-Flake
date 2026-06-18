@@ -79,9 +79,6 @@ with lib.frgd;
         enable = true;
       };
     };
-    services = {
-      sbtask = enabled;
-    };
     archetypes = {
       workstation = enabled;
     };

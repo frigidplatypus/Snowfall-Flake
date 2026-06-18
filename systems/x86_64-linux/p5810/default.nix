@@ -146,7 +146,6 @@ with lib.frgd;
       zfs = enabled;
     };
     services = {
-      sbtask = enabled;
       beszel-agent = enabled;
 
       zfs-replication = {

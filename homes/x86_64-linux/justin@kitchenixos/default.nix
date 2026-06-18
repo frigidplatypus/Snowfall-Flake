@@ -2,6 +2,24 @@
 with lib;
 with lib.frgd;
 {
+
+  programs.sbtask = {
+    enable = true;
+    settings = {
+      spaces = {
+        main = {
+          space = "https://notes.fluffy-rooster.ts.net";
+          defaultPage = "Tasks";
+        };
+        household = {
+          space = "https://notes.fluffy-rooster.ts.net";
+          defaultPage = "HouseholdTasks";
+        };
+      };
+      activeSpace = "main";
+    };
+  };
+
   frgd = {
     user = {
       enable = true;

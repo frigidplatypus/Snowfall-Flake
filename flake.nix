@@ -215,6 +215,7 @@
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.niri-flake.homeModules.config
         inputs.noctalia.homeModules.default
+        inputs.sbtask.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
