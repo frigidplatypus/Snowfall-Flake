@@ -293,6 +293,19 @@ SBTASK_EOF
     args = [ "/var/lib/hermes/.hermes/scripts/run-audiobookshelf-mcp.sh" ];
   };
 
+  # UniFi Network MCP — query client devices (MAC, IP, hostname) for power-loss recovery.
+  services.hermes-agent.mcpServers.unifi-network = {
+    command = "uvx";
+    args = [ "unifi-network-mcp" ];
+    env = {
+      UNIFI_HOST = "192.168.0.14";
+      UNIFI_PORT = "443";
+      UNIFI_USERNAME = "readonly";
+      UNIFI_PASSWORD = "LZmkeDqsmHLxxjjiCT4JRavg";
+      UNIFI_VERIFY_SSL = "false";
+    };
+  };
+
   # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
   systemd.services.hermes-dashboard =
     let
