@@ -303,6 +303,7 @@ with lib.frgd;
       UNIFI_USERNAME = "readonly";
       UNIFI_PASSWORD = "LZmkeDqsmHLxxjjiCT4JRavg";
       UNIFI_VERIFY_SSL = "false";
+      UNIFI_CONTROLLER_TYPE = "proxy";
     };
   };
 
