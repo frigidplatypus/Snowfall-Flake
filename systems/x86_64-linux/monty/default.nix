@@ -299,11 +299,10 @@ with lib.frgd;
     args = [ "unifi-network-mcp" ];
     env = {
       UNIFI_HOST = "192.168.0.14";
-      UNIFI_PORT = "443";
+      UNIFI_PORT = "8443";
       UNIFI_USERNAME = "readonly";
       UNIFI_PASSWORD = "LZmkeDqsmHLxxjjiCT4JRavg";
       UNIFI_VERIFY_SSL = "false";
-      UNIFI_CONTROLLER_TYPE = "proxy";
     };
   };
 
