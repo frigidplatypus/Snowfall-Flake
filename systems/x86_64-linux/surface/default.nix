@@ -27,7 +27,11 @@ with lib.frgd;
   services.upower = enabled;
   services.power-profiles-daemon.enable = false;
   services.auto-cpufreq.enable = true;
-  powerManagement.powertop.enable = true;
+  powerManagement = {
+    powertop.enable = true;
+    # Noctalia v5 does not handle PrepareForSleep(true); lock via logind before sleep.
+    powerDownCommands = "${pkgs.systemd}/bin/loginctl lock-sessions";
+  };
 
   environment.systemPackages = with pkgs; [
     # openscad
