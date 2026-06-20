@@ -763,11 +763,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781837860,
-        "narHash": "sha256-oxAvnVo7JI7YNH9xaBt3n7dPTTcToUy5hlzVqTnA0sw=",
+        "lastModified": 1781906751,
+        "narHash": "sha256-6Ld1PqmptFtFKblE+SynhRgyBApUWcmrISetWqWHeeo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3abeedcf409ecd8fca201646074bfb31797e8cc2",
+        "rev": "37f21dfa5d27e71b75bacd9418b156f9265e312e",
         "type": "github"
       },
       "original": {
@@ -1560,11 +1560,11 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1781819536,
-        "narHash": "sha256-v7TwET8a1wtdae/1D+ewIEauTh39hT3zBONv6XkRHe8=",
+        "lastModified": 1781914872,
+        "narHash": "sha256-S2vKE2KjR2Aw6UBwOCxIeua40sjQ1PcU8gJk4jgXp68=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "7bc707b611fcb88401f64a52f483f389e2771f43",
+        "rev": "a7af75821ed8aa9e199b0d8044362dc882c78fbc",
         "type": "github"
       },
       "original": {
@@ -1831,11 +1831,11 @@
         "nixpkgs": "nixpkgs_14"
       },
       "locked": {
-        "lastModified": 1781809262,
-        "narHash": "sha256-s+UOQXkrLuH+V8RWoLCw3K7i2mNzSq+n1YOkd37H8bU=",
+        "lastModified": 1781922246,
+        "narHash": "sha256-k3+5nAhnHmejCgU3YNm9XW4+bbdiM0qUf2lXge9hl9o=",
         "ref": "refs/heads/main",
-        "rev": "8aee69edb2c578b590836de637ebb5a9f682f0b4",
-        "revCount": 14,
+        "rev": "4a730287b4cadfd26184e7681c5cab2960a58838",
+        "revCount": 22,
         "type": "git",
         "url": "https://git.fluffy-rooster.ts.net/FRGD/sbtask"
       },
