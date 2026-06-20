@@ -100,40 +100,40 @@ with lib.frgd;
             chown hermes:hermes /var/lib/hermes/.ssh/id_ed25519
 
             cat > /var/lib/hermes/.ssh/config << 'SSH_EOF'
-        Host git.fluffy-rooster.ts.net
-          Hostname git.fluffy-rooster.ts.net
-          User git
-          IdentityFile /var/lib/hermes/.ssh/id_ed25519
-          StrictHostKeyChecking no
-        SSH_EOF
+            Host git.fluffy-rooster.ts.net
+              Hostname git.fluffy-rooster.ts.net
+              User git
+              IdentityFile /var/lib/hermes/.ssh/id_ed25519
+              StrictHostKeyChecking no
+            SSH_EOF
             chmod 600 /var/lib/hermes/.ssh/config
             chown hermes:hermes /var/lib/hermes/.ssh/config
 
             cat > /var/lib/hermes/.gitconfig << 'GIT_EOF'
-        [user]
-          name = Hermes Agent
-          email = hermes@fluffy-rooster.ts.net
-        [init]
-          defaultBranch = main
-        [pull]
-          rebase = true
-        [push]
-          autoSetupRemote = true
-        GIT_EOF
+            [user]
+              name = Hermes Agent
+              email = hermes@fluffy-rooster.ts.net
+            [init]
+              defaultBranch = main
+            [pull]
+              rebase = true
+            [push]
+              autoSetupRemote = true
+            GIT_EOF
             chmod 644 /var/lib/hermes/.gitconfig
             chown hermes:hermes /var/lib/hermes/.gitconfig
 
             mkdir -p /var/lib/hermes/.config/sbtask
             cat > /var/lib/hermes/.config/sbtask/config.yaml << 'SBTASK_EOF'
-    spaces:
-      main:
-        space: "https://notes.fluffy-rooster.ts.net"
-        default_page: "Tasks"
-      household:
-        space: "https://notes.fluffy-rooster.ts.net"
-        default_page: "HouseholdTasks"
-    active_space: main
-    SBTASK_EOF
+            spaces:
+              main:
+                space: "https://notes.fluffy-rooster.ts.net"
+                default_page: "Tasks"
+              household:
+                space: "https://notes.fluffy-rooster.ts.net"
+                default_page: "HouseholdTasks"
+            active_space: main
+            SBTASK_EOF
             chmod 600 /var/lib/hermes/.config/sbtask/config.yaml
             chown hermes:hermes /var/lib/hermes/.config/sbtask/config.yaml
   '';
