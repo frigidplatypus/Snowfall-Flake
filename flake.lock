@@ -429,7 +429,7 @@
     },
     "flake-utils-plus_3": {
       "inputs": {
-        "flake-utils": "flake-utils_8"
+        "flake-utils": "flake-utils_9"
       },
       "locked": {
         "lastModified": 1715533576,
@@ -448,7 +448,7 @@
     },
     "flake-utils-plus_4": {
       "inputs": {
-        "flake-utils": "flake-utils_9"
+        "flake-utils": "flake-utils_10"
       },
       "locked": {
         "lastModified": 1738591040,
@@ -467,7 +467,25 @@
     },
     "flake-utils_10": {
       "inputs": {
-        "systems": "systems_15"
+        "systems": "systems_14"
+      },
+      "locked": {
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_11": {
+      "inputs": {
+        "systems": "systems_16"
       },
       "locked": {
         "lastModified": 1681202837,
@@ -483,9 +501,9 @@
         "type": "github"
       }
     },
-    "flake-utils_11": {
+    "flake-utils_12": {
       "inputs": {
-        "systems": "systems_16"
+        "systems": "systems_17"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -610,12 +628,15 @@
       }
     },
     "flake-utils_8": {
+      "inputs": {
+        "systems": "systems_13"
+      },
       "locked": {
-        "lastModified": 1644229661,
-        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -625,15 +646,12 @@
       }
     },
     "flake-utils_9": {
-      "inputs": {
-        "systems": "systems_13"
-      },
       "locked": {
-        "lastModified": 1694529238,
-        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "lastModified": 1644229661,
+        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
         "type": "github"
       },
       "original": {
@@ -1360,6 +1378,22 @@
     },
     "nixpkgs_15": {
       "locked": {
+        "lastModified": 1781577229,
+        "narHash": "sha256-lrp67w8AulE9Ks53n27I45ADSzbOCn4H+CNW1Ck8B+8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_16": {
+      "locked": {
         "lastModified": 1779357205,
         "narHash": "sha256-cCO8aTqss5x9Ky8GWkpY0Hy5fyTZEbtifSUV8QjSzic=",
         "rev": "f83fc3c307e74bc5fd5adb7eb6b8b13ffd2a36e1",
@@ -1372,7 +1406,7 @@
         "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1"
       }
     },
-    "nixpkgs_16": {
+    "nixpkgs_17": {
       "locked": {
         "lastModified": 1775888245,
         "narHash": "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=",
@@ -1814,6 +1848,7 @@
         "noctalia-greeter": "noctalia-greeter",
         "nr": "nr",
         "sbtask": "sbtask",
+        "silverbullet-api-gateway": "silverbullet-api-gateway",
         "silverbullet-mcp": "silverbullet-mcp",
         "snowfall-flake": "snowfall-flake",
         "snowfall-lib": "snowfall-lib_4",
@@ -1844,9 +1879,28 @@
         "url": "https://git.fluffy-rooster.ts.net/FRGD/sbtask"
       }
     },
+    "silverbullet-api-gateway": {
+      "inputs": {
+        "flake-utils": "flake-utils_8",
+        "nixpkgs": "nixpkgs_15"
+      },
+      "locked": {
+        "lastModified": 1782055778,
+        "narHash": "sha256-8SYQKPk2F1pmKfLkZFrvun89Z5u5/ZAqsfYlL+pD2GA=",
+        "ref": "refs/heads/main",
+        "rev": "9ee3a31471b1e89dee794f00c5bfcc10d2c11144",
+        "revCount": 7,
+        "type": "git",
+        "url": "https://git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway"
+      }
+    },
     "silverbullet-mcp": {
       "inputs": {
-        "nixpkgs": "nixpkgs_15"
+        "nixpkgs": "nixpkgs_16"
       },
       "locked": {
         "lastModified": 1779577079,
@@ -1978,7 +2032,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_16"
+        "nixpkgs": "nixpkgs_17"
       },
       "locked": {
         "lastModified": 1780547341,
@@ -2114,6 +2168,21 @@
       }
     },
     "systems_16": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_17": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -2312,7 +2381,7 @@
     },
     "utils_2": {
       "inputs": {
-        "systems": "systems_14"
+        "systems": "systems_15"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -2379,7 +2448,7 @@
     },
     "vscode-server": {
       "inputs": {
-        "flake-utils": "flake-utils_10",
+        "flake-utils": "flake-utils_11",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -2400,7 +2469,7 @@
     },
     "wifitui": {
       "inputs": {
-        "flake-utils": "flake-utils_11",
+        "flake-utils": "flake-utils_12",
         "nixpkgs": [
           "nixpkgs"
         ]

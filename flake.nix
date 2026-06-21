@@ -131,6 +131,10 @@
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/sbtask";
     };
 
+    silverbullet-api-gateway = {
+      url = "git+https://git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway";
+    };
+
   };
 
   outputs =
@@ -186,6 +190,10 @@
 
         (final: prev: {
           sbtask = inputs.sbtask.packages.${final.system}.default;
+        })
+
+        (final: prev: {
+          silverbullet-api-gateway = inputs.silverbullet-api-gateway.packages.${final.system}.default;
         })
       ];
 
