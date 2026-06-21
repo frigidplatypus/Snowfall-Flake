@@ -37,8 +37,5 @@ with lib.frgd;
     url = "http://localhost:3000";
     page = "inbox";
     dataPattern = "- [ ] [TEXT] ([DATE])";
-    tokenFile = config.sops.secrets."sb-token".path;
   };
-
-  sops.secrets."sb-token" = { };
 }
