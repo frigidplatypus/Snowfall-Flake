@@ -39,28 +39,20 @@ with lib.frgd;
   };
 
   virtualisation.docker = {
-    # Disable the system-wide Docker daemon when using rootless mode
-    enable = false;
-
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-      # Optionally customize rootless Docker daemon settings
-      daemon.settings = {
-        dns = [
-          "1.1.1.1"
-          "8.8.8.8"
-        ];
-        registry-mirrors = [ "https://mirror.gcr.io" ];
-      };
+    enable = true;
+    daemon.settings = {
+      dns = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      registry-mirrors = [ "https://mirror.gcr.io" ];
     };
   };
 
   environment.systemPackages = with pkgs; [
     docker
     nftables
-    slirp4netns
-    fuse-overlayfs
+
     alacritty
     lswt
     waylevel
@@ -92,11 +84,8 @@ with lib.frgd;
 
   ];
 
-  # Ensure the user session can find the rootless docker socket and helper binaries
   environment.sessionVariables = {
-    DOCKER_HOST = "unix:///run/user/1000/docker.sock";
-    # make sure system helpers (nft, slirp4netns, fuse-overlayfs) are on the
-    # PATH seen by login shells and systemd --user services
+    # make sure system helpers are on the PATH seen by login shells
     PATH = "/run/current-system/sw/bin:/run/current-system/profile/bin:/home/justin/.nix-profile/bin";
   };
 
@@ -228,12 +217,8 @@ with lib.frgd;
 
   };
 
-  # Create a local docker group for rootless dockerd socket ownership and add
-  # the primary user to it via the frgd.user.extraGroups option below.
   users.groups.docker = { };
 
-  # Add the docker group to the default user so rootless dockerd can set the
-  # socket group without warnings.
   frgd.user = {
     extraGroups = [ "docker" ];
   };
