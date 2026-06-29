@@ -7,6 +7,8 @@ let
   inherit (inputs) silverbullet-api-gateway;
 in
 {
+  imports = [ silverbullet-api-gateway.homeManagerModules.default ];
+
   options.frgd.services.silverbullet-api-gateway = with types; {
     enable = mkBoolOpt false "Whether to enable the SilverBullet API Gateway.";
 
