@@ -21,7 +21,8 @@ scripts/                       — Bootstrap / utility scripts
 - `nix build .#<package>` — build a single package (e.g. `nix build .#silverbullet`)
 - `nix develop` — open a dev shell (currently **none defined** — gives a bare bash shell)
 - `nixfmt` — format Nix code (run before commits; configured in `treefmt.toml`)
-- `nixos-rebuild switch --flake .#<hostname>` — deploy NixOS (24 hosts)
+- `nixos-rebuild switch --flake .#<hostname>` — deploy NixOS locally
+- `nixos-rebuild switch --flake .#<hostname> --target-host root@<hostname>.tailnet` — remote build-and-push
 - `home-manager switch --flake .#<user>@<hostname>` — deploy Home Manager (15 configs)
 - `nix run github:serokell/deploy-rs -- --flake .#<hostname>` — deploy via deploy-rs (excludes p5810, t480)
 
