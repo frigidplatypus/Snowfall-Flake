@@ -193,7 +193,9 @@
         })
 
         (final: prev: {
-          silverbullet-api-gateway = inputs.silverbullet-api-gateway.packages.${final.system}.default;
+          silverbullet-api-gateway = (inputs.silverbullet-api-gateway.packages.${final.system}.default.overrideAttrs (_: {
+            vendorHash = "sha256-9OeviGxvBPtUPfdN5L7F33TPY259GNBkTaTe/2V2zT0=";
+          }));
         })
       ];
 

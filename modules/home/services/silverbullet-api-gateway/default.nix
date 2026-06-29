@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 with lib;
 with lib.frgd;
@@ -14,9 +20,8 @@ in
 
     package = mkOption {
       type = package;
-      default = silverbullet-api-gateway.packages.${pkgs.system}.default;
-      defaultText = literalExpression
-        "inputs.silverbullet-api-gateway.packages.\${pkgs.system}.default";
+      default = pkgs.silverbullet-api-gateway;
+      defaultText = literalExpression "pkgs.silverbullet-api-gateway";
       description = "The silverbullet-api-gateway package to use.";
     };
 
@@ -69,9 +74,7 @@ in
     };
   };
 
-  # Import upstream module at top level (not under config — imports is a
-  # module-system special, not a regular option)
-    # Configure the upstream service
+  config = mkIf cfg.enable {
     services.silverbullet-api-gateway = {
       enable = true;
       package = cfg.package;
@@ -80,8 +83,9 @@ in
         SB_URL = cfg.url;
         SB_PAGE = cfg.page;
         SEPARATOR = cfg.separator;
-      } // optionalAttrs (cfg.dataPattern != null) { DATA_PATTERN = cfg.dataPattern; }
-        // optionalAttrs (cfg.token != null) { SB_TOKEN = cfg.token; };
+      }
+      // optionalAttrs (cfg.dataPattern != null) { DATA_PATTERN = cfg.dataPattern; }
+      // optionalAttrs (cfg.token != null) { SB_TOKEN = cfg.token; };
     };
 
     # Load token from file if tokenFile is set (via systemd LoadCredential)
@@ -89,15 +93,14 @@ in
       Service = {
         LoadCredential = "sb-token:${cfg.tokenFile}";
         Environment = "SB_TOKEN=%d/sb-token";
-        # systemd reads the credential file and exposes it via $CREDENTIALS_DIRECTORY
-        # but the upstream service doesn't support that; we use a wrapper instead.
         ExecStart = mkForce (
           let
             wrapper = pkgs.writeShellScript "silverbullet-api-gateway-wrapper" ''
               export SB_TOKEN=$(cat $CREDENTIALS_DIRECTORY/sb-token)
               exec ${cfg.package}/bin/silverbullet-api-gateway
             '';
-          in "${wrapper}"
+          in
+          "${wrapper}"
         );
       };
     };

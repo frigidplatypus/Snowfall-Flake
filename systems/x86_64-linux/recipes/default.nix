@@ -18,6 +18,7 @@ with lib.frgd;
         extraConfig = ''
           reverse_proxy http://127.0.0.1:9000 {
             header_up X-Forwarded-Proto https
+            header_up X-Forwarded-Host {host}
             header_down Strict-Transport-Security max-age=31536000
           }
           encode gzip
@@ -43,7 +44,7 @@ with lib.frgd;
     listenAddress = "0.0.0.0";
     credentialsFile = config.sops.secrets.mealie_env.path;
     settings = {
-      BASE_URL = "https://recipes.mar10s.cloud";
+      BASE_URL = "https://recipes.${tailnet}";
       ALLOW_PASSWORD_LOGIN = "true";
       OIDC_AUTH_ENABLED = "true";
       OIDC_SIGNUP_ENABLED = "true";

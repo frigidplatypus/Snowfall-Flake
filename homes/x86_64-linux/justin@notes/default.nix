@@ -32,7 +32,7 @@ with lib.frgd;
   };
 
   # SilverBullet API Gateway — receives POST data and appends to a SB page
-  services.silverbullet-api-gateway = {
+  frgd.services.silverbullet-api-gateway = {
     enable = true;
     url = "http://localhost:3000";
     page = "inbox";
