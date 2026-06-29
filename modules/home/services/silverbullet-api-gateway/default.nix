@@ -67,10 +67,11 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    # Import the upstream home-manager module
-    imports = [ silverbullet-api-gateway.homeManagerModules.default ];
+  # Import upstream module at top level (not under config — imports is a
+  # module-system special, not a regular option)
+  imports = [ silverbullet-api-gateway.homeManagerModules.default ];
 
+  config = mkIf cfg.enable {
     # Configure the upstream service
     services.silverbullet-api-gateway = {
       enable = true;

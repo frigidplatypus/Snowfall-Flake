@@ -52,7 +52,7 @@ with lib.frgd;
       OIDC_PROVIDER_NAME = "Tailscale";
       OIDC_REMEMBER_ME = "true";
       OIDC_USER_CLAIM = "email";
-      OIDC_NAME_CLAIM = "name";
+      OIDC_NAME_CLAIM = "preferred_username";
     };
   };
 }
