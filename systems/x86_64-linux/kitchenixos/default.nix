@@ -43,6 +43,7 @@ with lib.frgd;
     # super-slicer
     cura-appimage
     libation
+    audible-cli
     devenv
     localsend
     jocalsend
