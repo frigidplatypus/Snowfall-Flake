@@ -21,12 +21,12 @@ with lib.frgd;
       espanso = enabled;
     };
     cli-apps = {
-      sbtask = enabled;
       zoxide = enabled;
       neovim = enabled;
       home-manager = enabled;
       ranger = enabled;
       fish = enabled;
+      opencode = enabled;
     };
 
     security = {

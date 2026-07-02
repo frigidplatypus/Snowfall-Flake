@@ -18,12 +18,5 @@ in
   options.frgd.cli-apps.opencode = with types; {
     enable = mkBoolOpt false "Whether or not to enable OpenCode.";
     package = mkOpt types.package pkgs.opencode "The OpenCode package to use.";
-    settings = mkOpt (attrsOf anything) { } "OpenCode configuration settings.";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
-
-    xdg.configFile."opencode/opencode.json".source = configFile;
   };
 }

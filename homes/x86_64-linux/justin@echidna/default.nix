@@ -111,7 +111,6 @@ with lib.frgd;
         enable = true;
         settings = {
           "$schema" = "https://opencode.ai/config.json";
-          plugin = [ "./plugins/caveman/plugin.js" ];
           theme = "gruvbox";
           permission = {
             bash = {
