@@ -1594,11 +1594,11 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1782703496,
-        "narHash": "sha256-QDvOk7HbXcPK9DCy+5oHbsoJ0I4ko1iw11rDb7BFL4I=",
+        "lastModified": 1782745817,
+        "narHash": "sha256-eMgQViUal6hSfL5jDVRS4G8l5Yz3IUlV39y2tgvzHOQ=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "c6f09a8f436b21d4a932e778807d7bf707eab9b7",
+        "rev": "140712a1d07d9beb07e1361313180c5230c5b090",
         "type": "github"
       },
       "original": {
@@ -1885,17 +1885,17 @@
         "nixpkgs": "nixpkgs_15"
       },
       "locked": {
-        "lastModified": 1782055778,
-        "narHash": "sha256-8SYQKPk2F1pmKfLkZFrvun89Z5u5/ZAqsfYlL+pD2GA=",
+        "lastModified": 1782747381,
+        "narHash": "sha256-N8k9IcDGCCxfN3IIWBuXiSNEOJcIL2Zi/u3SZgUS1fo=",
         "ref": "refs/heads/main",
-        "rev": "9ee3a31471b1e89dee794f00c5bfcc10d2c11144",
-        "revCount": 7,
+        "rev": "20c49f869c84e9f32e653e2ba8985df1c5fbb6c8",
+        "revCount": 18,
         "type": "git",
-        "url": "https://git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway"
+        "url": "ssh://forgejo@git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway.git"
       },
       "original": {
         "type": "git",
-        "url": "https://git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway"
+        "url": "ssh://forgejo@git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway.git"
       }
     },
     "silverbullet-mcp": {
