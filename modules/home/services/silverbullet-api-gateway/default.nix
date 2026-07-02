@@ -34,14 +34,14 @@ in
     page = mkOption {
       type = str;
       default = "inbox";
-      description = "SilverBullet page to append data to (SB_PAGE).";
+      description = "Default page when no `page` form param sent in POST request (SB_PAGE).";
     };
 
     tokenFile = mkOption {
       type = nullOr path;
       default = null;
       description = ''
-        Path to a file containing the SB_AUTH_TOKEN. Use sops-nix to
+        Path to a file containing the SB_TOKEN. Use sops-nix to
         manage this file, or set token directly.
       '';
     };
@@ -62,15 +62,33 @@ in
     };
 
     separator = mkOption {
-      type = str;
+      type = nullOr str;
       default = "\n";
-      description = "Separator string between appended entries (SEPARATOR).";
+      description = "Separator string between appended entries (SEPARATOR). Null to use binary default.";
+    };
+
+    journalPattern = mkOption {
+      type = nullOr str;
+      default = null;
+      description = ''
+        Template for journal pages when `page=journal` in POST request.
+        [DATE] replaced with YYYY-MM-DD. Defaults to "Journal/[DATE].md" in binary.
+      '';
+    };
+
+    inboxPage = mkOption {
+      type = nullOr str;
+      default = null;
+      description = ''
+        Page name when `page=inbox` in POST request.
+        Defaults to "inbox" in binary.
+      '';
     };
 
     port = mkOption {
       type = port;
       default = 8080;
-      description = "Port the gateway listens on.";
+      description = "Port the gateway listens on (note: binary hardcodes 8080, this option reserves the port only).";
     };
   };
 
@@ -78,21 +96,19 @@ in
     services.silverbullet-api-gateway = {
       enable = true;
       package = cfg.package;
-
-      environment = {
-        SB_URL = cfg.url;
-        SB_PAGE = cfg.page;
-        SEPARATOR = cfg.separator;
-      }
-      // optionalAttrs (cfg.dataPattern != null) { DATA_PATTERN = cfg.dataPattern; }
-      // optionalAttrs (cfg.token != null) { SB_TOKEN = cfg.token; };
+      sbUrl = cfg.url;
+      sbToken = if cfg.tokenFile != null then "loading-from-file" else (cfg.token or "");
+      sbPage = cfg.page;
+      dataPattern = cfg.dataPattern;
+      separator = cfg.separator;
+      journalPattern = cfg.journalPattern;
+      inboxPage = cfg.inboxPage;
     };
 
     # Load token from file if tokenFile is set (via systemd LoadCredential)
     systemd.user.services.silverbullet-api-gateway = mkIf (cfg.tokenFile != null) {
       Service = {
         LoadCredential = "sb-token:${cfg.tokenFile}";
-        Environment = "SB_TOKEN=%d/sb-token";
         ExecStart = mkForce (
           let
             wrapper = pkgs.writeShellScript "silverbullet-api-gateway-wrapper" ''

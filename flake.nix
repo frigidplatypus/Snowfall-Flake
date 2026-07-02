@@ -132,7 +132,7 @@
     };
 
     silverbullet-api-gateway = {
-      url = "git+https://git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway";
+      url = "git+ssh://forgejo@git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway.git";
     };
 
   };
@@ -194,7 +194,7 @@
 
         (final: prev: {
           silverbullet-api-gateway = (inputs.silverbullet-api-gateway.packages.${final.system}.default.overrideAttrs (_: {
-            vendorHash = "sha256-9OeviGxvBPtUPfdN5L7F33TPY259GNBkTaTe/2V2zT0=";
+            vendorHash = null;
           }));
         })
       ];
