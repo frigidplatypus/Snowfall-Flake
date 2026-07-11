@@ -1,5 +1,5 @@
 {
-  lib,
+lib,
   pkgs,
   inputs,
   config,
@@ -34,9 +34,9 @@ with lib.frgd;
   };
 
   environment.systemPackages = with pkgs; [
-    # openscad
+    openscad
     # cura-appimage
-    # popsicle
+    popsicle
     # ventoy-full
     inkscape-with-extensions
     krita
@@ -53,7 +53,18 @@ with lib.frgd;
     powertop
     mattermost-desktop
     remmina
+    just
     # matterhorn
+
+    # android
+    androidsdk
+    android-cli
+    android-tools
+    android-studio
+    pnpm
+    bottles
+    surface-control
+    nautilus
   ];
 
   frgd = {
