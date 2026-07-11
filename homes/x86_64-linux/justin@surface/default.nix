@@ -284,7 +284,6 @@ with lib.frgd;
       #     };
       #   };
       # };
-      sbtask = enabled;
       neovim = enabled;
       home-manager = enabled;
       local-scripts = enabled;

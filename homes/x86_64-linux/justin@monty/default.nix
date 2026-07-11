@@ -15,7 +15,6 @@ with lib.frgd;
     security.sops = enabled;
 
     cli-apps = {
-      sbtask = enabled;
       ai-tools = enabled;
     };
 
