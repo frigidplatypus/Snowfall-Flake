@@ -51,6 +51,7 @@ in
     programs.fzf = {
       enable = true;
       enableFishIntegration = true;
+      historyWidget.command = "";
     };
     programs.carapace = {
       enable = true;
@@ -58,7 +59,6 @@ in
     };
     programs.bash.enable = true;
     programs.zsh.enable = true;
-    programs.nushell.enable = true;
     programs.zoxide = {
       enable = true;
     };

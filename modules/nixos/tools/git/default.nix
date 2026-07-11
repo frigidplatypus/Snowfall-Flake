@@ -56,11 +56,11 @@ in
         };
       };
       sops.secrets.git_server_ssh_key = mkIf cfg.internalGitKey { };
-      programs.ssh.matchBlocks."git.${tailnet}" = mkIf cfg.internalGitKey {
-        hostname = "git.${tailnet}";
-        user = "git";
-        identityFile = config.sops.secrets.git_server_ssh_key.path;
-        addKeysToAgent = "yes";
+      programs.ssh.settings."git.${tailnet}" = mkIf cfg.internalGitKey {
+        HostName = "git.${tailnet}";
+        User = "git";
+        IdentityFile = config.sops.secrets.git_server_ssh_key.path;
+        AddKeysToAgent = "yes";
       };
     };
   };

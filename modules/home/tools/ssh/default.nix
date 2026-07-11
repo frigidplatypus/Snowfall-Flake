@@ -15,14 +15,14 @@ in
       enable = true;
       enableDefaultConfig = false;
       includes = [ "~/.ssh/config.d/*.conf" ];
-      matchBlocks = {
+      settings = {
         "*" = {
-          addKeysToAgent = "yes";
+          AddKeysToAgent = "yes";
         };
 
         soft = {
-          port = 23231;
-          hostname = "git.frgd.us";
+          Port = 23231;
+          HostName = "git.frgd.us";
         };
       };
     };

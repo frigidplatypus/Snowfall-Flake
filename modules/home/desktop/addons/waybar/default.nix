@@ -30,7 +30,7 @@ in
       enable = true;
       systemd = {
         enable = true;
-        target = "sway-session.target"; # Needed for waybar to start automatically
+        targets = [ "sway-session.target" ];
       };
 
       settings = {

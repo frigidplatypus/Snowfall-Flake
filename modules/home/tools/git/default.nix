@@ -52,14 +52,12 @@ in
     (mkIf cfg.internalGitKey {
       programs.ssh.enable = true;
       sops.secrets.git_server_ssh_key = { };
-      programs.ssh.matchBlocks."git.${tailnet}" = {
-        hostname = "git.${tailnet}";
-        user = "git";
-        identityFile = config.sops.secrets.git_server_ssh_key.path;
-        addKeysToAgent = "yes";
-        extraOptions = {
-          KexAlgorithms = "curve25519-sha256,curve25519-sha256@libssh.org";
-        };
+      programs.ssh.settings."git.${tailnet}" = {
+        HostName = "git.${tailnet}";
+        User = "git";
+        IdentityFile = config.sops.secrets.git_server_ssh_key.path;
+        AddKeysToAgent = "yes";
+        KexAlgorithms = "curve25519-sha256,curve25519-sha256@libssh.org";
       };
     })
   ];
