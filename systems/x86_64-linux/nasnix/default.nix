@@ -38,10 +38,10 @@ with lib.frgd;
 
   services.kmscon = {
     enable = true;
-    hwRender = true;
     config = {
       font-name = "Source Code Pro";
       font-size = 14;
+      hwaccel = true;
       xkb-layout = "us";
     };
   };

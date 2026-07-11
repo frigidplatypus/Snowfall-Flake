@@ -13,8 +13,9 @@
     # If you *don't* want the patched nixpkgs, this should be a standard reference
     # nixpkgs.follows = "determinate/nixpkgs"; # <--- This line is key if you want their nixpkgs version
 
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
     stable-nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
@@ -27,10 +28,10 @@
     #   inputs.nixpkgs.follows = "stable-nixpkgs";
     # };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    darwin = {
-      url = "github:LnL7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # darwin = {
+    #   url = "github:LnL7/nix-darwin/master";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     snowfall-lib = {
       url = "github:anntnzrb/snowfall-lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,10 +74,10 @@
       url = "github:tailscale-dev/tclip";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # vscode-server = {
+    #   url = "github:nix-community/nixos-vscode-server";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     wifitui = {
       url = "github:shazow/wifitui";
@@ -157,6 +158,8 @@
       };
     in
     lib.mkFlake {
+      supportedSystems = [ "x86_64-linux" ];
+
       nixConfig = {
         extra-substituters = [ "https://noctalia.cachix.org" ];
         extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
@@ -168,6 +171,7 @@
           "ventoy-1.1.12"
           "openclaw-2026.4.22"
           "electron-39.8.10"
+          "pnpm-9.15.9"
         ];
       };
       overlays = [
@@ -199,9 +203,9 @@
         })
       ];
 
-      systems.modules.darwin = [
-        inputs.home-manager.darwinModules.home-manager
-      ];
+      # systems.modules.darwin = [
+      #   inputs.home-manager.darwinModules.home-manager
+      # ];
 
       systems.modules.nixos = [
         inputs.home-manager.nixosModules.home-manager
@@ -210,7 +214,7 @@
         # bible-reading-plan.nixosModules.default
         inputs.disko.nixosModules.default
         inputs.golink.nixosModules.default
-        inputs.vscode-server.nixosModules.default
+        # inputs.vscode-server.nixosModules.default
         inputs.determinate.nixosModules.default
         inputs.nix-index-database.nixosModules.nix-index
         inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -232,7 +236,9 @@
 
       checks = builtins.mapAttrs (
         system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-      ) inputs.deploy-rs.lib;
+      ) (lib.filterAttrs (system: _: builtins.elem system [
+        "x86_64-linux"
+      ]) inputs.deploy-rs.lib);
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 

@@ -38,11 +38,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         hash = "sha256-3mg84ZeihYkq74RgRjlvzuygpvqT0INvSAlhs/0RphA=";
         stripRoot = false;
       };
-      "x86_64-darwin" = fetchzip {
-        url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-darwin-x86_64.zip";
-        hash = "sha256-I9mOMeuZVAmc/M8nUloCTrCa7K/yInUIcFJoz4OvePQ=";
-        stripRoot = false;
-      };
       "aarch64-darwin" = fetchzip {
         url = "https://github.com/silverbulletmd/silverbullet/releases/download/${finalAttrs.version}/sb-darwin-aarch64.zip";
         hash = "sha256-ULaFCEZ+bsK/vNnzCXfwl3c9vUeZYL1gfOU0UQqMDcs=";

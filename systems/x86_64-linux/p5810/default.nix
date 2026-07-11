@@ -30,10 +30,10 @@ with lib.frgd;
 
   services.kmscon = {
     enable = true;
-    hwRender = true;
     config = {
       font-name = "Source Code Pro";
       font-size = 14;
+      hwaccel = true;
       xkb-layout = "us";
     };
   };
@@ -99,7 +99,7 @@ with lib.frgd;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
-  services.vscode-server.enable = true;
+  # services.vscode-server.enable = true;
   boot.zfs.extraPools = [ "storage" ];
 
   sops.secrets.open-webui-environment = { };
