@@ -39,12 +39,16 @@ jobs:
         with:
           name: frgd-surface-kernel
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          useDaemon: false
 
       - name: Show kernel version
         run: nix eval $NIX_OVERRIDE_INPUTS --raw .#nixosConfigurations.surface.config.boot.kernelPackages.kernel.version
 
       - name: Build surface kernel
-        run: nix build $NIX_OVERRIDE_INPUTS .#nixosConfigurations.surface.config.system.build.kernel
+        run: nix build $NIX_OVERRIDE_INPUTS --out-link result-kernel .#nixosConfigurations.surface.config.system.build.kernel
 
       - name: Build surface initial ramdisk
-        run: nix build $NIX_OVERRIDE_INPUTS .#nixosConfigurations.surface.config.system.build.initialRamdisk
+        run: nix build $NIX_OVERRIDE_INPUTS --out-link result-initrd .#nixosConfigurations.surface.config.system.build.initialRamdisk
+
+      - name: Push kernel artifacts to Cachix
+        run: cachix push frgd-surface-kernel result-kernel result-initrd
