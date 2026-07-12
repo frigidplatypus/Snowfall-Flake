@@ -41,6 +41,13 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           useDaemon: false
 
+      - name: Authenticate Cachix CLI
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          test -n "$CACHIX_AUTH_TOKEN"
+          cachix authtoken "$CACHIX_AUTH_TOKEN"
+
       - name: Show kernel version
         run: nix eval $NIX_OVERRIDE_INPUTS --raw .#nixosConfigurations.surface.config.boot.kernelPackages.kernel.version
 
@@ -51,6 +58,4 @@ jobs:
         run: nix build $NIX_OVERRIDE_INPUTS --out-link result-initrd .#nixosConfigurations.surface.config.system.build.initialRamdisk
 
       - name: Push kernel artifacts to Cachix
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: cachix push frgd-surface-kernel result-kernel result-initrd
