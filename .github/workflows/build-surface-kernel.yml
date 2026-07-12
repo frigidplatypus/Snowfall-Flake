@@ -1,0 +1,42 @@
+name: Build Surface Kernel
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - flake.nix
+      - flake.lock
+      - systems/x86_64-linux/surface/**
+  schedule:
+    - cron: "0 6 * * 1"
+
+concurrency:
+  group: build-surface-kernel-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-surface-kernel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Set up Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: frgd-surface-kernel
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Show kernel version
+        run: nix eval --raw .#nixosConfigurations.surface.config.boot.kernelPackages.kernel.version
+
+      - name: Build surface kernel
+        run: nix build .#nixosConfigurations.surface.config.system.build.kernel
+
+      - name: Build surface initial ramdisk
+        run: nix build .#nixosConfigurations.surface.config.system.build.initialRamdisk
