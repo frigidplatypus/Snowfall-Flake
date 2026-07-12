@@ -1,0 +1,43 @@
+name: Test Cachix Push
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: test-cachix-push-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-cachix-push:
+    runs-on: ubuntu-latest
+    env:
+      NIX_OVERRIDE_INPUTS: >-
+        --override-input hermes path:./.github/ci-stubs/hermes
+        --override-input email-to-miniflux path:./.github/ci-stubs/email-to-miniflux
+        --override-input silverbullet-mcp path:./.github/ci-stubs/silverbullet-mcp
+        --override-input nr path:./.github/ci-stubs/nr
+        --override-input sbtask path:./.github/ci-stubs/sbtask
+        --override-input silverbullet-api-gateway path:./.github/ci-stubs/silverbullet-api-gateway
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Set up Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: frgd-surface-kernel
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          useDaemon: false
+
+      - name: Build test package
+        run: nix build $NIX_OVERRIDE_INPUTS --out-link result-test .#wakeonlan_script
+
+      - name: Show test package path
+        run: readlink -f result-test
+
+      - name: Push test package to Cachix
+        run: cachix push frgd-surface-kernel result-test
