@@ -40,4 +40,6 @@ jobs:
         run: readlink -f result-test
 
       - name: Push test package to Cachix
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: cachix push frgd-surface-kernel result-test
