@@ -1,5 +1,5 @@
 {
-lib,
+  lib,
   pkgs,
   inputs,
   config,
@@ -62,9 +62,11 @@ with lib.frgd;
     android-tools
     android-studio
     pnpm
-    bottles
     surface-control
     nautilus
+    lutris
+    frgd.silverbullet-desktop
+    gamescope
   ];
 
   frgd = {
