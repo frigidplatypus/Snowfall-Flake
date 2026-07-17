@@ -90,8 +90,12 @@
     hyprlock = {
       url = "github:hyprwm/hyprlock";
     };
+    # hermes = {
+    #   url = "git+https://git.fluffy-rooster.ts.net/FRGD/hermes-agent.git";
+    # };
+
     hermes = {
-      url = "git+https://git.fluffy-rooster.ts.net/FRGD/hermes-agent.git";
+      url = "github:nousresearch/hermes-agent";
     };
 
     # Enable fingerprint reader for T480
