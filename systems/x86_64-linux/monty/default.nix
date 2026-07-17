@@ -53,6 +53,7 @@ with lib.frgd;
 
   environment.systemPackages = with pkgs; [
     frgd.sb
+    sbtask
     # System tools for agent effectiveness
     go
     python3
@@ -90,6 +91,9 @@ with lib.frgd;
   };
 
   system.activationScripts.hermes-git-setup = lib.stringAfter [ "hermes-agent-setup" ] ''
+    # Remove managed-mode marker — config managed at runtime, not declaratively.
+    rm -f /var/lib/hermes/.hermes/.managed
+
     mkdir -p /var/lib/hermes/.ssh
     chmod 700 /var/lib/hermes/.ssh
     chown hermes:hermes /var/lib/hermes/.ssh
@@ -398,7 +402,7 @@ with lib.frgd;
         enable = true;
         autoInit.enable = true;
         directories = [ "/var/lib/hermes" ];
-        repositories = [ "ssh://d6mzjh1m@d6mzjh1m.repo.borgbase.com/./repo" ];
+        repositories = [ "ssh://***@d6mzjh1m.repo.borgbase.com/./repo" ];
         notifications.pushover = {
           enable = true;
           apiToken = "aphv2rpofwt7uco51vn672hfkfvagn";
