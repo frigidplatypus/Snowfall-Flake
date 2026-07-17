@@ -110,7 +110,7 @@ with lib.frgd;
     environmentFile = config.sops.secrets.email_to_miniflux_env.path;
     imapHost = "imap.gmail.com";
     imapPort = 993;
-    imapUser = "justin.meskan@gmail.com";
+    imapUser = "frigidplatypus@gmail.com";
     imapFolder = "Newsletters";
     minifluxUrl = "https://${host}.${tailnet}";
     interval = "30m";
