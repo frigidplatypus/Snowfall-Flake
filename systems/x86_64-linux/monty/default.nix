@@ -7,6 +7,13 @@
 }:
 with lib;
 with lib.frgd;
+let
+  hermesPackage = config.services.hermes-agent.package.override {
+    extraDependencyGroups = config.services.hermes-agent.extraDependencyGroups;
+  };
+  photonSidecarStorePath = "${hermesPackage}/share/hermes-agent/plugins/platforms/photon/sidecar";
+  photonSidecarRuntimePath = "/var/lib/hermes/.hermes/photon-sidecar";
+in
 {
   imports = [
     ./hardware.nix
@@ -33,6 +40,13 @@ with lib.frgd;
   systemd.services.hermes-agent.serviceConfig.NoNewPrivileges = lib.mkForce false;
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
+  systemd.services.hermes-agent.environment.HERMES_HOME = "/var/lib/hermes/.hermes";
+  # The packaged Photon sidecar lives in the read-only Nix store. Materialize
+  # it under HERMES_HOME during activation, then bind-mount it over the bundled
+  # path so the adapter still sees the expected location.
+  systemd.services.hermes-agent.serviceConfig.BindPaths = [
+    "${photonSidecarRuntimePath}:${photonSidecarStorePath}"
+  ];
 
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
@@ -139,6 +153,33 @@ with lib.frgd;
     SBTASK_EOF
     chmod 600 /var/lib/hermes/.config/sbtask/config.yaml
     chown hermes:hermes /var/lib/hermes/.config/sbtask/config.yaml
+  '';
+
+  system.activationScripts.hermes-photon-sidecar-setup = lib.stringAfter [ "hermes-git-setup" ] ''
+    mkdir -p /var/lib/hermes/.hermes
+
+    staged="$(mktemp -d /var/lib/hermes/.hermes/photon-sidecar.XXXXXX)"
+    trap 'rm -rf "$staged"' EXIT
+
+    cp -r ${photonSidecarStorePath}/. "$staged"
+    chmod -R u+w "$staged"
+
+    if [ -d ${photonSidecarRuntimePath}/node_modules ]; then
+      cp -r ${photonSidecarRuntimePath}/node_modules "$staged/node_modules"
+      chmod -R u+w "$staged/node_modules"
+    fi
+
+    if [ ! -e "$staged/node_modules/.package-lock.json" ] || \
+       [ "$staged/package-lock.json" -nt "$staged/node_modules/.package-lock.json" ]; then
+      rm -rf "$staged/node_modules"
+      HOME=/tmp ${pkgs.nodejs}/bin/npm ci --prefix "$staged" --no-audit --no-fund \
+        || HOME=/tmp ${pkgs.nodejs}/bin/npm install --prefix "$staged" --no-audit --no-fund
+    fi
+
+    chown -R hermes:hermes "$staged"
+    rm -rf ${photonSidecarRuntimePath}
+    mv "$staged" ${photonSidecarRuntimePath}
+    trap - EXIT
   '';
 
   services = {
@@ -309,29 +350,10 @@ with lib.frgd;
     };
   };
 
-  # Ensure Photon sidecar deps are installed before gateway starts
-  systemd.services.ensure-photon-sidecar = {
-    description = "Ensure Photon sidecar node_modules is installed";
-    wantedBy = [ "hermes-agent.service" ];
-    before = [ "hermes-agent.service" ];
-    partOf = [ "hermes-agent.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "hermes";
-      Group = "hermes";
-      ExecStart = "${pkgs.bash}/bin/bash /var/lib/hermes/.hermes/scripts/ensure-photon-sidecar.sh";
-      RemainAfterExit = true;
-      Environment = "PATH=/run/current-system/sw/bin:/nix/store/h2barca1k5pmvcyl9fwrzwrb4cn1b248-nodejs-22.22.2/bin";
-      Environment = "HERMES_HOME=/var/lib/hermes/.hermes";
-    };
-  };
-
   # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
   systemd.services.hermes-dashboard =
     let
-      effectivePackage = config.services.hermes-agent.package.override {
-        extraDependencyGroups = config.services.hermes-agent.extraDependencyGroups;
-      };
+      effectivePackage = hermesPackage;
     in
     {
       description = "Hermes Agent Dashboard";
