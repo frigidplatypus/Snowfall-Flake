@@ -53,7 +53,6 @@ with lib.frgd;
 
   environment.systemPackages = with pkgs; [
     frgd.sb
-    sbtask
     # System tools for agent effectiveness
     go
     python3
@@ -70,6 +69,7 @@ with lib.frgd;
     dust
     procs
     bandwhich
+    nodejs
   ];
 
   sops.secrets.monty_env = {
@@ -342,7 +342,6 @@ with lib.frgd;
 
       environment = {
         HERMES_HOME = "/var/lib/hermes/.hermes";
-        HERMES_MANAGED = "true";
       };
 
       serviceConfig = {
