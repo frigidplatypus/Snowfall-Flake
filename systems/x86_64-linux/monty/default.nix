@@ -321,6 +321,8 @@ with lib.frgd;
       Group = "hermes";
       ExecStart = "${pkgs.bash}/bin/bash /var/lib/hermes/.hermes/scripts/ensure-photon-sidecar.sh";
       RemainAfterExit = true;
+      Environment = "PATH=/run/current-system/sw/bin:/nix/store/h2barca1k5pmvcyl9fwrzwrb4cn1b248-nodejs-22.22.2/bin";
+      Environment = "HERMES_HOME=/var/lib/hermes/.hermes";
     };
   };
 
