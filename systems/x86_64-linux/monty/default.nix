@@ -312,9 +312,9 @@ with lib.frgd;
   # Ensure Photon sidecar deps are installed before gateway starts
   systemd.services.ensure-photon-sidecar = {
     description = "Ensure Photon sidecar node_modules is installed";
-    wantedBy = [ "hermes-gateway.service" ];
-    before = [ "hermes-gateway.service" ];
-    partOf = [ "hermes-gateway.service" ];
+    wantedBy = [ "hermes-agent.service" ];
+    before = [ "hermes-agent.service" ];
+    partOf = [ "hermes-agent.service" ];
     serviceConfig = {
       Type = "oneshot";
       User = "hermes";
