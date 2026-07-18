@@ -309,6 +309,21 @@ with lib.frgd;
     };
   };
 
+  # Ensure Photon sidecar deps are installed before gateway starts
+  systemd.services.ensure-photon-sidecar = {
+    description = "Ensure Photon sidecar node_modules is installed";
+    wantedBy = [ "hermes-gateway.service" ];
+    before = [ "hermes-gateway.service" ];
+    partOf = [ "hermes-gateway.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "hermes";
+      Group = "hermes";
+      ExecStart = "${pkgs.bash}/bin/bash /var/lib/hermes/.hermes/scripts/ensure-photon-sidecar.sh";
+      RemainAfterExit = true;
+    };
+  };
+
   # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
   systemd.services.hermes-dashboard =
     let
