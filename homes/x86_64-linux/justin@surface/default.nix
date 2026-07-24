@@ -1,6 +1,7 @@
-{ lib
-, pkgs
-, ...
+{
+  lib,
+  pkgs,
+  ...
 }:
 with lib;
 with lib.frgd;
@@ -212,7 +213,7 @@ with lib.frgd;
       addons.rofi = enabled;
     };
     apps = {
-      # obsidian = enabled;
+      obsidian = enabled;
       # logseq = enabled;
       # kitty = enabled;
       # matrix_clients = enabled;
@@ -389,6 +390,7 @@ with lib.frgd;
   };
 
   home.packages = with pkgs; [
+    spec-kit
     gparted
     kdePackages.partitionmanager
     gnome-disk-utility
