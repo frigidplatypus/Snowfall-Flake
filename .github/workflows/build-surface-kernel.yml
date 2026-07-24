@@ -9,7 +9,11 @@ on:
       - flake.lock
       - systems/x86_64-linux/surface/**
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "0 6 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: build-surface-kernel-${{ github.ref }}
@@ -48,6 +52,10 @@ jobs:
           test -n "$CACHIX_AUTH_TOKEN"
           cachix authtoken "$CACHIX_AUTH_TOKEN"
 
+      - name: Update surface kernel inputs
+        if: github.event_name != 'push'
+        run: nix flake update nixpkgs nixos-hardware
+
       - name: Show kernel version
         run: nix eval $NIX_OVERRIDE_INPUTS --raw .#nixosConfigurations.surface.config.boot.kernelPackages.kernel.version
 
@@ -59,3 +67,16 @@ jobs:
 
       - name: Push kernel artifacts to Cachix
         run: cachix push frgd-surface-kernel result-kernel result-initrd
+
+      - name: Open flake update PR
+        if: github.event_name != 'push'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/update-surface-kernel
+          title: Update Surface kernel inputs
+          commit-message: Update Surface kernel inputs
+          body: |
+            Updates `nixpkgs` and `nixos-hardware` for the Surface kernel.
+
+            The workflow built the Surface kernel and initrd and pushed them to Cachix before opening this PR.
+          add-paths: flake.lock
