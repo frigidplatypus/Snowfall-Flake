@@ -1,7 +1,7 @@
 .DS_Store
 .stfolder
 .stignore
-result
+result*
 keys.txt
 .outputs.txt
 deployment
