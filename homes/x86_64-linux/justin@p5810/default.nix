@@ -21,7 +21,6 @@ with lib.frgd;
     };
 
     cli-apps = {
-      sbtask = enabled;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;
