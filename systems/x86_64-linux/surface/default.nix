@@ -60,6 +60,7 @@ with lib.frgd;
     nil
     bibletime
     opencode
+    mcp-nixos
     wtfutil
     godot
     acpi
