@@ -760,11 +760,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1785115700,
-        "narHash": "sha256-nCX33bRueyL4/1eOrnj3MrS/J3AdUBOEXbnXJfWlAAw=",
+        "lastModified": 1785207722,
+        "narHash": "sha256-xsbZMXArGd9H0+82J/OEJS2sZbv+3NcYTd1at05xqEA=",
         "owner": "nousresearch",
         "repo": "hermes-agent",
-        "rev": "0fa5e41c86f022bba147797849f0b44865721476",
+        "rev": "0b32ff708808a9990eb0796d3d3633aa2f8f2207",
         "type": "github"
       },
       "original": {
@@ -780,11 +780,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784913159,
-        "narHash": "sha256-JWq0BfjO4ktpH5USfQNQzdvHpIDT8fSKD5K7LvdMRFs=",
+        "lastModified": 1785168662,
+        "narHash": "sha256-kGJTc0oEUQuEwV66lSlMxYtOEtpk9N/HS43k+rFAvs8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "079a3b5d1aa6a719920a51316253b7d6dd22738d",
+        "rev": "cbb77679b3d992c8b62f884cd3a84af534a28621",
         "type": "github"
       },
       "original": {
@@ -1072,11 +1072,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1784874881,
-        "narHash": "sha256-u4jhSIf/Un0qZB+Cn3hTTaHSI20XeAxYbA5o4faqdJs=",
+        "lastModified": 1785133905,
+        "narHash": "sha256-cXE11IuEJe+Oqk+gnNIxUSfHW+ekrc8Mx48pNv0RvuI=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "ef7a2a3d719af46b906c22a3ebfb7d65627b2cd2",
+        "rev": "81b9856c2f1f5a425e5048219c0899cb48c52d3f",
         "type": "github"
       },
       "original": {
@@ -1376,11 +1376,11 @@
     },
     "nixpkgs_10": {
       "locked": {
-        "lastModified": 1784796856,
-        "narHash": "sha256-wWFrV5/Qbm+lyt5x20E/bSbfJiGKMo4RCxZV8cl/WZI=",
+        "lastModified": 1785090369,
+        "narHash": "sha256-m0pDuRJG7EDo9ri+4Ksu83VsI+PlxNC9lNBfydejce4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e2587caef70cea85dd97d7daab492899902dbf5d",
+        "rev": "624af665418d3c65d544145b4d34ad696439570e",
         "type": "github"
       },
       "original": {
@@ -1590,11 +1590,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1784796856,
-        "narHash": "sha256-wWFrV5/Qbm+lyt5x20E/bSbfJiGKMo4RCxZV8cl/WZI=",
+        "lastModified": 1785090369,
+        "narHash": "sha256-m0pDuRJG7EDo9ri+4Ksu83VsI+PlxNC9lNBfydejce4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e2587caef70cea85dd97d7daab492899902dbf5d",
+        "rev": "624af665418d3c65d544145b4d34ad696439570e",
         "type": "github"
       },
       "original": {
@@ -1666,11 +1666,11 @@
         "nixpkgs": "nixpkgs_11"
       },
       "locked": {
-        "lastModified": 1785116767,
-        "narHash": "sha256-PAApPQNKeWMWvFBE6a0Vg4za5MXTCih61BKRZB/pCHY=",
+        "lastModified": 1785207649,
+        "narHash": "sha256-J1aYTJ6CJBt5F6aCXLLL/+FDDm+Rg5agJ4CWJ70Q4hg=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "da014f72e1a00eee31a2448c98ceaf609bcd9310",
+        "rev": "ae6a7ac15a3bda21d3e2fcba8462690f08cf380f",
         "type": "github"
       },
       "original": {
@@ -2109,12 +2109,12 @@
     },
     "stable-nixpkgs": {
       "locked": {
-        "lastModified": 1784856561,
-        "narHash": "sha256-J+Bx1Z6Oeoj2FgnBhRMKyUhhtDoOpTgXYaVLZpDjW4A=",
-        "rev": "597283ad8aa0b331c788e97c4c262d58877074ef",
-        "revCount": 1010275,
+        "lastModified": 1785104993,
+        "narHash": "sha256-eKbrvPoAOFutbYMdbB3r5EQVmFxKv24iKqHPPUXA0gM=",
+        "rev": "8623c4c20aa4ca2f5fb81510d2944066c3fb0d96",
+        "revCount": 1010491,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1010275%2Brev-597283ad8aa0b331c788e97c4c262d58877074ef/019f9a67-5b95-7fd0-afb3-7a7416577852/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1010491%2Brev-8623c4c20aa4ca2f5fb81510d2944066c3fb0d96/019fa4c0-cefc-73e3-b1c2-e529663abf9e/source.tar.gz"
       },
       "original": {
         "type": "tarball",
