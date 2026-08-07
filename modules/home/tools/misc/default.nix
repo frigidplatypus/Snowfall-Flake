@@ -32,6 +32,9 @@ in
       tree
       treefmt
       nixfmt
+      lstr
+      mmtui
+
     ];
   };
 }
