@@ -7,18 +7,17 @@ with lib;
 with lib.frgd;
 {
 
-  programs.niri.settings = {
+  wayland.windowManager.niri.settings = {
     input = {
       keyboard.xkb = {
         layout = "us";
         options = "caps:hyper";
       };
       touchpad = {
-        tap = false;
         # tap-button-map = "left-right-middle";
         click-method = "clickfinger";
-        dwt = true;
-        natural-scroll = true;
+        dwt = { };
+        natural-scroll = { };
       };
     };
 
@@ -29,20 +28,18 @@ with lib.frgd;
         proportion = 2. / 3.;
       };
       focus-ring = {
-        enable = false;
         width = 2;
-        active.color = "#fe8019";
-        inactive.color = "#504945";
-        urgent.color = "#fb4934";
+        active-color = "#fe8019";
+        inactive-color = "#504945";
+        urgent-color = "#fb4934";
       };
       border = {
-        enable = true;
         width = 2;
-        active.color = "#fe8019ff";
-        inactive.color = "#504945ff";
-        urgent.color = "#fb4934ff";
+        active-color = "#fe8019ff";
+        inactive-color = "#504945ff";
+        urgent-color = "#fb4934ff";
       };
-      preset-column-widths = [
+      preset-column-widths._children = [
         { proportion = 1. / 3.; }
         { proportion = 1. / 2.; }
         { proportion = 2. / 3.; }
@@ -51,123 +48,122 @@ with lib.frgd;
 
     hotkey-overlay.skip-at-startup = true;
 
-    prefer-no-csd = true;
+    prefer-no-csd = { };
 
-    window-rules = [
+    _children = [
       {
-        matches = [
-          {
-            app-id = "firefox$";
-            title = "^Picture-in-Picture$";
-          }
-        ];
-        open-floating = true;
-      }
-    ];
-
-    spawn-at-startup = [
-      {
-        argv = [
+        spawn-at-startup._args = [
           "${pkgs.foot}/bin/foot"
           "--server"
         ];
       }
       {
-        argv = [
+        spawn-at-startup._args = [
           "${pkgs._1password-gui}/bin/1password"
           "--silent"
+        ];
+      }
+      {
+        window-rule._children = [
+          {
+            match._props = {
+              app-id = "firefox$";
+              title = "^Picture-in-Picture$";
+            };
+          }
+          { open-floating = true; }
         ];
       }
     ];
 
     binds = {
-      "Print".action.screenshot = { };
-      "Control+Print".action."screenshot-screen" = { };
-      "Alt+Print".action."screenshot-window" = { };
-      "Super+Return".action.spawn = [ "${pkgs.foot}/bin/footclient" ];
-      "Super+Shift+Return".action.spawn = [ "${pkgs.firefox}/bin/firefox" ];
-      "Super+E".action.spawn = [ "${pkgs.nautilus}/bin/nautilus" ];
-      "Super+Space".action."spawn-sh" = "${pkgs.rofi}/bin/rofi -modi 'drun' -show drun";
-      "Super+Shift+Q".action."close-window" = { };
-      "Super+Shift+E".action."quit" = { };
-      "Super+h".action."focus-column-left" = { };
-      "Super+l".action."focus-column-right" = { };
-      "Mod3+h".action."focus-column-left" = { };
-      "Mod3+l".action."focus-column-right" = { };
-      "Super+Up".action."focus-window-up" = { };
-      "Super+Down".action."focus-window-down" = { };
-      "Super+Shift+Left".action."move-column-left" = { };
-      "Super+Shift+Right".action."move-column-right" = { };
-      "Super+Shift+Up".action."move-window-up" = { };
-      "Super+Shift+Down".action."move-window-down" = { };
-      "Super+Ctrl+Left".action."set-column-width" = "-10%";
-      "Super+Ctrl+Right".action."set-column-width" = "+10%";
-      "Super+Ctrl+Up".action."set-window-height" = "+10%";
-      "Super+Ctrl+Down".action."set-window-height" = "-10%";
-      "Super+j".action."focus-workspace-down" = { };
-      "Super+k".action."focus-workspace-up" = { };
-      "Mod3+j".action."focus-workspace-down" = { };
-      "Mod3+k".action."focus-workspace-up" = { };
-      "Super+Alt+Shift+Right".action."move-column-to-workspace-down" = { };
-      "Super+Alt+Shift+Left".action."move-column-to-workspace-up" = { };
-      "Super+1".action."focus-workspace" = 1;
-      "Super+2".action."focus-workspace" = 2;
-      "Super+3".action."focus-workspace" = 3;
-      "Super+4".action."focus-workspace" = 4;
-      "Super+5".action."focus-workspace" = 5;
-      "Super+6".action."focus-workspace" = 6;
-      "Super+7".action."focus-workspace" = 7;
-      "Super+8".action."focus-workspace" = 8;
-      "Super+9".action."focus-workspace" = 9;
-      "Super+0".action."focus-workspace" = 10;
-      "Super+Shift+1".action."move-column-to-workspace" = 1;
-      "Super+Shift+2".action."move-column-to-workspace" = 2;
-      "Super+Shift+3".action."move-column-to-workspace" = 3;
-      "Super+Shift+4".action."move-column-to-workspace" = 4;
-      "Super+Shift+5".action."move-column-to-workspace" = 5;
-      "Super+Shift+6".action."move-column-to-workspace" = 6;
-      "Super+Shift+7".action."move-column-to-workspace" = 7;
-      "Super+Shift+8".action."move-column-to-workspace" = 8;
-      "Super+Shift+9".action."move-column-to-workspace" = 9;
-      "Super+Shift+0".action."move-column-to-workspace" = 10;
-      "Super+Shift+F".action."fullscreen-window" = { };
-      "Super+F".action."maximize-column" = { };
-      "Super+V".action."toggle-window-floating" = { };
-      "Super+C".action."center-column" = { };
-      "Super+Ctrl+C".action."center-visible-columns" = { };
-      "Super+BracketLeft".action."consume-or-expel-window-left" = { };
-      "Super+BracketRight".action."consume-or-expel-window-right" = { };
-      "Super+Comma".action."consume-window-into-column" = { };
-      "Super+Period".action."expel-window-from-column" = { };
-      "Super+O".action."toggle-overview" = { };
-      "Super+Shift+P".action."power-off-monitors" = { };
-      "Super+r".action."switch-preset-column-width" = { };
-      "XF86AudioPlay".action.spawn = [
+      "Print".screenshot = { };
+      "Control+Print"."screenshot-screen" = { };
+      "Alt+Print"."screenshot-window" = { };
+      "Super+Return".spawn = [ "${pkgs.foot}/bin/footclient" ];
+      "Super+Shift+Return".spawn = [ "${pkgs.firefox}/bin/firefox" ];
+      "Super+E".spawn = [ "${pkgs.nautilus}/bin/nautilus" ];
+      "Super+Space"."spawn-sh" = "${pkgs.rofi}/bin/rofi -modi 'drun' -show drun";
+      "Super+Shift+Q"."close-window" = { };
+      "Super+Shift+E"."quit" = { };
+      "Super+h"."focus-column-left" = { };
+      "Super+l"."focus-column-right" = { };
+      "Mod3+h"."focus-column-left" = { };
+      "Mod3+l"."focus-column-right" = { };
+      "Super+Up"."focus-window-up" = { };
+      "Super+Down"."focus-window-down" = { };
+      "Super+Shift+Left"."move-column-left" = { };
+      "Super+Shift+Right"."move-column-right" = { };
+      "Super+Shift+Up"."move-window-up" = { };
+      "Super+Shift+Down"."move-window-down" = { };
+      "Super+Ctrl+Left"."set-column-width" = "-10%";
+      "Super+Ctrl+Right"."set-column-width" = "+10%";
+      "Super+Ctrl+Up"."set-window-height" = "+10%";
+      "Super+Ctrl+Down"."set-window-height" = "-10%";
+      "Super+j"."focus-workspace-down" = { };
+      "Super+k"."focus-workspace-up" = { };
+      "Mod3+j"."focus-workspace-down" = { };
+      "Mod3+k"."focus-workspace-up" = { };
+      "Super+Alt+Shift+Right"."move-column-to-workspace-down" = { };
+      "Super+Alt+Shift+Left"."move-column-to-workspace-up" = { };
+      "Super+1"."focus-workspace" = 1;
+      "Super+2"."focus-workspace" = 2;
+      "Super+3"."focus-workspace" = 3;
+      "Super+4"."focus-workspace" = 4;
+      "Super+5"."focus-workspace" = 5;
+      "Super+6"."focus-workspace" = 6;
+      "Super+7"."focus-workspace" = 7;
+      "Super+8"."focus-workspace" = 8;
+      "Super+9"."focus-workspace" = 9;
+      "Super+0"."focus-workspace" = 10;
+      "Super+Shift+1"."move-column-to-workspace" = 1;
+      "Super+Shift+2"."move-column-to-workspace" = 2;
+      "Super+Shift+3"."move-column-to-workspace" = 3;
+      "Super+Shift+4"."move-column-to-workspace" = 4;
+      "Super+Shift+5"."move-column-to-workspace" = 5;
+      "Super+Shift+6"."move-column-to-workspace" = 6;
+      "Super+Shift+7"."move-column-to-workspace" = 7;
+      "Super+Shift+8"."move-column-to-workspace" = 8;
+      "Super+Shift+9"."move-column-to-workspace" = 9;
+      "Super+Shift+0"."move-column-to-workspace" = 10;
+      "Super+Shift+F"."fullscreen-window" = { };
+      "Super+F"."maximize-column" = { };
+      "Super+V"."toggle-window-floating" = { };
+      "Super+C"."center-column" = { };
+      "Super+Ctrl+C"."center-visible-columns" = { };
+      "Super+BracketLeft"."consume-or-expel-window-left" = { };
+      "Super+BracketRight"."consume-or-expel-window-right" = { };
+      "Super+Comma"."consume-window-into-column" = { };
+      "Super+Period"."expel-window-from-column" = { };
+      "Super+O"."toggle-overview" = { };
+      "Super+Shift+P"."power-off-monitors" = { };
+      "Super+r"."switch-preset-column-width" = { };
+      "XF86AudioPlay".spawn = [
         "${pkgs.playerctl}/bin/playerctl"
         "play-pause"
       ];
-      "XF86AudioNext".action.spawn = [
+      "XF86AudioNext".spawn = [
         "${pkgs.playerctl}/bin/playerctl"
         "next"
       ];
-      "XF86AudioPrev".action.spawn = [
+      "XF86AudioPrev".spawn = [
         "${pkgs.playerctl}/bin/playerctl"
         "previous"
       ];
-      "XF86AudioStop".action.spawn = [
+      "XF86AudioStop".spawn = [
         "${pkgs.playerctl}/bin/playerctl"
         "stop"
       ];
-      "XF86MonBrightnessUp".action."spawn-sh" = "${pkgs.brightnessctl}/bin/brightnessctl set +10%";
-      "XF86MonBrightnessDown".action."spawn-sh" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
-      "XF86AudioRaiseVolume".action."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
-      "XF86AudioLowerVolume".action."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-      "XF86AudioMute".action."spawn-sh" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      "XF86MonBrightnessUp"."spawn-sh" = "${pkgs.brightnessctl}/bin/brightnessctl set +10%";
+      "XF86MonBrightnessDown"."spawn-sh" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+      "XF86AudioRaiseVolume"."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
+      "XF86AudioLowerVolume"."spawn-sh" = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+      "XF86AudioMute"."spawn-sh" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
     };
 
     cursor = {
-      theme = "Capitaine Cursors (Gruvbox)";
-      size = 40;
+      xcursor-theme = "Capitaine Cursors (Gruvbox)";
+      xcursor-size = 40;
     };
 
     environment = {
@@ -180,14 +176,6 @@ with lib.frgd;
       QT_STYLE_OVERRIDE = "gtk3";
       ADW_COLOR_SCHEME = "prefer-dark";
       XDG_CURRENT_DESKTOP = "niri";
-    };
-  };
-
-  xdg.configFile = {
-    niri-config.target = lib.mkForce "niri/hm.kdl";
-    niri-config-main = {
-      target = "niri/config.kdl";
-      text = ''include "hm.kdl"'';
     };
   };
 

@@ -32,8 +32,13 @@ in
       swappy
       udiskie
       xdg-desktop-portal-gtk
-      xwayland-satellite-unstable
+      xwayland-satellite
     ];
+
+    wayland.windowManager.niri = {
+      enable = true;
+      package = pkgs.niri;
+    };
 
     gtk = {
       enable = true;

@@ -23,22 +23,12 @@ in
     enable = mkEnableOption "niri";
     package = mkOption {
       type = types.package;
-      default = pkgs.niri-unstable;
+      default = pkgs.niri;
       description = "The niri package to use.";
     };
   };
 
-  options.niri-flake.cache.enable = mkEnableOption "the niri-flake binary cache" // {
-    default = true;
-  };
-
   config = mkMerge [
-    (mkIf config.niri-flake.cache.enable {
-      nix.settings = {
-        substituters = [ "https://niri.cachix.org" ];
-        trusted-public-keys = [ "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=" ];
-      };
-    })
     (mkIf cfg.enable {
       programs.niri.enable = true;
       environment.systemPackages = with pkgs; [
@@ -76,28 +66,30 @@ in
 
       xdg.portal = {
         enable = true;
-        extraPortals =
-          [
-            pkgs.xdg-desktop-portal-gtk
-          ]
-          ++ (
-            if
-              !niriPkg.cargoBuildNoDefaultFeatures
-              || builtins.elem "xdp-gnome-screencast" niriPkg.cargoBuildFeatures
-            then
-              [ pkgs.xdg-desktop-portal-gnome ]
-            else
-              [ ]
-          );
-        configPackages = [ niriPkg pkgs.xdg-desktop-portal-gtk ];
+        extraPortals = [
+          pkgs.xdg-desktop-portal-gtk
+        ]
+        ++ (
+          if
+            !niriPkg.cargoBuildNoDefaultFeatures
+            || builtins.elem "xdp-gnome-screencast" niriPkg.cargoBuildFeatures
+          then
+            [ pkgs.xdg-desktop-portal-gnome ]
+          else
+            [ ]
+        );
+        configPackages = [
+          niriPkg
+          pkgs.xdg-desktop-portal-gtk
+        ];
         config.common.default = "*";
       };
 
       security.polkit.enable = true;
       services.gnome.gnome-keyring.enable = true;
 
-      systemd.user.services.niri-flake-polkit = {
-        description = "PolicyKit Authentication Agent provided by niri-flake";
+      systemd.user.services.niri-polkit = {
+        description = "PolicyKit Authentication Agent for niri";
         wantedBy = [ "niri.service" ];
         after = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
