@@ -83,8 +83,9 @@
       url = "github:shazow/wifitui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
+    niri = {
+      url = "github:niri-wm/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprlock = {
@@ -187,7 +188,7 @@
         inputs.snowfall-flake.overlays."package/flake"
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
-        inputs.niri-flake.overlays.niri
+        inputs.niri.overlays.default
 
         (final: prev: {
           frgd = (prev.frgd or { }) // {
@@ -204,9 +205,11 @@
         })
 
         (final: prev: {
-          silverbullet-api-gateway = (inputs.silverbullet-api-gateway.packages.${final.system}.default.overrideAttrs (_: {
-            vendorHash = null;
-          }));
+          silverbullet-api-gateway = (
+            inputs.silverbullet-api-gateway.packages.${final.system}.default.overrideAttrs (_: {
+              vendorHash = null;
+            })
+          );
         })
       ];
 
@@ -234,18 +237,20 @@
         inputs.sops-nix.homeManagerModules.sops
         inputs.nix-index-database.homeModules.nix-index
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
-        inputs.niri-flake.homeModules.config
         inputs.noctalia.homeModules.default
         inputs.sbtask.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
 
-      checks = builtins.mapAttrs (
-        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-      ) (lib.filterAttrs (system: _: builtins.elem system [
-        "x86_64-linux"
-      ]) inputs.deploy-rs.lib);
+      checks = builtins.mapAttrs (system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy) (
+        lib.filterAttrs (
+          system: _:
+          builtins.elem system [
+            "x86_64-linux"
+          ]
+        ) inputs.deploy-rs.lib
+      );
 
       # homes.modules = with inputs; [ sops-nix.homeManagerModules.sops ];
 
