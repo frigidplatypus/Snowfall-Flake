@@ -46,6 +46,8 @@ with lib.frgd;
     powerDownCommands = "${pkgs.systemd}/bin/loginctl lock-sessions";
   };
 
+  programs.mango = enabled;
+
   environment.systemPackages = with pkgs; [
     openscad
     # cura-appimage
