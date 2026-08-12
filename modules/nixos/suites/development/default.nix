@@ -42,7 +42,7 @@ in
         #        k8s = enabled;
         #        node = enabled;
         #        titan = enabled;
-        qmk = enabled;
+
       };
 
       #virtualisation = { podman = enabled; };
