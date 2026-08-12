@@ -99,6 +99,11 @@
       url = "github:nousresearch/hermes-agent";
     };
 
+    herdr-nix = {
+      url = "github:herdrdev/herdr-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Enable fingerprint reader for T480
     # nixos-06cb-009a-fingerprint-sensor = {
     #   url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
@@ -166,9 +171,13 @@
       supportedSystems = [ "x86_64-linux" ];
 
       nixConfig = {
-        extra-substituters = [ "https://noctalia.cachix.org" ];
+        extra-substituters = [
+          "https://noctalia.cachix.org"
+          "https://herdr.cachix.org"
+        ];
         extra-trusted-public-keys = [
           "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+          "herdr.cachix.org-1:3nH7IStRsS0ASfdonA0DCRR2ZrSCeWitZ7Kwew0cR4I="
         ];
       };
 
