@@ -10,7 +10,7 @@ with lib.frgd;
     };
     apps = {
       kitty = enabled;
-      logseq = enabled;
+      # logseq = enabled;
       obsidian = enabled;
       ghostty = enabled;
     };
