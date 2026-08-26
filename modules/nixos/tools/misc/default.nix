@@ -42,6 +42,8 @@ in
       btop
       systemctl-tui
       ghostty.terminfo
+      herdr
+      pi-coding-agent
     ];
   };
 }
