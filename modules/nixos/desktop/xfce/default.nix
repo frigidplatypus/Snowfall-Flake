@@ -41,7 +41,6 @@ in
       capitaine-cursors-themed
       gruvbox-dark-icons-gtk
       gruvbox-plus-icons
-      gruvbox-gtk-theme
       gruvbox-dark-gtk
     ];
   };

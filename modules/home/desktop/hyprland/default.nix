@@ -40,12 +40,9 @@ in
         xwininfo
         # GTK themes
         gruvbox-dark-gtk
-        sweet
-        zuki-themes
         yaru-theme
         whitesur-icon-theme
         whitesur-gtk-theme
-        stilo-themes
         clipse
         wvkbd
         squeekboard

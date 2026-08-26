@@ -88,12 +88,9 @@ in
           # GTK themes
           nwg-look
           gruvbox-dark-gtk
-          sweet
-          zuki-themes
           yaru-theme
           whitesur-icon-theme
           whitesur-gtk-theme
-          stilo-themes
           wl-clipboard
           sddm-theme
           brightnessctl

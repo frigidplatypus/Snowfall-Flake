@@ -30,12 +30,21 @@ with lib.frgd;
   };
   users.users.justin.extraGroups = [ "silverbullet" ];
 
+  services.tailscale.serve = {
+    enable = true;
+    services.logseq = {
+      endpoints."tcp:443" = "http://127.0.0.1:8787";
+      advertised = true;
+    };
+  };
+
   environment.systemPackages = [ pkgs.opencode ];
 
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
     tools.git = enabled;
+    virtualization.docker = enabled;
     services.caddy-proxy = {
       enable = true;
       hosts = {
