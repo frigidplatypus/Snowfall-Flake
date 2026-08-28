@@ -215,6 +215,7 @@ with lib.frgd;
       };
     };
     cli-apps = {
+      outl = enabled;
       # pim = {
       #   enable = true;
       #   accounts = {
