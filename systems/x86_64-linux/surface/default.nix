@@ -72,11 +72,6 @@ with lib.frgd;
     just
     # matterhorn
 
-    # android
-    androidsdk
-    android-cli
-    android-tools
-    android-studio
     pnpm
     surface-control
     nautilus

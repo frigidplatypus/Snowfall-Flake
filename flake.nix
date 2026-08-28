@@ -182,7 +182,6 @@
       };
 
       channels-config = {
-        android_sdk.accept_license = true;
         allowUnfree = true;
         permittedInsecurePackages = [
           "ventoy-1.1.12"
