@@ -403,6 +403,11 @@ with lib.frgd;
     frgd.sb
   ];
 
+  programs.outl = {
+    enable = true;
+    installDesktop = true;
+  };
+
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering
   # programs.aerc = {
   #   enable = true;
@@ -422,8 +427,4 @@ with lib.frgd;
   # home.file entry here. By default the PIM module emits per-account
   # folders when configured and avoids conflicts with other modules.
 
-  programs.outl = {
-    enable = true;
-    installDesktop = true;
-  };
 }
