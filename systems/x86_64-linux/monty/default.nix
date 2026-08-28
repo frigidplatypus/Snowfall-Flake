@@ -67,6 +67,7 @@ in
 
   environment.systemPackages = with pkgs; [
     frgd.sb
+    frgd.outl
     # System tools for agent effectiveness
     go
     python3

@@ -20,6 +20,7 @@ with lib.frgd;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;
+      outl = enabled;
     };
 
     tools = {

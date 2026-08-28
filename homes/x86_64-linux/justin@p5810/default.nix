@@ -26,6 +26,7 @@ with lib.frgd;
       local-scripts = enabled;
       ai-tools = enabled;
       yazi = enabled;
+      outl = enabled;
       pim = {
         enable = true;
         accounts = {
