@@ -142,6 +142,11 @@
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/sbtask";
     };
 
+    outl = {
+      url = "github:frigidplatypus/outl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     silverbullet-api-gateway = {
       url = "git+ssh://forgejo@git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway.git";
     };
@@ -247,6 +252,7 @@
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.noctalia.homeModules.default
         inputs.sbtask.homeManagerModules.default
+        inputs.outl.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };

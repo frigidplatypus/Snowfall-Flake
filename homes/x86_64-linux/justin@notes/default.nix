@@ -20,7 +20,6 @@ with lib.frgd;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;
-      outl = enabled;
     };
 
     tools = {
@@ -31,6 +30,9 @@ with lib.frgd;
       misc = enabled;
     };
   };
+
+  programs.outl.enable = true;
+
   # frgd.services.silverbullet-api-gateway = {
   #   enable = true;
   #   sbUrl = "https://notes.fluffy-rooster.ts.net";   # was: url

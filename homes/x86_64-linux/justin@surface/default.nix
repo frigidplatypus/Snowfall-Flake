@@ -215,7 +215,6 @@ with lib.frgd;
       };
     };
     cli-apps = {
-      outl = enabled;
       # pim = {
       #   enable = true;
       #   accounts = {
@@ -422,4 +421,9 @@ with lib.frgd;
   # If you want a minimal accounts.conf to be managed directly, add a
   # home.file entry here. By default the PIM module emits per-account
   # folders when configured and avoids conflicts with other modules.
+
+  programs.outl = {
+    enable = true;
+    installDesktop = true;
+  };
 }
