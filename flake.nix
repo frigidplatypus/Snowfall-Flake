@@ -179,10 +179,12 @@
         extra-substituters = [
           "https://noctalia.cachix.org"
           "https://herdr.cachix.org"
+          "https://outl.cachix.org"
         ];
         extra-trusted-public-keys = [
           "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
           "herdr.cachix.org-1:3nH7IStRsS0ASfdonA0DCRR2ZrSCeWitZ7Kwew0cR4I="
+          "outl.cachix.org-1:xHVg/Xb+czttv9YGNHVlyi2YDZu/XAPQK1o2OUgjuqg="
         ];
       };
 
