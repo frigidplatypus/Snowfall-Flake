@@ -10,6 +10,16 @@ with lib.frgd;
 let
   cfg = config.frgd.nix;
 
+  # Caches every host gets, regardless of frgd.nix.extra-substituters.
+  global-substituters = {
+    "https://install.determinate.systems" = {
+      key = "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12YDZu/XAPQK1o2OUgjuqg=";
+    };
+    "https://outl.cachix.org" = {
+      key = "outl.cachix.org-1:xHVg/Xb+czttv9YGNHVlyi2YDZu/XAPQK1o2OUgjuqg=";
+    };
+  };
+
   substituters-submodule = types.submodule (
     { name, ... }:
     {
@@ -35,11 +45,9 @@ in
           "The trusted public key for the substituter.";
     };
 
-    extra-substituters = mkOpt (attrsOf substituters-submodule) {
-      "https://install.determinate.systems" = {
-        key = "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=";
-      };
-    } "Extra substituters to configure.";
+    extra-substituters =
+      mkOpt (attrsOf substituters-submodule) { }
+        "Host-specific substituters, merged on top of the global caches.";
 
     generateRegistryFromInputs = mkBoolOpt false "Whether to populate the flake registry from inputs during evaluation.";
     generateNixPathFromInputs = mkBoolOpt false "Whether to populate NIX_PATH from inputs during evaluation.";
@@ -51,7 +59,7 @@ in
       assertions = mapAttrsToList (name: value: {
         assertion = value.key != null;
         message = "frgd.nix.extra-substituters.${name}.key must be set";
-      }) cfg.extra-substituters;
+      }) (global-substituters // cfg.extra-substituters);
 
       environment.systemPackages = with pkgs; [
         nixfmt
@@ -69,8 +77,9 @@ in
             "hermes"
           ]
           ++ optional config.services.hydra.enable "hydra";
-          extraSubstituterUrls = mapAttrsToList (name: _value: name) cfg.extra-substituters;
-          extraSubstituterKeys = mapAttrsToList (_name: value: value.key) cfg.extra-substituters;
+          allSubstituters = global-substituters // cfg.extra-substituters;
+          extraSubstituterUrls = mapAttrsToList (name: _value: name) allSubstituters;
+          extraSubstituterKeys = mapAttrsToList (_name: value: value.key) allSubstituters;
         in
         {
           # package = cfg.package;
