@@ -70,10 +70,6 @@
     # };
 
     wifitui.url = "github:shazow/wifitui";
-    niri = {
-      # v26.04 — swap in the new release's rev + `nix flake update niri` to upgrade
-      url = "github:niri-wm/niri/8ed0da44d974c32c6877d2f4630c314da0717ecb";
-    };
 
     hyprlock = {
       url = "github:hyprwm/hyprlock";
@@ -85,8 +81,6 @@
     hermes = {
       url = "github:nousresearch/hermes-agent";
     };
-
-    herdr-nix.url = "github:herdrdev/herdr-nix";
 
     # Enable fingerprint reader for T480
     # nixos-06cb-009a-fingerprint-sensor = {
@@ -154,12 +148,10 @@
       nixConfig = {
         extra-substituters = [
           "https://noctalia.cachix.org"
-          "https://herdr.cachix.org"
           "https://outl.cachix.org"
         ];
         extra-trusted-public-keys = [
           "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-          "herdr.cachix.org-1:3nH7IStRsS0ASfdonA0DCRR2ZrSCeWitZ7Kwew0cR4I="
           "outl.cachix.org-1:xHVg/Xb+czttv9YGNHVlyi2YDZu/XAPQK1o2OUgjuqg="
         ];
       };
@@ -179,7 +171,6 @@
         inputs.snowfall-flake.overlays."package/flake"
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
-        inputs.niri.overlays.default
 
         (final: prev: {
           frgd = (prev.frgd or { }) // {

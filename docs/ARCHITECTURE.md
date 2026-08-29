@@ -244,7 +244,6 @@ Key inputs and their purpose:
 | `golink` | GitHub | Tailscale short links |
 | `tclip` | GitHub | Tailscale pastebin |
 | `hermes` | GitHub | Hermes AI agent |
-| `niri-flake` | GitHub | Niri compositor |
 | `nr` | Forgejo (self-hosted) | Go rewrite of the nr deploy script |
 | `email-to-miniflux` | Forgejo (self-hosted) | Email to RSS bridge |
 
