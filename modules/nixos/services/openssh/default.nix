@@ -105,7 +105,7 @@ in
         aliases: system:
         aliases
         // {
-          "ssh-${system}" = "ssh ${system} -t tmux a";
+          "ssh-${system}" = "ssh ${system} -t herdr";
         }
       ) { } (builtins.attrNames other-hosts);
     };

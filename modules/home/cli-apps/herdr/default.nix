@@ -16,6 +16,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.herdr ];
+    programs.herdr = {
+      enable = true;
+      package = pkgs.herdr;
+      settings = {
+        onboarding = false;
+        terminal.default_shell = "fish";
+        theme.name = "gruvbox";
+        keys.prefix = "ctrl+s";
+      };
+    };
   };
 }
