@@ -12,25 +12,6 @@ with lib.frgd;
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
-  services.silverbullet = {
-    enable = true;
-    spaceDir = "/home/justin/mdbible/silverbullet_space";
-    user = "justin";
-    group = "users";
-    package = pkgs.frgd.silverbullet;
-  };
-
-  systemd.services.silverbullet.path = [
-    pkgs.git
-    pkgs.openssh
-    pkgs.chromium
-  ];
-
-  systemd.services.silverbullet.environment = {
-    SB_CHROME_PATH = "${pkgs.chromium}/bin/chromium-browser";
-  };
-  users.users.justin.extraGroups = [ "silverbullet" ];
-
   environment.systemPackages = [ pkgs.opencode ];
 
   frgd = {

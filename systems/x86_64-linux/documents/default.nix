@@ -72,7 +72,6 @@ in
   };
 
   services.stirling-pdf = enabled;
-  services.silverbullet = enabled;
 
   services.paperless = {
     enable = true;

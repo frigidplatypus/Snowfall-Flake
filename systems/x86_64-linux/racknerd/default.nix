@@ -68,11 +68,6 @@ with lib.frgd;
     };
   };
 
-  services.silverbullet = {
-    enable = true;
-    listenPort = 8888;
-  };
-
   services.forgejo = {
     enable = true;
     package = pkgs.forgejo;

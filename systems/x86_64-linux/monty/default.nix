@@ -219,17 +219,6 @@ in
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
     };
-
-    # Shared household Silverbullet — accessible at monty.fluffy-rooster.ts.net/notes
-    silverbullet = {
-      enable = true;
-      package = pkgs.frgd.silverbullet;
-      listenPort = 3002;
-      listenAddress = "127.0.0.1";
-      spaceDir = "/var/lib/hermes/workspace/household";
-      user = "hermes";
-      group = "hermes";
-    };
   };
 
   # Hermes Desktop — headless desktop for browser-based auth (NotebookLM, etc.).
@@ -367,24 +356,6 @@ in
         PrivateTmp = true;
       };
     };
-
-  # Shared household Silverbullet — systemd overrides.
-  # The base service is created by services.silverbullet above; these settings merge in.
-  systemd.services.silverbullet = {
-    path = with pkgs; [
-      git
-      openssh
-      chromium
-    ];
-    environment = {
-      SB_CHROME_PATH = "${pkgs.chromium}/bin/chromium-browser";
-    };
-    serviceConfig = {
-      # Override the nixpkgs module's StateDirectory which would only create
-      # /var/lib/household — we need the full nested path.
-      StateDirectory = lib.mkForce "hermes/workspace/household";
-    };
-  };
 
   frgd = {
     apps = { };
