@@ -774,11 +774,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1787898273,
-        "narHash": "sha256-WzoxJF3WLn11E9SiPHUYf//h/2XEDITeY3ojej5aLd0=",
+        "lastModified": 1787960878,
+        "narHash": "sha256-3NYj/MhHTtuWmjnZMBnpzRgv7TZkdL6iVB23ajYBi3c=",
         "owner": "nousresearch",
         "repo": "hermes-agent",
-        "rev": "01740f352e2f2414b3bdb7791c2ed1f7bbb2b455",
+        "rev": "ac6c8028e00d01ee2f299ba7fd03329c7f10382d",
         "type": "github"
       },
       "original": {
@@ -1600,11 +1600,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1787881844,
-        "narHash": "sha256-avuZCqgBG2BPHMeJW0ub4HGQu1W1AQUJ4Y58vB7wOLU=",
+        "lastModified": 1787918586,
+        "narHash": "sha256-8tG/6g8W2hBg8Gtqd1j1sPr7IjXTHIDCZqeaod6f3aA=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "5f90d2efd52d458075084a7ac301368757a07de5",
+        "rev": "e5941571aab9b0cdd75d29855e93164ab995ca46",
         "type": "github"
       },
       "original": {
@@ -1704,11 +1704,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1787883101,
-        "narHash": "sha256-QvxEm/Wr3sB6x/n/bFNidEqXD5SqWzKuCeeFJfhAPXY=",
+        "lastModified": 1787964043,
+        "narHash": "sha256-6FlZj241gdXOmEgdOGbMMgscrweJp6Q8j112cE0EZ/Q=",
         "owner": "frigidplatypus",
         "repo": "outl",
-        "rev": "a09d63d0972a36d516d5962cd7d30eb85115fda5",
+        "rev": "cd27c1b9ea58d6afbca5aba4ae503e227b925745",
         "type": "github"
       },
       "original": {
@@ -2065,12 +2065,12 @@
     },
     "stable-nixpkgs": {
       "locked": {
-        "lastModified": 1787753485,
-        "narHash": "sha256-BZWCi9ZRJiARTuKTbbtvFTj7t1TK4G3UEckT3HyNfRg=",
-        "rev": "062346a6d85bc4b49dfaa61c986e9c5be21217d1",
-        "revCount": 1012768,
+        "lastModified": 1787848966,
+        "narHash": "sha256-7gDpu5hpq0rOYnYMcOWqSzquK4HA/xU8Xf3CjUBOOJA=",
+        "rev": "d57af924f160a5084293c71c2043f058bd1cdb60",
+        "revCount": 1012829,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1012768%2Brev-062346a6d85bc4b49dfaa61c986e9c5be21217d1/01a0424d-5bbd-72e1-bab4-dae80ec20b8f/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.2605.1012829%2Brev-d57af924f160a5084293c71c2043f058bd1cdb60/01a04a37-59da-70b2-b771-7d62e1138e28/source.tar.gz"
       },
       "original": {
         "type": "tarball",
