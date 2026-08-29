@@ -28,7 +28,6 @@ jobs:
         --override-input email-to-miniflux path:./.github/ci-stubs/email-to-miniflux
         --override-input silverbullet-mcp path:./.github/ci-stubs/silverbullet-mcp
         --override-input nr path:./.github/ci-stubs/nr
-        --override-input sbtask path:./.github/ci-stubs/sbtask
         --override-input silverbullet-api-gateway path:./.github/ci-stubs/silverbullet-api-gateway
 
     steps:

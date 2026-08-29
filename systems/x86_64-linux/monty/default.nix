@@ -140,20 +140,6 @@ in
     GIT_EOF
     chmod 644 /var/lib/hermes/.gitconfig
     chown hermes:hermes /var/lib/hermes/.gitconfig
-
-    mkdir -p /var/lib/hermes/.config/sbtask
-    cat > /var/lib/hermes/.config/sbtask/config.yaml << 'SBTASK_EOF'
-    spaces:
-      main:
-        space: "https://notes.fluffy-rooster.ts.net"
-        default_page: "Tasks"
-      household:
-        space: "https://notes.fluffy-rooster.ts.net"
-        default_page: "HouseholdTasks"
-    active_space: main
-    SBTASK_EOF
-    chmod 600 /var/lib/hermes/.config/sbtask/config.yaml
-    chown hermes:hermes /var/lib/hermes/.config/sbtask/config.yaml
   '';
 
   system.activationScripts.hermes-photon-sidecar-setup = lib.stringAfter [ "hermes-git-setup" ] ''

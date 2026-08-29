@@ -138,10 +138,6 @@
       # (the cache is built against noctalia's own nixpkgs pin)
     };
 
-    sbtask = {
-      url = "git+https://git.fluffy-rooster.ts.net/FRGD/sbtask";
-    };
-
     outl = {
       url = "github:frigidplatypus/outl";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -216,10 +212,6 @@
         })
 
         (final: prev: {
-          sbtask = inputs.sbtask.packages.${final.system}.default;
-        })
-
-        (final: prev: {
           silverbullet-api-gateway = (
             inputs.silverbullet-api-gateway.packages.${final.system}.default.overrideAttrs (_: {
               vendorHash = null;
@@ -253,7 +245,6 @@
         inputs.nix-index-database.homeModules.nix-index
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.noctalia.homeModules.default
-        inputs.sbtask.homeManagerModules.default
         inputs.outl.homeManagerModules.default
       ];
 
