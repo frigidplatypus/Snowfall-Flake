@@ -42,18 +42,15 @@
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
     deploy-rs = {
       url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
     # agenix.url = "github:yaxitech/ragenix";
@@ -74,9 +71,6 @@
     hyprlock = {
       url = "github:hyprwm/hyprlock";
     };
-    # hermes = {
-    #   url = "git+https://git.fluffy-rooster.ts.net/FRGD/hermes-agent.git";
-    # };
 
     hermes = {
       url = "github:nousresearch/hermes-agent";
@@ -103,6 +97,7 @@
     email-to-miniflux = {
       url = "git+https://git.fluffy-rooster.ts.net/justin/email-to-miniflux";
     };
+
     nr = {
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/nr";
     };
@@ -119,11 +114,6 @@
 
     outl = {
       url = "github:frigidplatypus/outl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    silverbullet-api-gateway = {
-      url = "git+ssh://forgejo@git.fluffy-rooster.ts.net/FRGD/silverbullet-api-gateway.git";
     };
 
   };
