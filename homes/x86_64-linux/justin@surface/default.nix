@@ -381,22 +381,14 @@ with lib.frgd;
     spec-kit
     gparted
     kdePackages.partitionmanager
-    gnome-disk-utility
-    blivet-gui
     brightnessctl
     cfonts
-    exfatprogs
-    fatresize
     foot
     forgejo-cli
     frgd.numara
-    heynote
     parted
     polkit
-    telegram-desktop
     util-linux
-    dosfstools
-    e2fsprogs
     ffmpeg
     yt-dlp
     udiskie

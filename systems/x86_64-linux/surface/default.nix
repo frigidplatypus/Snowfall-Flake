@@ -54,8 +54,6 @@ with lib.frgd;
     popsicle
     # ventoy-full
     inkscape-with-extensions
-    krita
-    gimp
     devenv
     gh
     rclone
@@ -64,14 +62,11 @@ with lib.frgd;
     opencode
     mcp-nixos
     wtfutil
-    godot
     acpi
     powertop
     mattermost-desktop
     remmina
     just
-    # matterhorn
-
     pnpm
     surface-control
     nautilus
