@@ -247,7 +247,6 @@ Key inputs and their purpose:
 | `niri-flake` | GitHub | Niri compositor |
 | `nr` | Forgejo (self-hosted) | Go rewrite of the nr deploy script |
 | `email-to-miniflux` | Forgejo (self-hosted) | Email to RSS bridge |
-| `silverbullet-mcp` | Forgejo (self-hosted) | Silverbullet MCP server |
 
 ## Custom Packages
 

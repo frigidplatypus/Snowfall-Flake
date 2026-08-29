@@ -216,7 +216,6 @@ in
         xauth
         xorg.xdpyinfo
         xorg.xhost
-        inputs.silverbullet-mcp.packages.${pkgs.system}.default
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
     };

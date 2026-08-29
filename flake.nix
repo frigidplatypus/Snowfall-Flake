@@ -120,10 +120,6 @@
     email-to-miniflux = {
       url = "git+https://git.fluffy-rooster.ts.net/justin/email-to-miniflux";
     };
-    silverbullet-mcp = {
-      url = "git+https://git.fluffy-rooster.ts.net/hermes/silverbullet-mcp.git";
-    };
-
     nr = {
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/nr";
     };
