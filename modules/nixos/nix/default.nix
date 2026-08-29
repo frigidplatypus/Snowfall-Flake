@@ -12,9 +12,6 @@ let
 
   # Caches every host gets, regardless of frgd.nix.extra-substituters.
   global-substituters = {
-    "https://install.determinate.systems" = {
-      key = "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12YDZu/XAPQK1o2OUgjuqg=";
-    };
     "https://outl.cachix.org" = {
       key = "outl.cachix.org-1:xHVg/Xb+czttv9YGNHVlyi2YDZu/XAPQK1o2OUgjuqg=";
     };
