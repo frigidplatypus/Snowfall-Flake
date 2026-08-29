@@ -57,36 +57,22 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     # agenix.url = "github:yaxitech/ragenix";
-    neovim = {
-      url = "github:frigidplatypus/neovim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    neovim_notes = {
-      url = "github:frigidplatypus/neovim_notes";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Omit inputs.nixpkgs.follows so each flake keeps its own nixpkgs pin
+    # (better binary cache hits / self-contained dependency graph)
+    neovim.url = "github:frigidplatypus/neovim";
+    neovim_notes.url = "github:frigidplatypus/neovim_notes";
 
-    golink = {
-      url = "github:tailscale/golink";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    tclip = {
-      url = "github:tailscale-dev/tclip";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    golink.url = "github:tailscale/golink";
+    tclip.url = "github:tailscale-dev/tclip";
     # vscode-server = {
     #   url = "github:nix-community/nixos-vscode-server";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    wifitui = {
-      url = "github:shazow/wifitui";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    wifitui.url = "github:shazow/wifitui";
     niri = {
       # v26.04 — swap in the new release's rev + `nix flake update niri` to upgrade
       url = "github:niri-wm/niri/8ed0da44d974c32c6877d2f4630c314da0717ecb";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprlock = {
@@ -100,10 +86,7 @@
       url = "github:nousresearch/hermes-agent";
     };
 
-    herdr-nix = {
-      url = "github:herdrdev/herdr-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    herdr-nix.url = "github:herdrdev/herdr-nix";
 
     # Enable fingerprint reader for T480
     # nixos-06cb-009a-fingerprint-sensor = {
