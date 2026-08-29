@@ -84,7 +84,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri = {
-      url = "github:niri-wm/niri";
+      # v26.04 — swap in the new release's rev + `nix flake update niri` to upgrade
+      url = "github:niri-wm/niri/8ed0da44d974c32c6877d2f4630c314da0717ecb";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
