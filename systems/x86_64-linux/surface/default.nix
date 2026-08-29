@@ -76,7 +76,6 @@ with lib.frgd;
     surface-control
     nautilus
     lutris
-    frgd.silverbullet-desktop
     gamescope
   ];
 

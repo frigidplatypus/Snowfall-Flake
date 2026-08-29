@@ -260,7 +260,6 @@ Located in `packages/`:
 | `mdpdf` | Markdown to PDF converter |
 | `numara` | Number station tool |
 | `osk-toggle` | On-screen keyboard toggle |
-| `sb` | Silverbullet CLI |
 | `silverbullet` | Silverbullet server (custom build) |
 | `unifly` | UniFi controller helper |
 | `wakeonlan_script` | Wake-on-LAN utility |

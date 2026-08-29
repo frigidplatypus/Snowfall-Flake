@@ -400,7 +400,6 @@ with lib.frgd;
     ffmpeg
     yt-dlp
     udiskie
-    frgd.sb
   ];
 
   programs.outl = {
