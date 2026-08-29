@@ -82,6 +82,11 @@
       url = "github:nousresearch/hermes-agent";
     };
 
+    hermes-webui = {
+      url = "github:nesquena/hermes-webui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Enable fingerprint reader for T480
     # nixos-06cb-009a-fingerprint-sensor = {
     #   url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
@@ -208,6 +213,7 @@
         inputs.nix-flatpak.nixosModules.nix-flatpak
         inputs.email-to-miniflux.nixosModules.emailToMiniflux
         inputs.hermes.nixosModules.default
+        inputs.hermes-webui.nixosModules.default
         inputs.noctalia-greeter.nixosModules.default
       ];
 

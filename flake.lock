@@ -746,6 +746,26 @@
         "type": "github"
       }
     },
+    "hermes-webui": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787706206,
+        "narHash": "sha256-Z/q6tPa+FdTxB7rricc9voqcfjsTHsPiNQcwpMJ/SZ4=",
+        "owner": "nesquena",
+        "repo": "hermes-webui",
+        "rev": "e168b67e4278df618d1cab61fdb3a8dc55b29a81",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nesquena",
+        "repo": "hermes-webui",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1855,6 +1875,7 @@
         "email-to-miniflux": "email-to-miniflux",
         "golink": "golink",
         "hermes": "hermes",
+        "hermes-webui": "hermes-webui",
         "home-manager": "home-manager_2",
         "html-to-markdown": "html-to-markdown",
         "hyprlock": "hyprlock",

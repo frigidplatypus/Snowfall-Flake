@@ -218,6 +218,20 @@ in
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
     };
+
+    # Web UI for the agent — runs in-process against the same HERMES_HOME and
+    # agent package as hermes-agent.service, so it sees the same sessions/config.
+    hermes-webui = {
+      enable = true;
+      host = "127.0.0.1";
+      port = 8787;
+      user = "hermes";
+      group = "hermes";
+      hermesHome = "/var/lib/hermes/.hermes";
+      stateDir = "/var/lib/hermes/.hermes/webui";
+      agent.package = hermesPackage;
+      environmentFiles = [ config.sops.secrets.monty_env.path ];
+    };
   };
 
   # Hermes Desktop — headless desktop for browser-based auth (NotebookLM, etc.).
