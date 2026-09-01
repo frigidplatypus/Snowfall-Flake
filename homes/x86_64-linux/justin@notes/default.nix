@@ -32,18 +32,4 @@ with lib.frgd;
   };
 
   programs.outl.enable = true;
-
-  # frgd.services.silverbullet-api-gateway = {
-  #   enable = true;
-  #   sbUrl = "https://notes.fluffy-rooster.ts.net";   # was: url
-  #   sbPage = "inbox";                                  # was: page
-  #   # dataPattern = "- [ ] [TEXT] ([DATE])";
-  # };
-  # SilverBullet API Gateway — receives POST data and appends to a SB page
-  frgd.services.silverbullet-api-gateway = {
-    enable = true;
-    url = "https://notes.fluffy-rooster.ts.net";
-    page = "inbox";
-    dataPattern = "";
-  };
 }

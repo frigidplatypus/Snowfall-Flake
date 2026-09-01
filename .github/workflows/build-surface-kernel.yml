@@ -27,7 +27,6 @@ jobs:
         --override-input hermes path:./.github/ci-stubs/hermes
         --override-input email-to-miniflux path:./.github/ci-stubs/email-to-miniflux
         --override-input nr path:./.github/ci-stubs/nr
-        --override-input silverbullet-api-gateway path:./.github/ci-stubs/silverbullet-api-gateway
 
     steps:
       - name: Checkout

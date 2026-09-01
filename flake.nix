@@ -176,14 +176,6 @@
         (final: prev: {
           nr = inputs.nr.packages.${final.system}.default;
         })
-
-        (final: prev: {
-          silverbullet-api-gateway = (
-            inputs.silverbullet-api-gateway.packages.${final.system}.default.overrideAttrs (_: {
-              vendorHash = null;
-            })
-          );
-        })
       ];
 
       # systems.modules.darwin = [
