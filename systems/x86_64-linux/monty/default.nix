@@ -13,6 +13,7 @@ let
   };
   photonSidecarStorePath = "${hermesPackage}/share/hermes-agent/plugins/platforms/photon/sidecar";
   photonSidecarRuntimePath = "/var/lib/hermes/.hermes/photon-sidecar";
+  outl = inputs.outl.packages.${pkgs.system}.outl;
 in
 {
   imports = [
@@ -66,7 +67,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    frgd.outl
+    outl
     # System tools for agent effectiveness
     go
     python3

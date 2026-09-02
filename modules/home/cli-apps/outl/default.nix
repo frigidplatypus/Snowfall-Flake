@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -9,6 +10,7 @@ with lib;
 with lib.frgd;
 let
   cfg = config.frgd.cli-apps.outl;
+  outl = inputs.outl.packages.${pkgs.system}.outl;
 in
 {
   options.frgd.cli-apps.outl = with types; {
@@ -16,6 +18,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.frgd.outl ];
+    home.packages = [ outl ];
   };
 }
