@@ -23,6 +23,9 @@ in
         onboarding = false;
         terminal.default_shell = "fish";
         theme.name = "gruvbox";
+        theme.auto_switch = false;
+        ui.toast.delivery = "herdr";
+        ui.show_agent_labels_on_pane_borders = true;
         keys.prefix = "ctrl+s";
       };
     };

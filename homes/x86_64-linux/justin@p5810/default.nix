@@ -25,6 +25,7 @@ with lib.frgd;
       tmux = enabled;
       local-scripts = enabled;
       ai-tools = enabled;
+      herdr = enabled;
       yazi = enabled;
       pim = {
         enable = true;
