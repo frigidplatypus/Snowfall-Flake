@@ -197,6 +197,7 @@
         inputs.hermes.nixosModules.default
         inputs.hermes-webui.nixosModules.default
         inputs.noctalia-greeter.nixosModules.default
+        inputs.outl.nixosModules.default
       ];
 
       homes.modules = [
