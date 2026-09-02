@@ -1,5 +1,10 @@
 # AGENTS.md — Snowfall NixOS Flake
 
+## User Context
+
+- The user is fluent in NixOS/Nix. Do not explain basics: declarative management, why files under `/etc` or `/nix/store` can't be edited directly, how rebuilds/generations/eval work. Go straight to diagnosis and fixes.
+- **Never run `nixos-rebuild` or `home-manager` switch/deploy commands** — deploying is the user's responsibility. Home Manager here is activated through NixOS (`home-manager.users`), not standalone; do not invoke standalone `home-manager switch`.
+
 ## Directory Layout (Snowfall Lib)
 
 ```
