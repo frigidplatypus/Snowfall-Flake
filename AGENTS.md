@@ -20,6 +20,8 @@ assets/                        — Static assets (wallpaper, etc.)
 scripts/                       — Bootstrap / utility scripts
 ```
 
+Hosts/users are auto-discovered from their directories — no registration step. Per-host overrides go in `systems.hosts.<host>.modules`.
+
 ## Build / Lint / Deploy
 
 - `nix flake check` — validate flake and all outputs (deploy-rs checks are wired)
