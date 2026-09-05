@@ -14,6 +14,13 @@ let
   photonSidecarStorePath = "${hermesPackage}/share/hermes-agent/plugins/platforms/photon/sidecar";
   photonSidecarRuntimePath = "/var/lib/hermes/.hermes/photon-sidecar";
   outl = inputs.outl.packages.${pkgs.system}.outl;
+  # Workaround: hermes_state_holders.py + hermes_state_registry.py missing from
+  # uv2nix-sealed venv (upstream #102632, fix merged but not yet in our build).
+  # Supplies both modules via PYTHONPATH so the gateway can start.
+  hermesStateRegistryFix = builtins.path {
+    path = /var/lib/hermes/.hermes/patches;
+    name = "hermes-state-registry-fix";
+  };
 in
 {
   imports = [
