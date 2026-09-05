@@ -29,9 +29,10 @@ with lib.frgd;
   systemd.services.silverbullet.environment = {
     SB_CHROME_PATH = "${pkgs.chromium}/bin/chromium-browser";
   };
-  users.users.justin.extraGroups = [ "silverbullet" ];
-
-  services.outl.enable = true;
+  users.users.justin = {
+    extraGroups = [ "silverbullet" ];
+    linger = true;
+  };
 
   environment.systemPackages = [ pkgs.opencode ];
 

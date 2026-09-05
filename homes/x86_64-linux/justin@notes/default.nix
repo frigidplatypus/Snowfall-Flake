@@ -18,7 +18,8 @@ with lib.frgd;
 
     cli-apps = {
       cliflux = enabled;
-      tmux = enabled;
+      herdr = enabled;
+      # tmux = enabled;
       local-scripts = enabled;
     };
 
@@ -31,5 +32,11 @@ with lib.frgd;
     };
   };
 
-  programs.outl.enable = true;
+  programs.outl = {
+    enable = true;
+    services.sync = {
+      enable = true;
+      workspace = "/home/justin/outl";
+    };
+  };
 }

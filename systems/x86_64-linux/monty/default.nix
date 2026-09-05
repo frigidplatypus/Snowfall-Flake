@@ -42,6 +42,8 @@ in
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
   systemd.services.hermes-agent.environment.HERMES_HOME = "/var/lib/hermes/.hermes";
+  # See hermesStateRegistryFix — supplies the module uv2nix failed to install.
+  systemd.services.hermes-agent.environment.PYTHONPATH = "${hermesStateRegistryFix}";
   # The packaged Photon sidecar lives in the read-only Nix store. Materialize
   # it under HERMES_HOME during activation, then bind-mount it over the bundled
   # path so the adapter still sees the expected location.
@@ -219,20 +221,6 @@ in
       ];
       environmentFiles = [ config.sops.secrets.monty_env.path ];
     };
-
-    # Web UI for the agent — runs in-process against the same HERMES_HOME and
-    # agent package as hermes-agent.service, so it sees the same sessions/config.
-    hermes-webui = {
-      enable = true;
-      host = "127.0.0.1";
-      port = 8787;
-      user = "hermes";
-      group = "hermes";
-      hermesHome = "/var/lib/hermes/.hermes";
-      stateDir = "/var/lib/hermes/.hermes/webui";
-      agent.package = hermesPackage;
-      environmentFiles = [ config.sops.secrets.monty_env.path ];
-    };
   };
 
   # Hermes Desktop — headless desktop for browser-based auth (NotebookLM, etc.).
@@ -355,6 +343,8 @@ in
 
       environment = {
         HERMES_HOME = "/var/lib/hermes/.hermes";
+        # See hermesStateRegistryFix — supplies the module uv2nix failed to install.
+        PYTHONPATH = "${hermesStateRegistryFix}";
       };
 
       serviceConfig = {
