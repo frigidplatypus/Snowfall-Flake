@@ -14,13 +14,6 @@ let
   photonSidecarStorePath = "${hermesPackage}/share/hermes-agent/plugins/platforms/photon/sidecar";
   photonSidecarRuntimePath = "/var/lib/hermes/.hermes/photon-sidecar";
   outl = inputs.outl.packages.${pkgs.system}.outl;
-  # Workaround: hermes_state_holders.py + hermes_state_registry.py missing from
-  # uv2nix-sealed venv (upstream #102632, fix merged but not yet in our build).
-  # Supplies both modules via PYTHONPATH so the gateway can start.
-  hermesStateRegistryFix = builtins.path {
-    path = /var/lib/hermes/.hermes/patches;
-    name = "hermes-state-registry-fix";
-  };
 in
 {
   imports = [
@@ -49,8 +42,6 @@ in
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
   systemd.services.hermes-agent.environment.HERMES_HOME = "/var/lib/hermes/.hermes";
-  # See hermesStateRegistryFix — supplies the module uv2nix failed to install.
-  systemd.services.hermes-agent.environment.PYTHONPATH = "${hermesStateRegistryFix}";
   # The packaged Photon sidecar lives in the read-only Nix store. Materialize
   # it under HERMES_HOME during activation, then bind-mount it over the bundled
   # path so the adapter still sees the expected location.
@@ -350,8 +341,6 @@ in
 
       environment = {
         HERMES_HOME = "/var/lib/hermes/.hermes";
-        # See hermesStateRegistryFix — supplies the module uv2nix failed to install.
-        PYTHONPATH = "${hermesStateRegistryFix}";
       };
 
       serviceConfig = {
