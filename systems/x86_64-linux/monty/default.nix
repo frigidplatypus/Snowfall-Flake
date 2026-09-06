@@ -284,6 +284,14 @@ in
     };
   };
 
+  # Caveman Browse MCP — compressed accessibility snapshots over local Chromium.
+  # Binary at ~/.hermes/scripts/caveman-browse (signed release bin-v1.0.0);
+  # wrapper resolves a Nix store Chromium at runtime (store paths are volatile).
+  services.hermes-agent.mcpServers.caveman-browse = {
+    command = "bash";
+    args = [ "/var/lib/hermes/.hermes/scripts/run-caveman-browse-mcp.sh" ];
+  };
+
   # Beszel MCP server — query system stats from the hub on racknerd.
   # Env vars (BESZEL_URL, BESZEL_EMAIL, BESZEL_PASSWORD) in beszel_monty_env SOPS secret.
   services.hermes-agent.mcpServers.beszel = {
