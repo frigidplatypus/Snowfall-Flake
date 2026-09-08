@@ -42,4 +42,9 @@ with lib.frgd;
       lsd = enabled;
     };
   };
+
+  programs.outl = {
+    enable = true;
+    installDesktop = true;
+  };
 }
