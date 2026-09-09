@@ -29,6 +29,7 @@ with lib.frgd;
 
   # Enable fingerprint reader.
   services.blueman.enable = true;
+  hardware.keyboard.qmk.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
   services.flatpak.enable = true;
