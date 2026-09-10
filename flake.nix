@@ -116,6 +116,10 @@
       url = "github:frigidplatypus/outl";
     };
 
+    go-to-sleep = {
+      url = "git+https://git.fluffy-rooster.ts.net/FRGD/go-to-sleep";
+    };
+
   };
 
   outputs =
@@ -205,6 +209,7 @@
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.noctalia.homeModules.default
         inputs.outl.homeManagerModules.default
+        inputs.go-to-sleep.homeModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib;
@@ -397,6 +398,39 @@ with lib.frgd;
   programs.outl = {
     enable = true;
     installDesktop = true;
+  };
+
+  programs.goToSleep = {
+    enable = true;
+    package = inputs.go-to-sleep.packages.${pkgs.system}.default;
+    schedules = [
+      {
+        name = "night";
+        start = "22:00";
+        end = "06:00";
+        days = [
+          "Mon"
+          "Tue"
+          "Wed"
+          "Thu"
+          "Fri"
+          "Sat"
+          "Sun"
+        ];
+      }
+    ];
+    categories = {
+      social = {
+        timeLimit = 300;
+        gracePeriod = 15;
+        cooldown = 1800;
+        windowPatterns = [
+          "*youtube*"
+          "*facebook*"
+          "*reddit*"
+        ];
+      };
+    };
   };
 
   # User-level aerc UI preferences: prefer inbox/sent/drafts/archive ordering
