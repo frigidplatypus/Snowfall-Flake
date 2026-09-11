@@ -333,6 +333,14 @@ in
     };
   };
 
+  # Forgejo MCP — repos, PRs, issues, orgs on git.fluffy-rooster.ts.net.
+  # Wrapper reads the monty API token from the forgejo-cli key file at runtime;
+  # no SOPS secret needed (token already lives in ~/.local/share/forgejo-cli/keys.json).
+  services.hermes-agent.mcpServers.forgejo = {
+    command = "bash";
+    args = [ "/var/lib/hermes/.hermes/scripts/run-forgejo-mcp.sh" ];
+  };
+
   # Hermes Dashboard — web UI, reverse-proxied by Caddy to monty.*.ts.net.
   systemd.services.hermes-dashboard =
     let
