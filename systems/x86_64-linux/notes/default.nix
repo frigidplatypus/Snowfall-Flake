@@ -41,14 +41,16 @@ with lib.frgd;
     archetypes.lxc = enabled;
     tools.git = enabled;
     virtualization.docker = enabled;
-    services.caddy-proxy = {
-      enable = true;
-      hosts = {
-        notes = {
-          hostname = "notes.${tailnet}";
-          backendAddress = "http://127.0.0.1:3000";
-          useTailnet = true;
-          extraConfig = "encode gzip";
+    services = {
+      caddy-proxy = {
+        enable = true;
+        hosts = {
+          notes = {
+            hostname = "notes.${tailnet}";
+            backendAddress = "http://127.0.0.1:3000";
+            useTailnet = true;
+            extraConfig = "encode gzip";
+          };
         };
       };
     };
