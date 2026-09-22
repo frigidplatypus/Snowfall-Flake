@@ -52,6 +52,7 @@ with lib.frgd;
 
   environment.systemPackages = with pkgs; [
     herdr
+    concord-tui
     docker
     nftables
     forgejo-cli
