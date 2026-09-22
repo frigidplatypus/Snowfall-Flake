@@ -23,7 +23,9 @@ in
       path = "/var/lib/moonraker/config/moonraker.secrets";
     };
     services.moonraker = {
-      user = "root";
+      # Same user as klipper so Fluidd saves and klipper SAVE_CONFIG share ownership
+      user = "justin";
+      group = "users";
       enable = true;
       # bind on all interfaces so Fluidd (or other remote UIs) can connect
       address = "0.0.0.0";

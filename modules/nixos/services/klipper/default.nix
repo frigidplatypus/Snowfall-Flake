@@ -22,8 +22,9 @@ in
       enable = true;
       user = "justin";
       group = "users";
-      # mutableConfig = true;
-      # mutableConfigFolder = "/var/lib/moonraker/config";
+      # Config is managed via Fluidd/moonraker; the flake file only seeds it
+      mutableConfig = true;
+      configDir = "/var/lib/moonraker/config";
       configFile = ./printer.cfg;
     };
 
