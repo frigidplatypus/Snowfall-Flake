@@ -34,7 +34,6 @@ in
       inherit apps cli-apps;
 
       tools = {
-        #       attic = enabled;
         #       at = enabled;
         direnv = enabled;
         #        go = enabled;
