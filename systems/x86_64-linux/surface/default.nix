@@ -80,6 +80,11 @@ with lib.frgd;
     nix = {
       enable = true;
       github-access-token = enabled;
+      extra-substituters = {
+        "https://frgd-surface-kernel.cachix.org" = {
+          key = "frgd-surface-kernel.cachix.org-1:pY13n7rTq2oCbPfrE3c45+2Uqfjo9tCQ+eY3NC9k0vo=";
+        };
+      };
     };
     system = {
       boot = {
