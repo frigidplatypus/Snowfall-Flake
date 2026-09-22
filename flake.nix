@@ -249,18 +249,5 @@
           }
         )
       ];
-      systems.hosts.t480.modules = [
-        inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
-
-        # Enable Determinate on this host. This is a minimal module that sets
-        # the determinate.enable option to true. If you want to customize more
-        # determinate options per-host, add them here.
-        (
-          { config, pkgs, ... }:
-          {
-            determinate.enable = true;
-          }
-        )
-      ];
     };
 }
