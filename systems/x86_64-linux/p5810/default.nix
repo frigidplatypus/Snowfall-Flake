@@ -105,14 +105,17 @@ with lib.frgd;
   boot.zfs.extraPools = [ "storage" ];
 
   sops.secrets.open-webui-environment = { };
-  sops.secrets."harmonia-sign-key" = {
+  sops.secrets.CACHIX_AUTH_TOKEN = {
     owner = "root";
     mode = "0400";
   };
 
-  services.harmonia.cache = {
-    enable = true;
-    signKeyPaths = [ config.sops.secrets."harmonia-sign-key".path ];
+  sops.templates."surface-kernel-cache.env" = {
+    owner = config.frgd.user.name;
+    mode = "0400";
+    content = ''
+      CACHIX_AUTH_TOKEN=${config.sops.placeholder.CACHIX_AUTH_TOKEN}
+    '';
   };
 
   systemd.services.surface-kernel-cache = {
@@ -128,6 +131,7 @@ with lib.frgd;
       User = config.frgd.user.name;
       WorkingDirectory = "/home/${config.frgd.user.name}/flake";
       ExecStart = "${pkgs.bash}/bin/sh /home/${config.frgd.user.name}/flake/scripts/build_surface_kernel_cache.sh --host surface";
+      EnvironmentFile = config.sops.templates."surface-kernel-cache.env".path;
     };
     environment = {
       HOME = "/home/${config.frgd.user.name}";
