@@ -24,7 +24,11 @@ with lib.frgd;
       cliflux = enabled;
       tmux = enabled;
       local-scripts = enabled;
-      ai-tools = enabled;
+      opencode = {
+        enable = true;
+        caveman.enable = true;
+        opencodeGo.enable = true;
+      };
       herdr = enabled;
       yazi = enabled;
       pim = {

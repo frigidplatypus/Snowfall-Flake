@@ -78,7 +78,6 @@ with lib.frgd;
     mbuffer
     pv
     devenv
-    opencode
     gh
     tg
     nr

@@ -19,6 +19,11 @@ with lib.frgd;
     cli-apps = {
       cliflux = enabled;
       herdr = enabled;
+      opencode = {
+        enable = true;
+        caveman.enable = true;
+        opencodeGo.enable = true;
+      };
       # tmux = enabled;
       local-scripts = enabled;
     };

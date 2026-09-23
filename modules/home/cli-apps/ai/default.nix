@@ -16,10 +16,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    frgd.cli-apps.opencode.enable = mkDefault true;
     home.packages = with pkgs; [
       gemini-cli
       # crush
-      opencode
       github-copilot-cli
     ];
   };

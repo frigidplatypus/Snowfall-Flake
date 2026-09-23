@@ -60,7 +60,6 @@ with lib.frgd;
     rclone
     nil
     bibletime
-    opencode
     mcp-nixos
     wtfutil
     acpi
