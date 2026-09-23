@@ -113,7 +113,7 @@
     };
 
     outl = {
-      url = "github:frigidplatypus/outl";
+      url = "github:frigidplatypus/outl/dev";
     };
 
     go-to-sleep = {
