@@ -36,10 +36,6 @@
       url = "github:anntnzrb/snowfall-lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
     };
@@ -120,6 +116,13 @@
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/go-to-sleep";
     };
 
+    caveman = {
+      url = "github:JuliusBrussee/caveman";
+      flake = false;
+    };
+
+    oh-my-pi.url = "github:can1357/oh-my-pi";
+
   };
 
   outputs =
@@ -166,8 +169,6 @@
       };
       overlays = [
 
-        # There is also a named overlay, though the output is the same.
-        inputs.snowfall-flake.overlays."package/flake"
         inputs.neovim.overlays.default
         inputs.neovim_notes.overlays.default
 
@@ -210,6 +211,7 @@
         inputs.noctalia.homeModules.default
         inputs.outl.homeManagerModules.default
         inputs.go-to-sleep.homeModules.default
+        inputs.oh-my-pi.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
