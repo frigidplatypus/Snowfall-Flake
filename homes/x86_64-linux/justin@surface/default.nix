@@ -335,6 +335,8 @@ with lib.frgd;
     installDesktop = true;
   };
 
+  programs.omp.enable = true;
+
   programs.goToSleep = {
     enable = true;
     package = inputs.go-to-sleep.packages.${pkgs.system}.default;

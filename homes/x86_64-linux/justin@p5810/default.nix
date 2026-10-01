@@ -94,4 +94,5 @@ with lib.frgd;
   };
 
   programs.outl.enable = true;
+  programs.omp.enable = true;
 }
