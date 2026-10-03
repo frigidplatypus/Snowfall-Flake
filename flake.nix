@@ -100,12 +100,18 @@
 
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
+      # Must share our glibc: the input's own nixpkgs pin builds against an
+      # older glibc, so dlopen of the system mesa (via glvnd) fails with
+      # "version GLIBC_2.4x not found" and EGL init dies.
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia = {
       url = "github:noctalia-dev/noctalia";
-      # Omit inputs.nixpkgs.follows so the binary cache hits
-      # (the cache is built against noctalia's own nixpkgs pin)
+      # Keep follows = "nixpkgs". Omitting it hits noctalia.cachix but
+      # builds against a different glibc than the system mesa, which breaks
+      # eglGetDisplay at runtime.
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     outl = {

@@ -1365,32 +1365,6 @@
     },
     "nixpkgs_17": {
       "locked": {
-        "lastModified": 1790822859,
-        "narHash": "sha256-VBA0QerzzmL+4wxgtwiCdiLwLpJg2/9xOxhgO3BRJQA=",
-        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
-        "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1083223.c59305bab206/nixexprs.tar.zst"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
-      }
-    },
-    "nixpkgs_18": {
-      "locked": {
-        "lastModified": 1790323409,
-        "narHash": "sha256-m4DGo58Fza5ImOegtWOeE18nhpSO1IGzsVA6Lpsb4zw=",
-        "rev": "e94cb152ed51bd6e24eb4a41f1460252beb52cd2",
-        "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1079315.e94cb152ed51/nixexprs.tar.zst"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
-      }
-    },
-    "nixpkgs_19": {
-      "locked": {
         "lastModified": 1780243769,
         "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
         "owner": "NixOS",
@@ -1401,6 +1375,38 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_18": {
+      "locked": {
+        "lastModified": 1787631388,
+        "narHash": "sha256-vMiXptXarfSdJb1Gkc+FYVOAibuBRj7qxGa8z68q1Uw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ac6b2166e7a9375683b8e98f860f273222337b16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_19": {
+      "locked": {
+        "lastModified": 1744536153,
+        "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "18dd725c29603f582cf1900e0d25f9f1063dbf11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1421,38 +1427,6 @@
     },
     "nixpkgs_20": {
       "locked": {
-        "lastModified": 1787631388,
-        "narHash": "sha256-vMiXptXarfSdJb1Gkc+FYVOAibuBRj7qxGa8z68q1Uw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ac6b2166e7a9375683b8e98f860f273222337b16",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_21": {
-      "locked": {
-        "lastModified": 1744536153,
-        "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "18dd725c29603f582cf1900e0d25f9f1063dbf11",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_22": {
-      "locked": {
         "lastModified": 1790480522,
         "narHash": "sha256-fXrm/q9klVBtVq5rGQ+XpI/dokPuSB15ZK2CZvWxXOk=",
         "owner": "NixOS",
@@ -1467,7 +1441,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_23": {
+    "nixpkgs_21": {
       "locked": {
         "lastModified": 1786599213,
         "narHash": "sha256-yjGG65gA1jORt0hWxjzrnw3AYkIn8EWolp8vezwXZ3I=",
@@ -1481,7 +1455,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_24": {
+    "nixpkgs_22": {
       "locked": {
         "lastModified": 1755615617,
         "narHash": "sha256-HMwfAJBdrr8wXAkbGhtcby1zGFvs+StOp19xNsbqdOg=",
@@ -1653,7 +1627,9 @@
     },
     "noctalia": {
       "inputs": {
-        "nixpkgs": "nixpkgs_17"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1790963528,
@@ -1671,7 +1647,9 @@
     },
     "noctalia-greeter": {
       "inputs": {
-        "nixpkgs": "nixpkgs_18"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1790518002,
@@ -1711,7 +1689,7 @@
     "nr": {
       "inputs": {
         "flake-utils": "flake-utils_6",
-        "nixpkgs": "nixpkgs_19"
+        "nixpkgs": "nixpkgs_17"
       },
       "locked": {
         "lastModified": 1788840285,
@@ -1754,7 +1732,7 @@
     "outl": {
       "inputs": {
         "flake-utils": "flake-utils_7",
-        "nixpkgs": "nixpkgs_20",
+        "nixpkgs": "nixpkgs_18",
         "rust-overlay": "rust-overlay",
         "upstream": "upstream"
       },
@@ -1926,7 +1904,7 @@
     },
     "rust-overlay": {
       "inputs": {
-        "nixpkgs": "nixpkgs_21"
+        "nixpkgs": "nixpkgs_19"
       },
       "locked": {
         "lastModified": 1787713867,
@@ -2016,7 +1994,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_22"
+        "nixpkgs": "nixpkgs_20"
       },
       "locked": {
         "lastModified": 1790498116,
@@ -2275,7 +2253,7 @@
     },
     "tclip": {
       "inputs": {
-        "nixpkgs": "nixpkgs_23",
+        "nixpkgs": "nixpkgs_21",
         "utils": "utils_2"
       },
       "locked": {
@@ -2395,7 +2373,7 @@
     "wifitui": {
       "inputs": {
         "flake-utils": "flake-utils_9",
-        "nixpkgs": "nixpkgs_24"
+        "nixpkgs": "nixpkgs_22"
       },
       "locked": {
         "lastModified": 1784403813,
