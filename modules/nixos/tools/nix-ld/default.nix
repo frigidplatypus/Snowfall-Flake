@@ -38,16 +38,15 @@ in
         libxshmfence
         udev
         alsa-lib
-        xorg.libX11
-        xorg.libxcb
-        xorg.libXcomposite
-        xorg.libXdamage
-        xorg.libXext
-        xorg.libXfixes
-        xorg.libXrandr
-        xorg.libxshmfence
+        libx11
+        libxcb
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxrandr
+        libxshmfence
         mesa
-        mesa.drivers
         libgbm
         freetype
         zlib

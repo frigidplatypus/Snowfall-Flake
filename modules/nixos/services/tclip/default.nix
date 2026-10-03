@@ -20,7 +20,7 @@ in
         If left null you must provide a package via an overlay or set
         this option in your host configuration (recommended: use the
         upstream flake input and set this to
-        inputs.tclip.packages.${config.system}.tclipd).
+        inputs.tclip.packages.${pkgs.stdenv.hostPlatform.system}.tclipd).
       '';
     };
 
@@ -73,7 +73,7 @@ in
         else
           lib.throw (
             "services.tclip.package must be set when enabling the service.\n"
-            + "Set it to e.g. inputs.tclip.packages.${config.system}.tclipd"
+            + "Set it to e.g. inputs.tclip.packages.${pkgs.stdenv.hostPlatform.system}.tclipd"
           );
 
       # Prefer explicit option, otherwise fall back to sops tailscale secret when present
