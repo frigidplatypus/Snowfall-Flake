@@ -51,40 +51,51 @@ with lib.frgd;
   };
 
   environment.systemPackages = with pkgs; [
+    # AI coding / terminal CLIs
+    omp
     herdr
     concord-tui
-    act
-    docker
-    nftables
-    forgejo-cli
-    alacritty
-    lswt
-    waylevel
-    # frgd.numara
-    # devede
-    # dvdstyler
-    # bombono
-    ffmpeg_7-full
-    # xfce.xfburn
-    sleep-on-lan
-    nixos-anywhere
     spec-kit
+    gollama
+
+    # Git / CI
+    act
+    gh
+    forgejo-cli
+
+    # Nix / deployment
+    nixos-anywhere
     disko
     nixos-generators
     deploy-rs
     compose2nix
+    devenv
+    nr
+
+    # Containers / networking
+    docker
+    nftables
+    tg
+
+    # ZFS / backup plumbing
     sanoid
     lzo
     mbuffer
     pv
-    devenv
-    gh
-    tg
-    nr
 
-    #Ollama TUIs
-    gollama
+    # Wayland / desktop / media
+    alacritty
+    lswt
+    waylevel
+    sleep-on-lan
+    ffmpeg_7-full
 
+    # Disabled
+    # frgd.numara
+    # devede
+    # dvdstyler
+    # bombono
+    # xfce.xfburn
   ];
 
   environment.sessionVariables = {
