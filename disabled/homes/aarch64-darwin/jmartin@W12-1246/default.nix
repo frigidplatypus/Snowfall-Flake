@@ -17,7 +17,7 @@ with lib.frgd;
     nerd-fonts.space-mono
     nerd-fonts.sauce-code-pro
     opencode
-    inputs.html-to-markdown.packages.${pkgs.system}.html-to-markdown
+    inputs.html-to-markdown.packages.${pkgs.stdenv.hostPlatform.system}.html-to-markdown
     github-copilot-cli
     gemini-cli
     nh
