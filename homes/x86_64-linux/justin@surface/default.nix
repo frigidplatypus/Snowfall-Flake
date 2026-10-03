@@ -222,6 +222,7 @@ with lib.frgd;
         miniflux_config = enabled;
       };
     };
+    services.cliphist = enabled;
     cli-apps = {
       # pim = {
       #   enable = true;
@@ -336,6 +337,7 @@ with lib.frgd;
     yt-dlp
     udiskie
     omp
+    nodejs
   ];
 
   programs.outl = {
