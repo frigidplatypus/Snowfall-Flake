@@ -27,6 +27,26 @@ in
         ui.toast.delivery = "herdr";
         ui.show_agent_labels_on_pane_borders = true;
         keys.prefix = "ctrl+s";
+        keys.command = [
+          {
+            key = "prefix+i";
+            type = "plugin_action";
+            command = "frigidplatypus.herdr-outl.capture-type";
+            description = "outl: capture to today";
+          }
+          {
+            key = "prefix+t";
+            type = "plugin_action";
+            command = "frigidplatypus.herdr-outl.today";
+            description = "outl: today's journal (toggle)";
+          }
+          {
+            key = "prefix+f";
+            type = "plugin_action";
+            command = "frigidplatypus.herdr-outl.goto";
+            description = "outl: open a page";
+          }
+        ];
       };
     };
   };
