@@ -85,6 +85,10 @@ with lib.frgd;
       "Super+Shift+Return".spawn = [ "${pkgs.firefox}/bin/firefox" ];
       "Super+E".spawn = [ "${pkgs.nautilus}/bin/nautilus" ];
       "Super+Space"."spawn-sh" = "${pkgs.rofi}/bin/rofi -modi 'drun' -show drun";
+      "Super+d".spawn = [ "${pkgs.fuzzel}/bin/fuzzel" ];
+      "Super+Shift+v"."spawn-sh" = "fuzzel-clip";
+      "Super+Shift+c"."spawn-sh" = "fuzzel-calc";
+      "Super+Alt+w"."spawn-sh" = "fuzzel-win";
       "Super+Shift+Q"."close-window" = { };
       "Super+Shift+E"."quit" = { };
       "Super+h"."focus-column-left" = { };
@@ -199,7 +203,10 @@ with lib.frgd;
 
     desktop = {
       niri = enabled;
-      addons.rofi = enabled;
+      addons = {
+        rofi = enabled;
+        fuzzel = enabled;
+      };
     };
     apps = {
       obsidian = enabled;
