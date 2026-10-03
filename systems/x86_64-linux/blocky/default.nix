@@ -188,11 +188,6 @@ in
   #   verbose = true;
   # };
 
-  services.tsidp = {
-    enable = true;
-    environmentFile = config.sops.secrets.tailscale_caddy_env.path;
-  };
-
   frgd = {
     nix = enabled;
     archetypes.lxc = enabled;
