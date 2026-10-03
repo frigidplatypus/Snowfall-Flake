@@ -328,14 +328,13 @@ with lib.frgd;
     ffmpeg
     yt-dlp
     udiskie
+    omp
   ];
 
   programs.outl = {
     enable = true;
     installDesktop = true;
   };
-
-  programs.omp.enable = true;
 
   programs.goToSleep = {
     enable = true;
