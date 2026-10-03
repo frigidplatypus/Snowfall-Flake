@@ -206,10 +206,8 @@
         inputs.sops-nix.homeManagerModules.sops
         inputs.nix-index-database.homeModules.nix-index
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
-        inputs.noctalia.homeModules.default
         inputs.outl.homeManagerModules.default
         inputs.go-to-sleep.homeModules.default
-        inputs.oh-my-pi.homeManagerModules.default
       ];
 
       deploy = lib.mkDeploy { inherit (inputs) self; };
