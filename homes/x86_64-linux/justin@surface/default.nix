@@ -339,7 +339,7 @@ with lib.frgd;
 
   programs.goToSleep = {
     enable = true;
-    package = inputs.go-to-sleep.packages.${pkgs.system}.default;
+    package = inputs.go-to-sleep.packages.${pkgs.stdenv.hostPlatform.system}.default;
     schedules = [
       {
         name = "night";

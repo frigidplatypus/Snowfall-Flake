@@ -26,7 +26,7 @@ in
   config = mkIf cfg.enable {
     sops = {
       age.keyFile =
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "${config.home.homeDirectory}/.config/sops/age/keys.txt"
         else
           "/sops/keys.txt";

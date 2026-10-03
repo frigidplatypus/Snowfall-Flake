@@ -210,7 +210,9 @@ in
             "SUPER,P,pseudo,"
             "SUPER,F,fullscreen"
             "SUPER,R,forcerendererreload"
-            "SUPERSHIFT,L,exec,${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock"
+            "SUPERSHIFT,L,exec,${
+              inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock
+            }/bin/hyprlock"
 
             ",XF86AudioLowerVolume,exec,${pkgs.avizo}/bin/volumectl -u down"
             ",XF86AudioRaiseVolume,exec,${pkgs.avizo}/bin/volumectl -u up"
@@ -266,12 +268,12 @@ in
         general = {
           after_sleep_cmd = "hyprctl dispatch dpms on";
           before_sleep_cmd = "${
-            inputs.hyprlock.packages.${pkgs.system}.hyprlock
+            inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock
           }/bin/hyprlock --immediate-render --no-fade-in";
           # Ignore DBus inhibitors so hypridle can lock/suspend reliably when the lid closes.
           ignore_dbus_inhibit = true;
           lock_cmd = "pidof hyprlock || ${
-            inputs.hyprlock.packages.${pkgs.system}.hyprlock
+            inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock
           }/bin/hyprlock --immediate-render --no-fade-in";
         };
 
@@ -279,7 +281,7 @@ in
           {
             timeout = 120;
             on-timeout = "${
-              inputs.hyprlock.packages.${pkgs.system}.hyprlock
+              inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock
             }/bin/hyprlock --immediate-render --no-fade-in";
           }
           {

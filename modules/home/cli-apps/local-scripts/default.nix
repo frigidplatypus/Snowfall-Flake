@@ -30,7 +30,7 @@ in
         gum
         jq
         curl
-        pkgs.nr  # Go rewrite of nr.sh
+        pkgs.nr # Go rewrite of nr.sh
 
         (writeShellScriptBin "fu" ''
           #!/bin/bash
@@ -45,7 +45,7 @@ in
         '')
       ]
       # Linux-only scripts
-      ++ lib.optionals stdenv.isLinux [
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
         (writeShellScriptBin "fs" ''
           #!/bin/bash
           ${figlet}/bin/figlet $(hostname)
@@ -53,7 +53,7 @@ in
         '')
       ]
       # macOS-only scripts
-      ++ lib.optionals stdenv.isDarwin [
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
         (writeShellScriptBin "ds" ''
            #!/bin/bash
            ${figlet}/bin/figlet $(hostname)

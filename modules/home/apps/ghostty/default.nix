@@ -20,7 +20,7 @@ in
   config = mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = mkIf pkgs.stdenv.isDarwin null;
+      package = mkIf pkgs.stdenv.hostPlatform.isDarwin null;
       enableFishIntegration = true;
       settings = {
         theme = "Gruvbox Dark Hard";

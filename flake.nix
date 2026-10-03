@@ -174,12 +174,12 @@
 
         (final: prev: {
           frgd = (prev.frgd or { }) // {
-            html-to-markdown = inputs.html-to-markdown.packages.${final.system}.html-to-markdown;
+            html-to-markdown = inputs.html-to-markdown.packages.${final.stdenv.hostPlatform.system}.html-to-markdown;
           };
         })
 
         (final: prev: {
-          nr = inputs.nr.packages.${final.system}.default;
+          nr = inputs.nr.packages.${final.stdenv.hostPlatform.system}.default;
         })
       ];
 

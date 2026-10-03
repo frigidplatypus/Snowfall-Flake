@@ -13,7 +13,7 @@ let
   };
   photonSidecarStorePath = "${hermesPackage}/share/hermes-agent/plugins/platforms/photon/sidecar";
   photonSidecarRuntimePath = "/var/lib/hermes/.hermes/photon-sidecar";
-  outl = inputs.outl.packages.${pkgs.system}.outl;
+  outl = inputs.outl.packages.${pkgs.stdenv.hostPlatform.system}.outl;
 in
 {
   imports = [

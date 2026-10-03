@@ -173,7 +173,7 @@ in
       };
     };
     environment.systemPackages = [
-      inputs.wifitui.packages.${pkgs.system}.default
+      inputs.wifitui.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
   };

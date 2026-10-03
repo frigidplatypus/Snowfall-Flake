@@ -66,7 +66,7 @@ with lib.frgd;
       services = {
         tclip = {
           enable = true;
-          package = inputs.tclip.packages.${pkgs.system}.tclipd;
+          package = inputs.tclip.packages.${pkgs.stdenv.hostPlatform.system}.tclipd;
           dataDir = "/var/lib/tclip/data";
           listenPort = 8080;
           useStateDirectory = true;

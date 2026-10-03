@@ -17,8 +17,8 @@ let
 
   cfg = config.frgd.user;
 
-  is-linux = pkgs.stdenv.isLinux;
-  is-darwin = pkgs.stdenv.isDarwin;
+  is-linux = pkgs.stdenv.hostPlatform.isLinux;
+  is-darwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   home-directory =
     if cfg.name == null then

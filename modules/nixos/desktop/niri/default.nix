@@ -34,7 +34,7 @@ in
       environment.systemPackages = with pkgs; [
         xdg-utils
         niriPkg
-        inputs.noctalia.packages.${pkgs.system}.default
+        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
 
       programs.noctalia-greeter = {
