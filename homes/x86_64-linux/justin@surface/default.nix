@@ -343,6 +343,10 @@ with lib.frgd;
   programs.outl = {
     enable = true;
     installDesktop = true;
+    settings = {
+      workspace.last = "~/outl";
+      editor.vimMode = true;
+    };
   };
 
   programs.goToSleep = {
