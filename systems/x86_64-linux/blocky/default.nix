@@ -195,6 +195,6 @@ in
       acme = enabled;
       sops = enabled;
     };
-    virtualization.docker = enabled;
+    # virtualization.docker = enabled;
   };
 }
