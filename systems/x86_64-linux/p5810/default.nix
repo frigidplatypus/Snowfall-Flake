@@ -117,48 +117,6 @@ with lib.frgd;
   boot.zfs.extraPools = [ "storage" ];
 
   sops.secrets.open-webui-environment = { };
-  sops.secrets.CACHIX_AUTH_TOKEN = {
-    owner = "root";
-    mode = "0400";
-  };
-
-  sops.templates."surface-kernel-cache.env" = {
-    owner = config.frgd.user.name;
-    mode = "0400";
-    content = ''
-      CACHIX_AUTH_TOKEN=${config.sops.placeholder.CACHIX_AUTH_TOKEN}
-    '';
-  };
-
-  systemd.services.surface-kernel-cache = {
-    description = "Build Surface kernel cache";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    path = with pkgs; [
-      nix
-      git
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = config.frgd.user.name;
-      WorkingDirectory = "/home/${config.frgd.user.name}/flake";
-      ExecStart = "${pkgs.bash}/bin/sh /home/${config.frgd.user.name}/flake/scripts/build_surface_kernel_cache.sh --host surface";
-      EnvironmentFile = config.sops.templates."surface-kernel-cache.env".path;
-    };
-    environment = {
-      HOME = "/home/${config.frgd.user.name}";
-      XDG_CONFIG_HOME = "/home/${config.frgd.user.name}/.config";
-    };
-  };
-
-  systemd.timers.surface-kernel-cache = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "*-*-* 02:00:00";
-      Persistent = true;
-    };
-  };
-
   frgd = {
     nix = {
       enable = true;

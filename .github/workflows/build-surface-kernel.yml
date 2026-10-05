@@ -55,16 +55,17 @@ jobs:
         run: nix flake update nixpkgs nixos-hardware
 
       - name: Show kernel version
-        run: nix eval $NIX_OVERRIDE_INPUTS --raw .#nixosConfigurations.surface.config.boot.kernelPackages.kernel.version
+        run: |
+          # shellcheck disable=SC2086
+          nix eval $NIX_OVERRIDE_INPUTS --raw .#nixosConfigurations.surface.config.boot.kernelPackages.kernel.version
 
       - name: Build surface kernel
-        run: nix build $NIX_OVERRIDE_INPUTS --out-link result-kernel .#nixosConfigurations.surface.config.system.build.kernel
-
-      - name: Build surface initial ramdisk
-        run: nix build $NIX_OVERRIDE_INPUTS --out-link result-initrd .#nixosConfigurations.surface.config.system.build.initialRamdisk
+        run: |
+          # shellcheck disable=SC2086
+          nix build $NIX_OVERRIDE_INPUTS --out-link result-kernel .#nixosConfigurations.surface.config.system.build.kernel
 
       - name: Push kernel artifacts to Cachix
-        run: cachix push frgd-surface-kernel result-kernel result-initrd
+        run: cachix push frgd-surface-kernel result-kernel
 
       - name: Open flake update PR
         if: github.event_name != 'push'
@@ -76,5 +77,5 @@ jobs:
           body: |
             Updates `nixpkgs` and `nixos-hardware` for the Surface kernel.
 
-            The workflow built the Surface kernel and initrd and pushed them to Cachix before opening this PR.
+            The workflow built the Surface kernel and pushed it to Cachix before opening this PR.
           add-paths: flake.lock
