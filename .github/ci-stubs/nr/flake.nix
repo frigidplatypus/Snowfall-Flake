@@ -6,7 +6,10 @@
       name = "nr-stub";
       system = "x86_64-linux";
       builder = "/bin/sh";
-      args = [ "-c" "mkdir -p $out" ];
+      args = [
+        "-c"
+        "mkdir -p $out"
+      ];
     };
   };
 }

@@ -17,7 +17,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ xvfb-run tigervnc ];
+    environment.systemPackages = with pkgs; [
+      xvfb-run
+      tigervnc
+    ];
 
     systemd.services.xvfb = {
       description = "Virtual Framebuffer X Server";

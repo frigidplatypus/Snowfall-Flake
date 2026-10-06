@@ -71,7 +71,7 @@ with lib.frgd;
   #   adminPasswordFile = config.sops.secrets.brp_admin.path;
   # };
   #
-frgd = {
+  frgd = {
     nix = {
       enable = true;
       github-access-token = enabled;

@@ -2,8 +2,6 @@
 
 [![Built with Snowfall Lib](https://img.shields.io/badge/Snowfall%20Lib-powered-blue)](https://snowfall.org/lib)
 
-Personal NixOS infrastructure flake managing **Justin Martin's homelab** — 24 NixOS hosts, 14 Home Manager configs, and a growing collection of services running across Proxmox LXC containers, bare-metal machines, and VPS instances.
-
 Built on [Snowfall Lib](https://github.com/snowfallorg/lib) for automatic module/package/host discovery, inspired by [Jake Hamilton's config](https://github.com/jakehamilton/config).
 
 ---

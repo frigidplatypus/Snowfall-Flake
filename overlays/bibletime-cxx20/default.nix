@@ -5,8 +5,7 @@
 # forces >=C++20. Drop when nixpkgs merges NixOS/nixpkgs#569398
 # (bibletime 3.2.0) and the pinned nixpkgs includes it.
 { ... }:
-final: prev:
-{
+final: prev: {
   bibletime = prev.bibletime.overrideAttrs (
     finalAttrs: previousAttrs: {
       patches = (previousAttrs.patches or [ ]) ++ [

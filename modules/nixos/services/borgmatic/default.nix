@@ -22,72 +22,74 @@ let
   # Per-repository submodule type — allows per-repo SSH keys, passphrases,
   # directories, and labels while keeping backward compatibility with
   # plain-string repositories.
-  repositoryType = types.submodule ({ config, ... }: {
-    options = {
-      path = mkOption {
-        type = types.str;
-        description = "Repository path, e.g. ssh://user@host/./repo or /mnt/backup/repo.";
-      };
+  repositoryType = types.submodule (
+    { config, ... }: {
+      options = {
+        path = mkOption {
+          type = types.str;
+          description = "Repository path, e.g. ssh://user@host/./repo or /mnt/backup/repo.";
+        };
 
-      label = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "Optional human-readable label. Auto-derived from path if unset.";
-      };
+        label = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = "Optional human-readable label. Auto-derived from path if unset.";
+        };
 
-      directories = mkOption {
-        type = types.nullOr (types.listOf types.str);
-        default = null;
-        description = ''
-          Directories to back up TO THIS REPOSITORY ONLY.
-          Falls back to top-level `directories` if null.
-        '';
-      };
+        directories = mkOption {
+          type = types.nullOr (types.listOf types.str);
+          default = null;
+          description = ''
+            Directories to back up TO THIS REPOSITORY ONLY.
+            Falls back to top-level `directories` if null.
+          '';
+        };
 
-      # SSH key — per-repo override of the global sshKeySecret
-      sshKeySecret = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Name of the sops secret containing the SSH private key for THIS repo.
-          Overrides the top-level sshKeySecret.  The module auto-declares
-          sops.secrets.<name> automatically.
-        '';
-      };
-
-      # SSH command — explicit override per repo
-      sshCommand = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Full SSH command for this repository.
-          Takes precedence over both per-repo sshKeySecret and top-level
-          sshCommand/sshKeySecret.
-        '';
-      };
-
-      # Per-repo encryption passphrase secret
-      encryption = {
-        passphraseSecret = mkOption {
+        # SSH key — per-repo override of the global sshKeySecret
+        sshKeySecret = mkOption {
           type = types.nullOr types.str;
           default = null;
           description = ''
-            Name of the sops secret for this repo's Borg passphrase.
-            Overrides the top-level encryption.passphraseSecret.
+            Name of the sops secret containing the SSH private key for THIS repo.
+            Overrides the top-level sshKeySecret.  The module auto-declares
+            sops.secrets.<name> automatically.
+          '';
+        };
+
+        # SSH command — explicit override per repo
+        sshCommand = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            Full SSH command for this repository.
+            Takes precedence over both per-repo sshKeySecret and top-level
+            sshCommand/sshKeySecret.
+          '';
+        };
+
+        # Per-repo encryption passphrase secret
+        encryption = {
+          passphraseSecret = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              Name of the sops secret for this repo's Borg passphrase.
+              Overrides the top-level encryption.passphraseSecret.
+            '';
+          };
+        };
+
+        encryptionPassCommand = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            Explicit passcommand for this repository.
+            Takes precedence over all other passphrase settings.
           '';
         };
       };
-
-      encryptionPassCommand = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Explicit passcommand for this repository.
-          Takes precedence over all other passphrase settings.
-        '';
-      };
-    };
-  });
+    }
+  );
 
   # Resolve global SSH command: explicit override wins, then derive from sshKeySecret.
   effectiveSshCommand =
@@ -111,24 +113,28 @@ let
   # Note: per-repo ssh_command, encryption_passcommand, and source_directories
   # are NOT included here because nixpkgs' services.borgmatic.settings
   # repository submodule only accepts path + label.
-  effectiveRepositories = map (repo:
-    rec {
-      inherit (repo) path;
+  effectiveRepositories = map (repo: rec {
+    inherit (repo) path;
 
-      # Auto-derive label if not set
-      label = if repo.label or null != null then repo.label
-        else if hasPrefix "ssh://" path then builtins.elemAt (splitString "/" path) 2
-        else baseNameOf path;
-    }
-  ) cfg.repositories;
+    # Auto-derive label if not set
+    label =
+      if repo.label or null != null then
+        repo.label
+      else if hasPrefix "ssh://" path then
+        builtins.elemAt (splitString "/" path) 2
+      else
+        baseNameOf path;
+  }) cfg.repositories;
 
   # Compute Pushover error command when enabled
-  pushoverErrorCmd = lib.optional (cfg.notifications.pushover.enable && cfg.notifications.pushover.onError) {
-    after = "error";
-    run = [
-      ''curl -s -o /dev/null --data-urlencode "token=${lib.escapeShellArg cfg.notifications.pushover.apiToken}" --data-urlencode "user=${lib.escapeShellArg cfg.notifications.pushover.userKey}" --data-urlencode "message=Borg backup FAILED on $(hostname) - check: journalctl -u borgmatic.service -n 50" --data-urlencode "priority=1" --data-urlencode "sound=falling" https://api.pushover.net/1/messages.json''
-    ];
-  };
+  pushoverErrorCmd =
+    lib.optional (cfg.notifications.pushover.enable && cfg.notifications.pushover.onError)
+      {
+        after = "error";
+        run = [
+          ''curl -s -o /dev/null --data-urlencode "token=${lib.escapeShellArg cfg.notifications.pushover.apiToken}" --data-urlencode "user=${lib.escapeShellArg cfg.notifications.pushover.userKey}" --data-urlencode "message=Borg backup FAILED on $(hostname) - check: journalctl -u borgmatic.service -n 50" --data-urlencode "priority=1" --data-urlencode "sound=falling" https://api.pushover.net/1/messages.json''
+        ];
+      };
 
   # Global defaults that apply config-wide (SSH, passphrase, retention, compression, checks, hooks)
   globalDefaults = {
@@ -180,7 +186,10 @@ in
 
     directories = mkOption {
       type = listOf str;
-      default = [ "/var/lib" "/home" ];
+      default = [
+        "/var/lib"
+        "/home"
+      ];
       description = "List of directories to back up.";
       example = [
         "/home"
@@ -206,10 +215,7 @@ in
       '';
       # Normalise plain strings to attrsets so downstream code always
       # works with the structured format.
-      apply = map (repo:
-        if builtins.isString repo then { path = repo; }
-        else repo
-      );
+      apply = map (repo: if builtins.isString repo then { path = repo; } else repo);
     };
 
     # SSH — resolved from a sops secret by default.
@@ -426,20 +432,29 @@ in
       let
         sshSecrets = lib.unique (
           lib.optional (cfg.sshKeySecret != null) cfg.sshKeySecret
-          ++ concatMap (repo: lib.optional (repo.sshKeySecret or null != null) repo.sshKeySecret) cfg.repositories
+          ++ concatMap (
+            repo: lib.optional (repo.sshKeySecret or null != null) repo.sshKeySecret
+          ) cfg.repositories
         );
         passSecrets = lib.unique (
-          lib.optional (cfg.encryption.enable && cfg.encryption.passphraseSecret != null) cfg.encryption.passphraseSecret
-          ++ concatMap (repo: lib.optional (repo.encryption.passphraseSecret or null != null) repo.encryption.passphraseSecret) cfg.repositories
+          lib.optional (
+            cfg.encryption.enable && cfg.encryption.passphraseSecret != null
+          ) cfg.encryption.passphraseSecret
+          ++ concatMap (
+            repo:
+            lib.optional (repo.encryption.passphraseSecret or null != null) repo.encryption.passphraseSecret
+          ) cfg.repositories
         );
       in
-      lib.listToAttrs (map (name: {
-        inherit name;
-        value = {
-          owner = "root";
-          mode = "0400";
-        };
-      }) (sshSecrets ++ passSecrets));
+      lib.listToAttrs (
+        map (name: {
+          inherit name;
+          value = {
+            owner = "root";
+            mode = "0400";
+          };
+        }) (sshSecrets ++ passSecrets)
+      );
 
     services.borgmatic = {
       enable = true;

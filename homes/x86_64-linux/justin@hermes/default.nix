@@ -1,4 +1,10 @@
-{ lib, config, osConfig ? { }, format ? "unknown", ... }:
+{
+  lib,
+  config,
+  osConfig ? { },
+  format ? "unknown",
+  ...
+}:
 with lib;
 with lib.frgd;
 {
