@@ -224,6 +224,7 @@ with lib.frgd;
     };
     services.cliphist = enabled;
     cli-apps = {
+      herdr = enabled;
       # pim = {
       #   enable = true;
       #   accounts = {
