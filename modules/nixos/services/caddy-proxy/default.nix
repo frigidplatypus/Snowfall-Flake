@@ -24,6 +24,14 @@ in
 
         backendAddress = mkOpt str "" "Backend address to proxy to (e.g., 'http://localhost:3000').";
 
+        webRoot =
+          mkOpt (nullOr (either path str)) null
+            "Store path (e.g. a package output) served as static site root. When set, only proxyPaths go to the backend.";
+
+        proxyPaths =
+          mkOpt (listOf str) [ ]
+            "Path matchers (e.g. '/api/*') reverse-proxied to backendAddress when webRoot is set.";
+
         useTailnet = mkBoolOpt false "Whether this host uses Tailscale (sets up environment file).";
 
         extraConfig =
@@ -65,6 +73,7 @@ in
             inherit hostname;
             backend = h.backendAddress;
             extra = h.extraConfig;
+            inherit (h) webRoot proxyPaths;
             useTailnet = autoUseTailnet;
           };
         }
@@ -74,9 +83,27 @@ in
         map (h: {
           name = h.value.hostname;
           value = {
-            extraConfig = ''
-              encode gzip
-              ${optionalString (h.value.extra != "") "${h.value.extra}\n"}reverse_proxy ${h.value.backend}'';
+            # Static-site mode: only proxyPaths hit the backend; everything
+            # else is served from webRoot with SPA fallback.
+            extraConfig =
+              if h.value.webRoot != null then
+                ''
+                  encode gzip
+                  ${optionalString (h.value.extra != "") "${h.value.extra}\n"}${
+                    concatStringsSep "\n" (
+                      map (p: "handle ${p} {\n  reverse_proxy ${h.value.backend}\n}") h.value.proxyPaths
+                    )
+                  }
+                  handle {
+                    root * ${h.value.webRoot}
+                    try_files {path} /index.html
+                    file_server
+                  }
+                ''
+              else
+                ''
+                  encode gzip
+                  ${optionalString (h.value.extra != "") "${h.value.extra}\n"}reverse_proxy ${h.value.backend}'';
           };
         }) hostList
       );
