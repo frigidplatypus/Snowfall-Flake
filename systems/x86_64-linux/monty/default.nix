@@ -85,6 +85,8 @@ in
     procs
     bandwhich
     nodejs
+    ffmpeg
+    ripgrep
   ];
 
   sops.secrets.monty_env = {
@@ -203,6 +205,7 @@ in
         curl
         dejavu_fonts
         ffmpeg
+        ripgrep
         fluxbox
         forgejo-cli
         gh
