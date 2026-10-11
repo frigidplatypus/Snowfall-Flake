@@ -20,14 +20,14 @@ with lib.frgd;
     ];
   };
 
-  # Off-network backup DNS resolver: tailnet clients keep resolving when the
-  # home network is down (AGH is LAN-only). Mirrors the `blocky` host config
-  # minus LAN-only parts: no Proxmox LXC import, no router rDNS upstream, no
-  # caddy-proxy/acme. Bound to the tailnet addresses only (blocky 0.35 has no
-  # `interfaces` key — binding is by IP:port), so the public interface never
-  # answers DNS; the
-  # frgd tailscale module's trustedInterfaces rule already admits :53 from
-  # the tailnet, nothing is added to the public firewall.
+  # Sole blocky: tailnet DNS resolver for all clients (former `blocky` LAN
+  # host retired to here). AGH stays LAN-only. Bound to the tailnet addresses
+  # only (blocky 0.35 has no `interfaces` key — binding is by IP:port), so the
+  # public interface never answers DNS; the frgd tailscale module's
+  # trustedInterfaces rule already admits :53 from the tailnet, nothing is
+  # added to the public firewall. Visor dashboard is served over
+  # visor.fluffy-rooster.ts.net via caddy-proxy (tailnet-only, no public
+  # exposure).
   services.blocky = {
     enable = true;
 
@@ -116,6 +116,11 @@ with lib.frgd;
         "images.bing.com" = "150.171.28.16,150.171.27.16"; # 301 via strict edge
         "video.bing.com" = "150.171.28.16,150.171.27.16";
         "duckduckgo.com" = "40.89.244.237"; # safe.duckduckgo.com
+
+        # Visor dashboard (this host). ts.net name so it resolves even for
+        # clients querying this resolver directly; MagicDNS covers tailnet
+        # devices anyway.
+        "visor.fluffy-rooster.ts.net" = "100.115.4.41";
       };
 
       hostsFile.sources = [ "/etc/hosts" ];
@@ -258,6 +263,22 @@ with lib.frgd;
     services = {
       openssh = enabled;
       tailscale = enabled;
+      # Visor dashboard, tailnet-only vhost: caddy auto-HTTPS via the
+      # tailscale cert issuer (same pattern as the dns host's ts.net vhost),
+      # so zero public exposure. webRoot serves the SPA; blocky API/metrics
+      # proxied from the loopback http listener.
+      caddy-proxy = {
+        enable = true;
+        hosts.visor = {
+          tailnetHostname = "visor.${tailnet}";
+          backendAddress = "http://127.0.0.1:8080";
+          webRoot = pkgs.frgd.blocky-visor;
+          proxyPaths = [
+            "/api/*"
+            "/metrics"
+          ];
+        };
+      };
       # mealie = enabled;
       matrix-synapse = disabled;
       borgmatic = {
