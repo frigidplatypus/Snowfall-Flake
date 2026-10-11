@@ -99,6 +99,23 @@ with lib.frgd;
         "ha.wc-12.com" = "100.99.237.24";
         "romm.frgd.us" = "192.168.0.6";
         "ollama.frgd.us" = "100.105.94.91";
+
+        # Safe-search enforcement (ISP redirect technique): pin search hosts
+        # to the provider's safe-search VIP. A-only — AAAA returns NODATA,
+        # clients fall back to IPv4. Keys match domain + subdomains, so Google
+        # keys are host-specific: a `google.com` key would catch
+        # mail/drive/accounts and break them (VIP serves search only).
+        # Bing edge IPs rotate; refresh from `host strict.bing.com` if Bing
+        # search starts erroring. DuckDuckGo pin is Azure-backed, can change.
+        # YouTube/Yahoo have none (verified NXDOMAIN, 2026-10). Brave/Qwant
+        # endpoints exist but serve unfiltered results anyway (verified live);
+        # Startpage's safe host refuses connections. Not DNS-enforceable.
+        "www.google.com" = "216.239.38.120"; # forcesafesearch.google.com
+        "images.google.com" = "216.239.38.120";
+        "www.bing.com" = "150.171.28.16,150.171.27.16"; # strict.bing.com edge
+        "images.bing.com" = "150.171.28.16,150.171.27.16"; # 301 via strict edge
+        "video.bing.com" = "150.171.28.16,150.171.27.16";
+        "duckduckgo.com" = "40.89.244.237"; # safe.duckduckgo.com
       };
 
       hostsFile.sources = [ "/etc/hosts" ];
@@ -122,11 +139,22 @@ with lib.frgd;
             "https://adguardteam.github.io/HostlistsRegistry/assets/filter_39.txt" # Dandelion Sprout's Anti Push Notifications
             "https://adguardteam.github.io/HostlistsRegistry/assets/filter_7.txt" # Perflyst + Dandelion Sprout's Smart-TV Blocklist
           ];
+          # SearXNG/Searx instances: unfiltered metasearch proxies that
+          # bypass the SafeSearch pins above (they query Google/Bing with
+          # safe_search=off). Static list + regex catching future instances;
+          # refresh command in assets/searxng-instances.txt header.
+          searxng = [
+            # trailing regex catches future searx*/searxng.* instances; blocky
+            # only parses an entry as inline content when it contains newlines,
+            # so it must ride inside the readFile string.
+            ((builtins.readFile ../../../assets/searxng-instances.txt) + "\n/^searx[a-z0-9.-]+$/\n")
+          ];
         };
 
         clientGroupsBlock.default = [
           "security"
           "ads"
+          "searxng"
         ];
 
         blockType = "refused"; # parity with AGH blocking_mode: refused
