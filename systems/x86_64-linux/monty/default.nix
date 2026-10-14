@@ -201,6 +201,7 @@ in
       extraPackages = with pkgs; [
         chromium
         curl
+        dejavu_fonts
         ffmpeg
         fluxbox
         forgejo-cli
@@ -214,6 +215,18 @@ in
         uv
         x11vnc
         xauth
+        # Bot Screen (Hermes per-bot headless Xfce desktop): Xfce core + X11 utils.
+        # Xvnc + dbus-run-session already reach the service via frgd.tools.xvfb / system PATH.
+        xfce.xfconf
+        xfce.xfce4-panel
+        xfce.xfce4-settings
+        xfce.xfce4-terminal
+        xfce.xfdesktop
+        xfce.xfwm4
+        xorg.setxkbmap
+        xorg.xprop
+        xorg.xset
+        xorg.xsetroot
         xorg.xdpyinfo
         xorg.xhost
       ];
