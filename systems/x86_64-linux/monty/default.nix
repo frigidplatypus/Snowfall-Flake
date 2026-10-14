@@ -425,6 +425,7 @@ in
           enable = true;
         };
       };
+      syncthing = enabled;
       borgmatic = {
         enable = true;
         autoInit.enable = true;
