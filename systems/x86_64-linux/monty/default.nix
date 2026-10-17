@@ -40,6 +40,17 @@ in
   # so the agent can run privileged commands via sudo.
   systemd.services.hermes-agent.serviceConfig.NoNewPrivileges = lib.mkForce false;
   systemd.services.hermes-agent.serviceConfig.TimeoutStopSec = 210;
+  # Memory guardrail for the gateway + every child MCP server + browser it
+  # spawns (all live in this cgroup). Unbounded, they accumulate past ~6GB
+  # over a day and OOM-kill the gateway, taking the whole 7.6Gi box down —
+  # the recurring "unresponsive at night". With the cap the kernel OOMs a
+  # child *inside* this cgroup and Restart=always brings the gateway back in
+  # ~5s; the rest of the box stays up. (Root fix is stopping the
+  # accumulation — browsers/MCPs not reaped on session end — tracked
+  # separately.)
+  systemd.services.hermes-agent.serviceConfig.MemoryHigh = "4G";
+  systemd.services.hermes-agent.serviceConfig.MemoryMax = "5G";
+  systemd.services.hermes-agent.serviceConfig.MemorySwapMax = "2G";
   systemd.services.hermes-agent.environment.DISPLAY = ":99";
   systemd.services.hermes-agent.environment.HERMES_HOME = "/var/lib/hermes/.hermes";
   # The packaged Photon sidecar lives in the read-only Nix store. Materialize
