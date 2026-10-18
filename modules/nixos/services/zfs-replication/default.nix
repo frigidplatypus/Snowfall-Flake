@@ -10,20 +10,14 @@ with lib;
 with lib.frgd;
 let
   cfg = config.frgd.services.zfs-replication;
+  # When Tailscale is enabled on the host, syncoid authenticates over the
+  # tailnet (Tailscale SSH), so no explicit key is needed. Otherwise fall
+  # back to the configured SSH key.
   useSshKey = key: if config.services.tailscale.enable then null else key;
 in
 {
   options.frgd.services.zfs-replication = with types; {
     enable = mkBoolOpt false "Whether or not to enable ZFS replication.";
-
-    datasets = mkOpt (attrsOf (submodule {
-      options = {
-        source = mkOpt str "" "Source dataset.";
-        target = mkOpt str "" "Target dataset (user@host:pool/dataset).";
-        recursive = mkBoolOpt true "Whether to replicate recursively.";
-        template = mkOpt str "default" "Sanoid template to use for snapshots.";
-      };
-    })) { } "ZFS datasets to replicate with sanoid snapshots and syncoid replication.";
 
     sanoid = {
       enable = mkBoolOpt true "Whether or not to enable sanoid snapshots.";
@@ -34,26 +28,24 @@ in
 
       datasets =
         mkOpt (attrsOf str) { }
-          "Dataset-specific sanoid configurations (values are template names, e.g., { zroot = \"default\"; }).";
+          "Datasets to snapshot (name -> template). Snapshots are taken recursively, so a parent template also covers child datasets.";
     };
 
     syncoid = {
       enable = mkBoolOpt false "Whether or not to enable syncoid replications.";
 
-      interval = mkOpt str "daily" "Schedule for syncoid runs.";
+      interval = mkOpt str "daily" "Schedule for syncoid runs (systemd.time(7)).";
 
-      user = mkOpt str "root" "User to run syncoid as.";
-
-      sshKey = mkOpt (nullOr str) null "Global SSH key.";
+      sshKey = mkOpt (nullOr str) null "Global SSH key (ignored when Tailscale is enabled).";
 
       commands = mkOpt (attrsOf (submodule {
         options = {
           source = mkOpt str "" "Source dataset.";
-          target = mkOpt str "" "Target dataset.";
+          target = mkOpt str "" "Target dataset (user@host:pool/dataset).";
           recursive = mkBoolOpt true "Whether to replicate recursively.";
-          sshKey = mkOpt (nullOr str) null "SSH key for this command.";
+          sshKey = mkOpt (nullOr str) null "SSH key for this command (defaults to global).";
         };
-      })) { } "Syncoid commands.";
+      })) { } "Syncoid replication commands (name -> { source, target, recursive }).";
     };
   };
 
@@ -64,38 +56,34 @@ in
       lzop
       mbuffer
       pv
-      curl
     ];
 
-    # Generate sanoid configuration from datasets
+    # Local snapshot policy.
     services.sanoid = {
-      enable = true;
+      enable = cfg.sanoid.enable;
       templates = cfg.sanoid.templates;
-      datasets = lib.mapAttrs' (name: dataset: {
-        name = dataset.source;
-        value = {
-          template = dataset.template;
-        };
-      }) cfg.datasets;
+      datasets = lib.mapAttrs (dataset: template: {
+        use_template = [ template ];
+        recursive = true;
+      }) cfg.sanoid.datasets;
     };
 
-    # Generate syncoid configuration from datasets
+    # Push snapshots to remote targets.
     services.syncoid = {
-      enable = true;
+      enable = cfg.syncoid.enable;
       interval = cfg.syncoid.interval;
-      user = "root"; # Run as root to have ZFS permissions, use SSH key for remote auth
+      # Run as root to avoid per-dataset `zfs allow` delegation on the
+      # source; remote auth is via Tailscale SSH (or the configured key).
+      user = "root";
       sshKey = useSshKey cfg.syncoid.sshKey;
-      commonArgs = [ "--no-sync-snap" ]; # Use sanoid snapshots instead of creating syncoid snapshots
-      commands = lib.mapAttrs' (name: dataset: {
-        name = name;
-        value = {
-          source = dataset.source;
-          target = dataset.target;
-          recursive = dataset.recursive;
-          sshKey = cfg.syncoid.sshKey;
-        };
-      }) cfg.datasets;
+      # Reuse sanoid's snapshots instead of creating throwaway sync snaps.
+      commonArgs = [ "--no-sync-snap" ];
+      commands = lib.mapAttrs (name: c: {
+        source = c.source;
+        target = c.target;
+        recursive = c.recursive;
+        sshKey = useSshKey c.sshKey;
+      }) cfg.syncoid.commands;
     };
   };
-
 }

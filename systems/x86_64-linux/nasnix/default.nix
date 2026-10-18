@@ -76,7 +76,6 @@ with lib.frgd;
         };
       };
       tailscale.autoconnect = enabled;
-      nix-serve = enabled;
       netdata = enabled;
       samba = {
         enable = true;

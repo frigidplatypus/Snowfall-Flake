@@ -132,6 +132,7 @@ with lib.frgd;
       beszel-agent = enabled;
 
       zfs-replication = {
+        enable = true;
         sanoid = {
           templates = {
             default = {
@@ -143,32 +144,42 @@ with lib.frgd;
               autoprune = true;
             };
           };
+          # storage minus ROMs; recursive so children are snapshotted too.
           datasets = {
+            "storage/photos" = "default";
+            "storage/home_justin" = "default";
+            "storage/family_share" = "default";
+            "storage/development" = "default";
+            "storage/notes" = "default";
             "zroot/var/lib" = "default";
-            "zroot/var/lib/libvirt" = "default";
-            "zhome/home_justin" = "default";
-            "zhome/home_justin/flake" = "default";
-            "zhome/home_justin/development" = "default";
-            "zhome/home_justin/notes" = "default";
           };
         };
         syncoid = {
           enable = true;
           commands = {
-            var_lib = {
-              source = "zroot/var/lib";
-              target = "root@dads-pve:zroot/var/lib";
-              recursive = true;
-            };
-            libvirt = {
-              source = "zroot/var/lib/libvirt";
-              target = "root@dads-pve:zroot/var/lib/libvirt";
-              recursive = true;
+            photos = {
+              source = "storage/photos";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/p5810/photos";
             };
             home_justin = {
-              source = "zhome/home_justin";
-              target = "root@dads-pve:zroot/home_justin";
-              recursive = true;
+              source = "storage/home_justin";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/p5810/home_justin";
+            };
+            family_share = {
+              source = "storage/family_share";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/p5810/family_share";
+            };
+            development = {
+              source = "storage/development";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/p5810/development";
+            };
+            notes = {
+              source = "storage/notes";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/p5810/notes";
+            };
+            var_lib = {
+              source = "zroot/var/lib";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/p5810/var_lib";
             };
           };
         };
