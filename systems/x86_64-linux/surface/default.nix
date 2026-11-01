@@ -77,6 +77,9 @@ with lib.frgd;
   ];
 
   frgd = {
+    # Remote desktop — p5810 has no SSH access. Build locally, pull the
+    # config from the result symlink.
+    nr.command = "build";
     # apps.logseq = enabled;
     nix = {
       enable = true;
@@ -102,6 +105,36 @@ with lib.frgd;
     apps = {
       signal = enabled;
       steam = enabled;
+    };
+
+    services = {
+      zfs-replication = {
+        enable = true;
+        sanoid = {
+          templates = {
+            default = {
+              hourly = 24;
+              daily = 7;
+              monthly = 12;
+              yearly = 1;
+              autosnap = true;
+              autoprune = true;
+            };
+          };
+          datasets = {
+            "zroot/home_justin" = "default";
+          };
+        };
+        syncoid = {
+          enable = true;
+          commands = {
+            home_justin = {
+              source = "zroot/home_justin";
+              target = "root@nasnix.fluffy-rooster.ts.net:storage/backups/surface/home_justin";
+            };
+          };
+        };
+      };
     };
     security = {
       sops = {
