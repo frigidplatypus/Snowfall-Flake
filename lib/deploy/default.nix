@@ -29,6 +29,8 @@ in
       excludedHosts = [
         "p5810"
         "t480"
+        # nspawn guest on p5810; not a deploy target
+        "hermes"
       ];
       # names = builtins.attrNames hosts;
       names = builtins.filter (name: !(builtins.elem name excludedHosts)) (builtins.attrNames hosts);

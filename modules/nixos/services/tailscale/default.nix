@@ -35,14 +35,11 @@ in
       ];
     };
 
-    systemd.services.tailscale = {
+    # Override the tailscaled unit (with d) created by services.tailscale.enable.
+    # A bare `systemd.services.tailscale` would create a new invalid unit
+    # (no ExecStart) that systemd rejects at boot.
+    systemd.services.tailscaled = {
       restartIfChanged = false;
-      # You can also add other systemd service options here if needed,
-      # but for preventing restarts, this is the main one.
-      # Example of other options (usually not needed to specify if 'services.tailscale.enable' is true):
-      # description = "Tailscale node agent";
-      # wantedBy = [ "multi-user.target" ];
-      # serviceConfig.ExecStart = "${pkgs.tailscale}/bin/tailscaled";
     };
     services.tailscaleAuth = mkIf cfg.tailscaleAuth.enable {
       enable = true;
