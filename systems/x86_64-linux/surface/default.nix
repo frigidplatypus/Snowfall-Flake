@@ -36,6 +36,13 @@ with lib.frgd;
   services.gvfs.enable = true;
   services.zram-generator = enabled;
   hardware.xpadneo = enabled;
+
+  # Grant the user read-write access to the iPod (05ac:1261) so QEMU's
+  # usb-host passthrough (iPod Clickwheel Games Preservation Project) can
+  # grab it without a setuid helper or per-run sudo.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="05ac", ATTR{idProduct}=="1261", MODE="0660", GROUP="users"
+  '';
   boot.zfs.forceImportRoot = true;
   fonts.fontconfig.enable = true;
   services.upower = enabled;
