@@ -344,7 +344,9 @@ with lib.frgd;
 
   programs.outl = {
     enable = true;
-    installDesktop = true;
+    # Desktop disabled: outl's `outl-desktop`(-dev) builds reference
+    # `openssl_3`, removed from nixpkgs as EOL (2026-09-17).
+    installDesktop = false;
     settings = {
       workspace.last = "~/outl";
       editor.vimMode = true;
