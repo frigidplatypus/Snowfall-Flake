@@ -339,6 +339,7 @@ with lib.frgd;
     udiskie
     omp
     nodejs
+    dusklight
   ];
 
   programs.outl = {

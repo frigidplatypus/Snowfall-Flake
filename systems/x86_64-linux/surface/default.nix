@@ -59,7 +59,6 @@ with lib.frgd;
     gh
     rclone
     nil
-    bibletime
     mcp-nixos
     wtfutil
     acpi
