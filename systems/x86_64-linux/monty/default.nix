@@ -206,6 +206,16 @@ in
     hermes-agent = {
       enable = true;
       addToSystemPackages = true;
+      # Stamp a real release version into install-stamp.json. The upstream flake
+      # defaults to version = "0.0.0" (pyproject dynamic versioning), which makes
+      # plugin requires_hermes gates fail (homeassistant needs >=0.21.5) even
+      # though the pinned rev is newer than the last release tag.
+      # Bump both values when updating the hermes input: <last release tag at
+      # pin time>, <commits the pin is ahead of that tag>.
+      package = inputs.hermes.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+        version = "0.22.5";
+        distance = 3271;
+      };
       extraDependencyGroups = [
         "firecrawl"
         "messaging"
