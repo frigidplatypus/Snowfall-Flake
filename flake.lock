@@ -33,6 +33,26 @@
         "type": "github"
       }
     },
+    "bedrock-on-linux": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793285585,
+        "narHash": "sha256-LyMu1mF9GmwWbVonTZDDiqTv667a4eFajsG1M8bzzDc=",
+        "owner": "Wyze3306",
+        "repo": "BedrockOnLinux",
+        "rev": "cc6ac3235bfbbf9d05fe6870b09ef71e7f1a4f52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Wyze3306",
+        "repo": "BedrockOnLinux",
+        "type": "github"
+      }
+    },
     "caveman": {
       "flake": false,
       "locked": {
@@ -1871,6 +1891,7 @@
     },
     "root": {
       "inputs": {
+        "bedrock-on-linux": "bedrock-on-linux",
         "caveman": "caveman",
         "deploy-rs": "deploy-rs",
         "determinate": "determinate",

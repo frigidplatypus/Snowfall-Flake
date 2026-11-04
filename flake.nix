@@ -127,6 +127,11 @@
       flake = false;
     };
 
+    bedrock-on-linux = {
+      url = "github:Wyze3306/BedrockOnLinux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -232,6 +237,15 @@
 
       systems.hosts.surface.modules = [
         inputs.nixos-hardware.nixosModules.microsoft-surface-common
+
+        (
+          { config, pkgs, ... }:
+          {
+            environment.systemPackages = [
+              inputs.bedrock-on-linux.packages.x86_64-linux.default
+            ];
+          }
+        )
 
         # Enable Determinate on this host. This is a minimal module that sets
         # the determinate.enable option to true. If you want to customize more
