@@ -39,9 +39,11 @@ in
     programs = {
       rofi = {
         enable = true;
-        terminal = "${pkgs.foot}/bin/footclient";
-        location = "center";
-        font = "${font-mono} 12";
+        settings = {
+          terminal = "${pkgs.foot}/bin/footclient";
+          location = 0; # center
+          font = "${font-mono} 12";
+        };
         plugins = with pkgs; [
           rofi-power-menu
           rofi-bluetooth

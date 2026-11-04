@@ -97,7 +97,9 @@ in
       '';
     };
     settings = mkOpt attrs { } "Extra OpenCode JSON settings, merged over shared defaults.";
-    tui = mkOpt attrs { } "Extra OpenCode TUI settings (tui.json), merged over shared defaults.";
+    cli =
+      mkOpt attrs { }
+        "Extra OpenCode terminal-client settings (cli.json), merged over shared defaults.";
     defaultModel =
       mkOpt types.str "yolo-auto/qwen3.8-27b"
         "Default model (provider/model id) opencode starts with.";
@@ -152,6 +154,7 @@ in
           permission.bash = bashPermissions;
           command = sharedCommands;
           model = cfg.defaultModel;
+          plugin = [ "./herdr-tui-session.js" ];
         }
         (mkIf cfg.provider.enable {
           provider.yolo-auto = {
@@ -180,12 +183,11 @@ in
         cfg.settings
       ];
 
-      tui = mkMerge [
+      cli = mkMerge [
         {
-          theme = "gruvbox";
-          plugin = [ "./herdr-tui-session.js" ];
+          theme.name = "gruvbox";
         }
-        cfg.tui
+        cfg.cli
       ];
 
       commands = {
@@ -216,10 +218,10 @@ in
         source = ./plugins/herdr-tui-session.js;
         force = true;
       };
-      # opencode.json and tui.json are created by programs.opencode; these
+      # opencode.json and cli.json are created by programs.opencode; these
       # entries merge in `force` without disturbing their generated `source`.
       "opencode/opencode.json".force = true;
-      "opencode/tui.json".force = true;
+      "opencode/cli.json".force = true;
     };
 
     # The caveman-proxy only auto-mounts known providers (anthropic, openai,

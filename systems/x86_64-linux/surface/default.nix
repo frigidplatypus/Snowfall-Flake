@@ -8,7 +8,7 @@
 with lib;
 with lib.frgd;
 {
-
+  nixpkgs.config.problems.handlers."gtk+".broken = "warn";
   nixpkgs.overlays = [
     (final: prev: {
       python3Packages = prev.python3Packages.overrideScope (
