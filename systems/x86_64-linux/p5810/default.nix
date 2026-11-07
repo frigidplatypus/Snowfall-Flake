@@ -181,6 +181,7 @@ with lib.frgd;
     waylevel
     sleep-on-lan
     ffmpeg_7-full
+    inputs.wimpysworld-nix-packages.packages.${system}.tailor
 
     # Disabled
     # frgd.numara

@@ -122,6 +122,11 @@
       url = "git+https://git.fluffy-rooster.ts.net/FRGD/go-to-sleep";
     };
 
+    wimpysworld-nix-packages = {
+      url = "github:wimpysworld/nix-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     caveman = {
       url = "github:JuliusBrussee/caveman";
       flake = false;

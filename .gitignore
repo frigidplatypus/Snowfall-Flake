@@ -5,3 +5,4 @@ result*
 keys.txt
 .outputs.txt
 deployment
+.direnv/
