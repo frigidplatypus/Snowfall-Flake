@@ -1,6 +1,7 @@
 # shellHook companion consumed by the devshell (shells/default/default.nix).
 # Tailor-managed: defines helper functions only; keep the devshell's own
-# overrides last. Drop hooks/<lang>.nix files exporting shell code to extend.
+# overrides last. hooks/core.nix and hooks/<lang>.nix are Tailor-authored
+# drop-ins; keep this import list in sync with the files Tailor maintains.
 { pkgs, ... }:
 ''
   tailor_nixos_drivers() {
@@ -27,8 +28,11 @@
     export "$name"
   }
 ''
-+ builtins.concatStringsSep "\n" [
-  (if builtins.pathExists ./hooks/go.nix then import ./hooks/go.nix { inherit pkgs; } else "")
-  (if builtins.pathExists ./hooks/python.nix then import ./hooks/python.nix { inherit pkgs; } else "")
-  (if builtins.pathExists ./hooks/rust.nix then import ./hooks/rust.nix { inherit pkgs; } else "")
-]
++ builtins.concatStringsSep "\n" (
+  [ (import ./hooks/core.nix { inherit pkgs; }) ]
+  ++ map (n: if builtins.pathExists n then import n { inherit pkgs; } else "") [
+    ./hooks/go.nix
+    ./hooks/python.nix
+    ./hooks/rust.nix
+  ]
+)
