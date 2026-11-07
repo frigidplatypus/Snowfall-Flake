@@ -1,3 +1,4 @@
+# Managed by Tailor: nix/hooks.nix
 # shellHook companion consumed by the devshell (shells/default/default.nix).
 # Tailor-managed: defines helper functions only; keep the devshell's own
 # overrides last. hooks/core.nix and hooks/<lang>.nix are Tailor-authored

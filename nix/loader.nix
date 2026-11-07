@@ -1,3 +1,4 @@
+# Managed by Tailor: nix/loader.nix
 # Package loader consumed by the devshell (shells/default/default.nix).
 # Tailor-managed companion: drop a nix/<lang>.nix exporting a package list
 # (go.nix, python.nix, rust.nix, ...) and the devshell picks it up.

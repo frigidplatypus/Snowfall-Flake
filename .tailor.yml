@@ -133,26 +133,26 @@ pages:
   generator: static
   path: pages
   links:
-    website: https://wimpys.world/
+    website: ""
     forum: ""
     x: ""
-    bluesky: https://bsky.app/profile/wimpys.world
-    mastodon: "https://wimpysworld.social/@martin"
-    linkedin: https://linkedin.com/in/martinwimpress
+    bluesky: ""
+    mastodon: ""
+    linkedin: ""
     slack: ""
-    discord: https://discord.com/invite/vUsydfP
-    matrix: "https://matrix.to/#/@wimpress:matrix.org"
-    youtube: https://youtube.com/WimpysWorld
-    twitch: https://twitch.tv/WimpysWorld
+    discord: ""
+    matrix: ""
+    youtube: ""
+    twitch: ""
     peertube: ""
     tiktok: ""
-    podcast: https://linuxmatters.sh
+    podcast: ""
     instagram: ""
     pixelfed: ""
-    steam: https://steamcommunity.com/id/wimpress/
-    itchio: https://wimpress.itch.io/
+    steam: ""
+    itchio: ""
     patreon: ""
-    github_sponsors: https://github.com/sponsors/flexiondotorg
+    github_sponsors: ""
     kofi: ""
     email: ""
     feed: ""
