@@ -479,6 +479,24 @@
         "type": "github"
       }
     },
+    "flake-utils_10": {
+      "inputs": {
+        "systems": "systems_16"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "flake-utils_2": {
       "inputs": {
         "systems": "systems_4"
@@ -607,7 +625,7 @@
     },
     "flake-utils_9": {
       "inputs": {
-        "systems": "systems_15"
+        "systems": "systems_14"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -1896,6 +1914,7 @@
         "outl": "outl",
         "snowfall-lib": "snowfall-lib_3",
         "sops-nix": "sops-nix",
+        "sparkyfitness": "sparkyfitness",
         "stable-nixpkgs": "stable-nixpkgs",
         "tclip": "tclip",
         "wifitui": "wifitui",
@@ -2010,6 +2029,27 @@
         "type": "github"
       }
     },
+    "sparkyfitness": {
+      "inputs": {
+        "flake-utils": "flake-utils_9",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794107960,
+        "narHash": "sha256-YxjynRp2HXYUL6lF0qCPDa8o38PoAW60oKL6oJH2kx8=",
+        "owner": "CodeWithCJ",
+        "repo": "SparkyFitness",
+        "rev": "df04df5ba8b97c0a3f770c4081087de51bfc35c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CodeWithCJ",
+        "repo": "SparkyFitness",
+        "type": "github"
+      }
+    },
     "stable-nixpkgs": {
       "locked": {
         "lastModified": 1793865203,
@@ -2115,6 +2155,21 @@
       }
     },
     "systems_15": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_16": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -2329,7 +2384,7 @@
     },
     "utils_2": {
       "inputs": {
-        "systems": "systems_14"
+        "systems": "systems_15"
       },
       "locked": {
         "lastModified": 1791914995,
@@ -2372,7 +2427,7 @@
     },
     "wifitui": {
       "inputs": {
-        "flake-utils": "flake-utils_9",
+        "flake-utils": "flake-utils_10",
         "nixpkgs": "nixpkgs_22"
       },
       "locked": {
