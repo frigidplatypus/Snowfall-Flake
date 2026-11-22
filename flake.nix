@@ -114,8 +114,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # TelltaleDNS: fork of paimonsoror/telltaledns carrying the NixOS module
+    # + flake (nixosModules.telltale, overlay telltale). Source build against
+    # its own nixpkgs pin; racknerd consumes module + package from here.
+    telltale = {
+      url = "github:frigidplatypus/telltaledns";
+    };
+
     outl = {
-      url = "github:frigidplatypus/outl/experimental";
+      url = "github:outlmd/outl";
     };
 
     go-to-sleep = {

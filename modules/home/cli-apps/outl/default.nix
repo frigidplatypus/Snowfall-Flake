@@ -16,14 +16,10 @@ in
   # Applies to every home that enables `programs.outl`; `mkDefault` keeps
   # per-host overrides winning without `force`.
   config = mkIf config.programs.outl.enable {
-    # The flake's own `outl` default builds the *upstream* release even
-    # when the input points at a fork branch; `outl-dev` builds this
-    # flake's pinned ref (here: frigidplatypus/outl experimental).
-    # `outl-desktop-dev` is deliberately NOT defaulted: its build lists
-    # `openssl_3`, which nixpkgs removed as EOL (2026-09-17), so it only
-    # evaluates against outl's own older nixpkgs pin. Enable it explicitly
-    # per-host once outl fixes that.
-    programs.outl.package = mkDefault outlPackages.outl-dev;
+    # Upstream outlmd/outl ships the flake from #357: `outl` is the
+    # release build of the pinned rev (the fork's `outl-dev` attr died
+    # with the switch away from frigidplatypus/outl/experimental).
+    programs.outl.package = mkDefault outlPackages.outl;
     programs.outl.settings = {
       tui.icons = mkDefault "nerd-font";
       # mode "dark" pins the desktop client too; the TUI renders presetDark regardless.
