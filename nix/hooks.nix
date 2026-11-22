@@ -1,8 +1,4 @@
 # Managed by Tailor: nix/hooks.nix
-# shellHook companion consumed by the devshell (shells/default/default.nix).
-# Tailor-managed: defines helper functions only; keep the devshell's own
-# overrides last. hooks/core.nix and hooks/<lang>.nix are Tailor-authored
-# drop-ins; keep this import list in sync with the files Tailor maintains.
 { pkgs, ... }:
 ''
   tailor_nixos_drivers() {
@@ -29,11 +25,19 @@
     export "$name"
   }
 ''
-+ builtins.concatStringsSep "\n" (
-  [ (import ./hooks/core.nix { inherit pkgs; }) ]
-  ++ map (n: if builtins.pathExists n then import n { inherit pkgs; } else "") [
-    ./hooks/go.nix
-    ./hooks/python.nix
-    ./hooks/rust.nix
-  ]
-)
++ builtins.concatStringsSep "\n" [
+  (if builtins.pathExists ./hooks/go.nix then import ./hooks/go.nix { inherit pkgs; } else "")
+  (
+    if builtins.pathExists ./hooks/go-ffmpeg-statigo.nix then
+      import ./hooks/go-ffmpeg-statigo.nix { inherit pkgs; }
+    else
+      ""
+  )
+  (
+    if builtins.pathExists ./hooks/go-ebitengine.nix then
+      import ./hooks/go-ebitengine.nix { inherit pkgs; }
+    else
+      ""
+  )
+  (if builtins.pathExists ./hooks/core.nix then import ./hooks/core.nix { inherit pkgs; } else "")
+]
