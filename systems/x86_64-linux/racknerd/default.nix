@@ -2,12 +2,14 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 with lib;
 with lib.frgd;
 {
   imports = [
+    inputs.telltale.nixosModules.telltale
     ./hardware.nix
   ];
 
@@ -20,173 +22,67 @@ with lib.frgd;
     ];
   };
 
-  # Sole blocky: tailnet DNS resolver for all clients (former `blocky` LAN
-  # host retired to here). AGH stays LAN-only. Bound to the tailnet addresses
-  # only (blocky 0.35 has no `interfaces` key — binding is by IP:port), so the
-  # public interface never answers DNS; the frgd tailscale module's
-  # trustedInterfaces rule already admits :53 from the tailnet, nothing is
-  # added to the public firewall. Visor dashboard is served over
-  # visor.fluffy-rooster.ts.net via caddy-proxy (tailnet-only, no public
-  # exposure).
-  services.blocky = {
+  # TelltaleDNS replica: the `telltale` LXC container owns the shared config
+  # (upstreams, clients, records, lists, groups); this node serves the last
+  # synced snapshot and is the failover target. Only per-node sections live
+  # here (running.md: each node keeps its own [node]/[[listen]]/[cluster]/
+  # [api]/[telemetry]). Bound to the tailnet addresses so the public
+  # interface never answers DNS; the frgd tailscale module's
+  # trustedInterfaces rule already admits :53 from the tailnet.
+  # Safe search is native now (group `safe_search = true` on the primary):
+  # the forcesafesearch/strict.bing VIP pins and their searxng-denylist
+  # guard are gone — the engines' own safe endpoints are used.
+  services.telltale = {
     enable = true;
+    package = inputs.telltale.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
+    cluster = {
+      enable = true;
+      role = "replica";
+      name = "frgd";
+      site = "racknerd";
+      # the primary is the telltale container's tailnet address (mTLS, 8443);
+      # this node's cluster port stays on tailscale0, never public
+      joinUrl = "https://100.96.160.59:8443";
+      listenAddress = "100.115.4.41";
+      bootstrapSecretFile = config.sops.secrets.telltale_cluster_secret.path;
+    };
+
+    # per-node listeners: still answers DNS on the tailnet from the snapshot,
+    # and visor.fluffy-rooster.ts.net (caddy-proxy below) keeps serving the
+    # cluster UI from here.
     settings = {
-      ports = {
-        # tailscale0 addresses (stable tailnet assignments for this host)
-        dns = [
-          "100.115.4.41:53"
-          "[fd7a:115c:a1e0::8301:42a]:53"
-        ];
-        http = [ "127.0.0.1:8080" ]; # health + metrics, loopback only
-      };
-
-      prometheus.enable = true;
-
-      bootstrapDns = [
-        "9.9.9.10"
-        "149.112.112.10"
-        "2620:fe::10"
-        "2620:fe::fe:10"
+      listen = [
+        {
+          proto = "udp";
+          addr = "100.115.4.41:53";
+        }
+        {
+          proto = "tcp";
+          addr = "100.115.4.41:53";
+        }
+        {
+          proto = "udp";
+          addr = "[fd7a:115c:a1e0::8301:42a]:53";
+        }
+        {
+          proto = "tcp";
+          addr = "[fd7a:115c:a1e0::8301:42a]:53";
+        }
       ];
-
-      upstreams = {
-        groups.default = [
-          "tcp-tls:dns.quad9.net"
-          "https://dns.quad9.net/dns-query"
-          "quic:unfiltered.adguard-dns.com"
-          "tcp-tls:unfiltered.adguard-dns.com"
-          "https://unfiltered.adguard-dns.com/dns-query"
-        ];
-        strategy = "parallel_best";
-        timeout = "10s";
-      };
-
-      caching.maxItemsCount = 1000000;
-
-      # Client names only: router (192.168.0.1) rDNS is unreachable from the VPS.
-      clientLookup.clients = {
-        actual = [ "100.68.102.19" ];
-        apple-tv = [ "100.81.214.34" ];
-        books = [ "100.67.104.5" ];
-        hass = [
-          "100.112.183.50"
-          "192.168.0.14"
-        ];
-        hoarder = [ "100.89.252.68" ];
-        jPhone = [ "100.85.219.137" ];
-        kitchenixos = [ "100.88.245.130" ];
-        nasnix = [ "100.93.13.68" ];
-        pangolin = [ "100.88.184.75" ];
-        pve = [ "100.95.160.18" ];
-        racknerd = [ "100.115.4.41" ];
-        reader = [ "100.123.23.115" ];
-        recipes = [ "100.105.13.126" ];
-        search = [ "100.115.169.57" ];
-        t480 = [ "100.124.68.25" ];
-        tasks = [ "100.108.249.12" ];
-      };
-
-      # Same mappings as AGH/LAN blocky; 192.168.0.x entries only help on-site.
-      customDNS.mapping = {
-        "ha.frgd.us" = "192.168.0.14";
-        "pve.frgd.us" = "192.168.0.3";
-        "unifi.frgd.us" = "192.168.0.14";
-        "tickets.wc-12.com" = "100.79.58.16";
-        "imessage.frgd.us" = "100.103.184.59";
-        "dns.frgd.us" = "100.103.184.59";
-        "chores.frgd.us" = "100.103.184.59";
-        "ha.wc-12.com" = "100.99.237.24";
-        "romm.frgd.us" = "192.168.0.6";
-        "ollama.frgd.us" = "100.105.94.91";
-
-        # Safe-search enforcement (ISP redirect technique): pin search hosts
-        # to the provider's safe-search VIP. A-only — AAAA returns NODATA,
-        # clients fall back to IPv4. Keys match domain + subdomains, so Google
-        # keys are host-specific: a `google.com` key would catch
-        # mail/drive/accounts and break them (VIP serves search only).
-        # Bing edge IPs rotate; refresh from `host strict.bing.com` if Bing
-        # search starts erroring. DuckDuckGo pin is Azure-backed, can change.
-        # YouTube/Yahoo have none (verified NXDOMAIN, 2026-10). Brave/Qwant
-        # endpoints exist but serve unfiltered results anyway (verified live);
-        # Startpage's safe host refuses connections. Not DNS-enforceable.
-        "www.google.com" = "216.239.38.120"; # forcesafesearch.google.com
-        "images.google.com" = "216.239.38.120";
-        "www.bing.com" = "150.171.28.16,150.171.27.16"; # strict.bing.com edge
-        "images.bing.com" = "150.171.28.16,150.171.27.16"; # 301 via strict edge
-        "video.bing.com" = "150.171.28.16,150.171.27.16";
-        "duckduckgo.com" = "40.89.244.237"; # safe.duckduckgo.com
-
-        # Visor dashboard (this host). ts.net name so it resolves even for
-        # clients querying this resolver directly; MagicDNS covers tailnet
-        # devices anyway.
-        "visor.fluffy-rooster.ts.net" = "100.115.4.41";
-      };
-
-      hostsFile.sources = [ "/etc/hosts" ];
-
-      blocking = {
-        denylists = {
-          # Hosts-format lists only; filter_1 (ABP syntax) intentionally dropped.
-          security = [
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt" # The Big List of Hacked Malware Web Sites
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt" # Malicious URL Blocklist (URLHaus)
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt" # Phishing URL Blocklist (PhishTank + OpenPhish)
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt" # Dandelion Sprout's Anti-Malware List
-            # carried over from AGH user_rules: ||api.qwant.com^$important
-            ''
-              api.qwant.com
-            ''
-          ];
-          ads = [
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_59.txt" # AdGuard DNS Popup Hosts filter
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_4.txt" # Dan Pollock's List
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_39.txt" # Dandelion Sprout's Anti Push Notifications
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_7.txt" # Perflyst + Dandelion Sprout's Smart-TV Blocklist
-          ];
-          # SearXNG/Searx instances: unfiltered metasearch proxies that
-          # bypass the SafeSearch pins above (they query Google/Bing with
-          # safe_search=off). Static list + regex catching future instances;
-          # refresh command in assets/searxng-instances.txt header.
-          searxng = [
-            # trailing regex catches future searx*/searxng.* instances; blocky
-            # only parses an entry as inline content when it contains newlines,
-            # so it must ride inside the readFile string.
-            ((builtins.readFile ../../../assets/searxng-instances.txt) + "\n/^searx[a-z0-9.-]+$/\n")
-          ];
-        };
-
-        clientGroupsBlock.default = [
-          "security"
-          "ads"
-          "searxng"
-        ];
-
-        blockType = "refused"; # parity with AGH blocking_mode: refused
-        blockTTL = "10s"; # parity with AGH blocked_response_ttl
-
-        loading = {
-          refreshPeriod = "24h"; # parity with AGH filters_update_interval
-          downloads.timeout = "60s";
-          strategy = "fast"; # start resolving immediately; lists apply when ready
-        };
-      };
-
-      queryLog = {
-        type = "sqlite";
-        target = "/var/lib/blocky/querylog.db"; # StateDirectory=blocky
-        logRetentionDays = 90; # parity with AGH querylog interval 90d
-      };
+      api.listen = "127.0.0.1:8053";
+      telemetry.qlog.retention_days = 90; # parity with AGH querylog interval
     };
   };
 
-  # interface-address binding happens at startup; tailscale0 must hold its
-  # address first, and a lost race must retry.
-  systemd.services.blocky = {
+  # cluster bootstrap secret, shared with the `telltale` primary
+  sops.secrets.telltale_cluster_secret = { };
+
+  # listen addresses are tailscale0 assignments; tailscale0 must hold them
+  # before telltale binds, and a lost race must retry.
+  systemd.services.telltale = {
     after = [ "tailscale.service" ];
     wants = [ "tailscale.service" ];
-    serviceConfig.Restart = "on-failure";
-    serviceConfig.RestartSec = "5s";
   };
   services.caddy = {
     enable = true;
@@ -263,21 +159,13 @@ with lib.frgd;
     services = {
       openssh = enabled;
       tailscale = enabled;
-      # Visor dashboard, tailnet-only vhost: caddy auto-HTTPS via the
-      # tailscale cert issuer (same pattern as the dns host's ts.net vhost),
-      # so zero public exposure. webRoot serves the SPA; blocky API/metrics
-      # proxied from the loopback http listener.
+      # caddy-proxy stays enabled (services.caddy.enable comes from it and
+      # the explicit virtualHosts above need caddy running), but the
+      # TelltaleDNS dashboard lives on the `telltale` primary now:
+      # dns.fluffy-rooster.ts.net. No visor vhost here; this replica runs
+      # the UI-less binary and only serves DNS + cluster sync.
       caddy-proxy = {
         enable = true;
-        hosts.visor = {
-          tailnetHostname = "visor.${tailnet}";
-          backendAddress = "http://127.0.0.1:8080";
-          webRoot = pkgs.frgd.blocky-visor;
-          proxyPaths = [
-            "/api/*"
-            "/metrics"
-          ];
-        };
       };
       # mealie = enabled;
       matrix-synapse = disabled;
