@@ -24,5 +24,10 @@ in
         - `skip`: never touch this host. Replaces listing it in
           `EXCLUDED_HOSTS`.
       '';
+
+    checks = mkOpt (types.listOf types.str) [ ] ''
+      systemd units that must be active for this host to count as healthy
+      after a deploy. Empty = inherit the global HEALTH_CHECK_UNITS default.
+    '';
   };
 }

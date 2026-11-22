@@ -146,7 +146,7 @@ with lib.frgd;
     # AI coding / terminal CLIs
     omp
     herdr
-    concord-tui
+    # concord-tui
     spec-kit
     gollama
 
