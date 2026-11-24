@@ -47,7 +47,7 @@ with lib.frgd;
     devenv
     localsend
     jocalsend
-
+    omp
   ];
   frgd = {
     # Remote desktop — p5810 has no SSH access. Build locally, pull the
