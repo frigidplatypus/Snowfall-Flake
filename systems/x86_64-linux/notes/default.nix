@@ -3,6 +3,7 @@
   modulesPath,
   pkgs,
   config,
+  inputs,
   ...
 }:
 with lib;
@@ -14,10 +15,12 @@ with lib.frgd;
 
   services.silverbullet = {
     enable = true;
-    spaceDir = "/home/justin/silverbullet";
+    spaceDir = "/home/justin/silverbullet-spaces";
     user = "justin";
     group = "users";
-    package = pkgs.frgd.silverbullet;
+    # upstream-tracking fork (packages/silverbullet): currently 3.0.0, ahead
+    # of nixpkgs' 2.12.1. Bump = version + 3 hashes.
+    package = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.silverbullet;
   };
 
   systemd.services.silverbullet.path = [
@@ -44,13 +47,9 @@ with lib.frgd;
     services = {
       caddy-proxy = {
         enable = true;
-        hosts = {
-          notes = {
-            hostname = "notes.${tailnet}";
-            backendAddress = "http://127.0.0.1:3000";
-            useTailnet = true;
-            extraConfig = "encode gzip";
-          };
+        hosts.notes = {
+          tailnetHostname = "notes.${tailnet}";
+          backendAddress = "http://127.0.0.1:3000";
         };
       };
     };
