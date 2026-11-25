@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "artcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794019011,
+        "narHash": "sha256-nQFYSHRZFT5TZlDGj3/NG8DYprkoOfK5D+KQuyP4u0A=",
+        "owner": "storytold",
+        "repo": "artcraft",
+        "rev": "07ebde1454d4bc99f0d9add90618fb4d871f6b1d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "artcraft",
+        "type": "github"
+      }
+    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -53,6 +69,22 @@
         "type": "github"
       }
     },
+    "cadcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794428757,
+        "narHash": "sha256-VwytPvrzszX3a2Kvibu0luUhTXVNzhrEk049/0jnRP4=",
+        "owner": "storytold",
+        "repo": "cadcraft",
+        "rev": "7526dc62c14e71b3c8d46e73bbf1fa29ef506af1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "cadcraft",
+        "type": "github"
+      }
+    },
     "caveman": {
       "flake": false,
       "locked": {
@@ -66,6 +98,38 @@
       "original": {
         "owner": "JuliusBrussee",
         "repo": "caveman",
+        "type": "github"
+      }
+    },
+    "craft-anything-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794445920,
+        "narHash": "sha256-dyVrrYM8X6HK5V3SfCGtAgkL3sSU2cPZqMA89WWkOm4=",
+        "owner": "storytold",
+        "repo": "craft-anything",
+        "rev": "48a9c5a60ff83ff620f98661339be6281a7debc6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "craft-anything",
+        "type": "github"
+      }
+    },
+    "craft-fonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791722036,
+        "narHash": "sha256-mNnDzBcOp1X10dzmiW0iBAkb74QjuzMO4slWudxXCTE=",
+        "owner": "storytold",
+        "repo": "craft-fonts",
+        "rev": "3d9ab3a132ed0eff457e424226a435a901da30d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "craft-fonts",
         "type": "github"
       }
     },
@@ -91,6 +155,22 @@
         "type": "github"
       }
     },
+    "deckcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794440426,
+        "narHash": "sha256-nNoZvhnGEFNmh780GtHoQ4jczs65laFRq7+bF4akXTg=",
+        "owner": "storytold",
+        "repo": "deckcraft",
+        "rev": "7cc73ab1895ed2e30c8afbcada20c70b9ea0a440",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "deckcraft",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -108,6 +188,22 @@
       "original": {
         "owner": "serokell",
         "repo": "deploy-rs",
+        "type": "github"
+      }
+    },
+    "designcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795461298,
+        "narHash": "sha256-3uAGBkGuzy0MXbgX22fyTQoJjnBamxfX6dBD9xJ/b2Q=",
+        "owner": "storytold",
+        "repo": "designcraft",
+        "rev": "7470feae15b824534c842b7888952e63f6493003",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "designcraft",
         "type": "github"
       }
     },
@@ -187,6 +283,22 @@
         "type": "github"
       }
     },
+    "effectcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794440253,
+        "narHash": "sha256-dtqPop1xmtd/duzJt02QCZj5zrtVtyvUI8hj4TbeSkc=",
+        "owner": "storytold",
+        "repo": "effectcraft",
+        "rev": "582344dd4ef462362c02e56e3094de7af01847ab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "effectcraft",
+        "type": "github"
+      }
+    },
     "email-to-miniflux": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -204,6 +316,38 @@
       "original": {
         "type": "git",
         "url": "https://git.fluffy-rooster.ts.net/justin/email-to-miniflux"
+      }
+    },
+    "figcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794443938,
+        "narHash": "sha256-L2mSlcFhvTcJMY2t+WIk+mIJfks6Kr9Sgvz0oHecsK8=",
+        "owner": "storytold",
+        "repo": "figcraft",
+        "rev": "4acc293c2ec941ac1400837ee7e3ab51780399f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "figcraft",
+        "type": "github"
+      }
+    },
+    "filmcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794441184,
+        "narHash": "sha256-efnUlfnS56t760z0hwQHGUtp4x7zzKnW6BJkyWwa1RQ=",
+        "owner": "storytold",
+        "repo": "filmcraft",
+        "rev": "cedf0c9bd060eb06a977d532402be2097c9ebe42",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "filmcraft",
+        "type": "github"
       }
     },
     "flake-compat": {
@@ -722,6 +866,22 @@
         "type": "github"
       }
     },
+    "gridcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794428759,
+        "narHash": "sha256-/dkhjj+BcL/+b/psYpRdO/vEG0zpiAt5fpIqkG7WLMw=",
+        "owner": "storytold",
+        "repo": "gridcraft",
+        "rev": "476448d7d9f3a5f8e93fcf7d98b47fd52293fe7f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "gridcraft",
+        "type": "github"
+      }
+    },
     "hermes": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -1029,6 +1189,22 @@
         "type": "github"
       }
     },
+    "lightcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794452105,
+        "narHash": "sha256-2iqJCmah1bEVCxQ1VeiPWuhuHcR6U6gj6BYYUu4EcsY=",
+        "owner": "storytold",
+        "repo": "lightcraft",
+        "rev": "361e3bc0c838ffe5e5cea515b1fe5b71951989c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "lightcraft",
+        "type": "github"
+      }
+    },
     "neovim": {
       "inputs": {
         "nixpkgs": "nixpkgs_11",
@@ -1197,6 +1373,42 @@
         "type": "github"
       }
     },
+    "nixcraft": {
+      "inputs": {
+        "artcraft-src": "artcraft-src",
+        "cadcraft-src": "cadcraft-src",
+        "craft-anything-src": "craft-anything-src",
+        "craft-fonts": "craft-fonts",
+        "deckcraft-src": "deckcraft-src",
+        "designcraft-src": "designcraft-src",
+        "effectcraft-src": "effectcraft-src",
+        "figcraft-src": "figcraft-src",
+        "filmcraft-src": "filmcraft-src",
+        "gridcraft-src": "gridcraft-src",
+        "lightcraft-src": "lightcraft-src",
+        "nixpkgs": "nixpkgs_14",
+        "pdfcraft-src": "pdfcraft-src",
+        "photocraft-src": "photocraft-src",
+        "solidcraft-src": "solidcraft-src",
+        "soundcraft-src": "soundcraft-src",
+        "texturecraft-src": "texturecraft-src",
+        "vectorcraft-src": "vectorcraft-src",
+        "wordcraft-src": "wordcraft-src"
+      },
+      "locked": {
+        "lastModified": 1795490821,
+        "narHash": "sha256-qGQ1rdYGrnrIM4to2S/aatqE/+zzW9U52qtTe0uzu0c=",
+        "owner": "Biaogo",
+        "repo": "nixcraft",
+        "rev": "5024014cca15056895b5d795b28757f850d61f19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Biaogo",
+        "repo": "nixcraft",
+        "type": "github"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1736643958,
@@ -1215,7 +1427,7 @@
     "nixos-generators": {
       "inputs": {
         "nixlib": "nixlib",
-        "nixpkgs": "nixpkgs_14"
+        "nixpkgs": "nixpkgs_15"
       },
       "locked": {
         "lastModified": 1769813415,
@@ -1233,7 +1445,7 @@
     },
     "nixos-hardware": {
       "inputs": {
-        "nixpkgs": "nixpkgs_15"
+        "nixpkgs": "nixpkgs_16"
       },
       "locked": {
         "lastModified": 1795505195,
@@ -1378,6 +1590,22 @@
     },
     "nixpkgs_14": {
       "locked": {
+        "lastModified": 1795234589,
+        "narHash": "sha256-f/VVvxf5RsQgWVhUtefoca5ktVg0DA2bnkMOcmSnozo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2786a2a72088ecf32aea5b3ec52099e6a7cff78f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_15": {
+      "locked": {
         "lastModified": 1736657626,
         "narHash": "sha256-FWlPMUzp0lkQBdhKlPqtQdqmp+/C+1MBiEytaYfrCTY=",
         "owner": "NixOS",
@@ -1392,7 +1620,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_15": {
+    "nixpkgs_16": {
       "locked": {
         "lastModified": 1789546076,
         "narHash": "sha256-vWkSk5bbfTqdtMoSgD9FshACO8JCvXTFi+3cqEp0mH0=",
@@ -1405,7 +1633,7 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_16": {
+    "nixpkgs_17": {
       "locked": {
         "lastModified": 1795234589,
         "narHash": "sha256-f/VVvxf5RsQgWVhUtefoca5ktVg0DA2bnkMOcmSnozo=",
@@ -1421,7 +1649,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_17": {
+    "nixpkgs_18": {
       "locked": {
         "lastModified": 1780243769,
         "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
@@ -1437,29 +1665,13 @@
         "type": "github"
       }
     },
-    "nixpkgs_18": {
+    "nixpkgs_19": {
       "locked": {
         "lastModified": 1792208399,
         "narHash": "sha256-mN15cwddbOOIzzXSSwYUeRfOYeizz47Vy6y3Hzq6DuY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "7a6522c868711d06e3a520bbcdfafe9806f4337f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_19": {
-      "locked": {
-        "lastModified": 1792116957,
-        "narHash": "sha256-EjZqHKObBfIOeHZnMRVV87HB3pPq/WBkmRJWyFxmZu8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f20cd90e28fe0403873f473b29e42662cd86e8c4",
         "type": "github"
       },
       "original": {
@@ -1485,6 +1697,22 @@
     },
     "nixpkgs_20": {
       "locked": {
+        "lastModified": 1792116957,
+        "narHash": "sha256-EjZqHKObBfIOeHZnMRVV87HB3pPq/WBkmRJWyFxmZu8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f20cd90e28fe0403873f473b29e42662cd86e8c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_21": {
+      "locked": {
         "lastModified": 1792502884,
         "narHash": "sha256-ij8QUxzTOHovLrNOxVRx+RAhGQFOMsJbji0veiatH5k=",
         "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
@@ -1497,7 +1725,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_21": {
+    "nixpkgs_22": {
       "locked": {
         "lastModified": 1794386569,
         "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
@@ -1513,7 +1741,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_22": {
+    "nixpkgs_23": {
       "locked": {
         "lastModified": 1755615617,
         "narHash": "sha256-HMwfAJBdrr8wXAkbGhtcby1zGFvs+StOp19xNsbqdOg=",
@@ -1726,7 +1954,7 @@
     "nr": {
       "inputs": {
         "flake-utils": "flake-utils_6",
-        "nixpkgs": "nixpkgs_17"
+        "nixpkgs": "nixpkgs_18"
       },
       "locked": {
         "lastModified": 1795091137,
@@ -1770,7 +1998,7 @@
       "inputs": {
         "flake-utils": "flake-utils_7",
         "home-manager": "home-manager_3",
-        "nixpkgs": "nixpkgs_18",
+        "nixpkgs": "nixpkgs_19",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
@@ -1784,6 +2012,38 @@
       "original": {
         "owner": "outlmd",
         "repo": "outl",
+        "type": "github"
+      }
+    },
+    "pdfcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794447629,
+        "narHash": "sha256-2X2ixtr7mxHRpfhcGghKUO7ib0SFBruBmQPIlTFZ8Ds=",
+        "owner": "storytold",
+        "repo": "pdfcraft",
+        "rev": "b503b2e62dfeec5598f344e4e287d9c9cbdb34fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "pdfcraft",
+        "type": "github"
+      }
+    },
+    "photocraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794452105,
+        "narHash": "sha256-EhyYkRRQBvVX6CbSJX8gk4UOi/zHlE/jgC8wYUfm0ew=",
+        "owner": "storytold",
+        "repo": "photocraft",
+        "rev": "45066c48292e92229ada3459a83453439514c83d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "photocraft",
         "type": "github"
       }
     },
@@ -1925,9 +2185,10 @@
         "nix-colors": "nix-colors",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
+        "nixcraft": "nixcraft",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_16",
+        "nixpkgs": "nixpkgs_17",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "nr": "nr",
@@ -2035,9 +2296,25 @@
         "type": "github"
       }
     },
+    "solidcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795394489,
+        "narHash": "sha256-ujkMVzp92vk/KuLl8FchioYC49EOfC4e8DXmFSAXTcw=",
+        "owner": "tangency-labs",
+        "repo": "solidcraft",
+        "rev": "56d2ede6f36621ff4e369b7bd5b2c64a6d42d63c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tangency-labs",
+        "repo": "solidcraft",
+        "type": "github"
+      }
+    },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_19"
+        "nixpkgs": "nixpkgs_20"
       },
       "locked": {
         "lastModified": 1795471345,
@@ -2050,6 +2327,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "soundcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794443942,
+        "narHash": "sha256-Qew1WjgKWQ58OPZrhHVZRlKkj7u1EjwP9fgEOjKwfkw=",
+        "owner": "storytold",
+        "repo": "soundcraft",
+        "rev": "a52bbdccbe15342f44e0de1906bf71a621e7a68f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "soundcraft",
         "type": "github"
       }
     },
@@ -2332,7 +2625,7 @@
     },
     "tclip": {
       "inputs": {
-        "nixpkgs": "nixpkgs_20",
+        "nixpkgs": "nixpkgs_21",
         "utils": "utils_2"
       },
       "locked": {
@@ -2351,7 +2644,7 @@
     },
     "telltale": {
       "inputs": {
-        "nixpkgs": "nixpkgs_21"
+        "nixpkgs": "nixpkgs_22"
       },
       "locked": {
         "lastModified": 1794867937,
@@ -2364,6 +2657,22 @@
       "original": {
         "owner": "frigidplatypus",
         "repo": "telltaledns",
+        "type": "github"
+      }
+    },
+    "texturecraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794442556,
+        "narHash": "sha256-XuT3TLSGO4DvChp4NB71pKdpJbul9W6kUhNy752dM1A=",
+        "owner": "storytold",
+        "repo": "texturecraft",
+        "rev": "34a196190fe2daa2f43017a0f32b254cca4836f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "texturecraft",
         "type": "github"
       }
     },
@@ -2450,10 +2759,26 @@
         "type": "github"
       }
     },
+    "vectorcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794452081,
+        "narHash": "sha256-d6euwjY0zs+JW7hM2Sqgsb+nHoLps7JhmDCGo24elHc=",
+        "owner": "storytold",
+        "repo": "vectorcraft",
+        "rev": "f4922aa7ac99a4f6d56fc68a83a44945207ec610",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "vectorcraft",
+        "type": "github"
+      }
+    },
     "wifitui": {
       "inputs": {
         "flake-utils": "flake-utils_10",
-        "nixpkgs": "nixpkgs_22"
+        "nixpkgs": "nixpkgs_23"
       },
       "locked": {
         "lastModified": 1795012961,
@@ -2486,6 +2811,22 @@
       "original": {
         "owner": "wimpysworld",
         "repo": "nix-packages",
+        "type": "github"
+      }
+    },
+    "wordcraft-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794440289,
+        "narHash": "sha256-n8BQIiX6C3D8pd8pil/reM/ffSW+cPEsI/OuQSUrYus=",
+        "owner": "storytold",
+        "repo": "wordcraft",
+        "rev": "079f478bd85df7bcc567e3bafa7d7219096f9c3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "wordcraft",
         "type": "github"
       }
     }

@@ -148,6 +148,13 @@
       url = "github:CodeWithCJ/SparkyFitness";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Packaging flake for storytold's *craft apps (pure-Rust PDF/image/CAD
+    # tools). pdfcraft exposed as packages.<system>.pdfcraft. Pins its own
+    # nixpkgs (unstable) to get rustc >= 1.95.
+    nixcraft = {
+      url = "github:Biaogo/nixcraft";
+    };
   };
 
   outputs =

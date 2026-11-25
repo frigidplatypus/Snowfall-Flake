@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
 with lib.frgd;
 {
@@ -48,6 +53,7 @@ with lib.frgd;
     localsend
     jocalsend
     omp
+    inputs.nixcraft.packages.${pkgs.stdenv.hostPlatform.system}.pdfcraft
   ];
   frgd = {
     # Remote desktop — p5810 has no SSH access. Build locally, pull the
